@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Refresh</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="stage" id="stage">
+  <div class="world" id="world">
+    <div class="zoom" id="zoom">
+      <div class="phone" id="phone">
+        <span class="sb sb-act"></span><span class="sb sb-up"></span><span class="sb sb-dn"></span>
+        <span class="sb sb-pwr"></span><span class="sb sb-cam"></span>
+        <div class="bezel"></div>
+        <div class="screen" id="screen">
+          <div class="shake" id="shake">
+            <div class="red" id="red"><span class="trash" id="trash"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6.5h16M9.5 6.5V4.6c0-.6.5-1.1 1.1-1.1h2.8c.6 0 1.1.5 1.1 1.1v1.9M6.3 6.5l.9 12.6c.1 1 .9 1.9 2 1.9h5.6c1.1 0 1.9-.9 2-1.9l.9-12.6M10 10.5v6.5M14 10.5v6.5"/></svg>Trash</span></div>
+            <div class="list" id="list"></div>
+            <svg class="spin" id="spin" viewBox="-14 -14 28 28" aria-hidden="true"></svg>
+
+            <header class="top" id="top">
+              <div class="status">
+                <span class="clock">9:41</span>
+                <span class="island"></span>
+                <span class="sys" aria-hidden="true">
+                  <svg class="sig" viewBox="0 0 18 12"><rect x="0" y="8" width="3" height="4" rx=".8"/><rect x="5" y="5.5" width="3" height="6.5" rx=".8"/><rect x="10" y="3" width="3" height="9" rx=".8"/><rect x="15" y="0" width="3" height="12" rx=".8"/></svg>
+                  <svg class="wifi" viewBox="0 0 16 12"><path d="M8 11.6l2.3-2.6a3.3 3.3 0 0 0-4.6 0z"/><path d="M8 5.7a6 6 0 0 1 4.2 1.7l1.3-1.5a8 8 0 0 0-11 0l1.3 1.5A6 6 0 0 1 8 5.7z"/><path d="M8 1.9a9.8 9.8 0 0 1 6.9 2.8l1.1-1.3a11.6 11.6 0 0 0-16 0l1.1 1.3A9.8 9.8 0 0 1 8 1.9z"/></svg>
+                  <span class="bat"><span class="bat-in"></span></span>
+                </span>
+              </div>
+              <div class="nav">
+                <span class="back"><svg viewBox="0 0 12 20" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2.5L2.5 10 10 17.5"/></svg>Mailboxes</span>
+                <span class="title">Inbox</span>
+                <span class="edit">Edit</span>
+              </div>
+              <div class="hair" id="hair"></div>
+            </header>
+
+            <footer class="bar" id="bar">
+              <span class="ib filter" aria-hidden="true"><svg viewBox="0 0 26 26" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="13" cy="13" r="11"/><path d="M7.5 10h11M9.5 13.5h7M11.5 17h3"/></svg></span>
+              <span class="st"><span class="st1" id="st1">Updated Just Now</span><span class="st2" id="st2"></span></span>
+              <span class="ib compose" aria-hidden="true"><svg viewBox="0 0 26 26" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4.5H6.5a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2h13a2 2 0 0 0 2-2V14"/><path d="M19.6 3.6a2 2 0 0 1 2.8 2.8l-8.6 8.6-3.7.9.9-3.7z"/></svg></span>
+            </footer>
+            <div class="touch" id="touch"></div>
+          </div>
+          <div class="home"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="tools" id="tools">
+    <button class="ghost" id="play">Replay</button>
+    <span class="hint" id="hint">Pull the inbox down, swipe a mail left</span>
+    <button class="ghost" id="snd" aria-pressed="true">Sound on</button>
+    <div class="seg-ctl" id="theme" role="group" aria-label="Theme">
+      <button data-theme="light">Light</button>
+      <button data-theme="dark">Dark</button>
+    </div>
+  </div>
+</div>
+<script src="sound.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
