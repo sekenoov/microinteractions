@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Effort · Microinteraction</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="stage">
+
+  <div class="brand-mark" id="brandMark">
+    <svg class="brand-logo" id="brandLogo" viewBox="0 0 100 100" fill="currentColor"></svg>
+    <div class="brand-word">Claude</div>
+  </div>
+
+  <div class="chat-shell">
+    <div class="composer" id="composer">
+      <div class="composer-textline" id="composerText"></div>
+      <div class="composer-bottom">
+        <button class="pill model-pill" id="modelTrigger" type="button">
+          <span class="model-dot" id="modelDot"></span>
+          <span id="modelPillLabel">Sonnet 5</span>
+          <svg class="chev" width="10" height="6" viewBox="0 0 10 6" fill="none"><path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+
+        <button class="pill effort-pill" id="effortTrigger" type="button">
+          <span id="effortPillLabel">High</span>
+          <svg class="chev" width="10" height="6" viewBox="0 0 10 6" fill="none"><path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+
+        <div class="spacer"></div>
+
+        <button class="send-btn" id="sendBtn" type="button" aria-label="Send">
+          <span class="send-icon">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 13V3M8 3L3 8M8 3L13 8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+          <span class="send-spark"></span>
+          <span class="send-spark"></span>
+          <span class="send-spark"></span>
+        </button>
+      </div>
+    </div>
+
+    <!-- models popup -->
+    <div class="models-card" id="modelsCard">
+      <div class="models-inner">
+        <div class="models-header">Models</div>
+        <div class="model-list" id="modelList"></div>
+        <div class="model-divider"></div>
+        <button class="model-more" id="modelMore" type="button">
+          More models
+          <svg width="7" height="11" viewBox="0 0 7 11" fill="none"><path d="M1 1L6 5.5L1 10" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- effort popup -->
+    <div class="effort-card" id="effortCard">
+      <div class="mascot-wrap" id="mascotWrap">
+        <div class="mascot-shadow"></div>
+        <div class="mascot-aura" id="mascotAura"></div>
+        <div class="mascot-scale" id="mascotScale">
+          <svg class="mascot" id="mascot" viewBox="0 0 16 14" shape-rendering="crispEdges"></svg>
+        </div>
+        <div class="mascot-sparks" id="mascotSparks"></div>
+      </div>
+
+      <div class="card-inner">
+        <div class="effort-banner" id="effortBanner">
+          <canvas class="effort-banner-canvas" id="effortCanvas"></canvas>
+          <span class="effort-banner-label" id="effortBannerLabel">HIGH</span>
+        </div>
+        <div class="card-aura" id="cardAura"></div>
+        <div class="card-aurora" id="cardAurora">
+          <span class="aurora-blob aurora-blob--1"></span>
+          <span class="aurora-blob aurora-blob--2"></span>
+          <span class="aurora-blob aurora-blob--3"></span>
+        </div>
+
+        <div class="card-content">
+          <div class="card-header">
+            <span class="card-title">Effort <strong id="levelName">High</strong></span>
+            <button class="help-btn" id="helpBtn" type="button" aria-label="What is effort?">
+              ?
+              <div class="tooltip" id="tooltip">Higher effort means deeper thinking and a more precise answer, but slower</div>
+            </button>
+          </div>
+
+          <div class="scale-row">
+            <span class="scale-label">Faster</span>
+            <span class="scale-label">Smarter</span>
+          </div>
+
+          <div class="slider-track" id="sliderTrack" tabindex="0" role="slider" aria-valuemin="0" aria-valuemax="5" aria-valuenow="2">
+            <div class="track-base"></div>
+            <div class="track-fill" id="trackFill"></div>
+            <div class="dots" id="dots"></div>
+            <div class="thumb" id="thumb">
+              <span class="thumb-core"></span>
+              <span class="thumb-dot"></span>
+              <span class="thumb-ring"></span>
+            </div>
+            <div class="particle-layer" id="particleLayer"></div>
+          </div>
+
+          <div class="level-caption" id="levelCaption">A steady balance of speed and reasoning</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="flash" id="flash"></div>
+  </div>
+
+  <div class="disclaimer">Microinteraction concept · drag the slider or press ←/→</div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
