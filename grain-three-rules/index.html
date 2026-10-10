@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Grain</title>
+<link rel="stylesheet" href="style.css?v=13">
+</head>
+<body>
+<div class="wrap">
+
+  <header class="head">
+    <span class="head__b">GRAIN</span>
+    <span class="head__s" id="grid">48 by 64 cells</span>
+    <span class="head__t" id="clock">00:00</span>
+  </header>
+
+  <div class="cols">
+
+    <section class="cell" data-sim="pour">
+      <div class="panel">
+        <canvas></canvas>
+        <span class="pin pin--tl">01</span>
+      </div>
+      <div class="row"><span class="name">POUR</span><span class="stat" data-stat></span></div>
+      <p class="cap">Nothing slides here. Each grain stops where it lands, and the gaps never fill in.</p>
+    </section>
+
+    <section class="cell" data-sim="slope">
+      <div class="panel">
+        <canvas></canvas>
+        <span class="pin pin--tl">02</span>
+      </div>
+      <div class="row"><span class="name">SLOPE</span><span class="stat" data-stat></span></div>
+      <p class="cap">One rule added: topple when the step below gets too steep. The heap settles near 45 degrees. Nobody typed that in.</p>
+    </section>
+
+    <section class="cell" data-sim="drain">
+      <div class="panel">
+        <canvas></canvas>
+        <span class="pin pin--tl">03</span>
+      </div>
+      <div class="row"><span class="name">DRAIN</span><span class="stat" data-stat></span></div>
+      <p class="cap">A hole in the floor takes from the middle. The core runs out while the walls stay put, so the box looks full long after it is not.</p>
+    </section>
+
+  </div>
+
+  <footer class="foot">
+    <span>hold the cursor over a panel to pour</span>
+    <span class="foot__r">same engine, one rule changed</span>
+  </footer>
+
+</div>
+<script src="script.js?v=13"></script>
+</body>
+</html>
