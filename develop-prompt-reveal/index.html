@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Develop</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="stage" id="stage">
+  <div class="world" id="world">
+    <div class="deck" id="deck">
+      <section class="panel card" id="card">
+        <header class="chead">
+          <span class="ctitle">New image</span>
+          <span class="meta">1:1</span>
+        </header>
+        <div class="shot" id="shot">
+          <canvas id="gl" width="1024" height="1024" aria-label="Generated image of a red lighthouse on rocks at dusk" role="img"></canvas>
+          <div class="pill" id="pill" aria-live="polite"><span class="pl"></span></div>
+          <div class="bar" id="bar"><i></i></div>
+        </div>
+        <div class="composer">
+          <div class="cfield"><div class="ctext" id="ctext"></div></div>
+          <button class="send dim" id="send" aria-label="Generate" tabindex="-1">
+            <svg class="up" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><path d="M10 16V4.6M4.8 9.8L10 4.4l5.2 5.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <svg class="sq" viewBox="0 0 20 20" aria-hidden="true"><rect x="6" y="6" width="8" height="8" rx="1.6" fill="currentColor"/></svg>
+          </button>
+        </div>
+        <svg class="cursor" id="cursor" viewBox="0 0 24 24" aria-hidden="true"><path d="M5.5 3.2v15.6l4.1-3.9 2.7 6.1 2.6-1.1-2.7-6h5.6z" stroke-linejoin="round"/></svg>
+      </section>
+    </div>
+  </div>
+
+  <div class="say" id="say" aria-live="polite"><span></span><span></span></div>
+
+  <div class="tools" id="tools">
+    <button class="ghost" id="play">Replay</button>
+    <button class="ghost" id="snd" aria-pressed="true">Sound on</button>
+    <span class="hint">Tap a word in the prompt</span>
+    <div class="seg-ctl" id="theme" role="group" aria-label="Theme">
+      <button data-theme="light">Light</button>
+      <button data-theme="dark">Dark</button>
+    </div>
+  </div>
+</div>
+<script src="img.js"></script>
+<script src="sound.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
