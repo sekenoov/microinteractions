@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Six Drafts</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="stage">
+
+  <header class="head">
+    <span class="head__t">Шесть черновиков</span>
+    <span class="head__h">клик разворачивает плитку, esc возвращает. Pushover можно тянуть</span>
+  </header>
+
+  <div class="deck">
+    <figure class="tile" data-k="pushover">
+      <div class="screen"><canvas></canvas></div>
+      <figcaption><b>01</b> Pushover <i>Push the answer. It bends and agrees.</i></figcaption>
+    </figure>
+    <figure class="tile" data-k="unsend">
+      <div class="screen"><canvas></canvas></div>
+      <figcaption><b>02</b> Unsend <i>Five seconds of elastic, then it’s gone</i></figcaption>
+    </figure>
+    <figure class="tile" data-k="badge">
+      <div class="screen"><canvas></canvas></div>
+      <figcaption><b>03</b> Badge <i>Every unread adds weight</i></figcaption>
+    </figure>
+    <figure class="tile" data-k="fallback">
+      <div class="screen"><canvas></canvas></div>
+      <figcaption><b>04</b> Fall back <i>Oct 25: the same hour twice, spent asleep</i></figcaption>
+    </figure>
+    <figure class="tile" data-k="ghosted">
+      <div class="screen"><canvas></canvas></div>
+      <figcaption><b>05</b> Ghosted <i>Read, typing, and then a sheet with eyes</i></figcaption>
+    </figure>
+    <figure class="tile" data-k="seen">
+      <div class="screen"><canvas></canvas></div>
+      <figcaption><b>06</b> Seen <i>Silence is heavy. One letter lifts it.</i></figcaption>
+    </figure>
+  </div>
+
+  <div class="tools">
+    <button class="ghost" id="restart">Restart</button>
+    <div class="seg-ctl" role="group" aria-label="Theme">
+      <button class="on" data-theme="light">Light</button>
+      <button data-theme="dark">Dark</button>
+    </div>
+  </div>
+</div>
+<div class="veil"></div>
+<script src="script.js"></script>
+</body>
+</html>
