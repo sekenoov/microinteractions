@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kessler</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="page">
+
+  <header class="bar">
+    <a class="brand" href="#top">
+      <span class="brand__mark" aria-hidden="true"></span>
+      <span class="brand__name">KESSLER</span>
+    </a>
+    <nav class="nav">
+      <a href="#how">Method</a>
+      <a href="#feed">Feed</a>
+      <a href="#access">Access</a>
+      <span class="nav__idx" id="navIdx">04</span>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero" id="top">
+      <div class="hero__copy">
+        <p class="label">Collision risk / per pass</p>
+
+        <h1 class="title" id="title">
+          <span class="ln"><span class="ln__i">One orbit,</span></span>
+          <span class="ln"><span class="ln__i">ten thousand</span></span>
+          <span class="ln"><span class="ln__i">neighbours</span></span>
+        </h1>
+
+        <p class="lede">Conjunction risk for a single pass, screened against every object in the shell. A probability with an edge on it, not a colour band.</p>
+
+        <a class="btn" href="#how">
+          <span class="btn__t">Screen an orbit</span>
+          <span class="btn__a" aria-hidden="true">↗</span>
+        </a>
+
+        <dl class="stats">
+          <div class="stat"><dt>34,120</dt><dd>tracked objects</dd></div>
+          <div class="stat"><dt>18</dt><dd>orbital shells</dd></div>
+          <div class="stat"><dt>6 h</dt><dd>median lead time</dd></div>
+        </dl>
+      </div>
+
+      <div class="hero__field">
+        <div class="fieldbox" id="fieldbox">
+          <canvas id="field"></canvas>
+          <span class="fieldbox__tag">LEO / 550 km shell</span>
+          <span class="fieldbox__tick" id="fieldTick">sweep 000</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="how" id="how">
+      <div class="how__head">
+        <p class="label">How it works</p>
+        <h2 class="h2">Three steps from an orbit to a warning</h2>
+      </div>
+
+      <div class="sweep" id="sweep">
+        <div class="sweep__layer" data-layer="back"></div>
+        <div class="sweep__layer" data-layer="front"></div>
+        <span class="sweep__line" aria-hidden="true"></span>
+      </div>
+    </section>
+
+    <section class="feed" id="feed">
+      <div class="feed__head">
+        <p class="label">Next screening window</p>
+        <span class="feed__live"><i></i>live</span>
+      </div>
+      <table class="tbl" id="tbl">
+        <thead>
+          <tr><th>Object</th><th>Shell</th><th>Miss</th><th>Probability</th><th></th></tr>
+        </thead>
+        <tbody id="tbody"></tbody>
+      </table>
+    </section>
+
+    <section class="access" id="access">
+      <h2 class="h2 h2--wide">Every pass gets a number.<br>Most of them are boring.</h2>
+      <p class="lede lede--wide">That is the point. A screening service is only useful when the quiet passes stay quiet and the one that is not comes with hours, not minutes.</p>
+      <a class="btn btn--solid" href="#top"><span class="btn__t">Request access</span><span class="btn__a" aria-hidden="true">↗</span></a>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <span>KESSLER / orbital screening</span>
+    <span class="foot__mid">Concept work. Numbers are simulated.</span>
+    <button class="theme" id="theme" type="button" aria-label="Switch theme">
+      <span class="theme__dot"></span><span class="theme__t">dark</span>
+    </button>
+  </footer>
+
+</div>
+<script src="script.js"></script>
+</body>
+</html>
