@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cooldown</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="stage" id="stage">
+  <div class="world" id="world">
+    <div class="zoom" id="zoom">
+      <div class="mover" id="mover">
+        <section class="panel mail" id="mail" aria-label="Reply to Mark Chen">
+          <canvas class="bloom" id="bloom" aria-hidden="true"></canvas>
+          <header class="mhead">
+            <span class="icb" aria-hidden="true">
+              <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M6 6l8 8M14 6l-8 8"/></svg>
+            </span>
+            <span class="mtitle">Re: Re: Re: Q3 deck</span>
+            <button class="send" id="send" aria-label="Send">
+              <span class="sarr" id="sarr"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 15.8V4.8M5 9.6L10 4.6l5 5"/></svg></span>
+              <span class="deg" id="deg" aria-hidden="true"></span>
+            </button>
+          </header>
+          <div class="field"><span class="lab">To:</span><span class="who">Mark Chen</span></div>
+          <div class="field"><span class="lab">Cc:</span><span class="who">Dana Whitfield</span></div>
+          <div class="body" id="body">
+            <div class="glyphs" id="glyphs"></div>
+            <span class="caret" id="caret"></span>
+          </div>
+          <div class="att" id="att">
+            <span class="aic" aria-hidden="true"><svg viewBox="0 0 20 24" fill="none"><path d="M3.5 2.5h8.2l4.8 4.8v13.2a1 1 0 0 1-1 1h-12a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1z" fill="var(--card)" stroke="var(--sub-2)" stroke-width="1"/><path d="M11.5 2.7v4.1a.8.8 0 0 0 .8.8h4" stroke="var(--sub-2)" stroke-width="1"/><rect x="2.5" y="12.5" width="12" height="6" rx="1.2" fill="#e5483b"/><text x="8.5" y="17.1" text-anchor="middle" font-size="4.6" font-weight="700" fill="#fff" font-family="-apple-system,sans-serif">PDF</text></svg></span>
+            <span class="atx"><span class="an">Q3_deck_FINAL_v2.pdf</span><span class="as">2.4 MB</span></span>
+          </div>
+          <div class="quote" id="quote">
+            <div class="qh">On Tue, Sep 29, Mark Chen wrote:</div>
+            <div class="qb">hey, can you resend the deck? can’t find it</div>
+          </div>
+          <canvas class="fx" id="fx" aria-hidden="true"></canvas>
+          <div class="tip" id="tip" role="status">Too hot to send. Hold to cool it down.</div>
+        </section>
+      </div>
+      <svg class="cur" id="cur" viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M5 2.6v16.2l4-3.9 2.6 6 2.7-1.2-2.6-5.9h5.6z" fill="#fff"/><path d="M6.2 5.4v10.6l2.9-2.8 2.8 6.3.6-.3-2.7-6.2h4.1z" fill="#111"/>
+      </svg>
+    </div>
+  </div>
+
+  <div class="tools" id="tools">
+    <button class="ghost" id="play">Replay</button>
+    <span class="hint" id="hint">Hold the send button to cool the email</span>
+    <button class="ghost" id="snd" aria-pressed="true">Sound on</button>
+    <div class="seg-ctl" id="theme" role="group" aria-label="Theme">
+      <button data-theme="light">Light</button>
+      <button data-theme="dark">Dark</button>
+    </div>
+  </div>
+</div>
+<script src="sound.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
