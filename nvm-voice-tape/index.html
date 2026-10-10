@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nvm</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="stage" id="stage">
+  <div class="world" id="world">
+    <div class="zoom" id="zoom">
+      <div class="phone" id="phone">
+        <span class="sb sb-act"></span><span class="sb sb-up"></span><span class="sb sb-dn"></span>
+        <span class="sb sb-pwr"></span><span class="sb sb-cam"></span>
+        <div class="bezel"></div>
+        <div class="screen" id="screen">
+          <canvas class="cv" id="cv"></canvas>
+
+          <header class="top">
+            <div class="status">
+              <span class="clock">4:47</span>
+              <span class="island"></span>
+              <span class="sys" aria-hidden="true">
+                <svg class="sig" viewBox="0 0 18 12"><rect x="0" y="8" width="3" height="4" rx=".8"/><rect x="5" y="5.5" width="3" height="6.5" rx=".8"/><rect x="10" y="3" width="3" height="9" rx=".8"/><rect x="15" y="0" width="3" height="12" rx=".8"/></svg>
+                <svg class="wifi" viewBox="0 0 16 12"><path d="M8 11.6l2.3-2.6a3.3 3.3 0 0 0-4.6 0z"/><path d="M8 5.7a6 6 0 0 1 4.2 1.7l1.3-1.5a8 8 0 0 0-11 0l1.3 1.5A6 6 0 0 1 8 5.7z"/><path d="M8 1.9a9.8 9.8 0 0 1 6.9 2.8l1.1-1.3a11.6 11.6 0 0 0-16 0l1.1 1.3A9.8 9.8 0 0 1 8 1.9z"/></svg>
+                <span class="bat"><span class="bat-in"></span></span>
+              </span>
+            </div>
+            <div class="nav">
+              <span class="icb back" aria-hidden="true"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12.5 3.5L6 10l6.5 6.5"/></svg></span>
+              <span class="who"><span class="ava">A</span><span class="name">Alex<svg viewBox="0 0 8 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 2l4 4-4 4"/></svg></span></span>
+              <span class="icb cam" aria-hidden="true"><svg viewBox="0 0 24 20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><rect x="1.5" y="4" width="14" height="12" rx="3"/><path d="M15.5 8.6l6-3.4v9.6l-6-3.4z"/></svg></span>
+            </div>
+          </header>
+
+          <div class="comp" id="comp">
+          <div class="cbg"></div>
+          <span class="plus" aria-hidden="true"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M10 4.5v11M4.5 10h11"/></svg></span>
+          <div class="field" id="field">
+            <span class="txt"><span id="typed"></span><span class="caret" id="caret"></span></span>
+            <span class="ph" id="ph">Message</span>
+            <span class="mic" id="mic" aria-hidden="true"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><rect x="7" y="2.5" width="6" height="10" rx="3"/><path d="M4.5 9.5a5.5 5.5 0 0 0 11 0M10 15v2.5"/></svg></span>
+            <button class="send" id="send" aria-label="Send">
+              <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 15.6V4.8M5.2 9.4L10 4.6l4.8 4.8"/></svg>
+            </button>
+          </div>
+          </div>
+          <div class="home"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="tools" id="tools">
+    <button class="ghost" id="play">Replay</button>
+    <span class="hint" id="hint">Hold while Alex talks, let go</span>
+    <button class="ghost" id="snd" aria-pressed="true">Sound on</button>
+    <div class="seg-ctl" id="theme" role="group" aria-label="Theme">
+      <button data-theme="light">Light</button>
+      <button data-theme="dark">Dark</button>
+    </div>
+  </div>
+</div>
+<script src="sound.js"></script>
+<script src="script.js"></script>
+</body>
+</html>

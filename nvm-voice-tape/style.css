@@ -1,0 +1,118 @@
+:root{
+  --bg:#f2f1ed;
+  --bg-2:#e9e7e2;
+  --card:#ffffff;
+  --ink:#0d0d0e;
+  --sub:#8a8a8f;
+  --sub-2:#a9a9ae;
+  --track:#e6e4de;
+  --line:rgba(0,0,0,.1);
+  --blue:#0a7cff;
+  --recv:#e9e9eb;
+  --bar:#6d6d72;
+  --red:#ff3b30;
+  --dot:#8e8e93;
+  --plus:#ececee;
+  --metal:#cbc6bd;
+  --metal-hi:rgba(255,255,255,.6);
+  --phone-sh:0 2px 3px rgba(0,0,0,.06),0 46px 90px -34px rgba(0,0,0,.38);
+  --ui:-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  --e:cubic-bezier(.2,.75,.2,1);
+}
+@media(prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#161513;--bg-2:#0e0e0d;--card:#000000;--ink:#f5f5f7;--sub:#8d8d93;--sub-2:#636368;
+    --track:#33302c;--line:rgba(255,255,255,.12);--blue:#0a84ff;--recv:#262629;--bar:#a1a1a7;--red:#ff453a;--dot:#8d8d93;--plus:#1d1d20;
+    --metal:#3b3935;--metal-hi:rgba(255,255,255,.1);
+    --phone-sh:0 2px 3px rgba(0,0,0,.4),0 46px 90px -30px rgba(0,0,0,.85);
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#161513;--bg-2:#0e0e0d;--card:#000000;--ink:#f5f5f7;--sub:#8d8d93;--sub-2:#636368;
+  --track:#33302c;--line:rgba(255,255,255,.12);--blue:#0a84ff;--recv:#262629;--bar:#a1a1a7;--red:#ff453a;--dot:#8d8d93;--plus:#1d1d20;
+  --metal:#3b3935;--metal-hi:rgba(255,255,255,.1);
+  --phone-sh:0 2px 3px rgba(0,0,0,.4),0 46px 90px -30px rgba(0,0,0,.85);
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{font-family:var(--ui);color:var(--ink);background:var(--bg);-webkit-font-smoothing:antialiased;font-size:15px;overflow:hidden}
+button{font-family:var(--ui)}
+
+.stage{position:fixed;inset:0;overflow:hidden;background:radial-gradient(120% 90% at 50% 0%,var(--bg) 30%,var(--bg-2) 100%)}
+.world{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding-bottom:44px}
+.zoom{position:relative;transform-origin:50% 50%;flex:0 0 auto}
+
+/* ───────── телефон: размеры в точках экрана, 402 × 874 ───────── */
+.phone{position:relative;width:424px;height:896px;border-radius:68px;background:var(--metal);box-shadow:var(--phone-sh),inset 0 0 0 .75px var(--metal-hi);user-select:none;-webkit-user-select:none}
+.sb{position:absolute;width:4px;background:var(--metal);border-radius:2px}
+.sb-act{left:-3px;top:178px;height:34px}
+.sb-up{left:-3px;top:244px;height:62px}
+.sb-dn{left:-3px;top:322px;height:62px}
+.sb-pwr{right:-3px;top:272px;height:100px}
+.sb-cam{right:-2px;top:560px;height:58px;width:3px;opacity:.8}
+.bezel{position:absolute;inset:3px;border-radius:65px;background:#060606}
+.screen{position:absolute;left:11px;top:11px;width:402px;height:874px;border-radius:57px;overflow:hidden;background:var(--card);isolation:isolate;touch-action:none;cursor:pointer;-webkit-tap-highlight-color:transparent}
+
+/* лента и всё в ней рисуется на канвасе */
+.cv{position:absolute;left:0;top:0;width:402px;height:874px;display:block}
+
+/* шапка */
+.top{position:absolute;left:0;top:0;width:402px;height:146px;z-index:6;background:var(--card);border-bottom:.5px solid var(--line)}
+.status{position:relative;height:54px}
+.clock{position:absolute;left:46px;top:19px;font-size:17px;font-weight:600;letter-spacing:-.02em}
+.island{position:absolute;left:138px;top:11px;width:126px;height:37px;border-radius:19px;background:#000}
+.sys{position:absolute;right:30px;top:22px;display:flex;align-items:center;gap:6px;color:var(--ink)}
+.sys svg{display:block;fill:currentColor}
+.sig{width:18px;height:12px}
+.wifi{width:16px;height:12px}
+.bat{position:relative;width:26px;height:12.5px;border:1px solid currentColor;border-radius:4px;opacity:.95}
+.bat::after{content:"";position:absolute;right:-3.5px;top:3.5px;width:1.6px;height:4px;border-radius:0 1px 1px 0;background:currentColor;opacity:.5}
+.bat-in{position:absolute;left:1.5px;top:1.5px;bottom:1.5px;width:34%;border-radius:2px;background:currentColor}
+.nav{position:relative;height:92px}
+.icb{position:absolute;top:10px;width:44px;height:44px;border-radius:22px;display:grid;place-items:center;color:var(--ink);background:var(--plus)}
+.icb svg{width:20px;height:20px}
+.back{left:16px}
+.cam{right:16px}
+.cam svg{width:23px}
+.who{position:absolute;left:50%;top:2px;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:5px}
+.ava{width:54px;height:54px;border-radius:27px;background:#a4a7b0;color:#fff;font-size:24px;font-weight:600;display:grid;place-items:center;letter-spacing:-.01em}
+.name{display:flex;align-items:center;gap:3px;font-size:13px;line-height:16px;color:var(--ink)}
+.name svg{width:7px;height:10px;color:var(--sub)}
+
+/* поле ввода: лента может выдавить его вниз */
+.comp{position:absolute;left:0;top:0;width:402px;height:874px;z-index:3;pointer-events:none}
+.comp .send{pointer-events:auto}
+.cbg{position:absolute;left:0;top:776px;width:402px;height:98px;background:var(--card);z-index:2}
+.plus{position:absolute;left:14px;top:788px;width:42px;height:42px;border-radius:21px;background:var(--plus);color:var(--sub);display:grid;place-items:center;z-index:3}
+.plus svg{width:20px;height:20px}
+.field{position:absolute;left:64px;top:786px;width:324px;height:46px;z-index:3;border:.75px solid var(--line);border-radius:23px;background:var(--card)}
+.txt{position:absolute;left:16px;top:9px;height:26px;font-size:21px;line-height:26px;letter-spacing:-.012em;white-space:pre;display:flex;align-items:center}
+.caret{display:inline-block;width:2px;height:25px;margin-left:1px;border-radius:1px;background:var(--blue);opacity:0}
+.ph{position:absolute;left:16px;top:9px;font-size:21px;line-height:26px;letter-spacing:-.012em;color:var(--sub-2)}
+.mic{position:absolute;right:12px;top:11px;width:22px;height:22px;color:var(--sub)}
+.mic svg{width:22px;height:22px;display:block}
+.send{position:absolute;right:5px;top:5px;width:34px;height:34px;border-radius:17px;border:none;background:var(--blue);color:#fff;padding:0;display:grid;place-items:center;cursor:pointer;opacity:0;-webkit-tap-highlight-color:transparent;touch-action:manipulation}
+.send svg{width:18px;height:18px;display:block}
+.send:focus-visible{outline:2px solid var(--blue);outline-offset:3px}
+.home{position:absolute;left:131px;bottom:8px;width:140px;height:5px;border-radius:3px;background:var(--ink);z-index:6}
+
+/* ───────── низ ───────── */
+.tools{position:fixed;left:50%;bottom:20px;transform:translateX(-50%);z-index:90;display:flex;align-items:center;gap:12px;white-space:nowrap}
+.hint{font-size:12px;color:var(--sub-2)}
+.ghost{background:none;border:none;font-size:12px;color:var(--sub);cursor:pointer;padding:6px 4px;min-width:44px;min-height:32px;transition:color .18s var(--e)}
+.ghost:hover{color:var(--ink)}
+.seg-ctl{display:flex;background:var(--track);border-radius:8px;padding:2px}
+.seg-ctl button{border:none;background:none;font-size:11.5px;color:var(--sub);padding:5px 11px;border-radius:6px;cursor:pointer;transition:background .18s var(--e),color .18s var(--e)}
+.seg-ctl button.on{background:var(--card);color:var(--ink);box-shadow:0 1px 2px rgba(0,0,0,.08)}
+.ghost:focus-visible,.seg-ctl button:focus-visible{outline:2px solid var(--blue);outline-offset:2px;border-radius:3px}
+
+@media(max-width:560px){
+  .hint{display:none}
+  .tools{gap:6px}
+}
+
+/* запись ролика: кадр 1080×1350, телефон по ширине переписки, строка статуса срезана */
+.rec .tools{display:none}
+.rec .world{align-items:flex-end;padding-bottom:40px}
+.rec .zoom{transform-origin:50% 100%}
