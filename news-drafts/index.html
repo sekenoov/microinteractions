@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Drafts</title>
+<link rel="stylesheet" href="style.css?v=4">
+</head>
+<body>
+<div class="wrap">
+
+  <header class="head">
+    <span class="head__b">DRAFTS</span>
+    <span class="head__s">four pieces</span>
+    <span class="head__t">click a tile for the full frame, esc goes back</span>
+  </header>
+
+  <div class="grid" id="grid">
+
+    <section class="cell" data-piece="poly">
+      <div class="panel">
+        <canvas></canvas>
+        <span class="pin pin--tl">01</span>
+        <span class="pin pin--tr">10 vortices</span>
+      </div>
+      <div class="row"><span class="name">POLYGON</span><span class="stat" data-stat></span></div>
+      <p class="cap">Ten vortices on a ring. Turn the frame at their speed and the flow holds still, leaving closed loops: round in the middle, ten-sided by the ring. Dye fills one. The cursor tears a side, the ring closes it.</p>
+    </section>
+
+    <section class="cell" data-piece="hall">
+      <div class="panel">
+        <canvas></canvas>
+        <span class="pin pin--tl">02</span>
+        <span class="pin pin--tr">B = 0.0 T</span>
+      </div>
+      <div class="row"><span class="name">DRIFT</span><span class="stat" data-stat></span></div>
+      <p class="cap">No magnet anywhere, and the current still leans sideways. Charge collects on one edge until its own field cancels the lean and the flow runs straight. Then the drive flips and the pile crosses over.</p>
+    </section>
+
+    <section class="cell" data-piece="alpha">
+      <div class="panel">
+        <canvas></canvas>
+        <span class="pin pin--tl">03</span>
+        <span class="pin pin--tr">192 bits, fixed</span>
+      </div>
+      <div class="row"><span class="name">ALPHABET</span><span class="stat" data-stat></span></div>
+      <p class="cap">The head runs left to right, repacking the same text from four letters into eight. Not a single bit changes. What comes out behind it is a third shorter, and the return pass grows it back.</p>
+    </section>
+
+    <section class="cell" data-piece="chord">
+      <div class="panel">
+        <canvas></canvas>
+        <span class="pin pin--tl">04</span>
+        <span class="pin pin--tr">12 observers</span>
+      </div>
+      <div class="row"><span class="name">CHORD</span><span class="stat" data-stat></span></div>
+      <p class="cap">The body is never drawn. All anyone gets is the moment their star went out. Twelve rows of that, and the outline falls out by itself. The cursor runs a thirteenth row wherever you hold it.</p>
+    </section>
+
+  </div>
+
+  <footer class="foot">
+    <span>bone, graphite, vermilion</span>
+    <span class="foot__r">sources: Saturn's polar decagon, Hall effect without a magnet, an eight letter genetic code, a star blinking out</span>
+  </footer>
+
+</div>
+<script src="script.js?v=4"></script>
+</body>
+</html>
