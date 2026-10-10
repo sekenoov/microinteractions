@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rewind</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="stage">
+  <div class="deck">
+
+    <!-- левая панель: лента сессии -->
+    <section class="panel tlp">
+      <div class="phead">
+        <span class="pkind">Session</span>
+        <span class="pmeta"><span class="num" id="msgNum">6</span><span class="sub">&nbsp;messages</span></span>
+      </div>
+
+      <div class="tl" id="tl">
+        <div class="ph" id="ph">
+          <span class="ph__grip"></span>
+          <span class="ph__line"></span>
+          <span class="ph__chip" id="phChip">14:26</span>
+        </div>
+      </div>
+
+      <div class="pfoot">
+        <div class="prow">
+          <button class="btn" id="rew">
+            <svg class="btn__ic" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+              <path d="M2.4 8a5.6 5.6 0 1 0 1.7-4" stroke-linecap="round"/>
+              <path d="M2.2 1.9v4.1h4.1" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span class="btn__lbl">Rewind</span>
+          </button>
+          <div class="scope" id="scope" role="group" aria-label="Restore scope">
+            <button data-s="code">Code</button>
+            <button data-s="chat">Chat</button>
+            <button class="on" data-s="both">Both</button>
+          </div>
+        </div>
+        <span class="hint" id="hint">Drag the handle</span>
+      </div>
+    </section>
+
+    <!-- правая панель: рабочее дерево -->
+    <section class="panel wtp">
+      <div class="phead">
+        <span class="pkind">Working tree</span>
+        <span class="pmeta">
+          <span class="stat stat--a">+<span class="num num--a" id="totAdd">280</span></span>
+          <span class="stat stat--d">−<span class="num num--d" id="totDel">51</span></span>
+        </span>
+      </div>
+
+      <div class="files" id="files"></div>
+
+      <div class="rule"></div>
+
+      <div class="dhead">
+        <span class="dpath"><span class="dim">src/auth/</span>session.ts</span>
+        <span class="dmeta"><span class="stat stat--a">+<span class="num num--a" id="dAdd">118</span></span><span class="stat stat--d">−<span class="num num--d" id="dDel">31</span></span></span>
+      </div>
+      <div class="diff" id="diff"></div>
+
+      <div class="rule"></div>
+      <div class="srow"><span class="sdot" id="sdot"></span><span class="stxt" id="status">Head · 4 files changed</span></div>
+    </section>
+
+  </div>
+
+  <div class="tools">
+    <button class="ghost" id="reset">Reset</button>
+    <div class="seg-ctl" role="group" aria-label="Theme">
+      <button class="on" data-theme="light">Light</button>
+      <button data-theme="dark">Dark</button>
+    </div>
+  </div>
+</div>
+<script src="script.js"></script>
+</body>
+</html>
