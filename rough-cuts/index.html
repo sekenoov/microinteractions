@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Four Rough Cuts</title>
+
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="stage">
+  <div class="head">
+    <span class="h-title">Four rough cuts</span>
+    <span class="h-sub">черновики, только механика</span>
+  </div>
+
+  <div class="grid">
+
+    <!-- A · автосжатие контекста -->
+    <section class="card">
+      <div class="chead"><span class="ckind">01</span><span class="cname">Auto-compact</span></div>
+      <div class="cbody">
+        <div class="rtop">
+          <span class="lbl lbl--sub">Context window</span>
+          <span class="val"><span class="num" id="aNum">921.4k</span><span class="sub">&nbsp;/ 1M (</span><span class="num" id="aPct">92</span><span class="sub">%)</span></span>
+        </div>
+        <div class="track track--seg" id="aTrack">
+          <span class="seg seg--sum" id="aSum"></span>
+          <span class="seg seg--chat" id="aChat"></span>
+          <span class="seg seg--sys"></span>
+          <span class="sweep" id="aSweep"></span>
+        </div>
+        <div class="note" id="aNote">&nbsp;</div>
+      </div>
+      <button class="btn" id="aBtn">Compact</button>
+    </section>
+
+    <!-- B · разрешение на инструмент -->
+    <section class="card">
+      <div class="chead"><span class="ckind">02</span><span class="cname">Tool approval</span></div>
+      <div class="cbody">
+        <div class="perm" id="bPerm">
+          <div class="cmd"><span class="cmd__tag">bash</span><code>rm -rf ./build</code></div>
+          <div class="asks" id="bAsks">
+            <button class="pill pill--go" data-go="1">Allow once</button>
+            <button class="pill" data-go="1">Allow for session</button>
+            <button class="pill pill--no">Deny</button>
+          </div>
+          <div class="exec" id="bRun">
+            <span class="spin" id="bSpin"></span>
+            <span class="exec__lbl" id="bLbl">Running</span>
+            <span class="exec__t" id="bTime"></span>
+          </div>
+          <div class="outp" id="bOut"></div>
+        </div>
+      </div>
+      <button class="btn" id="bReset">Reset</button>
+    </section>
+
+    <!-- C · параллельные агенты -->
+    <section class="card">
+      <div class="chead"><span class="ckind">03</span><span class="cname">Parallel agents</span></div>
+      <div class="cbody">
+        <div class="agents" id="cList"></div>
+      </div>
+      <button class="btn" id="cBtn">Run 4 agents</button>
+    </section>
+
+    <!-- D · выбор модели -->
+    <section class="card">
+      <div class="chead"><span class="ckind">04</span><span class="cname">Model trade-off</span></div>
+      <div class="cbody">
+        <div class="segctl" id="dCtl">
+          <span class="segctl__pill" id="dPill"></span>
+          <button data-i="0">Haiku</button>
+          <button data-i="1" class="on">Sonnet</button>
+          <button data-i="2">Opus</button>
+        </div>
+        <div class="meters">
+          <div class="meter">
+            <div class="mtop"><span>Speed</span><span class="num num--s" id="dSpeed">180</span><span class="unit">tok/s</span></div>
+            <div class="track"><span class="fill" id="dSpeedFill"></span></div>
+          </div>
+          <div class="meter">
+            <div class="mtop"><span>Cost</span><span class="num num--s" id="dCost">3.00</span><span class="unit">$ / Mtok</span></div>
+            <div class="track"><span class="fill fill--cost" id="dCostFill"></span></div>
+          </div>
+        </div>
+      </div>
+      <div class="foot-note" id="dNote">Balanced. Default for most work.</div>
+    </section>
+
+  </div>
+
+  <div class="tools">
+    <div class="seg-ctl" role="group" aria-label="Theme">
+      <button class="on" data-theme="light">Light</button>
+      <button data-theme="dark">Dark</button>
+    </div>
+  </div>
+</div>
+<script src="script.js"></script>
+</body>
+</html>
