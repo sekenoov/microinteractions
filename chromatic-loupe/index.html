@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chromatic Loupe</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="stage-wrap">
+    <section class="stage">
+      <canvas id="loupe-scene"></canvas>
+      <div class="loupe-lens" id="loupe-lens">
+        <div class="loupe-handle"></div>
+        <div class="loupe-glass">
+          <canvas id="loupe-canvas"></canvas>
+          <div class="loupe-glare"></div>
+          <div class="loupe-rim"></div>
+        </div>
+      </div>
+      <div class="loupe-zoom" id="loupe-zoom">2.4×</div>
+      <div class="loupe-hint">scroll to zoom</div>
+    </section>
+  </main>
+  <script type="module" src="src/main.js"></script>
+</body>
+</html>
