@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Three Chat Cuts</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="stage">
+  <div class="deck">
+
+    <!-- 01: размышление складывается в строку -->
+    <figure class="tile">
+      <section class="panel chat" id="think">
+        <div class="thread"><div class="tin"></div></div>
+        <div class="composer">
+          <div class="cbars"></div>
+          <button class="send" aria-label="Send">
+            <svg class="ic ic--arrow" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><path d="M10 16V4.6M4.8 9.8L10 4.4l5.2 5.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span class="ic ic--stop" aria-hidden="true"></span>
+          </button>
+        </div>
+      </section>
+      <figcaption><b>01</b> Thinking folds into a single line</figcaption>
+    </figure>
+
+    <!-- 02: правка создаёт ветку -->
+    <figure class="tile">
+      <section class="panel chat" id="branch">
+        <div class="thread"><div class="tin"></div></div>
+        <div class="composer is-empty">
+          <div class="cbars"></div>
+          <button class="send locked" disabled aria-label="Send">
+            <svg class="ic ic--arrow" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><path d="M10 16V4.6M4.8 9.8L10 4.4l5.2 5.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </div>
+      </section>
+      <figcaption><b>02</b> Edit the question, keep both answers</figcaption>
+    </figure>
+
+    <!-- 03: очередь во время ответа -->
+    <figure class="tile">
+      <section class="panel chat" id="queue">
+        <div class="thread"><div class="tin"></div></div>
+        <div class="qstack"></div>
+        <div class="composer">
+          <div class="cbars"></div>
+          <button class="send" aria-label="Send">
+            <svg class="ic ic--arrow" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><path d="M10 16V4.6M4.8 9.8L10 4.4l5.2 5.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span class="ic ic--stop" aria-hidden="true"></span>
+          </button>
+        </div>
+      </section>
+      <figcaption><b>03</b> Send mid-answer. It waits its turn</figcaption>
+    </figure>
+
+  </div>
+
+  <div class="tools">
+    <button class="ghost" id="reset">Reset</button>
+    <div class="seg-ctl" role="group" aria-label="Theme">
+      <button class="on" data-theme="light">Light</button>
+      <button data-theme="dark">Dark</button>
+    </div>
+  </div>
+</div>
+<script src="script.js"></script>
+</body>
+</html>
