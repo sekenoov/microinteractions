@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Line</title>
+<link rel="stylesheet" href="style.css?v=3">
+</head>
+<body>
+<div class="wrap">
+
+  <header class="head">
+    <span class="head__b">LINE</span>
+    <span class="head__s">three states</span>
+    <span class="head__i" id="idx">01 / 03</span>
+  </header>
+
+  <div class="frame" id="stage">
+    <canvas id="cv"></canvas>
+
+    <div class="thread" id="thread">
+      <svg class="thread__svg" id="tsvg" aria-hidden="true">
+        <path id="tpath" fill="none"/>
+        <circle id="tknot" r="3"/>
+      </svg>
+      <div class="thread__text" id="ttext"><p class="tp" id="tp"></p></div>
+    </div>
+
+    <span class="tag" id="tag">lens</span>
+  </div>
+
+  <footer class="foot">
+    <div class="cap" id="cap">
+      <h1 class="cap__n" id="capName">Lens</h1>
+      <p class="cap__h" id="capHook">It bends time instead of light.</p>
+    </div>
+
+    <nav class="tabs" id="tabs">
+      <button class="tab" type="button" data-i="0"><i>01</i>Lens</button>
+      <button class="tab" type="button" data-i="1"><i>02</i>Ground</button>
+      <button class="tab" type="button" data-i="2"><i>03</i>Thread</button>
+      <span class="tab__bar" id="bar"></span>
+    </nav>
+  </footer>
+
+</div>
+<script src="script.js?v=3"></script>
+</body>
+</html>
