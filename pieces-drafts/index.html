@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Штуки / черновики</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="page">
+
+  <header class="head">
+    <span class="head__t">ШТУКИ / ЧЕРНОВИКИ</span>
+    <span class="head__h">клик по плитке разворачивает её на весь экран, esc возвращает</span>
+  </header>
+
+  <div class="grid" id="grid">
+
+    <article class="tile tile--light" data-piece="lens">
+      <div class="tile__stage"><canvas data-c="lens"></canvas></div>
+      <div class="tile__meta">
+        <span class="tile__n">01</span>
+        <div>
+          <h2 class="tile__name">Линза</h2>
+          <p class="tile__hook">Гнёт не свет, а время. Что попало внутрь, идёт медленнее и выходит с опозданием.</p>
+        </div>
+      </div>
+    </article>
+
+    <article class="tile tile--dark" data-piece="terrain">
+      <div class="tile__stage"><canvas data-c="terrain"></canvas></div>
+      <div class="tile__meta">
+        <span class="tile__n">02</span>
+        <div>
+          <h2 class="tile__name">Рельеф</h2>
+          <p class="tile__hook">Всё, к чему прикасаешься, становится местностью. И остывает обратно в равнину.</p>
+        </div>
+      </div>
+    </article>
+
+    <article class="tile tile--dark" data-piece="pins">
+      <div class="tile__stage"><canvas data-c="pins"></canvas></div>
+      <div class="tile__meta">
+        <span class="tile__n">03</span>
+        <div>
+          <h2 class="tile__name">Стена</h2>
+          <p class="tile__hook">Стена из штырьков. С той стороны кто-то давит, и слово проступает на секунду.</p>
+        </div>
+      </div>
+    </article>
+
+    <article class="tile tile--light" data-piece="thread">
+      <div class="tile__stage">
+        <div class="thread" data-t="thread">
+          <svg class="thread__svg" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+            <path class="thread__path" d="" fill="none"/>
+          </svg>
+          <p class="thread__text" data-text="Каждое слово держится за соседнее. Уберите одно, и абзац перестанет быть абзацем: останется нитка, которую можно намотать на палец и убрать в карман."></p>
+        </div>
+      </div>
+      <div class="tile__meta">
+        <span class="tile__n">04</span>
+        <div>
+          <h2 class="tile__name">Нитка</h2>
+          <p class="tile__hook">Потяни за слово, и абзац распустится в одну нитку. Потом смотается обратно.</p>
+        </div>
+      </div>
+    </article>
+
+  </div>
+
+  <footer class="foot">
+    <span>палитра: кость, графит, вермильон, холодная зелень</span>
+    <button class="theme" id="theme" type="button"><span class="theme__d"></span><span>инверсия</span></button>
+  </footer>
+
+</div>
+<script src="script.js"></script>
+</body>
+</html>
