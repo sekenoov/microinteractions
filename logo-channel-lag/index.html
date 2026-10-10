@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Channel lag, drawn</title>
+<link rel="stylesheet" href="style.css?v=1">
+</head>
+<body>
+<div class="frame">
+
+  <div class="panel">
+    <canvas id="cv"></canvas>
+    <span class="pin pin--tl" id="mark">01</span>
+    <span class="pin pin--tr" id="chan">R + 0   G + 60 ms   B + 120 ms</span>
+    <span class="drop" id="drop">drop the svg</span>
+  </div>
+
+  <div class="row">
+    <span class="name" id="name">SUNBURST</span>
+    <span class="stat" id="stat"></span>
+  </div>
+
+  <div class="foot">
+    <span>one pen, three clocks. the colour is the delay itself</span>
+    <span class="foot__r" id="hint">drop or paste an svg</span>
+  </div>
+
+</div>
+<script src="script.js?v=1"></script>
+</body>
+</html>
