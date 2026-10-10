@@ -1,0 +1,102 @@
+<title>Три перегенерации</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500&display=swap">
+
+<div class="wrap">
+<header>
+  <div>
+    <div class="eyebrow">одна кнопка · три состояния · три типа контента</div>
+    <h1>Стоп → <em>Перегенерировать</em></h1>
+    <p class="lede">Кнопка не пересоздаётся. Ширина, иконка, подпись и прогресс едут одним движением. Прерывание можно поймать в любой момент, и оно остаётся видимым.</p>
+  </div>
+  <div class="master">
+    <button class="mini" id="runAll">Запустить все</button>
+    <button class="mini" id="loopBtn">Цикл</button>
+  </div>
+</header>
+
+<div class="grid">
+
+  <!-- текст -->
+  <section class="card" id="c-text" style="--ac:var(--a-text)">
+    <div class="card__head">
+      <span class="card__dot"></span>
+      <span class="card__kind">Текст</span>
+      <span class="card__model" id="textModel">stream · 68 tok/s</span>
+    </div>
+    <div class="out out--text">
+      <div class="stream"><span class="caret"></span></div>
+    </div>
+    <div class="card__foot">
+      <button class="morph" data-state="idle">
+        <span class="fill"></span>
+        <span class="ic">
+          <svg class="s-idle" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2.5 8h11M9 3.5L13.5 8 9 12.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <svg class="s-stop" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="8" cy="8" r="6.1" stroke="currentColor" opacity=".22"/><circle class="arc" cx="8" cy="8" r="6.1" stroke-dasharray="38" stroke-dashoffset="38" stroke-linecap="round"/><rect x="5.6" y="5.6" width="4.8" height="4.8" rx="1.1" fill="currentColor" stroke="none"/></svg>
+          <svg class="s-regen" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13.8 8a5.8 5.8 0 1 1-1.8-4.2" stroke-linecap="round"/><path d="M13.8 1.6v4.2H9.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </span>
+        <span class="lbl"><span class="t-idle">Сгенерировать</span><span class="t-gen">Стоп</span><span class="t-regen">Перегенерировать</span></span>
+      </button>
+      <span class="status"></span>
+    </div>
+  </section>
+
+  <!-- изображение -->
+  <section class="card" id="c-img" style="--ac:var(--a-img)">
+    <div class="card__head">
+      <span class="card__dot"></span>
+      <span class="card__kind">Изображение</span>
+      <span class="card__model" id="imgModel">diffusion · неон</span>
+    </div>
+    <div class="out out--img">
+      <canvas></canvas>
+      <div class="scanline"></div>
+    </div>
+    <div class="palette" id="palette"></div>
+    <div class="card__foot">
+      <button class="morph" data-state="idle">
+        <span class="fill"></span>
+        <span class="ic">
+          <svg class="s-idle" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2.5 8h11M9 3.5L13.5 8 9 12.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <svg class="s-stop" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="8" cy="8" r="6.1" stroke="currentColor" opacity=".22"/><circle class="arc" cx="8" cy="8" r="6.1" stroke-dasharray="38" stroke-dashoffset="38" stroke-linecap="round"/><rect x="5.6" y="5.6" width="4.8" height="4.8" rx="1.1" fill="currentColor" stroke="none"/></svg>
+          <svg class="s-regen" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13.8 8a5.8 5.8 0 1 1-1.8-4.2" stroke-linecap="round"/><path d="M13.8 1.6v4.2H9.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </span>
+        <span class="lbl"><span class="t-idle">Сгенерировать</span><span class="t-gen">Стоп</span><span class="t-regen">Перегенерировать</span></span>
+      </button>
+      <span class="status"></span>
+    </div>
+  </section>
+
+  <!-- аудио -->
+  <section class="card" id="c-aud" style="--ac:var(--a-aud)">
+    <div class="card__head">
+      <span class="card__dot"></span>
+      <span class="card__kind">Аудио</span>
+      <span class="card__model" id="audModel">бит · 128 BPM</span>
+    </div>
+    <div class="out out--aud">
+      <div class="wave"></div>
+      <div class="playhead"></div>
+    </div>
+    <div class="card__foot">
+      <button class="morph" data-state="idle">
+        <span class="fill"></span>
+        <span class="ic">
+          <svg class="s-idle" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2.5 8h11M9 3.5L13.5 8 9 12.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <svg class="s-stop" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="8" cy="8" r="6.1" stroke="currentColor" opacity=".22"/><circle class="arc" cx="8" cy="8" r="6.1" stroke-dasharray="38" stroke-dashoffset="38" stroke-linecap="round"/><rect x="5.6" y="5.6" width="4.8" height="4.8" rx="1.1" fill="currentColor" stroke="none"/></svg>
+          <svg class="s-regen" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13.8 8a5.8 5.8 0 1 1-1.8-4.2" stroke-linecap="round"/><path d="M13.8 1.6v4.2H9.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </span>
+        <span class="lbl"><span class="t-idle">Сгенерировать</span><span class="t-gen">Стоп</span><span class="t-regen">Перегенерировать</span></span>
+      </button>
+      <span class="status"></span>
+    </div>
+  </section>
+
+</div>
+
+<footer>
+  прерви на середине: состояние останется читаемым<br>
+  «цикл» гоняет три карточки подряд, удобно писать гифку
+</footer>
+</div>
