@@ -1,0 +1,138 @@
+:root{
+  --bg:#efeeea;
+  --bg-2:#e5e3de;
+  --scr:#ffffff;
+  --ink:#000000;
+  --sec:#8a8a8e;
+  --sep:rgba(60,60,67,.24);
+  --green:#34c759;
+  --offtr:#e9e9eb;
+  --orange:#ff9500;
+  --gl:rgba(255,255,255,.72);
+  --gl-rim:rgba(0,0,0,.07);
+  --gl-hi:rgba(255,255,255,.9);
+  --gl-sh:0 4px 14px rgba(0,0,0,.08),0 1px 2px rgba(0,0,0,.05);
+  --tabsel:rgba(0,0,0,.055);
+  --touch:rgba(0,0,0,.15);
+  --touch-rim:rgba(0,0,0,.2);
+  --metal:#cbc6bd;
+  --metal-hi:rgba(255,255,255,.6);
+  --phone-sh:0 2px 3px rgba(0,0,0,.06),0 46px 90px -34px rgba(0,0,0,.38);
+  --sub:#8d8a83;--sub-2:#a8a49c;--track:#e6e4de;--card:#fff;--blue:#2f6fed;
+  --ui:-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  --e:cubic-bezier(.2,.75,.2,1);
+}
+@media(prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#121211;--bg-2:#0a0a0a;--scr:#000000;--ink:#ffffff;--sec:#8d8d93;--sep:rgba(84,84,88,.62);
+    --green:#30d158;--offtr:#39393d;--orange:#ff9f0a;
+    --gl:rgba(44,44,46,.72);--gl-rim:rgba(255,255,255,.1);--gl-hi:rgba(255,255,255,.16);
+    --gl-sh:0 4px 14px rgba(0,0,0,.4);--tabsel:rgba(255,255,255,.1);
+    --touch:rgba(255,255,255,.2);--touch-rim:rgba(255,255,255,.36);
+    --metal:#3b3935;--metal-hi:rgba(255,255,255,.1);
+    --phone-sh:0 2px 3px rgba(0,0,0,.4),0 46px 90px -30px rgba(0,0,0,.85);
+    --sub:#928e86;--sub-2:#6f6b64;--track:#2b2a27;--card:#1c1b19;--blue:#4f86ff;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#121211;--bg-2:#0a0a0a;--scr:#000000;--ink:#ffffff;--sec:#8d8d93;--sep:rgba(84,84,88,.62);
+  --green:#30d158;--offtr:#39393d;--orange:#ff9f0a;
+  --gl:rgba(44,44,46,.72);--gl-rim:rgba(255,255,255,.1);--gl-hi:rgba(255,255,255,.16);
+  --gl-sh:0 4px 14px rgba(0,0,0,.4);--tabsel:rgba(255,255,255,.1);
+  --touch:rgba(255,255,255,.2);--touch-rim:rgba(255,255,255,.36);
+  --metal:#3b3935;--metal-hi:rgba(255,255,255,.1);
+  --phone-sh:0 2px 3px rgba(0,0,0,.4),0 46px 90px -30px rgba(0,0,0,.85);
+  --sub:#928e86;--sub-2:#6f6b64;--track:#2b2a27;--card:#1c1b19;--blue:#4f86ff;
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{font-family:var(--ui);color:var(--ink);background:var(--bg);-webkit-font-smoothing:antialiased;font-size:15px;overflow:hidden}
+button{font-family:var(--ui)}
+
+.stage{position:fixed;inset:0;overflow:hidden;background:radial-gradient(120% 90% at 50% 0%,var(--bg) 30%,var(--bg-2) 100%)}
+.world{position:absolute;inset:0;display:flex;align-items:center;justify-content:center}
+.zoom{position:relative;transform-origin:50% 50%;flex:0 0 auto}
+
+/* ───────── телефон: размеры в точках экрана, 402 × 874 ───────── */
+.phone{position:relative;width:424px;height:896px;border-radius:68px;background:var(--metal);box-shadow:var(--phone-sh),inset 0 0 0 .75px var(--metal-hi);user-select:none;-webkit-user-select:none}
+.sb{position:absolute;width:4px;background:var(--metal);border-radius:2px}
+.sb-act{left:-3px;top:178px;height:34px}
+.sb-up{left:-3px;top:244px;height:62px}
+.sb-dn{left:-3px;top:322px;height:62px}
+.sb-pwr{right:-3px;top:272px;height:100px}
+.sb-cam{right:-2px;top:560px;height:58px;width:3px;opacity:.8}
+.bezel{position:absolute;inset:3px;border-radius:65px;background:#060606}
+.screen{position:absolute;left:11px;top:11px;width:402px;height:874px;border-radius:57px;overflow:hidden;background:var(--scr);isolation:isolate;touch-action:none;cursor:default}
+
+/* статус-бар */
+.status{position:absolute;left:0;top:0;width:402px;height:54px;z-index:4}
+.clock{position:absolute;left:52px;top:19px;font-size:17px;font-weight:600;letter-spacing:-.02em}
+.island{position:absolute;left:138px;top:11px;width:126px;height:37px;border-radius:19px;background:#000}
+.sys{position:absolute;right:30px;top:22px;display:flex;align-items:center;gap:6px;color:var(--ink)}
+.sys svg{display:block;fill:currentColor}
+.sig{width:18px;height:12px}
+.wifi{width:16px;height:12px}
+.bat{position:relative;width:26px;height:12.5px;border:1px solid currentColor;border-radius:4px;opacity:.95}
+.bat::after{content:"";position:absolute;right:-3.5px;top:3.5px;width:1.6px;height:4px;border-radius:0 1px 1px 0;background:currentColor;opacity:.5}
+.bat-in{position:absolute;left:1.5px;top:1.5px;bottom:1.5px;width:34%;border-radius:2px;background:currentColor}
+
+/* стеклянные кнопки навигации */
+.navb{position:absolute;left:0;top:56px;width:402px;height:44px}
+.gl{position:absolute;top:0;height:44px;border-radius:22px;background:var(--gl);box-shadow:var(--gl-sh),inset 0 0 0 .6px var(--gl-rim),inset 0 1px 0 var(--gl-hi);display:grid;place-items:center;color:var(--ink)}
+.gl-edit{left:16px;padding:0 17px;font-size:17px;letter-spacing:-.02em}
+.gl-add{right:16px;width:44px}
+.gl-add svg{width:19px;height:19px}
+
+.big{position:absolute;left:16px;top:104px;font-size:34px;line-height:41px;font-weight:700;letter-spacing:-.025em}
+.subt{position:absolute;left:16px;top:145px;font-size:15px;line-height:20px;letter-spacing:-.012em;color:var(--sec);white-space:nowrap;display:flex;align-items:flex-end}
+.subt .vis{display:flex;align-items:flex-end}
+.subt .odo{margin:0 .26em}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+.odo{display:inline-flex;height:20px;overflow:hidden}
+.dg{display:inline-block;position:relative;height:20px;overflow:hidden;font-variant-numeric:tabular-nums}
+.dg i{display:block;font-style:normal;height:20px;line-height:20px;text-align:center}
+.dg .col{display:block;will-change:auto}
+
+/* список: строка 76, время 46 тонким, переключатель 64 × 28 */
+.list{position:absolute;left:0;top:0;width:402px;list-style:none}
+.row{position:absolute;left:0;width:402px;height:76px}
+.tm{position:absolute;left:16px;top:2px;font-size:46px;line-height:52px;font-weight:300;letter-spacing:-.02em;white-space:nowrap}
+.tm small{font-size:28px;font-weight:300;letter-spacing:-.01em;margin-left:3px}
+.lb{position:absolute;left:16px;top:52px;font-size:15px;line-height:18px;letter-spacing:-.012em;white-space:nowrap}
+.tg{position:absolute;left:322px;top:24px;width:64px;height:28px;border-radius:14px;background:var(--offtr)}
+.kn{position:absolute;left:0;top:0;width:38px;height:24px;border-radius:12px;transform-origin:50% 50%}
+.kn .lens{position:absolute;border-radius:16px}
+.kn .face{position:absolute;inset:0;border-radius:inherit;background:#fff}
+.kn .clip{position:absolute;inset:0;border-radius:inherit;overflow:hidden}
+
+.seps{position:absolute;left:0;top:0;width:402px;height:874px;overflow:visible;pointer-events:none}
+.seps path{fill:none;stroke:var(--sep);stroke-width:.6}
+
+/* таб-бар iOS 26: плавающая капсула */
+.tabs{position:absolute;left:20px;top:792px;width:362px;height:60px;border-radius:30px;background:var(--gl);box-shadow:var(--gl-sh),inset 0 0 0 .6px var(--gl-rim),inset 0 1px 0 var(--gl-hi);display:flex;align-items:center;justify-content:space-between;padding:0 5px;z-index:3}
+.tab{flex:1;height:50px;border-radius:25px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;color:var(--ink)}
+.tab svg{width:24px;height:24px;display:block}
+.tab b{font-size:10px;font-weight:500;letter-spacing:-.005em}
+.tab.on{color:var(--orange);background:var(--tabsel)}
+.home{position:absolute;left:131px;bottom:8px;width:140px;height:5px;border-radius:3px;background:var(--ink);z-index:6}
+
+.touch{position:absolute;left:0;top:0;width:42px;height:42px;margin:-21px 0 0 -21px;border-radius:50%;background:var(--touch);box-shadow:inset 0 0 0 1.2px var(--touch-rim);opacity:0;z-index:8;pointer-events:none}
+
+/* ───────── низ ───────── */
+.tools{position:fixed;left:50%;bottom:20px;transform:translateX(-50%);z-index:90;display:flex;align-items:center;gap:12px;white-space:nowrap}
+.hint{font-size:12px;color:var(--sub-2)}
+.ghost{background:none;border:none;font-size:12px;color:var(--sub);cursor:pointer;padding:6px 4px;min-width:44px;min-height:32px;transition:color .18s var(--e)}
+.ghost:hover{color:var(--ink)}
+.seg-ctl{display:flex;background:var(--track);border-radius:8px;padding:2px}
+.seg-ctl button{border:none;background:none;font-size:11.5px;color:var(--sub);padding:5px 11px;border-radius:6px;cursor:pointer;transition:background .18s var(--e),color .18s var(--e)}
+.seg-ctl button.on{background:var(--card);color:var(--ink);box-shadow:0 1px 2px rgba(0,0,0,.08)}
+.ghost:focus-visible,.seg-ctl button:focus-visible{outline:2px solid var(--blue);outline-offset:2px;border-radius:3px}
+
+@media(max-width:560px){
+  .hint{display:none}
+  .tools{gap:6px}
+}
+
+/* запись ролика: кадр 1080×1350, панели нет */
+.rec .tools{display:none}

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>No alarms</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="stage" id="stage">
+  <div class="world" id="world">
+    <div class="zoom" id="zoom">
+      <div class="phone" id="phone">
+        <span class="sb sb-act"></span><span class="sb sb-up"></span><span class="sb sb-dn"></span>
+        <span class="sb sb-pwr"></span><span class="sb sb-cam"></span>
+        <div class="bezel"></div>
+        <div class="screen" id="screen">
+          <div class="status">
+            <span class="clock">11:52</span>
+            <span class="island"></span>
+            <span class="sys" aria-hidden="true">
+              <svg class="sig" viewBox="0 0 18 12"><rect x="0" y="8" width="3" height="4" rx=".8"/><rect x="5" y="5.5" width="3" height="6.5" rx=".8"/><rect x="10" y="3" width="3" height="9" rx=".8"/><rect x="15" y="0" width="3" height="12" rx=".8"/></svg>
+              <svg class="wifi" viewBox="0 0 16 12"><path d="M8 11.6l2.3-2.6a3.3 3.3 0 0 0-4.6 0z"/><path d="M8 5.7a6 6 0 0 1 4.2 1.7l1.3-1.5a8 8 0 0 0-11 0l1.3 1.5A6 6 0 0 1 8 5.7z"/><path d="M8 1.9a9.8 9.8 0 0 1 6.9 2.8l1.1-1.3a11.6 11.6 0 0 0-16 0l1.1 1.3A9.8 9.8 0 0 1 8 1.9z"/></svg>
+              <span class="bat"><span class="bat-in"></span></span>
+            </span>
+          </div>
+
+          <div class="navb">
+            <span class="gl gl-edit">Edit</span>
+            <span class="gl gl-add" aria-hidden="true"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M10 3.5v13M3.5 10h13"/></svg></span>
+          </div>
+          <h1 class="big">Alarms</h1>
+          <p class="subt" id="subt"><span class="vis" aria-hidden="true">Next alarm in <span class="odo" id="oh"></span> hr <span class="odo" id="om"></span> min</span><span class="sr" id="subsr" aria-live="polite">Next alarm in 6 hr 8 min</span></p>
+
+          <ul class="list" id="list"></ul>
+          <svg class="seps" id="seps" aria-hidden="true"></svg>
+
+          <nav class="tabs" aria-hidden="true">
+            <span class="tab"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="8.6"/><path d="M3.6 12h16.8M12 3.4c2.6 2.6 3.6 5.6 3.6 8.6s-1 6-3.6 8.6M12 3.4C9.4 6 8.4 9 8.4 12s1 6 3.6 8.6"/></svg><b>World Clock</b></span>
+            <span class="tab on"><svg viewBox="0 0 24 24"><circle cx="12" cy="13" r="8" fill="currentColor"/><path d="M12 8.6V13l2.8 2" fill="none" stroke="var(--scr)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M3.6 6.4l3.2-2.6M20.4 6.4l-3.2-2.6" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/></svg><b>Alarms</b></span>
+            <span class="tab"><svg viewBox="0 0 24 24"><circle cx="12" cy="13.4" r="7.8" fill="currentColor"/><path d="M12 9.4v4" fill="none" stroke="var(--scr)" stroke-width="1.8" stroke-linecap="round"/><path d="M9.6 3h4.8M12 3v2.6" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/></svg><b>Stopwatch</b></span>
+            <span class="tab"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><circle cx="12" cy="12" r="8.6"/><path d="M12 6.4V12l3.4 2.2"/></svg><b>Timers</b></span>
+          </nav>
+          <div class="home"></div>
+          <div class="touch" id="touch" aria-hidden="true"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="tools" id="tools">
+    <button class="ghost" id="play">Replay</button>
+    <span class="hint" id="hint">Swipe down the switches</span>
+    <button class="ghost" id="snd" aria-pressed="true">Sound on</button>
+    <div class="seg-ctl" id="theme" role="group" aria-label="Theme">
+      <button data-theme="light">Light</button>
+      <button data-theme="dark">Dark</button>
+    </div>
+  </div>
+</div>
+<script src="sound.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
