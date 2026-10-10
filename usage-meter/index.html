@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Usage Meter</title>
+
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="stage">
+  <div class="deck">
+
+    <!-- левая панель: запрос -->
+    <section class="panel composer" id="composer">
+      <div class="phead">
+        <span class="pkind">New prompt</span>
+        <span class="psize" id="psize">12.4k tokens</span>
+      </div>
+      <div class="pbody" id="pbody"></div>
+      <div class="pfoot">
+        <span class="phint">⌘ + ⏎</span>
+        <button class="send" id="send" aria-label="Send prompt">
+          <svg class="ring" viewBox="0 0 40 40" aria-hidden="true">
+            <circle cx="20" cy="20" r="17.5" fill="none" stroke="currentColor" stroke-width="2.5"
+                    stroke-dasharray="110" stroke-dashoffset="110" stroke-linecap="round"/>
+          </svg>
+          <svg class="ic ic--arrow" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true">
+            <path d="M10 16V4.6M4.8 9.8L10 4.4l5.2 5.4" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <svg class="ic ic--check" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path d="M4.6 10.4l3.6 3.6 7.2-7.6" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+      </div>
+    </section>
+
+    <!-- правая панель: лимиты -->
+    <section class="panel usage">
+      <div class="row row--head" id="ctxRow">
+        <div class="rtop">
+          <span class="lbl lbl--sub">Context window</span>
+          <span class="val">
+            <span class="num" id="ctxNum">134.6k</span><span class="sub">&nbsp;/ 1M (</span><span class="num" id="ctxPct">13</span><span class="sub">%)</span>
+            <svg class="chev" viewBox="0 0 10 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2.5 2l5.5 6-5.5 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+        </div>
+        <div class="track track--seg">
+          <span class="seg seg--chat" id="segChat"></span>
+          <span class="seg seg--sys"></span>
+          <span class="seg seg--tools"></span>
+          <span class="seg seg--mem"></span>
+        </div>
+      </div>
+
+      <div class="rule"></div>
+
+      <div class="row row--link">
+        <span class="lbl lbl--sub">Plan usage limits · Pro</span>
+        <svg class="arw" viewBox="0 0 16 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 6h13M9.5 1.5L14 6l-4.5 4.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+
+      <div class="row" id="h5Row">
+        <div class="rtop">
+          <span class="lbl">5-hour limit</span>
+          <span class="val"><span class="sub">Resets in 3 hr 44 min</span>&nbsp;&nbsp;<span class="num num--b" id="h5Num">6</span><span class="pc">%</span></span>
+        </div>
+        <div class="track"><span class="fill" id="h5Fill"></span></div>
+      </div>
+
+      <div class="row" id="wkRow">
+        <div class="rtop">
+          <span class="lbl">Weekly · all models</span>
+          <span class="val"><span class="sub">Resets Fri 11:59 AM</span>&nbsp;&nbsp;<span class="num num--b" id="wkNum">25</span><span class="pc">%</span></span>
+        </div>
+        <div class="track"><span class="fill" id="wkFill"></span></div>
+      </div>
+
+      <div class="rule"></div>
+      <div class="row row--link row--last">
+        <span class="lbl">See detailed breakdown</span>
+      </div>
+    </section>
+
+  </div>
+
+  <div class="tools">
+    <button class="ghost" id="reset">Reset</button>
+    <div class="seg-ctl" role="group" aria-label="Theme">
+      <button class="on" data-theme="light">Light</button>
+      <button data-theme="dark">Dark</button>
+    </div>
+  </div>
+</div>
+<script src="script.js"></script>
+</body>
+</html>
