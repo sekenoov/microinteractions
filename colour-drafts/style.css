@@ -1,0 +1,90 @@
+:root{
+  --bg:#0d100f;
+  --panel:#111514;
+  --ink:#e9e6d9;
+  --dim:rgba(233,230,217,.56);
+  --faint:rgba(233,230,217,.30);
+  --line:rgba(233,230,217,.12);
+  --hot:#ff5b34;
+  --mono:ui-monospace,"SF Mono","JetBrains Mono",Menlo,Consolas,monospace;
+  --e:cubic-bezier(.2,.75,.2,1);
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{
+  font-family:var(--mono);font-size:13px;
+  background:var(--bg);color:var(--ink);
+  -webkit-font-smoothing:antialiased;
+  display:flex;align-items:center;justify-content:center;
+  padding:18px;overflow:auto;
+}
+::selection{background:var(--hot);color:var(--bg)}
+
+.wrap{width:min(1010px,100%);display:flex;flex-direction:column;gap:14px}
+
+.head{display:flex;align-items:baseline;gap:14px}
+.head__b{font-size:11px;letter-spacing:.30em}
+.head__s{font-size:10.5px;letter-spacing:.14em;color:var(--faint)}
+.head__t{margin-left:auto;font-size:10.5px;letter-spacing:.06em;color:var(--faint)}
+
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.cell{display:flex;flex-direction:column;gap:11px;cursor:pointer}
+
+.panel{
+  position:relative;width:100%;aspect-ratio:16/9;
+  background:var(--panel);
+  border:1px solid var(--line);border-radius:2px;
+  overflow:hidden;
+  transition:border-color .35s var(--e);
+}
+.cell:hover .panel{border-color:rgba(233,230,217,.28)}
+.panel canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+
+.pin{
+  position:absolute;top:11px;font-size:9.5px;letter-spacing:.16em;
+  color:var(--faint);pointer-events:none;font-variant-numeric:tabular-nums;
+}
+.pin--tl{left:12px}
+.pin--tr{right:12px}
+
+.row{
+  display:flex;align-items:baseline;justify-content:space-between;gap:12px;
+  padding-top:10px;border-top:1px solid var(--line);
+}
+.name{font-size:13px;letter-spacing:.26em}
+.stat{font-size:10px;letter-spacing:.14em;color:var(--faint);font-variant-numeric:tabular-nums}
+.cell.lock .stat{color:var(--hot)}
+
+.cap{font-size:11.5px;line-height:1.62;color:var(--dim);max-width:50ch}
+
+/* solo: the frame stays compact so it is easy to record */
+.grid.solo .cell{display:none}
+.grid.solo .cell.is-solo{
+  display:flex;position:fixed;inset:0;z-index:40;
+  background:var(--bg);cursor:zoom-out;
+  align-items:center;justify-content:center;gap:11px;padding:24px;
+}
+.grid.solo .cell.is-solo .panel,
+.grid.solo .cell.is-solo .row{width:min(920px,94vw);flex:none}
+.grid.solo .cell.is-solo .panel{aspect-ratio:16/10}
+.grid.solo .cell.is-solo .cap{display:none}
+
+.foot{
+  display:flex;justify-content:space-between;gap:24px;
+  font-size:10px;letter-spacing:.1em;color:var(--faint);
+}
+.foot__r{text-align:right}
+
+@media (max-width:880px){
+  body{align-items:flex-start}
+  .grid{grid-template-columns:1fr;gap:26px}
+  .head__t{display:none}
+}
+
+/* six tiles: three rows, so the frame still fits a laptop screen */
+.grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+.cap{max-width:52ch}
+/* six tiles are taller than a screen, so the page starts at the top */
+body{align-items:flex-start}
+.grid.solo{align-items:center}

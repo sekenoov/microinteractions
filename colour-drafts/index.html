@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Colour drafts</title>
+<link rel="stylesheet" href="style.css?v=1">
+</head>
+<body>
+<div class="wrap">
+
+  <header class="head">
+    <span class="head__b">COLOUR</span>
+    <span class="head__s">six drafts</span>
+    <span class="head__t">click a tile for the full frame, esc goes back</span>
+  </header>
+
+  <div class="grid" id="grid">
+
+    <section class="cell" data-piece="swarm">
+      <div class="panel">
+        <canvas></canvas>
+        <span class="pin pin--tl">01</span>
+        <span class="pin pin--tr" data-pin>swaps only</span>
+      </div>
+      <div class="row"><span class="name">SWARM</span><span class="stat" data-stat></span></div>
+      <p class="cap">Nothing is placed. Each dot compares its hue with the ones next to it, now and then with a stranger from across the field, and trades place only when that helps the pair. Order spreads as a front. Near the end noise is let back in and the field starts over.</p>
+    </section>
+
+    <section class="cell" data-piece="sep">
+      <div class="panel">
+        <canvas></canvas>
+        <span class="pin pin--tl">02</span>
+        <span class="pin pin--tr" data-pin>15 75 0 45</span>
+      </div>
+      <div class="row"><span class="name">SEPARATION</span><span class="stat" data-stat></span></div>
+      <p class="cap">One word, four inks, four screen angles. Pulled apart, no plate says anything on its own. Brought back together, the dot grids beat against each other and the register never quite lands.</p>
+    </section>
+
+    <section class="cell" data-piece="lag">
+      <div class="panel">
+        <canvas></canvas>
+        <span class="pin pin--tl">03</span>
+        <span class="pin pin--tr" data-pin>R G B</span>
+      </div>
+      <div class="row"><span class="name">LAG</span><span class="stat" data-stat></span></div>
+      <p class="cap">Red runs on time, green is late, blue later still. While the shape moves it drags a spectrum behind it. The moment it stops, the three channels catch up and all that is left is white.</p>
+    </section>
+
+    <section class="cell" data-piece="bez">
+      <div class="panel">
+        <canvas></canvas>
+        <span class="pin pin--tl">04</span>
+        <span class="pin pin--tr" data-pin>one value</span>
+      </div>
+      <div class="row"><span class="name">CONTRAST</span><span class="stat" data-stat></span></div>
+      <p class="cap">Two swatches, same value. The stripes behind them travel and the pair drifts apart: warm on one side, cold on the other. The meter underneath is live, and it never moves.</p>
+    </section>
+
+    <section class="cell" data-piece="win">
+      <div class="panel">
+        <canvas></canvas>
+        <span class="pin pin--tl">05</span>
+        <span class="pin pin--tr" data-pin>C M Y</span>
+      </div>
+      <div class="row"><span class="name">WINDOWS</span><span class="stat" data-stat></span></div>
+      <p class="cap">Three inks on three drifting discs. Every disc carries a third of the strokes and is unreadable alone. The word exists for about a second, when all three sit on top of one another.</p>
+    </section>
+
+    <section class="cell" data-piece="gam">
+      <div class="panel">
+        <canvas></canvas>
+        <span class="pin pin--tl">06</span>
+        <span class="pin pin--tr" data-pin>sRGB</span>
+      </div>
+      <div class="row"><span class="name">GAMUT</span><span class="stat" data-stat></span></div>
+      <p class="cap">Push the colour outward. The numbers keep going, the screen does not. What was asked for is the ring, what comes back is the dot pinned to the wall, and the difference piles up along it.</p>
+    </section>
+
+  </div>
+
+  <footer class="foot">
+    <span>colour as a quantity, not as paint</span>
+    <span class="foot__r">swarm, separation, lag, contrast, windows, gamut</span>
+  </footer>
+
+</div>
+<script src="script.js?v=1"></script>
+</body>
+</html>
