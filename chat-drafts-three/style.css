@@ -1,0 +1,82 @@
+:root{
+  --bg:#f2f1ed;--bg-2:#e9e7e2;--card:#ffffff;--ink:#1b1a18;--sub:#8d8a83;--sub-2:#a8a49c;
+  --track:#e6e4de;--line:rgba(0,0,0,.08);--blue:#0a7cff;
+  --shadow:0 1px 2px rgba(0,0,0,.05),0 14px 36px -14px rgba(0,0,0,.25);
+  --ui:-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  --e:cubic-bezier(.2,.75,.2,1);
+
+  /* токены канваса */
+  --c-card:#ffffff;--c-ink:#0d0d0e;--c-sub:#8a8a8f;--c-line:#e3e3e6;--c-blue:#0a7cff;
+  --c-recv:#e9e9eb;--c-ghost:#ededef;--c-eye:#1c1c1e;--c-dot:#8e8e93;--c-plus:#efeff1;
+  --c-bub:#f1f0ec;--c-bar:#e6e4de;--c-btn:#1b1a18;--c-btnInk:#ffffff;--c-red:#ff3b30;
+  --c-wall:#e4e1da;--c-ic1:#f8f7f4;--c-ic2:#d3cfc6;--c-ic3:#bdb8ae;--c-glyph:rgba(0,0,0,.13);
+  --c-dock:rgba(255,255,255,.5);--c-lbl:rgba(0,0,0,.15);--c-noti:rgba(255,255,255,.8);
+  --c-lockBtn:rgba(0,0,0,.08);--c-touch:rgba(110,110,118,.3);--c-touchS:rgba(0,0,0,.22);
+}
+@media(prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#161513;--bg-2:#0e0e0d;--card:#211f1d;--ink:#f2efe9;--sub:#928e86;--sub-2:#6f6b64;
+    --track:#33302c;--line:rgba(255,255,255,.09);--blue:#0a84ff;
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 18px 44px -16px rgba(0,0,0,.8);
+    --c-card:#000000;--c-ink:#f5f5f7;--c-sub:#8d8d93;--c-line:#2a2a2d;--c-blue:#0a84ff;
+    --c-recv:#262629;--c-ghost:#3e3e43;--c-eye:#000000;--c-dot:#8d8d93;--c-plus:#1d1d20;
+    --c-bub:#2b2926;--c-bar:#2e2c29;--c-btn:#f2efe9;--c-btnInk:#1b1a18;--c-red:#ff453a;
+    --c-wall:#151514;--c-ic1:#3a3936;--c-ic2:#2a2927;--c-ic3:#4a4844;--c-glyph:rgba(255,255,255,.12);
+    --c-dock:rgba(255,255,255,.07);--c-lbl:rgba(255,255,255,.18);--c-noti:rgba(44,44,46,.85);
+    --c-lockBtn:rgba(255,255,255,.1);--c-touch:rgba(255,255,255,.16);--c-touchS:rgba(255,255,255,.32);
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#161513;--bg-2:#0e0e0d;--card:#211f1d;--ink:#f2efe9;--sub:#928e86;--sub-2:#6f6b64;
+  --track:#33302c;--line:rgba(255,255,255,.09);--blue:#0a84ff;
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 18px 44px -16px rgba(0,0,0,.8);
+  --c-card:#000000;--c-ink:#f5f5f7;--c-sub:#8d8d93;--c-line:#2a2a2d;--c-blue:#0a84ff;
+  --c-recv:#262629;--c-ghost:#3e3e43;--c-eye:#000000;--c-dot:#8d8d93;--c-plus:#1d1d20;
+  --c-bub:#2b2926;--c-bar:#2e2c29;--c-btn:#f2efe9;--c-btnInk:#1b1a18;--c-red:#ff453a;
+  --c-wall:#151514;--c-ic1:#3a3936;--c-ic2:#2a2927;--c-ic3:#4a4844;--c-glyph:rgba(255,255,255,.12);
+  --c-dock:rgba(255,255,255,.07);--c-lbl:rgba(255,255,255,.18);--c-noti:rgba(44,44,46,.85);
+  --c-lockBtn:rgba(255,255,255,.1);--c-touch:rgba(255,255,255,.16);--c-touchS:rgba(255,255,255,.32);
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--ui);color:var(--ink);background:var(--bg);-webkit-font-smoothing:antialiased;font-size:15px}
+button{font-family:var(--ui)}
+.stage{
+  min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:30px;padding:40px 16px;background:radial-gradient(120% 90% at 50% 0%,var(--bg) 30%,var(--bg-2) 100%);
+}
+.head{display:flex;flex-direction:column;align-items:center;gap:6px;text-align:center}
+.head__t{font-size:13px;font-weight:600;letter-spacing:-.005em}
+.head__h{font-size:12px;color:var(--sub)}
+
+.deck{display:grid;grid-template-columns:repeat(3,264px);gap:30px 24px}
+@media(max-width:900px){.deck{grid-template-columns:repeat(2,264px)}}
+@media(max-width:600px){.deck{grid-template-columns:min(264px,100%)}}
+.tile{display:flex;flex-direction:column;gap:12px;cursor:pointer}
+.screen{
+  position:relative;width:264px;height:352px;border-radius:10%/7.5%;overflow:hidden;
+  border:1px solid var(--line);box-shadow:var(--shadow);background:var(--card);
+  transition:border-color .2s var(--e);
+}
+.tile:hover .screen{border-color:color-mix(in srgb,var(--ink) 18%,transparent)}
+.screen canvas{display:block;width:100%;height:100%;touch-action:none}
+.tile figcaption{font-size:12.5px;font-weight:560;letter-spacing:-.005em;line-height:1.5}
+.tile figcaption b{font-weight:560;color:var(--sub-2);margin-right:6px;font-variant-numeric:tabular-nums}
+.tile figcaption i{display:block;font-style:normal;font-weight:400;color:var(--sub);font-size:12px}
+
+/* на весь экран */
+.veil{position:fixed;inset:0;z-index:50;background:var(--bg);opacity:0;pointer-events:none;transition:opacity .25s var(--e)}
+body.has-full .veil{opacity:1;pointer-events:auto}
+.tile.full .screen{
+  position:fixed;left:50%;top:50%;z-index:60;transform:translate(-50%,-50%);
+  height:min(88vh,1040px);width:calc(min(88vh,1040px)*.75);box-shadow:none;
+}
+body.has-full .tools{visibility:hidden}
+
+.tools{display:flex;align-items:center;gap:14px}
+.ghost{background:none;border:none;font-size:12px;color:var(--sub);cursor:pointer;padding:6px 4px;min-height:32px;transition:color .18s var(--e)}
+.ghost:hover{color:var(--ink)}
+.seg-ctl{display:flex;background:var(--track);border-radius:8px;padding:2px}
+.seg-ctl button{border:none;background:none;font-size:11.5px;color:var(--sub);padding:5px 11px;border-radius:6px;cursor:pointer;transition:background .18s var(--e),color .18s var(--e)}
+.seg-ctl button.on{background:var(--card);color:var(--ink);box-shadow:0 1px 2px rgba(0,0,0,.08)}
+.ghost:focus-visible,.seg-ctl button:focus-visible{outline:2px solid var(--blue);outline-offset:2px}

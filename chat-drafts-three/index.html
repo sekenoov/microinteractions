@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Three Drafts</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="stage">
+
+  <header class="head">
+    <span class="head__t">Три черновика</span>
+    <span class="head__h">клик разворачивает плитку, повторный клик перезапускает, esc возвращает</span>
+  </header>
+
+  <div class="deck">
+    <figure class="tile" data-k="nvm">
+      <div class="screen"><canvas></canvas></div>
+      <figcaption><b>01</b> Nvm <i>Seven minutes of voice note, then three letters</i></figcaption>
+    </figure>
+    <figure class="tile" data-k="kdot">
+      <div class="screen"><canvas></canvas></div>
+      <figcaption><b>02</b> k. <i>The period outweighs the paragraph</i></figcaption>
+    </figure>
+    <figure class="tile" data-k="stack">
+      <div class="screen"><canvas></canvas></div>
+      <figcaption><b>03</b> Double text <i>Seven unanswered, stacked. Then a “?”</i></figcaption>
+    </figure>
+  </div>
+
+  <div class="tools">
+    <button class="ghost" id="restart">Restart</button>
+    <div class="seg-ctl" role="group" aria-label="Theme">
+      <button class="on" data-theme="light">Light</button>
+      <button data-theme="dark">Dark</button>
+    </div>
+  </div>
+</div>
+<div class="veil"></div>
+<script src="script.js"></script>
+</body>
+</html>
