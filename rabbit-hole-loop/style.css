@@ -1,0 +1,122 @@
+:root{
+  --bg:#f2f1ed;
+  --bg-2:#e9e7e2;
+  --card:#ffffff;
+  --ink:#1b1a18;
+  --sub:#8d8a83;
+  --sub-2:#a8a49c;
+  --track:#e6e4de;
+  --tile:#efede8;
+  --bub:#f1f0ec;
+  --sel:rgba(47,111,237,.2);
+  --line:rgba(0,0,0,.075);
+  --blue:#2f6fed;
+  --btn:#1b1a18;
+  --btn-ink:#ffffff;
+  --menu:#ffffff;
+  --menu-line:rgba(0,0,0,.09);
+  --menu-shadow:0 0 0 .5px rgba(0,0,0,.12),0 6px 20px -4px rgba(0,0,0,.2);
+  --shadow:0 1px 2px rgba(0,0,0,.05),0 10px 30px -12px rgba(0,0,0,.22);
+  --ui:-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  --e:cubic-bezier(.2,.75,.2,1);
+}
+@media(prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#161513;--bg-2:#101010;--card:#211f1d;--ink:#f2efe9;--sub:#928e86;--sub-2:#6f6b64;
+    --track:#33302c;--tile:#34312d;--bub:#2c2a27;--sel:rgba(107,152,255,.3);
+    --line:rgba(255,255,255,.075);--blue:#6b98ff;--btn:#f2efe9;--btn-ink:#1b1a18;
+    --menu:#2e2c29;--menu-line:rgba(255,255,255,.1);
+    --menu-shadow:0 0 0 .5px rgba(255,255,255,.1),0 8px 24px -4px rgba(0,0,0,.6);
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 14px 40px -14px rgba(0,0,0,.7);
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#161513;--bg-2:#101010;--card:#211f1d;--ink:#f2efe9;--sub:#928e86;--sub-2:#6f6b64;
+  --track:#33302c;--tile:#34312d;--bub:#2c2a27;--sel:rgba(107,152,255,.3);
+  --line:rgba(255,255,255,.075);--blue:#6b98ff;--btn:#f2efe9;--btn-ink:#1b1a18;
+  --menu:#2e2c29;--menu-line:rgba(255,255,255,.1);
+  --menu-shadow:0 0 0 .5px rgba(255,255,255,.1),0 8px 24px -4px rgba(0,0,0,.6);
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 14px 40px -14px rgba(0,0,0,.7);
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{font-family:var(--ui);color:var(--ink);background:var(--bg);-webkit-font-smoothing:antialiased;font-size:15px;overflow:hidden}
+button{font-family:var(--ui)}
+
+.stage{position:fixed;inset:0;overflow:hidden;background:radial-gradient(120% 90% at 50% 0%,var(--bg) 30%,var(--bg-2) 100%)}
+.world{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding-bottom:40px}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow)}
+
+/* ───────── чат ───────── */
+.chat{position:relative;width:400px;height:420px;padding:0 12px 12px;display:flex;flex-direction:column;cursor:default;user-select:none;-webkit-user-select:none}
+.chead{flex:0 0 auto;height:48px;display:flex;align-items:center;justify-content:space-between;padding:0 0 0 6px}
+.ctitle{position:relative;display:grid;height:18px;overflow:hidden;font-size:13px;font-weight:590;letter-spacing:-.01em;line-height:18px}
+.ctitle span{grid-area:1/1;white-space:nowrap}
+.icb{width:32px;height:32px;border-radius:8px;border:none;background:none;color:var(--sub);display:grid;place-items:center}
+.icb svg{width:18px;height:18px}
+
+.thread{position:relative;flex:1 1 0;min-height:0;overflow:hidden;margin:0 -12px}
+.page{position:absolute;left:0;top:0;right:0;padding:6px 18px 0;display:flex;flex-direction:column;transform-origin:0 0}
+.bub{align-self:flex-end;background:var(--bub);border-radius:18px;padding:9px 14px}
+.bub,.ans,.fly span{font-size:15px;line-height:22px;letter-spacing:-.008em;color:var(--ink)}
+.ans{position:relative;margin-top:18px}
+
+.sel{position:absolute;left:0;top:0;height:22px;border-radius:4px;background:var(--sel);transform-origin:0 50%}
+.w,.sel,.dot,.acts{will-change:opacity}
+.dot{position:absolute;left:1px;top:7px;width:9px;height:9px;border-radius:50%;background:var(--ink)}
+
+.acts{display:flex;gap:2px;margin:10px 0 0 -6px}
+.ab{width:28px;height:28px;border-radius:7px;display:grid;place-items:center;color:var(--sub)}
+.ab svg{width:16px;height:16px}
+
+/* слово, которое становится вопросом */
+.fly{position:absolute;left:0;top:0;z-index:4;display:grid;place-items:center;opacity:0;pointer-events:none}
+.fly i{position:absolute;inset:0;border-radius:inherit}
+.fsel{background:var(--sel)}
+.fbub{background:var(--bub)}
+.fly span{position:relative;white-space:nowrap}
+
+/* меню правки */
+.menu{
+  position:absolute;left:0;top:0;z-index:5;display:flex;align-items:center;height:32px;padding:3px;border-radius:10px;
+  background:var(--menu);box-shadow:var(--menu-shadow);font-size:13px;font-weight:510;letter-spacing:-.005em;
+  opacity:0;transform-origin:50% 100%;pointer-events:none;white-space:nowrap
+}
+.mi{height:26px;display:flex;align-items:center;padding:0 11px;border-radius:7px;color:var(--ink)}
+.mi.ask{color:var(--blue)}
+.mi.hov{background:var(--tile)}
+.md{width:1px;height:14px;background:var(--menu-line)}
+
+.cur{position:absolute;left:0;top:0;width:24px;height:24px;z-index:10;pointer-events:none;opacity:0;filter:drop-shadow(0 1px 1.5px rgba(0,0,0,.28))}
+.cur .beam{display:none}
+.cur.ib .beam{display:inline}
+.cur.ib .arrow{display:none}
+
+/* композер */
+.composer{flex:0 0 auto;display:flex;align-items:center;gap:6px;padding:8px 8px 8px 15px;border:1px solid var(--line);border-radius:16px;background:var(--card);box-shadow:0 1px 2px rgba(0,0,0,.03)}
+.cfield{flex:1;font-size:15px;color:var(--sub-2)}
+.send{flex:0 0 auto;width:32px;height:32px;border-radius:50%;border:none;background:var(--btn);color:var(--btn-ink);display:grid;place-items:center}
+.send svg{width:17px;height:17px}
+.send.dim{opacity:.22}
+
+/* ───────── низ ───────── */
+.tools{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);z-index:90;display:flex;align-items:center;gap:12px;white-space:nowrap}
+.hint{font-size:12px;color:var(--sub-2)}
+.ghost{background:none;border:none;font-size:12px;color:var(--sub);cursor:pointer;padding:6px 4px;min-width:44px;transition:color .18s var(--e)}
+.ghost:hover{color:var(--ink)}
+.seg-ctl{display:flex;background:var(--track);border-radius:8px;padding:2px}
+.seg-ctl button{border:none;background:none;font-size:11.5px;color:var(--sub);padding:5px 11px;border-radius:6px;cursor:pointer;transition:background .18s var(--e),color .18s var(--e)}
+.seg-ctl button.on{background:var(--card);color:var(--ink);box-shadow:0 1px 2px rgba(0,0,0,.08)}
+.ghost:focus-visible,.seg-ctl button:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+
+@media(max-width:520px){
+  .world{padding:0 16px 60px}
+  .chat{width:100%;max-width:400px}
+  .hint{display:none}
+}
+
+/* запись ролика: кадр 1080×1350, чат крупнее, панели нет */
+.rec .tools{display:none}
+.rec .world{padding-bottom:0}
+.rec .chat{transform:scale(2.1)}
