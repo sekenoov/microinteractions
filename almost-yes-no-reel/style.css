@@ -1,0 +1,130 @@
+:root{
+  --bg:#f2f1ed;
+  --bg-2:#e9e7e2;
+  --card:#ffffff;
+  --ink:#1b1a18;
+  --sub:#8d8a83;
+  --sub-2:#a8a49c;
+  --track:#e6e4de;
+  --tile:#efede8;
+  --bub:#f1f0ec;
+  --line:rgba(0,0,0,.075);
+  --blue:#2f6fed;
+  --fk:rgba(47,111,237,.62);
+  --bar:#f1efea;
+  --bar-on:#e3ebfc;
+  --btn:#1b1a18;
+  --btn-ink:#ffffff;
+  --menu:#ffffff;
+  --menu-shadow:0 0 0 .5px rgba(0,0,0,.12),0 8px 26px -6px rgba(0,0,0,.24);
+  --shadow:0 1px 2px rgba(0,0,0,.05),0 10px 30px -12px rgba(0,0,0,.22);
+  --ui:-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  --e:cubic-bezier(.2,.75,.2,1);
+}
+@media(prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#161513;--bg-2:#101010;--card:#211f1d;--ink:#f2efe9;--sub:#928e86;--sub-2:#6f6b64;
+    --track:#33302c;--tile:#34312d;--bub:#2c2a27;--line:rgba(255,255,255,.075);
+    --blue:#6b98ff;--fk:rgba(107,152,255,.7);--bar:#3a3733;--bar-on:#2e3a55;
+    --btn:#f2efe9;--btn-ink:#1b1a18;--menu:#2e2c29;
+    --menu-shadow:0 0 0 .5px rgba(255,255,255,.1),0 10px 28px -6px rgba(0,0,0,.65);
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 14px 40px -14px rgba(0,0,0,.7);
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#161513;--bg-2:#101010;--card:#211f1d;--ink:#f2efe9;--sub:#928e86;--sub-2:#6f6b64;
+  --track:#33302c;--tile:#34312d;--bub:#2c2a27;--line:rgba(255,255,255,.075);
+  --blue:#6b98ff;--fk:rgba(107,152,255,.7);--bar:#3a3733;--bar-on:#2e3a55;
+  --btn:#f2efe9;--btn-ink:#1b1a18;--menu:#2e2c29;
+  --menu-shadow:0 0 0 .5px rgba(255,255,255,.1),0 10px 28px -6px rgba(0,0,0,.65);
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 14px 40px -14px rgba(0,0,0,.7);
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{font-family:var(--ui);color:var(--ink);background:var(--bg);-webkit-font-smoothing:antialiased;font-size:15px;overflow:hidden}
+button{font-family:var(--ui)}
+
+.stage{position:fixed;inset:0;overflow:hidden;background:radial-gradient(120% 90% at 50% 0%,var(--bg) 30%,var(--bg-2) 100%)}
+.world{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding-bottom:40px}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow)}
+
+/* ───────── чат ───────── */
+.chat{position:relative;width:360px;height:316px;padding:0 12px 12px;display:flex;flex-direction:column;cursor:default;user-select:none;-webkit-user-select:none}
+.chead{flex:0 0 auto;height:48px;display:flex;align-items:center;justify-content:space-between;padding:0 0 0 6px}
+.ctitle{font-size:13px;font-weight:590;letter-spacing:-.01em;line-height:18px;white-space:nowrap}
+.icb{width:32px;height:32px;border-radius:8px;border:none;background:none;color:var(--sub);display:grid;place-items:center}
+.icb svg{width:18px;height:18px}
+
+.thread{position:relative;flex:1 1 0;min-height:0;overflow:hidden;margin:0 -12px}
+.page{padding:6px 18px 0;display:flex;flex-direction:column}
+.bub{align-self:flex-end;background:var(--bub);border-radius:18px;padding:9px 14px}
+.bub,.meas,.wi,.plab{font-size:15px;line-height:22px;letter-spacing:-.008em;color:var(--ink)}
+
+/* ответ: каждое слово в своей ячейке высотой в строку, раскладку считает скрипт */
+.ans{position:relative;margin-top:18px;height:66px;touch-action:none}
+.meas{position:absolute;left:0;top:0;width:100%;visibility:hidden;pointer-events:none}
+.meas .v,.v .wi,.pv .plab{font-weight:600}
+.tx{position:absolute;left:0;top:0;width:100%;height:100%;visibility:hidden}
+.wd{position:absolute;left:0;top:0;height:22px;white-space:pre}
+.wi{display:block;position:relative}
+/* слово, на котором ответ мог пойти иначе: точки снизу */
+.fk .wi::after{
+  content:"";position:absolute;left:1px;right:0;bottom:1px;height:2px;
+  background:radial-gradient(circle at 1px 1px,var(--fk) .85px,transparent 1.15px) 0 0/3.5px 2px repeat-x
+}
+.live .fk{cursor:ns-resize}
+
+.acts{display:flex;gap:2px;margin:10px 0 0 -6px}
+.ab{width:28px;height:28px;border-radius:7px;display:grid;place-items:center;color:var(--sub)}
+.ab svg{width:16px;height:16px}
+
+/* ───────── барабан вариантов ───────── */
+.pick{position:absolute;left:0;top:0;width:0;height:0;z-index:6;pointer-events:none}
+.pick.on{pointer-events:auto}
+.psh,.pclip{position:absolute;left:0;top:0;border-radius:12px}
+.psh{background:var(--menu);box-shadow:var(--menu-shadow);opacity:0}
+.pclip{overflow:hidden}
+.prows{position:absolute;left:0;top:0;display:none}
+.prow{position:absolute;left:0;top:0;height:30px}
+.pbar{position:absolute;left:2px;top:2px;height:26px;border-radius:7px;background:var(--bar);overflow:hidden}
+.pbar i{position:absolute;inset:0;background:var(--bar-on)}
+.plab{position:absolute;top:4px;white-space:pre}
+.ppct{position:absolute;top:0;height:30px;display:flex;align-items:center;font-size:12.5px;font-weight:510;letter-spacing:-.005em;font-variant-numeric:tabular-nums;color:var(--sub);white-space:nowrap}
+.dg{display:inline-block;width:1ch;height:16px;overflow:hidden;text-align:center}
+.dg u{display:block;text-decoration:none}
+.dg u b{display:block;height:16px;line-height:16px;font-weight:inherit}
+
+/* курсор в сценарии */
+.cur{position:absolute;left:0;top:0;width:24px;height:24px;z-index:10;pointer-events:none;opacity:0;filter:drop-shadow(0 1px 1.5px rgba(0,0,0,.28))}
+.cur .ns{display:none}
+.cur.rs .ns{display:inline}
+.cur.rs .arrow{display:none}
+
+/* композер */
+.composer{flex:0 0 auto;display:flex;align-items:center;gap:6px;padding:8px 8px 8px 15px;border:1px solid var(--line);border-radius:16px;background:var(--card);box-shadow:0 1px 2px rgba(0,0,0,.03)}
+.cfield{flex:1;font-size:15px;color:var(--sub-2)}
+.send{flex:0 0 auto;width:32px;height:32px;border-radius:50%;border:none;background:var(--btn);color:var(--btn-ink);display:grid;place-items:center}
+.send svg{width:17px;height:17px}
+.send.dim{opacity:.22}
+
+/* ───────── низ ───────── */
+.tools{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);z-index:90;display:flex;align-items:center;gap:12px;white-space:nowrap}
+.hint{font-size:12px;color:var(--sub-2)}
+.ghost{background:none;border:none;font-size:12px;color:var(--sub);cursor:pointer;padding:6px 4px;min-width:44px;transition:color .18s var(--e)}
+.ghost:hover{color:var(--ink)}
+.seg-ctl{display:flex;background:var(--track);border-radius:8px;padding:2px}
+.seg-ctl button{border:none;background:none;font-size:11.5px;color:var(--sub);padding:5px 11px;border-radius:6px;cursor:pointer;transition:background .18s var(--e),color .18s var(--e)}
+.seg-ctl button.on{background:var(--card);color:var(--ink);box-shadow:0 1px 2px rgba(0,0,0,.08)}
+.ghost:focus-visible,.seg-ctl button:focus-visible,.wd:focus-visible{outline:2px solid var(--blue);outline-offset:2px;border-radius:3px}
+
+@media(max-width:520px){
+  .world{padding:0 16px 60px}
+  .chat{width:100%;max-width:360px}
+  .hint{display:none}
+}
+
+/* запись ролика: кадр 1080×1350, чат крупнее, панели нет */
+.rec .tools{display:none}
+.rec .world{padding-bottom:0}
+.rec .chat{transform:scale(2.6)}
