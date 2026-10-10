@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Later</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="stage" id="stage">
+  <div class="wash" id="wash"></div>
+  <div class="world">
+    <div class="zoom" id="zoom">
+      <section class="alert" id="alert" role="alertdialog" aria-labelledby="t1" aria-describedby="msg">
+        <div class="icon" aria-hidden="true"><span class="mon">MON</span><span class="day">5</span></div>
+        <div class="ttl"><span id="t1">Monday is ready to install</span><span id="t2" aria-hidden="true">Installing Monday…</span></div>
+        <p class="msg" id="msg">Your weekend will close<br>to finish installing.</p>
+        <div class="btns" id="btns">
+          <button class="b later" id="later"><span class="lb" id="laterLb">Later</span></button>
+          <button class="b install" id="install"><span class="fill" id="fill"><span class="hl" id="hl"></span></span><span class="lb" id="installLb">Install Now</span></button>
+        </div>
+        <p class="eta" id="eta">About 5 days remaining</p>
+      </section>
+      <svg class="ink" id="ink" viewBox="-160 -60 320 120" role="img" aria-label="good luck"></svg>
+      <svg class="cur" id="cur" viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M5 2.6v16.2l4-3.9 2.6 6 2.7-1.2-2.6-5.9h5.6z" fill="#fff"/><path d="M6.2 5.4v10.6l2.9-2.8 2.8 6.3.6-.3-2.7-6.2h4.1z" fill="#111"/>
+      </svg>
+    </div>
+  </div>
+
+  <div class="tools" id="tools">
+    <button class="ghost" id="play">Replay</button>
+    <span class="hint" id="hint">Press Later as many times as you like</span>
+    <button class="ghost" id="snd" aria-pressed="true">Sound on</button>
+    <div class="seg-ctl" id="theme" role="group" aria-label="Theme">
+      <button data-theme="light">Light</button>
+      <button data-theme="dark">Dark</button>
+    </div>
+  </div>
+</div>
+<script src="sound.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
