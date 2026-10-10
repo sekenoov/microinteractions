@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pinch</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="stage" id="stage">
+  <div class="world" id="world">
+    <div class="deck" id="deck">
+      <section class="panel chat" id="chat">
+        <header class="chead">
+          <span class="ctitle">Flat sourdough</span>
+        </header>
+        <div class="hud" id="hud" aria-live="polite">
+          <span class="hn"><span class="hv"></span> <span class="hl">lines</span></span>
+          <span class="ticks"><i></i><i></i><i></i><i></i></span>
+        </div>
+        <div class="thread"><div class="tin"></div></div>
+        <div class="composer">
+          <div class="cfield"><div class="ctext"></div></div>
+          <button class="icb" aria-label="Dictate" tabindex="-1">
+            <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="7" y="2.6" width="6" height="10" rx="3"/><path d="M4.4 9.6a5.6 5.6 0 0 0 11.2 0M10 15.3v2.3" stroke-linecap="round"/></svg>
+          </button>
+          <button class="send dim" aria-label="Send" tabindex="-1">
+            <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><path d="M10 16V4.6M4.8 9.8L10 4.4l5.2 5.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </div>
+        <span class="touch" id="t1"></span>
+        <span class="touch" id="t2"></span>
+      </section>
+    </div>
+  </div>
+
+  <div class="say" id="say" aria-live="polite"><span></span><span></span></div>
+
+  <div class="tools" id="tools">
+    <button class="ghost" id="play">Replay</button>
+    <button class="ghost" id="reset">Reset</button>
+    <span class="hint">Pinch the answer, or press − and +</span>
+    <div class="seg-ctl" id="theme" role="group" aria-label="Theme">
+      <button data-theme="light">Light</button>
+      <button data-theme="dark">Dark</button>
+    </div>
+  </div>
+</div>
+<script src="script.js"></script>
+</body>
+</html>
