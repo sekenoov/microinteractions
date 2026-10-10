@@ -1,0 +1,303 @@
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Inter", "Helvetica Neue", Arial, sans-serif;
+  overflow: hidden;
+  background: #000;
+}
+
+/* ---------- switcher ---------- */
+.switcher {
+  position: fixed;
+  top: 18px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+  display: flex;
+  gap: 4px;
+  padding: 5px;
+  background: rgba(20, 20, 22, 0.55);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 999px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.25);
+}
+.switcher__btn {
+  appearance: none;
+  border: none;
+  background: transparent;
+  color: rgba(255,255,255,0.55);
+  font-size: 12.5px;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  padding: 8px 14px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: color .2s ease, background .2s ease;
+  font-family: inherit;
+  white-space: nowrap;
+}
+.switcher__btn:hover { color: rgba(255,255,255,0.85); }
+.switcher__btn.is-active {
+  background: #fff;
+  color: #111;
+}
+
+/* ---------- layout ---------- */
+.stage-wrap {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+}
+.demo {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity .35s ease;
+}
+.demo.is-active {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+.stage {
+  width: 640px;
+  height: 640px;
+  max-width: 92vw;
+  max-height: 92vw;
+  border-radius: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+/* =====================================================
+   1. IRON FILINGS
+===================================================== */
+.stage--iron {
+  background: radial-gradient(120% 100% at 50% 20%, #16181c, #08090b 70%);
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.05);
+}
+#iron-canvas { width: 100%; height: 100%; display: block; cursor: none; }
+
+/* =====================================================
+   2. LIQUID METAL TYPOGRAPHY
+===================================================== */
+.stage--metal {
+  background: radial-gradient(120% 100% at 50% 15%, #1b1d20, #101113 70%);
+}
+#metal-canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+  cursor: none;
+  filter: url(#goo);
+}
+.metal-input-wrap {
+  position: absolute;
+  left: 50%;
+  bottom: 9%;
+  transform: translateX(-50%);
+  width: 78%;
+  max-width: 380px;
+  z-index: 5;
+}
+.metal-input {
+  width: 100%;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid rgba(255,255,255,0.16);
+  color: rgba(235,238,241,0.85);
+  font-family: -apple-system, "Helvetica Neue", Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-align: center;
+  text-transform: uppercase;
+  padding: 0 4px 10px;
+  outline: none;
+  transition: border-color .25s ease;
+}
+.metal-input::placeholder {
+  color: rgba(255,255,255,0.28);
+  text-transform: none;
+  letter-spacing: 0.02em;
+}
+.metal-input:focus {
+  border-bottom-color: rgba(255,255,255,0.55);
+}
+
+/* =====================================================
+   3. CAUSTICS
+===================================================== */
+.stage--caustics {
+  background: #020c0f;
+}
+#caustics-canvas {
+  width: 92%;
+  height: 60%;
+  border-radius: 18px;
+  cursor: none;
+  box-shadow: 0 30px 80px rgba(0, 180, 200, 0.12), inset 0 0 0 1px rgba(255,255,255,0.06);
+}
+.caustics-label {
+  position: absolute;
+  bottom: 14%;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(180, 230, 240, 0.35);
+  pointer-events: none;
+}
+
+/* =====================================================
+   4. INK DIFFUSION
+===================================================== */
+.stage--ink {
+  background: radial-gradient(120% 100% at 50% 10%, #f6f0e0, #e9e0cb 75%);
+}
+#ink-canvas {
+  width: 460px;
+  height: 460px;
+  max-width: 82%;
+  max-height: 82%;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow:
+    0 30px 70px rgba(60, 45, 20, 0.22),
+    inset 0 2px 6px rgba(255,255,255,0.6),
+    inset 0 -10px 24px rgba(90, 65, 30, 0.12);
+}
+.ink-label {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(70, 50, 25, 0.45);
+  pointer-events: none;
+  transition: opacity .4s ease;
+}
+.ink-label.is-hidden { opacity: 0; }
+
+/* =====================================================
+   5. CHROMATIC LOUPE
+===================================================== */
+.stage--loupe {
+  background: #07070a;
+  cursor: none;
+}
+#loupe-scene {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+.loupe-lens {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  left: 0;
+  top: 0;
+  pointer-events: none;
+}
+.loupe-glass {
+  position: absolute;
+  width: 220px;
+  height: 220px;
+  left: -110px;
+  top: -110px;
+  border-radius: 50%;
+  overflow: hidden;
+  background: #000;
+  box-shadow:
+    0 24px 55px rgba(0,0,0,0.6),
+    inset 0 0 0 1px rgba(255,255,255,0.12);
+}
+#loupe-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+.loupe-rim {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  box-shadow:
+    inset 0 4px 10px rgba(255,255,255,0.35),
+    inset 0 -8px 18px rgba(0,0,0,0.55),
+    inset 0 0 0 2px rgba(255,255,255,0.18);
+  pointer-events: none;
+}
+.loupe-glare {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  pointer-events: none;
+  background: conic-gradient(
+    from var(--glare-angle, 0deg),
+    rgba(255,255,255,0) 0deg,
+    rgba(255,255,255,0.35) 8deg,
+    rgba(255,255,255,0) 22deg,
+    rgba(255,255,255,0) 340deg
+  );
+  mix-blend-mode: screen;
+}
+.loupe-handle {
+  position: absolute;
+  width: 18px;
+  height: 130px;
+  left: 68px;
+  top: 68px;
+  border-radius: 9px;
+  background: linear-gradient(90deg, #2a2a2e, #55565c 35%, #2a2a2e);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.5), inset 0 0 0 1px rgba(255,255,255,0.08);
+  transform-origin: 0 0;
+  transform: rotate(45deg);
+}
+.loupe-handle::after {
+  content: '';
+  position: absolute;
+  left: -4px;
+  right: -4px;
+  top: -6px;
+  height: 20px;
+  border-radius: 10px;
+  background: linear-gradient(180deg, #6b6c72, #38393d);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.4);
+}
+.loupe-zoom {
+  position: absolute;
+  bottom: 8%;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: rgba(255,255,255,0.75);
+  font-variant-numeric: tabular-nums;
+  pointer-events: none;
+}
+.loupe-hint {
+  position: absolute;
+  bottom: 4%;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 10.5px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.3);
+  pointer-events: none;
+}

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>microinteractions v2</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <nav class="switcher" id="switcher">
+    <button class="switcher__btn is-active" data-demo="iron">Iron Filings</button>
+    <button class="switcher__btn" data-demo="metal">Liquid Metal</button>
+    <button class="switcher__btn" data-demo="caustics">Caustics</button>
+    <button class="switcher__btn" data-demo="ink">Ink Diffusion</button>
+    <button class="switcher__btn" data-demo="loupe">Chromatic Loupe</button>
+  </nav>
+
+  <main class="stage-wrap">
+
+    <section class="demo is-active" id="demo-iron" data-bg="#08090b">
+      <div class="stage stage--iron">
+        <canvas id="iron-canvas"></canvas>
+      </div>
+    </section>
+
+    <section class="demo" id="demo-metal" data-bg="#101113">
+      <div class="stage stage--metal">
+        <svg width="0" height="0">
+          <filter id="goo" x="-50%" y="-50%" width="200%" height="200%">
+            <feGaussianBlur in="SourceGraphic" stdDeviation="5" result="blur"/>
+            <feColorMatrix in="blur" mode="matrix"
+              values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 22 -9" result="goo"/>
+            <feComposite in="SourceGraphic" in2="goo" operator="atop"/>
+          </filter>
+          <linearGradient id="metalGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#f4f6f8"/>
+            <stop offset="45%" stop-color="#aeb6c0"/>
+            <stop offset="55%" stop-color="#7a828c"/>
+            <stop offset="100%" stop-color="#e8ecef"/>
+          </linearGradient>
+        </svg>
+        <canvas id="metal-canvas"></canvas>
+        <div class="metal-input-wrap">
+          <input type="text" id="metal-input" class="metal-input" value="FLOW" maxlength="18" autocomplete="off" spellcheck="false" placeholder="type anything">
+        </div>
+      </div>
+    </section>
+
+    <section class="demo" id="demo-caustics" data-bg="#020c0f">
+      <div class="stage stage--caustics">
+        <canvas id="caustics-canvas"></canvas>
+        <div class="caustics-label">move · press</div>
+      </div>
+    </section>
+
+    <section class="demo" id="demo-ink" data-bg="#efe8d8">
+      <div class="stage stage--ink">
+        <canvas id="ink-canvas"></canvas>
+        <div class="ink-label" id="ink-label">hold to bloom</div>
+      </div>
+    </section>
+
+    <section class="demo" id="demo-loupe" data-bg="#07070a">
+      <div class="stage stage--loupe">
+        <canvas id="loupe-scene"></canvas>
+        <div class="loupe-lens" id="loupe-lens">
+          <div class="loupe-handle"></div>
+          <div class="loupe-glass">
+            <canvas id="loupe-canvas"></canvas>
+            <div class="loupe-glare"></div>
+            <div class="loupe-rim"></div>
+          </div>
+        </div>
+        <div class="loupe-zoom" id="loupe-zoom">2.4×</div>
+        <div class="loupe-hint">scroll to zoom</div>
+      </div>
+    </section>
+
+  </main>
+
+  <script src="js/ironfilings.js"></script>
+  <script src="js/liquidmetal.js"></script>
+  <script src="js/caustics.js"></script>
+  <script src="js/inkdiffusion.js"></script>
+  <script src="js/loupe.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
