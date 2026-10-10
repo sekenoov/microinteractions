@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mascot</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="stage">
+  <section class="card" id="card">
+    <canvas id="gl" width="1040" height="1040"></canvas>
+
+    <div class="ripple" id="ripple"></div>
+    <div class="tapchip" id="chip"><span id="chipTxt">pat</span></div>
+
+    <div class="hud">
+      <div class="picker" id="picker" role="group" aria-label="Character">
+        <span class="thumb" id="thumb"></span>
+      </div>
+      <button class="gear" id="gear" aria-label="Theme">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true">
+          <circle cx="8" cy="8" r="2.3"/>
+          <path d="M8 1.6v1.7M8 12.7v1.7M14.4 8h-1.7M3.3 8H1.6M12.5 3.5l-1.2 1.2M4.7 11.3l-1.2 1.2M12.5 12.5l-1.2-1.2M4.7 4.7L3.5 3.5" stroke-linecap="round"/>
+        </svg>
+      </button>
+    </div>
+  </section>
+
+  <p class="hint">Pet the head, tug an ear, boop the nose</p>
+</div>
+<script src="script.js"></script>
+</body>
+</html>
