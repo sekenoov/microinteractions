@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Touch grass</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="stage" id="stage">
+  <div class="world" id="world">
+    <div class="zoom" id="zoom">
+      <div class="phone" id="phone">
+        <span class="sb sb-act"></span><span class="sb sb-up"></span><span class="sb sb-dn"></span>
+        <span class="sb sb-pwr"></span><span class="sb sb-cam"></span>
+        <div class="bezel"></div>
+        <div class="screen" id="screen">
+          <div class="bub" id="bub">what should i do this weekend?</div>
+          <span class="mtext" id="mtext" aria-hidden="true">touch</span>
+
+          <canvas class="lawn" id="lawn" role="img" aria-label="touch grass."></canvas>
+
+          <div class="acts" id="acts">
+            <button class="act" tabindex="-1" aria-label="Copy"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"><rect x="7" y="7" width="9.5" height="9.5" rx="2"/><path d="M13 7V5.5a2 2 0 0 0-2-2H5.5a2 2 0 0 0-2 2V11a2 2 0 0 0 2 2H7"/></svg></button>
+            <button class="act" tabindex="-1" aria-label="Good response"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 9.2v7.3H4.2a1 1 0 0 1-1-1V10.2a1 1 0 0 1 1-1z"/><path d="M6.5 9.2l3-5.6c1.2 0 2.1 1 1.9 2.2l-.5 2.6h4.3a1.6 1.6 0 0 1 1.6 1.9l-1 5a1.6 1.6 0 0 1-1.6 1.2H6.5"/></svg></button>
+            <button class="act" tabindex="-1" aria-label="Bad response"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13.5 10.8V3.5h2.3a1 1 0 0 1 1 1v5.3a1 1 0 0 1-1 1z"/><path d="M13.5 10.8l-3 5.6c-1.2 0-2.1-1-1.9-2.2l.5-2.6H4.8a1.6 1.6 0 0 1-1.6-1.9l1-5a1.6 1.6 0 0 1 1.6-1.2h7.7"/></svg></button>
+            <button class="act" id="retry" aria-label="Retry"><svg id="spin" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 10a6 6 0 1 1-1.8-4.3"/><path d="M14.6 2.8v3.2h-3.2"/></svg></button>
+          </div>
+
+          <header class="top">
+            <div class="status">
+              <span class="clock">10:14</span>
+              <span class="island"></span>
+              <span class="sys" aria-hidden="true">
+                <svg class="sig" viewBox="0 0 18 12"><rect x="0" y="8" width="3" height="4" rx=".8"/><rect x="5" y="5.5" width="3" height="6.5" rx=".8"/><rect x="10" y="3" width="3" height="9" rx=".8"/><rect x="15" y="0" width="3" height="12" rx=".8"/></svg>
+                <svg class="wifi" viewBox="0 0 16 12"><path d="M8 11.6l2.3-2.6a3.3 3.3 0 0 0-4.6 0z"/><path d="M8 5.7a6 6 0 0 1 4.2 1.7l1.3-1.5a8 8 0 0 0-11 0l1.3 1.5A6 6 0 0 1 8 5.7z"/><path d="M8 1.9a9.8 9.8 0 0 1 6.9 2.8l1.1-1.3a11.6 11.6 0 0 0-16 0l1.1 1.3A9.8 9.8 0 0 1 8 1.9z"/></svg>
+                <span class="bat"><span class="bat-in"></span></span>
+              </span>
+            </div>
+            <div class="nav">
+              <span class="icb" aria-hidden="true"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M3.5 6.5h13M3.5 13.5h8"/></svg></span>
+              <span class="title">Weekend plans</span>
+              <span class="icb" aria-hidden="true"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9.5 4H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2v-3.5"/><path d="M14.6 3.4l2 2-6.4 6.4-2.7.7.7-2.7z"/></svg></span>
+            </div>
+          </header>
+
+          <div class="cbg"></div>
+          <div class="field" id="field">
+            <span class="plus" aria-hidden="true"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M10 4v12M4 10h12"/></svg></span>
+            <span class="ph">Reply…</span>
+            <span class="send" aria-hidden="true"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M10 15.6V4.8M5.2 9.4L10 4.6l4.8 4.8"/></svg></span>
+          </div>
+          <div class="home"></div>
+          <div class="touch" id="touch" aria-hidden="true"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="tools" id="tools">
+    <button class="ghost" id="play">Replay</button>
+    <span class="hint" id="hint">Brush the grass, then hit retry</span>
+    <button class="ghost" id="snd" aria-pressed="true">Sound on</button>
+    <div class="seg-ctl" id="theme" role="group" aria-label="Theme">
+      <button data-theme="light">Light</button>
+      <button data-theme="dark">Dark</button>
+    </div>
+  </div>
+</div>
+<script src="sound.js"></script>
+<script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,117 @@
+:root{
+  --bg:#f2f1ed;
+  --bg-2:#e9e7e2;
+  --card:#ffffff;
+  --ink:#1b1a18;
+  --sub:#8d8a83;
+  --sub-2:#a8a49c;
+  --track:#e6e4de;
+  --tile:#f0eeea;
+  --line:rgba(0,0,0,.09);
+  --blue:#2f6fed;
+  --off:#d9d6cf;
+  --metal:#cbc6bd;
+  --metal-hi:rgba(255,255,255,.6);
+  --phone-sh:0 2px 3px rgba(0,0,0,.06),0 46px 90px -34px rgba(0,0,0,.38);
+  --ui:-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  --e:cubic-bezier(.2,.75,.2,1);
+}
+@media(prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#161513;--bg-2:#0e0e0d;--card:#1c1b19;--ink:#f2efe9;--sub:#928e86;--sub-2:#6f6b64;
+    --track:#33302c;--tile:#2e2c29;--line:rgba(255,255,255,.09);--blue:#4f86ff;--off:#3d3a36;
+    --metal:#3b3935;--metal-hi:rgba(255,255,255,.1);
+    --phone-sh:0 2px 3px rgba(0,0,0,.4),0 46px 90px -30px rgba(0,0,0,.85);
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#161513;--bg-2:#0e0e0d;--card:#1c1b19;--ink:#f2efe9;--sub:#928e86;--sub-2:#6f6b64;
+  --track:#33302c;--tile:#2e2c29;--line:rgba(255,255,255,.09);--blue:#4f86ff;--off:#3d3a36;
+  --metal:#3b3935;--metal-hi:rgba(255,255,255,.1);
+  --phone-sh:0 2px 3px rgba(0,0,0,.4),0 46px 90px -30px rgba(0,0,0,.85);
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{font-family:var(--ui);color:var(--ink);background:var(--bg);-webkit-font-smoothing:antialiased;font-size:15px;overflow:hidden}
+button{font-family:var(--ui)}
+
+.stage{position:fixed;inset:0;overflow:hidden;background:radial-gradient(120% 90% at 50% 0%,var(--bg) 30%,var(--bg-2) 100%)}
+.world{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding-bottom:44px}
+.zoom{position:relative;transform-origin:50% 50%;flex:0 0 auto}
+
+/* ───────── телефон: размеры в точках экрана, 402 × 874 ───────── */
+.phone{position:relative;width:424px;height:896px;border-radius:68px;background:var(--metal);box-shadow:var(--phone-sh),inset 0 0 0 .75px var(--metal-hi);user-select:none;-webkit-user-select:none}
+.sb{position:absolute;width:4px;background:var(--metal);border-radius:2px}
+.sb-act{left:-3px;top:178px;height:34px}
+.sb-up{left:-3px;top:244px;height:62px}
+.sb-dn{left:-3px;top:322px;height:62px}
+.sb-pwr{right:-3px;top:272px;height:100px}
+.sb-cam{right:-2px;top:560px;height:58px;width:3px;opacity:.8}
+.bezel{position:absolute;inset:3px;border-radius:65px;background:#060606}
+.screen{position:absolute;left:11px;top:11px;width:402px;height:874px;border-radius:57px;overflow:hidden;background:var(--card);isolation:isolate;touch-action:none}
+
+/* вопрос */
+.bub{position:absolute;right:16px;top:128px;z-index:1;background:var(--tile);border-radius:22px;padding:9px 16px 10px;font-size:21px;line-height:26px;letter-spacing:-.014em;white-space:nowrap}
+/* по этому слову берётся шрифт для маски газона */
+.mtext{position:absolute;left:0;top:0;visibility:hidden;font-weight:800;font-size:112px;line-height:1;letter-spacing:-.025em;white-space:pre}
+
+/* газон: весь экран, травинки и обрезки рисуются в точках экрана */
+.lawn{position:absolute;left:0;top:0;width:402px;height:874px;z-index:2;pointer-events:none}
+
+.acts{position:absolute;left:12px;top:470px;z-index:3;display:flex;gap:4px}
+.act{width:34px;height:34px;border:none;background:none;color:var(--sub);display:grid;place-items:center;border-radius:10px;cursor:pointer;-webkit-tap-highlight-color:transparent;touch-action:manipulation}
+.act svg{width:20px;height:20px;display:block}
+.act.hot{background:var(--tile);color:var(--ink)}
+.act:focus-visible{outline:2px solid var(--blue);outline-offset:1px}
+
+/* шапка */
+.top{position:absolute;left:0;top:0;width:402px;height:104px;z-index:4;background:var(--card);border-bottom:.5px solid var(--line)}
+.status{position:relative;height:54px}
+.clock{position:absolute;left:50px;top:19px;font-size:17px;font-weight:600;letter-spacing:-.02em}
+.island{position:absolute;left:138px;top:11px;width:126px;height:37px;border-radius:19px;background:#000}
+.sys{position:absolute;right:30px;top:22px;display:flex;align-items:center;gap:6px;color:var(--ink)}
+.sys svg{display:block;fill:currentColor}
+.sig{width:18px;height:12px}
+.wifi{width:16px;height:12px}
+.bat{position:relative;width:26px;height:12.5px;border:1px solid currentColor;border-radius:4px;opacity:.95}
+.bat::after{content:"";position:absolute;right:-3.5px;top:3.5px;width:1.6px;height:4px;border-radius:0 1px 1px 0;background:currentColor;opacity:.5}
+.bat-in{position:absolute;left:1.5px;top:1.5px;bottom:1.5px;width:70%;border-radius:2px;background:currentColor}
+.nav{position:relative;height:50px;display:flex;align-items:center;justify-content:space-between;padding:0 12px}
+.icb{width:36px;height:36px;display:grid;place-items:center;color:var(--ink)}
+.icb svg{width:21px;height:21px}
+.title{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);font-size:17px;font-weight:600;letter-spacing:-.02em;white-space:nowrap}
+
+/* поле ввода */
+.cbg{position:absolute;left:0;top:772px;width:402px;height:102px;background:var(--card);z-index:4}
+.field{position:absolute;left:14px;top:786px;width:374px;height:52px;z-index:4;border:.75px solid var(--line);border-radius:26px;background:var(--card);box-shadow:0 1px 4px rgba(0,0,0,.04)}
+.plus{position:absolute;left:11px;top:13px;width:24px;height:24px;color:var(--sub);display:grid;place-items:center}
+.plus svg{width:22px;height:22px}
+.ph{position:absolute;left:44px;top:12px;font-size:21px;line-height:26px;letter-spacing:-.014em;color:var(--sub-2)}
+.send{position:absolute;right:8px;top:8.5px;width:34px;height:34px;border-radius:17px;background:var(--off);color:#fff;display:grid;place-items:center}
+.send svg{width:18px;height:18px;display:block}
+.home{position:absolute;left:131px;bottom:8px;width:140px;height:5px;border-radius:3px;background:var(--ink);z-index:6}
+
+/* касание: как «Show Touches» на записи экрана */
+.touch{position:absolute;left:0;top:0;width:46px;height:46px;margin:-23px 0 0 -23px;border-radius:50%;z-index:7;pointer-events:none;opacity:0;
+  background:rgba(255,255,255,.26);box-shadow:inset 0 0 0 1.5px rgba(255,255,255,.72),0 0 0 .5px rgba(0,0,0,.12),0 3px 12px rgba(0,0,0,.26)}
+
+/* ───────── низ ───────── */
+.tools{position:fixed;left:50%;bottom:20px;transform:translateX(-50%);z-index:90;display:flex;align-items:center;gap:12px;white-space:nowrap}
+.hint{font-size:12px;color:var(--sub-2)}
+.ghost{background:none;border:none;font-size:12px;color:var(--sub);cursor:pointer;padding:6px 4px;min-width:44px;min-height:32px;transition:color .18s var(--e)}
+.ghost:hover{color:var(--ink)}
+.seg-ctl{display:flex;background:var(--track);border-radius:8px;padding:2px}
+.seg-ctl button{border:none;background:none;font-size:11.5px;color:var(--sub);padding:5px 11px;border-radius:6px;cursor:pointer;transition:background .18s var(--e),color .18s var(--e)}
+.seg-ctl button.on{background:var(--card);color:var(--ink);box-shadow:0 1px 2px rgba(0,0,0,.08)}
+.ghost:focus-visible,.seg-ctl button:focus-visible{outline:2px solid var(--blue);outline-offset:2px;border-radius:3px}
+
+@media(max-width:560px){
+  .hint{display:none}
+  .tools{gap:6px}
+}
+
+/* запись ролика: кадр 1080×1350, телефон крупно, низ обрезан, панели нет */
+.rec .tools{display:none}
+.rec .world{align-items:flex-start;padding:0}
+.rec .zoom{transform-origin:50% 0}
