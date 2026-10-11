@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Online</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="stage" id="stage">
+  <div class="world">
+    <div class="frame" id="frame">
+      <canvas class="cv" id="cv" role="img" aria-label="Monday, 8:59 AM. I set my status to Active and the green dot works like a porch light: messages fly in from every edge like moths and bump into it. I switch to Away, they scatter. Silence. One message from my manager flies in and knocks on the gray dot: you there? I switch back: sorry, just saw this. The swarm returns."></canvas>
+    </div>
+  </div>
+  <div class="tools" id="tools">
+    <button class="ghost" id="play">Replay</button>
+    <button class="ghost" id="try" aria-pressed="false">Try it</button>
+    <span class="hint" id="hint">Toggle your status</span>
+    <button class="ghost" id="snd" aria-pressed="true">Sound on</button>
+    <div class="seg-ctl" id="theme" role="group" aria-label="Monday, 8:59 AM. I set my status to Active and the green dot works like a porch light: messages fly in from every edge like moths and bump into it. I switch to Away, they scatter. Silence. One message from my manager flies in and knocks on the gray dot: you there? I switch back: sorry, just saw this. The swarm returns.">
+      <button data-theme="light">Light</button>
+      <button data-theme="dark">Dark</button>
+    </div>
+  </div>
+</div>
+<script src="sound.js"></script>
+<script src="script.js"></script>
+</body>
+</html>

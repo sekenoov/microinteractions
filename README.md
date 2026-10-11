@@ -10,6 +10,7 @@ then go to http://localhost:5251/<folder>/. Most pieces with a video have 4:5 re
 
 | Folder | What it is |
 | --- | --- |
+| [online-moth-status](online-moth-status/) | messages fly to the green Active dot like moths to a porch light |
 | [good-mute-pile](good-mute-pile/) | a weekend story told on mute piles up in your call tile |
 | [still-watching-magnet](still-watching-magnet/) | Continue Watching pulls the cursor away from Back like a magnet |
 | [thank-god-drop-out](thank-god-drop-out/) | friends cancel brunch and drop out of the group header |
