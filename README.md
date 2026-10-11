@@ -10,6 +10,7 @@ then go to http://localhost:5251/<folder>/. Most pieces with a video have 4:5 re
 
 | Folder | What it is |
 | --- | --- |
+| [thank-god-drop-out](thank-god-drop-out/) | friends cancel brunch and drop out of the group header |
 | [you-pick-ping-pong](you-pick-ping-pong/) | lunch indecision as a ping-pong rally |
 | [anyway-do-not-disturb](anyway-do-not-disturb/) | Do Not Disturb blocks the boss until time sensitive |
 | [hbd-deleted-words](hbd-deleted-words/) | deleted words pile up on the keyboard |
