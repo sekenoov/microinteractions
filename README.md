@@ -10,6 +10,7 @@ then go to http://localhost:5251/<folder>/. Most pieces with a video have 4:5 re
 
 | Folder | What it is |
 | --- | --- |
+| [priority-verified-shove](priority-verified-shove/) | a reply with a blue check elbows its way to the top of the thread, until a bigger one shows up |
 | [online-moth-status](online-moth-status/) | messages fly to the green Active dot like moths to a porch light |
 | [good-mute-pile](good-mute-pile/) | a weekend story told on mute piles up in your call tile |
 | [still-watching-magnet](still-watching-magnet/) | Continue Watching pulls the cursor away from Back like a magnet |

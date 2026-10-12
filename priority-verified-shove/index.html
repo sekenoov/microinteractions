@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Priority</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="stage" id="stage">
+  <div class="world">
+    <div class="frame" id="frame">
+      <canvas class="cv" id="cv" role="img" aria-label="A thread under a big post with 4.2K replies. I reply: this is so true. My reply has a blue check, so it elbows its way up, knocking every reply above it aside, until it sits right under the post. The author answers: who? Then another verified reply, this is SO true, rockets up from the bottom and knocks mine off the screen. The who? now sits under his."></canvas>
+    </div>
+  </div>
+  <div class="tools" id="tools">
+    <button class="ghost" id="play">Replay</button>
+    <button class="ghost" id="try" aria-pressed="false">Try it</button>
+    <span class="hint" id="hint">Tap Reply, then keep tapping</span>
+    <button class="ghost" id="snd" aria-pressed="true">Sound on</button>
+    <div class="seg-ctl" id="theme" role="group" aria-label="Theme">
+      <button data-theme="light">Light</button>
+      <button data-theme="dark">Dark</button>
+    </div>
+  </div>
+</div>
+<script src="sound.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
