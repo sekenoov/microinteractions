@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Strength</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="stage" id="stage">
+  <div class="world">
+    <div class="frame" id="frame">
+      <canvas class="cv" id="cv" role="img" aria-label="A Create password form. The password strength meter stands upright like a fairground high striker with a bell on top, and the Continue button is the head of a mallet. I type password1 and press Continue: the mallet slams the lever, the puck barely lifts to Weak and the field shakes. I type correct horse battery staple and press Continue again: the puck shoots up through Fair and Good and rings the bell. Strong. Then the form asks to confirm the password."></canvas>
+    </div>
+  </div>
+  <div class="tools" id="tools">
+    <button class="ghost" id="play">Replay</button>
+    <button class="ghost" id="try" aria-pressed="false">Try it</button>
+    <span class="hint" id="hint">Tap Continue</span>
+    <button class="ghost" id="snd" aria-pressed="true">Sound on</button>
+    <div class="seg-ctl" id="theme" role="group" aria-label="Theme">
+      <button data-theme="light">Light</button>
+      <button data-theme="dark">Dark</button>
+    </div>
+  </div>
+</div>
+<script src="sound.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
