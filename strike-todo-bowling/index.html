@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Strike</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="stage" id="stage">
+  <div class="world">
+    <div class="frame" id="frame">
+      <canvas class="cv" id="cv" role="img" aria-label="A to-do list for today with ten tasks. The rows stand up one by one and become bowling pins at the end of a lane. A blue check mark ball is pulled back and thrown: strike, nine tasks fly off checked. The last pin, do taxes, wobbles and stays standing. The second ball rolls straight at it and drops into the gutter right before. The list comes back: nine done, and do taxes lies down under Tomorrow."></canvas>
+    </div>
+  </div>
+  <div class="tools" id="tools">
+    <button class="ghost" id="play">Replay</button>
+    <button class="ghost" id="try" aria-pressed="false">Try it</button>
+    <span class="hint" id="hint">Tap to bowl</span>
+    <button class="ghost" id="snd" aria-pressed="true">Sound on</button>
+    <div class="seg-ctl" id="theme" role="group" aria-label="Theme">
+      <button data-theme="light">Light</button>
+      <button data-theme="dark">Dark</button>
+    </div>
+  </div>
+</div>
+<script src="sound.js"></script>
+<script src="script.js"></script>
+</body>
+</html>

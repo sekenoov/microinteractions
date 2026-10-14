@@ -10,6 +10,7 @@ then go to http://localhost:5251/<folder>/. Most pieces with a video have 4:5 re
 
 | Folder | What it is |
 | --- | --- |
+| [strike-todo-bowling](strike-todo-bowling/) | today’s to-do list stands up as bowling pins: nine fall, do taxes never does |
 | [unsubscribe-whack-a-mole](unsubscribe-whack-a-mole/) | unsubscribing from promo emails is whack-a-mole, until all nine come back at once |
 | [strength-high-striker](strength-high-striker/) | the password strength meter is a high striker: password1 barely lifts the puck, a passphrase rings the bell |
 | [sticker-verified-peel](sticker-verified-peel/) | the blue check is a sticker: you keep rubbing the corners down until the payment fails |
