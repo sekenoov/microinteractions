@@ -10,6 +10,7 @@ then go to http://localhost:5251/<folder>/. Most pieces with a video have 4:5 re
 
 | Folder | What it is |
 | --- | --- |
+| [unsubscribe-whack-a-mole](unsubscribe-whack-a-mole/) | unsubscribing from promo emails is whack-a-mole, until all nine come back at once |
 | [strength-high-striker](strength-high-striker/) | the password strength meter is a high striker: password1 barely lifts the puck, a passphrase rings the bell |
 | [sticker-verified-peel](sticker-verified-peel/) | the blue check is a sticker: you keep rubbing the corners down until the payment fails |
 | [priority-verified-shove](priority-verified-shove/) | a reply with a blue check elbows its way to the top of the thread, until a bigger one shows up |
