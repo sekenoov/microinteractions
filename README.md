@@ -10,6 +10,7 @@ then go to http://localhost:5251/<folder>/. Most pieces with a video have 4:5 re
 
 | Folder | What it is |
 | --- | --- |
+| [lowpower-honey-keyboard](lowpower-honey-keyboard/) | at 1% low power mode turns the keyboard to honey, and the phone dies right on send |
 | [compress-hydraulic-press](compress-hydraulic-press/) | a hydraulic press squeezes 48 MB of files into a 47.9 MB zip |
 | [strike-todo-bowling](strike-todo-bowling/) | today’s to-do list stands up as bowling pins: nine fall, do taxes never does |
 | [unsubscribe-whack-a-mole](unsubscribe-whack-a-mole/) | unsubscribing from promo emails is whack-a-mole, until all nine come back at once |

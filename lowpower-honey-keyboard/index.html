@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Low Power</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="stage" id="stage">
+  <div class="world" id="world">
+    <div class="zoom" id="zoom">
+      <div class="phone" id="phone">
+        <span class="sb sb-act"></span><span class="sb sb-up"></span><span class="sb sb-dn"></span>
+        <span class="sb sb-pwr"></span><span class="sb sb-cam"></span>
+        <div class="bezel"></div>
+        <div class="screen" id="screen">
+          <canvas class="cv" id="cv"></canvas>
+          <span class="island"></span>
+          <div class="home"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="tools" id="tools">
+    <button class="ghost" id="play">Replay</button>
+    <span class="hint" id="hint">Tap the screen to replay</span>
+    <button class="ghost" id="snd" aria-pressed="true">Sound on</button>
+    <div class="seg-ctl" id="theme" role="group" aria-label="Theme">
+      <button data-theme="light">Light</button>
+      <button data-theme="dark">Dark</button>
+    </div>
+  </div>
+</div>
+<script src="sound.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
