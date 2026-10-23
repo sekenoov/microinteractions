@@ -8,6 +8,18 @@ python3 -m http.server 5251
 
 then go to http://localhost:5251/<folder>/. Most pieces with a video have 4:5 recordings next to the code.
 
+## Landing pages
+
+Desktop landing page concepts in [landing-pages](landing-pages/). Each hero is a short animation with sound, recorded at 16:9.
+
+| Folder | What it is |
+| --- | --- |
+| [couchette-split-flap](landing-pages/couchette-split-flap/) | night train company, the headline is a split-flap board that flips to your berth when you book |
+| [two-coats-paint-fan](landing-pages/two-coats-paint-fan/) | paint shop, the swatch you pick from the fan deck becomes the whole page |
+| [overprint-riso-press](landing-pages/overprint-riso-press/) | riso print studio, the page prints in three inks and never registers closer than 2 px |
+
+## Microinteractions
+
 | Folder | What it is |
 | --- | --- |
 | [lowpower-honey-keyboard](lowpower-honey-keyboard/) | at 1% low power mode turns the keyboard to honey, and the phone dies right on send |
