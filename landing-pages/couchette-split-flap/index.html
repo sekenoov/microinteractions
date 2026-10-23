@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Couchette, night trains</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600&family=Inter+Tight:wght@400;500;600&display=block" rel="stylesheet">
+<style>
+:root{--bg:#0e0e0d;--ink:#ece4d3;--mid:#8d8778;--low:#57534a;--amber:#f2a33a;--line:rgba(236,228,211,.12);--flap:#1d1c1a;--flap2:#181715}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:var(--bg);color:var(--ink);font-family:'Inter Tight',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+body{width:1440px;height:810px;overflow:hidden;position:relative}
+a{color:inherit;text-decoration:none}
+
+nav{position:absolute;left:0;right:0;top:0;height:76px;padding:0 56px;display:flex;align-items:center;border-bottom:1px solid var(--line)}
+.brand{display:flex;align-items:center;gap:10px;font-weight:600;font-size:19px;letter-spacing:-.01em}
+.brand svg{width:20px;height:20px}
+.links{display:flex;gap:34px;margin-left:72px;font-size:15px;color:var(--mid)}
+.links a.on{color:var(--ink);box-shadow:inset 0 -1px 0 var(--ink);padding-bottom:3px}
+.right{margin-left:auto;display:flex;gap:28px;align-items:center;font-size:15px;color:var(--mid)}
+.right .eur{color:var(--ink)}
+
+.board{position:absolute;left:56px;top:116px;display:grid;grid-template-columns:repeat(12,72px);gap:8px 6px}
+.c{position:relative;width:72px;height:100px;perspective:420px;box-shadow:0 3px 6px rgba(0,0,0,.45);border-radius:5px;font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:86px;color:var(--ink)}
+.c .h{position:absolute;left:0;right:0;height:50%;overflow:hidden;background:var(--flap);backface-visibility:hidden}
+.c .h span{position:absolute;left:0;right:0;height:100px;line-height:100px;text-align:center}
+.c .t{top:0;border-radius:5px 5px 0 0;background:linear-gradient(#22211e,var(--flap));box-shadow:inset 0 1px 0 rgba(255,255,255,.05)}
+.c .b{bottom:0;border-radius:0 0 5px 5px;background:linear-gradient(var(--flap2),#141311)}
+.c .b span{top:-50px}
+.c .fl{top:0;border-radius:5px 5px 0 0;transform-origin:50% 100%;background:linear-gradient(#22211e,var(--flap));z-index:2}
+.c .fr{bottom:0;border-radius:0 0 5px 5px;transform-origin:50% 0;background:linear-gradient(var(--flap2),#141311);z-index:2}
+.c .fr span{top:-50px}
+.c::after{content:'';position:absolute;left:0;right:0;top:50%;height:2px;margin-top:-1px;background:var(--bg);z-index:3}
+.c::before{content:'';position:absolute;left:-1px;top:50%;width:4px;height:12px;margin-top:-6px;background:#2c2a26;border-radius:1px;z-index:4;box-shadow:72px 0 0 #2c2a26}
+
+.lede{position:absolute;left:56px;top:588px;width:560px;font-size:20px;line-height:1.45;color:var(--mid)}
+.lede b{color:var(--ink);font-weight:500}
+.ctas{position:absolute;left:56px;top:680px;display:flex;gap:26px;align-items:center}
+.btn{height:52px;padding:0 26px;border-radius:6px;background:var(--amber);color:#1a1206;font-weight:600;font-size:16px;display:flex;align-items:center;gap:10px;transition:none}
+.btn.hov{background:#ffb853}
+.btn.down{background:#e8952a;transform:scale(.97)}
+.ghost{font-size:16px;color:var(--ink);font-weight:500}
+.ghost span{color:var(--mid);margin-left:6px}
+
+.tonight{position:absolute;left:1056px;top:116px;width:328px}
+.tonight h2{font-size:14px;font-weight:500;color:var(--mid);display:flex;justify-content:space-between;padding-bottom:14px;border-bottom:1px solid var(--line)}
+.tonight h2 i{font-style:normal;color:var(--low)}
+.row{position:relative;display:grid;grid-template-columns:86px 1fr;align-items:center;height:74px;border-bottom:1px solid var(--line);padding:0 12px;margin:0 -12px;border-radius:0}
+.row .tm{font-family:'Barlow Condensed',sans-serif;font-weight:500;font-size:32px;letter-spacing:.01em}
+.row .rt{font-size:15px;line-height:1.35}
+.row .rt small{display:block;color:var(--mid);font-size:13px}
+.row .st{position:absolute;right:12px;top:16px;font-size:12px;color:var(--mid)}
+.row .st.live{color:var(--amber)}
+.row .st.done{color:var(--ink)}
+.row .st.done::before{background:var(--ink)}
+.row .st.live::before{content:'';display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--amber);margin-right:6px;vertical-align:1px}
+.row .bg{position:absolute;inset:0;background:rgba(236,228,211,.06);opacity:0}
+.row .bar{position:absolute;left:0;top:14px;bottom:14px;width:2px;background:var(--amber);opacity:0}
+.more{margin-top:18px;font-size:14px;color:var(--mid)}
+
+.foot{position:absolute;left:56px;right:56px;bottom:0;height:0}
+#cur{position:absolute;left:0;top:0;width:22px;height:30px;z-index:50;pointer-events:none;will-change:transform}
+</style>
+</head>
+<body>
+<nav>
+  <a class="brand" href="#"><svg viewBox="0 0 20 20"><path d="M13.6 2.2A8 8 0 1 0 17.8 14 6.6 6.6 0 0 1 13.6 2.2Z" fill="#ece4d3"/></svg>Couchette</a>
+  <div class="links"><a class="on" href="#">Routes</a><a href="#">Cabins</a><a href="#">Night menu</a><a href="#">Help</a></div>
+  <div class="right"><span class="eur">EUR</span><a href="#">My trips</a><a href="#">Sign in</a></div>
+</nav>
+
+<h1 class="board" id="board" aria-label="Go to sleep in Paris. Wake up in Vienna."></h1>
+
+<p class="lede" id="lede">Overnight trains across Europe. <b>Lie down in one city, wake up in another.</b> Private cabins from €89, breakfast included.</p>
+<div class="ctas" id="ctas"><a class="btn" id="book" href="#">Book a cabin</a><a class="ghost" href="#">All 12 routes<span>→</span></a></div>
+
+<aside class="tonight" id="tonight">
+  <h2>Departing tonight <i>21:58</i></h2>
+  <div class="row"><div class="bg"></div><div class="bar"></div><span class="tm">22:14</span><span class="rt">Paris → Vienna<small>Arrives 09:02 · from €89</small></span><span class="st">On time</span></div>
+  <div class="row"><div class="bg"></div><div class="bar"></div><span class="tm">22:40</span><span class="rt">Berlin → Zurich<small>Arrives 08:15 · from €94</small></span><span class="st live">Boarding</span></div>
+  <div class="row"><div class="bg"></div><div class="bar"></div><span class="tm">23:05</span><span class="rt">Milan → Munich<small>Arrives 07:48 · from €72</small></span><span class="st">On time</span></div>
+  <div class="row"><div class="bg"></div><div class="bar"></div><span class="tm">23:30</span><span class="rt">Brussels → Prague<small>Arrives 10:20 · from €99</small></span><span class="st">+10 min</span></div>
+  <p class="more">Full timetable →</p>
+</aside>
+
+<svg id="cur" viewBox="0 0 22 30"><path d="M2 2v22.5l5.6-5.3 3.6 8.3 3.6-1.6-3.5-8.1h7.7z" fill="#000" stroke="#fff" stroke-width="1.6" stroke-linejoin="round"/></svg>
+
+<script>
+const AL=' ABCDEFGHIJKLMNOPQRSTUVWXYZ.,0123456789:',COLS=12;
+const pad=s=>s.padEnd(COLS,' ');
+// три надписи табло: исходная, после ховера по рейсу, после брони
+const TX=[['GO TO SLEEP','IN PARIS.','WAKE UP','IN VIENNA.'],['GO TO SLEEP','IN BERLIN.','WAKE UP','IN ZURICH.'],['CABIN 14.','LOWER BERTH.','PLATFORM 3.','SLEEP WELL.']].map(x=>x.map(pad));
+// тайминг
+const T_HOV=2.45,T_CLICK=4.2,T_FIN=4.3;
+let seed=5;const rnd=()=>(seed=(seed*16807)%2147483647)/2147483647;
+const walk=(from,to)=>{const a=AL.indexOf(from),n=(AL.indexOf(to)-a+AL.length)%AL.length,out=[from];for(let k=1;k<=n;k++)out.push(AL[(a+k)%AL.length]);return out};
+// при смене надписи пластинки не крутят весь алфавит, а пролистывают 6–11 знаков до нужного
+const shortWalk=(from,to)=>{if(from===to)return [from];const n=6+Math.floor(rnd()*6),b=AL.indexOf(to),out=[from];for(let k=n-1;k>=0;k--)out.push(AL[(b-k+AL.length*2)%AL.length]);return out};
+const board=document.getElementById('board'),cells=[];
+for(let r=0;r<4;r++)for(let c=0;c<COLS;c++){
+  const el=document.createElement('div');el.className='c';
+  el.innerHTML='<div class="h t"><span></span></div><div class="h b"><span></span></div><div class="h fl"><span></span></div><div class="h fr"><span></span></div>';
+  board.appendChild(el);
+  const q=s=>el.querySelector(s),ch=i=>TX[i][r][c];
+  const st=[{s:0.15+r*0.08+c*0.025,d:0.034,seq:walk(' ',ch(0))},
+            {s:T_HOV+0.06+(r===3?0.1:0)+c*0.025,d:0.034,seq:shortWalk(ch(0),ch(1))},
+            {s:T_FIN+r*0.07+c*0.02,d:0.032,seq:shortWalk(ch(1),ch(2))}];
+  cells.push({t:q('.t span'),b:q('.b span'),fl:q('.fl'),fls:q('.fl span'),fr:q('.fr'),frs:q('.fr span'),st,last:{},col:c,row:r});
+}
+const set=(cell,k,el,v)=>{if(cell.last[k]!==v){cell.last[k]=v;el.textContent=v}};
+const sty=(el,k,v)=>{if(el['_'+k]!==v){el['_'+k]=v;el.style[k]=v}};
+function cellAt(cell,t){
+  let cur=' ',nxt=' ',ph=-1;
+  for(const s of cell.st){
+    if(t<s.s)break;
+    const k=(t-s.s)/s.d,n=s.seq.length-1;
+    if(k>=n){cur=s.seq[n];ph=-1}else{const i=Math.floor(k);cur=s.seq[i];nxt=s.seq[i+1];ph=k-i}
+  }
+  if(ph<0){set(cell,'t',cell.t,cur);set(cell,'b',cell.b,cur);sty(cell.fl,'display','none');sty(cell.fr,'display','none');return}
+  set(cell,'t',cell.t,nxt);set(cell,'b',cell.b,cur);set(cell,'fl',cell.fls,cur);set(cell,'fr',cell.frs,nxt);
+  if(ph<0.5){const p=(ph/0.5)**1.6;sty(cell.fl,'display','block');sty(cell.fr,'display','none');
+    cell.fl.style.transform=`rotateX(${-90*p}deg)`;cell.fl.style.filter=`brightness(${1-0.45*p})`}
+  else{const p=(ph-0.5)/0.5;sty(cell.fl,'display','none');sty(cell.fr,'display','block');
+    cell.fr.style.transform=`rotateX(${90*(1-p)}deg)`;cell.fr.style.filter=`brightness(${0.6+0.4*p})`}
+}
+const cl=x=>Math.max(0,Math.min(1,x)),eo=x=>1-Math.pow(1-cl(x),3),eio=x=>{x=cl(x);return x<.5?4*x*x*x:1-Math.pow(-2*x+2,3)/2};
+const fade=(el,t,a,dur=0.55,dy=10)=>{const p=eo((t-a)/dur);el.style.opacity=p;el.style.transform=`translateY(${(1-p)*dy}px)`};
+const nav=document.querySelector('nav'),lede=document.getElementById('lede'),ctas=document.getElementById('ctas'),
+  rows=[...document.querySelectorAll('.row')],head=document.querySelector('.tonight h2'),more=document.querySelector('.more'),
+  book=document.getElementById('book'),cur=document.getElementById('cur'),st1=rows[1].querySelector('.st');
+// путь курсора: (время, x, y)
+const P=[[1.7,1470,860],[T_HOV,1210,262],[3.4,1205,266],[4.0,182,718]];
+function cursorAt(t){
+  if(t<P[0][0])return null;
+  for(let i=0;i<P.length-1;i++){const [a,x0,y0]=P[i],[b,x1,y1]=P[i+1];
+    if(t<b){const p=eio((t-a)/(b-a));const arc=Math.sin(p*Math.PI)*(i===2?-40:18);return [x0+(x1-x0)*p,y0+(y1-y0)*p+arc]}}
+  return P[P.length-1].slice(1);
+}
+let booked=null;
+function render(t){
+  nav.style.opacity=eo(t/0.35);
+  cells.forEach(c=>cellAt(c,t));
+  fade(lede,t,1.1);fade(ctas,t,1.25);
+  fade(head,t,1.15,0.5,6);rows.forEach((r,i)=>fade(r,t,1.22+i*0.07,0.5,6));fade(more,t,1.55,0.5,6);
+  // подсветка: сначала Paris, на ховере Berlin
+  const hv=t>=T_HOV-0.05&&t<3.5;
+  rows.forEach((r,i)=>{const on=i===(t>=T_HOV-0.05?1:0)&&t>=1.22;
+    r.querySelector('.bar').style.opacity=on?1:0;r.querySelector('.bg').style.opacity=(i===1&&hv)?1:0;
+    r.querySelector('.tm').style.color=on?'var(--amber)':''});
+  const b=t>=T_CLICK+0.05;
+  if(b!==booked){booked=b;st1.textContent=b?'Cabin 14 booked':'Boarding';st1.className='st '+(b?'live done':'live')}
+  book.classList.toggle('hov',t>=3.98);book.classList.toggle('down',t>=T_CLICK-0.03&&t<T_CLICK+0.1);
+  const c=cursorAt(t);cur.style.display=c?'block':'none';
+  if(c){const press=(t>=T_CLICK-0.03&&t<T_CLICK+0.1)?0.86:1;cur.style.transform=`translate(${c[0]-2}px,${c[1]-2}px) scale(${press})`}
+}
+
+// звук: каждая пластинка щёлкает, когда ложится; плюс клик мыши
+window.__renderAudio=async()=>{
+  const SR=48000,DUR=window.__dur,N=Math.ceil(SR*DUR),Lc=new Float32Array(N),Rc=new Float32Array(N);
+  // несколько вариантов щелчка: удар шума и короткий звон пластика
+  const K=[];for(let v=0;v<10;v++){const n=Math.floor(SR*0.03),k=new Float32Array(n),f=1700+rnd()*1500,f2=4200+rnd()*1800;let lp=0;
+    for(let i=0;i<n;i++){const x=i/SR;lp+=((rnd()*2-1)-lp)*0.55;k[i]=lp*Math.exp(-x/0.0018)*0.9+Math.sin(2*Math.PI*f*x)*Math.exp(-x/0.006)*0.35+Math.sin(2*Math.PI*f2*x)*Math.exp(-x/0.0025)*0.2}
+    K.push(k)}
+  const hit=(t,pan,amp,k)=>{const o=Math.floor(t*SR),gl=amp*Math.cos((pan+1)*Math.PI/4),gr=amp*Math.sin((pan+1)*Math.PI/4);
+    for(let i=0;i<k.length&&o+i<N;i++){Lc[o+i]+=k[i]*gl;Rc[o+i]+=k[i]*gr}};
+  cells.forEach(cell=>{const x=56+cell.col*78+36,pan=(x-720)/720*0.85;
+    cell.st.forEach(s=>{for(let k=1;k<s.seq.length;k++)hit(s.s+k*s.d-s.d*0.15,pan,0.05*(0.7+0.5*rnd()),K[Math.floor(rnd()*K.length)])})});
+  // мышь
+  const mclick=(t,x)=>{const k=K[0].map((v,i)=>v*Math.exp(-i/SR/0.001));hit(t,(x-720)/720*0.8,0.5,k);hit(t+0.07,(x-720)/720*0.8,0.25,k)};
+  mclick(T_CLICK-0.02,182);
+  const ac=new OfflineAudioContext(2,N,SR),buf=ac.createBuffer(2,N,SR);buf.copyToChannel(Lc,0);buf.copyToChannel(Rc,1);
+  const src=ac.createBufferSource();src.buffer=buf;
+  // немного зала: короткий хвост, чтобы табло звучало в вокзале, а не в наушнике
+  const ir=ac.createBuffer(2,SR*0.9,SR);for(let ch=0;ch<2;ch++){const d=ir.getChannelData(ch);for(let i=0;i<d.length;i++)d[i]=(rnd()*2-1)*Math.exp(-i/SR/0.22)}
+  const conv=ac.createConvolver();conv.buffer=ir;const wet=ac.createGain();wet.gain.value=0.05;
+  const lp=ac.createBiquadFilter();lp.type='lowpass';lp.frequency.value=9000;
+  src.connect(lp);lp.connect(ac.destination);lp.connect(conv);conv.connect(wet);wet.connect(ac.destination);src.start(0);
+  const out=await ac.startRendering();
+  const n=out.length,ab=new ArrayBuffer(44+n*4),dv=new DataView(ab),ws=(o,s)=>{for(let i=0;i<s.length;i++)dv.setUint8(o+i,s.charCodeAt(i))};
+  ws(0,'RIFF');dv.setUint32(4,36+n*4,true);ws(8,'WAVEfmt ');dv.setUint32(16,16,true);dv.setUint16(20,1,true);dv.setUint16(22,2,true);
+  dv.setUint32(24,SR,true);dv.setUint32(28,SR*4,true);dv.setUint16(32,4,true);dv.setUint16(34,16,true);ws(36,'data');dv.setUint32(40,n*4,true);
+  const L0=out.getChannelData(0),R0=out.getChannelData(1);
+  for(let i=0;i<n;i++){dv.setInt16(44+i*4,Math.max(-1,Math.min(1,L0[i]))*32767,true);dv.setInt16(46+i*4,Math.max(-1,Math.min(1,R0[i]))*32767,true)}
+  let bin='';const u=new Uint8Array(ab);for(let i=0;i<u.length;i+=32768)bin+=String.fromCharCode.apply(null,u.subarray(i,i+32768));
+  return btoa(bin);
+};
+
+window.__dur=5.75;window.__render=render;
+if(!/rec/.test(location.search)){
+  const fit=()=>{const k=Math.min(innerWidth/1440,innerHeight/810);document.body.style.transform=`scale(${k})`;document.body.style.transformOrigin='0 0'};fit();addEventListener('resize',fit);
+  document.fonts.ready.then(()=>{
+    if(matchMedia('(prefers-reduced-motion: reduce)').matches){render(window.__dur);return}
+    const t0=performance.now();const loop=n=>{render(((n-t0)/1000)%(window.__dur+0.3));requestAnimationFrame(loop)};requestAnimationFrame(loop)})}
+else render(0);
+</script>
+</body>
+</html>
