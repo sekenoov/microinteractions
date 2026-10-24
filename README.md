@@ -17,6 +17,7 @@ Desktop landing page concepts in [landing-pages](landing-pages/). Each hero is a
 | [couchette-split-flap](landing-pages/couchette-split-flap/) | night train company, the headline is a split-flap board that flips to your berth when you book |
 | [two-coats-paint-fan](landing-pages/two-coats-paint-fan/) | paint shop, the swatch you pick from the fan deck becomes the whole page |
 | [overprint-riso-press](landing-pages/overprint-riso-press/) | riso print studio, the page prints in three inks and never registers closer than 2 px |
+| [slow-burn-match-light](landing-pages/slow-burn-match-light/) | candle maker, the page stays dark until the cursor strikes a match and lights the candle |
 
 ## Microinteractions
 
