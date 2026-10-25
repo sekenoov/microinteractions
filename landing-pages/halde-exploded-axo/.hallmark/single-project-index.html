@@ -1,0 +1,296 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Halde architects, Rotterdam</title>
+<meta name="description" content="Halde designs housing, schools and the odd pavilion from a former tram depot in Rotterdam. Kade 14, 38 homes over a bakery and workshops, drawn floor by floor.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;700&family=Geist:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* Hallmark · shape: Split Studio, one full viewport · genre: editorial · theme: Ink (by request) · redesign: full · job: hire
+ * hero: Index (the head and the work list on the left, the opened project drawn on the right) · nav: edge-aligned, the wordmark and four links · footer: none, the page is one screen · imagery: the product, Kade 14 drawn from the page's own floor data · signature: Kade 14 in plain black line, the floors above the one you point at lifting off to show its plan · ink: paper
+ * axes: light/grotesk-sans/chromatic-teal · posture: restrained · contrast: pass · fold: pass · v2.0.0 */
+/* Hallmark · pre-emit critique: P4 H5 E4 S4 R5 V4 · weakest: S, a quiet page can read as any studio; the one drawing of the building is the whole picture and nothing else competes with it */
+/* Hallmark · type: the owner's pairing, Inter Tight for heads at 0.005em, Geist for the rest at line-height 1.4 (TYPOGRAPHY.md) */
+/* Hallmark · waive 22 · ink and greys at zero chroma · the theme prints in plain black, and the drawing reads as pen on white paper */
+/* Hallmark · waive 80 · the figure is a labelled diagram of Kade 14 built from the page's seven floors, the studio's own project · an architect's drawing of the building is the work itself */
+/* Hallmark · waive 77 · one full screen recorded as a 16:9 film, the studio's landing concept, no sections below by design · the screen is the whole page */
+/* Hallmark · dropped 14:06 · 66 names the locale clock "Rotterdam 14:06"; Rotterdam moves to the lede */
+/* Hallmark · dropped 2019 · the range "2019–2026" over the work list echoed the years each row already states */
+/* Hallmark · reworded "Housing, schools and the odd pavilion. Forty people in a former tram depot, working on buildings that stay useful for a hundred years." to "Housing, schools and the odd pavilion, from a Rotterdam tram depot." · 58 keeps the hero to one sentence */
+/* Hallmark · dropped 2011 · the eyebrow "Architecture & urban design · Est. 2011" (54) and the colophon that carried it; the owner may want the year back in a footer */
+/* Hallmark · dropped tags · the seven floor labels and their leader lines; the floor under the cursor names itself in one caption */
+/* Hallmark · dropped stage, hint · the fixed 1440 by 810 stage became a full-viewport page, and the floors explain themselves on hover */
+/* Hallmark · dismissed kept · the seven floor notes moved into one caption drawn beside the floor under the cursor, so the count reads lower; every note is kept */
+@import url("./tokens.css");
+@import url("./base.css");
+
+:root {
+  --pad: clamp(20px, 2.8vw, 40px);
+  --nav-h: 72px;
+  --container: 1600px;
+  --color-core: oklch(16% 0 0 / 0.06);
+  --font-display: "Inter Tight", ui-sans-serif, system-ui, sans-serif; --font-body: "Geist", ui-sans-serif, system-ui, sans-serif;
+  --tracking-head: 0.005em;
+}
+html, body { height: 100%; }
+body { background: var(--color-paper); font-family: var(--font-body); line-height: 1.4; }
+
+/* одна страница на весь экран: шапка, под ней две колонки до самого низа */
+.page { min-height: 100dvh; max-width: var(--container); margin-inline: auto; padding: 0 var(--pad) var(--pad); display: grid; grid-template-rows: var(--nav-h) minmax(0, 1fr); }
+.bar { display: flex; align-items: center; }
+.wordmark { font-family: var(--font-display); font-weight: 700; font-size: 1.375rem; letter-spacing: var(--tracking-head); text-decoration: none; color: var(--color-ink); }
+.bar ul { display: flex; gap: var(--space-xl); margin: 0 0 0 auto; padding: 0; list-style: none; font-size: 0.9375rem; }
+.bar ul a { text-decoration: none; color: var(--color-muted); }
+.bar ul a[aria-current="page"] { color: var(--color-ink); }
+.bar ul a:hover { color: var(--color-ink); }
+a:focus-visible, .btn:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 3px; }
+
+main { display: grid; grid-template-columns: minmax(0, 6fr) minmax(0, 7fr); gap: var(--space-2xl); min-height: 0; }
+.intro { display: flex; flex-direction: column; padding-block: var(--space-xl) var(--space-2xl); min-width: 0; }
+h1 { font-family: var(--font-display); font-weight: 600; font-size: clamp(2.5rem, 4.4vw, 4.75rem); line-height: 1.02; letter-spacing: var(--tracking-head); max-width: 16ch; color: var(--color-ink); }
+.lead { margin-top: var(--space-lg); font-size: clamp(1.0625rem, 1.3vw, 1.25rem); line-height: 1.4; color: var(--color-ink-2); max-width: 34ch; }
+.btn { align-self: flex-start; margin-top: var(--space-lg); display: inline-flex; align-items: center; min-height: 44px; color: var(--color-ink); font-weight: 500; font-size: clamp(1.0625rem, 1.3vw, 1.25rem); white-space: nowrap; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 6px; transition: text-decoration-thickness var(--dur-short) var(--ease-out), text-underline-offset var(--dur-short) var(--ease-out); }
+.btn:hover { text-decoration-thickness: 2px; text-underline-offset: 8px; }
+.btn:active { opacity: .7; }
+.work { margin: auto 0 0; padding: var(--space-xl) 0 0; list-style: none; }
+.work li { font-family: var(--font-display); font-size: clamp(1.125rem, 1.5vw, 1.375rem); line-height: 1.4; letter-spacing: var(--tracking-head); }
+.work a { color: var(--color-muted); font-weight: 600; text-decoration: none; }
+.work a:hover { color: var(--color-ink); }
+.work li.open a { color: var(--color-ink); }
+.work span { margin-left: var(--space-xs); font-family: var(--font-body); font-size: var(--text-sm); letter-spacing: 0; color: var(--color-muted); font-variant-numeric: tabular-nums; }
+
+.fig { position: relative; min-width: 0; min-height: 0; margin: 0; }
+#axo { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; touch-action: manipulation; }
+.axo .ln { fill: none; stroke: var(--color-ink); stroke-width: 1; stroke-linejoin: round; }
+.axo .fl, .axo .ft { fill: var(--color-paper); } .axo .fr { fill: var(--color-paper-2); }
+.axo .wn { fill: var(--color-paper-3); fill-opacity: calc(1 - 0.7 * var(--fade, 0)); }
+.axo .flr .ln { stroke-opacity: calc(1 - 0.62 * var(--fade, 0)); }
+.axo .plan { fill: none; stroke: var(--color-ink); stroke-width: 1; }
+.axo .core { fill: var(--color-core); }
+.axo .flr:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 4px; }
+.axo .flr:focus-visible .ft { stroke-width: 2.5; }
+.axo text { font-family: var(--font-body); font-size: 13px; fill: var(--color-ink-2); }
+.axo text .b { font-family: var(--font-display); font-weight: 600; letter-spacing: var(--tracking-head); fill: var(--color-ink); }
+.axo .lead-ln { stroke: var(--color-ink); stroke-width: 1; }
+.axo.hot { cursor: pointer; }
+
+#cur { position: fixed; left: 0; top: 0; width: 22px; height: 30px; z-index: var(--z-tooltip); pointer-events: none; display: none; }
+#cur path { fill: var(--color-ink); stroke: var(--color-paper); }
+
+@media (max-width: 52rem) {
+  main { grid-template-columns: minmax(0, 1fr); gap: var(--space-xl); }
+  .fig { height: 92vw; }
+  .work { margin-top: var(--space-xl); padding-top: 0; }
+  .bar ul { gap: var(--space-sm); font-size: var(--text-sm); }
+}
+@media (prefers-reduced-motion: reduce) { .btn { transition: none; } }
+</style>
+</head>
+<body>
+<div class="page">
+  <nav class="bar" aria-label="Main">
+    <a class="wordmark" href="#">Halde</a>
+    <ul><li><a href="#" aria-current="page">Work</a></li><li><a href="#">Studio</a></li><li><a href="#">Research</a></li><li><a href="#">Contact</a></li></ul>
+  </nav>
+  <main>
+    <div class="intro">
+      <h1>We design ordinary buildings very carefully.</h1>
+      <p class="lead">Housing, schools and the odd pavilion, from a Rotterdam tram depot.</p>
+      <a class="btn" href="#">Contact the studio</a>
+      <ul class="work" aria-label="Selected work">
+        <li class="open"><a href="#">Kade 14, housing</a><span>Rotterdam, 2026</span></li>
+        <li><a href="#">Lijnbaan primary school</a><span>Delft, 2024</span></li>
+        <li><a href="#">Pier pavilion</a><span>Scheveningen, 2022</span></li>
+      </ul>
+    </div>
+    <figure class="fig">
+      <svg id="axo" class="axo" role="img" aria-label="Diagram: exploded axonometric of Kade 14, seven floors from the ground floor bakery to the roof garden"></svg>
+    </figure>
+  </main>
+</div>
+<svg id="cur" viewBox="0 0 22 30" aria-hidden="true"><path d="M2 2v22.5l5.6-5.3 3.6 8.3 3.6-1.6-3.5-8.1h7.7z" stroke-width="1.6" stroke-linejoin="round"/></svg>
+
+<script>
+const $=id=>document.getElementById(id),REC=/rec/.test(location.search);
+const cl=x=>Math.max(0,Math.min(1,x)),lerp=(a,b,p)=>a+(b-a)*p;
+const E={lin:cl,eo:x=>1-Math.pow(1-cl(x),3),eio:x=>{x=cl(x);return x<.5?4*x**3:1-Math.pow(-2*x+2,3)/2}};
+const NS='http://www.w3.org/2000/svg',svg=$('axo');
+const el=(t,a,p=svg)=>{const e=document.createElementNS(NS,t);for(const k in a)e.setAttribute(k,a[k]);p.appendChild(e);return e};
+
+// изометрия в своих координатах: x уходит вправо-вниз, y влево-вниз, z вверх; начало в переднем нижнем углу
+const W=236,D=176,H=44,C=.866,LIFT=92,ROOF=14,TOPZ=6*H+ROOF;
+const P=(x,y,z)=>[(x-y)*C,(x+y)*.5-z];
+const poly=pts=>pts.map(p=>P(...p).map(v=>v.toFixed(1)).join(',')).join(' ');
+const ln=(a,b,g,cls)=>el('line',{x1:P(...a)[0],y1:P(...a)[1],x2:P(...b)[0],y2:P(...b)[1],class:cls,pathLength:1},g);
+const face=(pts,g,cls)=>el('polygon',{points:poly(pts),class:cls,pathLength:1},g);
+// рамка рисунка: здание с поднятыми этажами и место под подписи справа
+const VB=[-D*C-16,-(TOPZ+24+LIFT)-24,D*C+W*C+16+250,(TOPZ+24+LIFT)+24+(W+D)/2+16];
+svg.setAttribute('viewBox',VB.join(' '));svg.setAttribute('preserveAspectRatio','xMidYMid meet');
+
+const F=[
+  ['Ground','Bakery, bike hall for 90 bikes, lobby, 380 m²'],
+  ['Level 1','Six workshops with 4.2 m ceilings, 360 m²'],
+  ['Level 2','Seven homes, 48 to 96 m², deck access'],
+  ['Level 3','Seven homes, two with double height'],
+  ['Level 4','Seven homes, 48 to 96 m²'],
+  ['Level 5','Six homes and a shared laundry'],
+  ['Roof','Garden, beehives, 140 m² of solar']
+];
+const floors=F.map((f,k)=>{
+  const g=el('g',{class:'flr',tabindex:0,role:'button','aria-label':`${f[0]}: ${f[1]}`}),z0=k*H,z1=z0+(k===6?ROOF:H),roof=k===6,lines=[],fills=[];
+  const L=face([[0,D,z0],[W,D,z0],[W,D,z1],[0,D,z1]],g,'fl ln'),R=face([[W,0,z0],[W,D,z0],[W,D,z1],[W,0,z1]],g,'fr ln');
+  lines.push(L,R);
+  if(!roof){
+    const wz0=z0+(k===0?6:10),wz1=z1-7,n=k===0?5:9;
+    for(let i=0;i<n;i++){const a=12+i*(W-24)/n,b=a+(W-24)/n-7;fills.push(face([[a,D,wz0],[b,D,wz0],[b,D,wz1],[a,D,wz1]],g,'wn'))}
+    for(let i=0;i<6;i++){const a=10+i*(D-20)/6,b=a+(D-20)/6-7;fills.push(face([[W,a,wz0],[W,b,wz0],[W,b,wz1],[W,a,wz1]],g,'wn'))}
+  }
+  const T=face([[0,0,z1],[W,0,z1],[W,D,z1],[0,D,z1]],g,'ft ln');lines.push(T);
+  // план этажа: виден, когда верхние этажи подняты
+  const plan=el('g',{class:'plan'},g);
+  if(roof){
+    for(let i=0;i<7;i++)face([[142,14+i*22,z1],[222,14+i*22,z1],[222,29+i*22,z1],[142,29+i*22,z1]],plan,'');
+    [[38,44],[84,80],[46,124]].forEach(([x,y])=>{const c=P(x,y,z1);el('ellipse',{cx:c[0],cy:c[1],rx:16,ry:9},plan)});
+  }else{
+    const cy=D/2;ln([0,cy-12,z1],[W,cy-12,z1],plan,'');ln([0,cy+12,z1],[W,cy+12,z1],plan,'');
+    const n=k<2?3:7;for(let i=1;i<n;i++){const x=i*W/n;ln([x,0,z1],[x,cy-12,z1],plan,'');ln([x,cy+12,z1],[x,D,z1],plan,'')}
+    face([[W/2-14,cy-12,z1],[W/2+14,cy-12,z1],[W/2+14,cy+12,z1],[W/2-14,cy+12,z1]],plan,'core');
+  }
+  if(roof){const b=face([[19,19,z1],[104,19,z1],[104,19,z1+24],[19,19,z1+24]],g,'fl ln');lines.push(b)}
+  return {g,plan,k,z0,z1,lines,fills,faces:[L,R,T],name:f[0],note:f[1]};
+});
+
+// подписи прямо в рисунке: масштабируются вместе с ним и не отстают от этажей
+const wrap=(s,n=26)=>{const out=[];let cur='';s.split(' ').forEach(w=>{if((cur+' '+w).trim().length>n){out.push(cur);cur=w}else cur=(cur+' '+w).trim()});if(cur)out.push(cur);return out};
+function caption(head,body){const t=el('text',{x:0,y:0,opacity:0});const a=el('tspan',{x:0,dy:0,class:'b'},t);a.textContent=head;
+  wrap(body).forEach(l=>{const s=el('tspan',{x:0,dy:17},t);s.textContent=l});return t}
+const NX=W*C+36;
+const proj=caption('Kade 14, Rotterdam','38 homes over a bakery and workshops, in timber frame and brick, 4 120 m²');
+proj.setAttribute('transform',`translate(${NX} ${P(W,0,TOPZ)[1]-6})`);
+const leader=(x0,y0,ty)=>el('polyline',{points:`${x0+6},${y0} ${NX-22},${ty} ${NX-10},${ty}`,class:'lead-ln',fill:'none',opacity:0});
+const notes=floors.map(f=>{const n=caption(f.name,f.note),[cx,cy]=P(W,0,f.z1),top=cy-14-(n.childNodes.length-1)*17;n.setAttribute('transform',`translate(${NX} ${top.toFixed(1)})`);n.ld=leader(cx,cy,top-4);return n});
+{const [cx,cy]=P(W,0,TOPZ);proj.ld=leader(cx,cy,cy-10)}
+
+function draw(Z){
+  let maxOn=0;
+  floors.forEach((f,j)=>{
+    const s=Z.fl[j];
+    if(f.__off!==s.off){f.__off=s.off;f.g.setAttribute('transform',`translate(0 ${(-s.off).toFixed(2)})`)}
+    // чертёж: линия, потом заливка; в живом режиме это уже готово и не трогается
+    if(f.__ink!==s.ink){f.__ink=s.ink;f.lines.forEach(e=>{e.style.strokeDasharray=1;e.style.strokeDashoffset=1-s.ink});f.g.style.visibility=s.ink>0?'visible':'hidden'}
+    if(f.__fill!==s.fill){f.__fill=s.fill;f.faces.forEach(e=>{e.style.fillOpacity=s.fill});f.fills.forEach(e=>{e.style.opacity=s.fill})}
+    f.plan.style.opacity=s.on;
+    // поднятые этажи бледнеют, чтобы открытый читался сразу
+    f.g.style.setProperty('--fade',(cl(s.off/LIFT)).toFixed(3));
+    maxOn+=s.on;
+    // подпись стоит на месте открытого этажа: не едет за этажами, только проявляется и гаснет
+    const n=notes[j];n.setAttribute('opacity',s.on.toFixed(3));n.ld.setAttribute('opacity',s.on.toFixed(3));
+  });
+  // при переключении между этажами подписи сменяют друг друга, а общая подпись проекта не проступает
+  const po=((1-cl(maxOn))*Z.proj).toFixed(3);proj.setAttribute('opacity',po);proj.ld.setAttribute('opacity',po);
+  const cu=$('cur');
+  if(Z.cur){const m=svg.getScreenCTM(),x=m.a*Z.cur[0]+m.c*Z.cur[1]+m.e,y=m.b*Z.cur[0]+m.d*Z.cur[1]+m.f;cu.style.display='block';cu.style.transform=`translate(${x-2}px,${y-2}px)`}else cu.style.display='none';
+}
+
+// ролик: этажи чертятся снизу вверх, курсор проходит по третьему, первому и четвёртому, верх здания раздвигается
+const DUR=7.8,INK0=.55,IGAP=.24,ILEN=.5;
+const CH=[[3.5,3],[4.85,1],[6.2,4]];
+const fp=k=>{const X=-48,u=X/C+D;return [X,(u+D)/2-H*k-H/2]};
+const CP=[[3.0,560,420],[3.45,...fp(3),'eo'],[4.35,fp(3)[0]+30,fp(3)[1]+8,'eio'],[4.8,...fp(1),'eio'],[5.75,fp(1)[0]+36,fp(1)[1]+6,'eio'],[6.15,fp(4)[0],fp(4)[1]-LIFT,'eio'],[6.7,...fp(4),'eo'],[DUR+1,...fp(4),'lin']];
+function curAt(t){if(t<CP[0][0])return null;for(let k=0;k<CP.length-1;k++){const [a,x0,y0]=CP[k],[b,x1,y1,e]=CP[k+1];if(t<b){const p=E[e]((t-a)/(b-a));return [lerp(x0,x1,p),lerp(y0,y1,p)+(k===0?-Math.sin(p*Math.PI)*30:0)]}}return CP[CP.length-1].slice(1,3)}
+function chain(t,target,dur){let from=0,tc=-9,tg=target(-1);for(const [ct,k] of CH){if(ct>t)break;from=lerp(from,tg,E.eo((ct-tc)/dur));tc=ct;tg=target(k)}return lerp(from,tg,E.eo((t-tc)/dur))}
+function stateAt(t){
+  return {cur:curAt(t),proj:E.eo((t-INK0-IGAP*6-ILEN)/.4),fl:floors.map((f,j)=>{const t0=INK0+j*IGAP;return {
+    ink:E.eio((t-t0)/ILEN),fill:E.eo((t-t0-ILEN*.6)/.35),
+    off:chain(t,k=>k>=0&&j>k?LIFT:0,.45),on:chain(t,k=>k===j?1:0,.22)}})};
+}
+function render(t){draw(stateAt(t))}
+
+// звук: перо по бумаге на каждом этаже, подъём и опускание этажей, штрихи плана
+let seed=17;const rnd=()=>(seed=(seed*16807)%2147483647)/2147483647;
+async function buildAudio(){
+  seed=17;const SR=48000,ac=new OfflineAudioContext(2,Math.ceil(SR*DUR),SR);
+  const nb=ac.createBuffer(1,SR*3,SR),nd=nb.getChannelData(0);for(let i=0;i<nd.length;i++)nd[i]=rnd()*2-1;
+  const out=ac.createGain();out.gain.setValueAtTime(4.6,0);out.gain.setValueAtTime(4.6,DUR-.4);out.gain.linearRampToValueAtTime(0,DUR);out.connect(ac.destination);
+  const pan=v=>{const p=ac.createStereoPanner();p.pan.value=Math.max(-1,Math.min(1,v));p.connect(out);return p};
+  const PX=.35;
+  const noise=(t,len,dst)=>{const s=ac.createBufferSource();s.buffer=nb;s.connect(dst);s.start(t,rnd()*2,len+.05)};
+  const env=(t,att,dec,peak)=>{const g=ac.createGain();g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(peak,t+att);g.gain.setTargetAtTime(0,t+att,dec/3);return g};
+  const curve=(param,t0,t1,f,n=96)=>{const a=new Float32Array(n);for(let i=0;i<n;i++)a[i]=f(t0+(t1-t0)*i/(n-1));param.setValueCurveAtTime(a,t0,t1-t0)};
+  const tick=(t,p,gain,f,q=1.4,len=.03)=>{const g=env(t,.001,len,gain);g.connect(pan(p));const bp=ac.createBiquadFilter();bp.type='bandpass';bp.frequency.value=f;bp.Q.value=q;bp.connect(g);noise(t,len+.03,bp)};
+  const sweep=(t0,t1,f0,f1,gain,p)=>{const bp=ac.createBiquadFilter();bp.type='bandpass';bp.Q.value=.8;bp.frequency.setValueAtTime(f0,t0);bp.frequency.exponentialRampToValueAtTime(f1,t1);const g=ac.createGain();curve(g.gain,t0,t1,t=>gain*Math.sin(Math.PI*cl((t-t0)/(t1-t0))));bp.connect(g);g.connect(pan(p));noise(t0,t1-t0,bp)};
+  // перо: три штриха на этаж, шершаво, как фломастер по бумаге
+  floors.forEach((f,j)=>{const t0=INK0+j*IGAP;
+    for(let s=0;s<3;s++){const a=t0+s*ILEN/3,b=a+ILEN/3-.03,bp=ac.createBiquadFilter();bp.type='bandpass';bp.Q.value=1.6;bp.frequency.value=3600+rnd()*1800;
+      const g=ac.createGain();curve(g.gain,a,b,t=>.11*Math.pow(Math.sin(Math.PI*cl((t-a)/(b-a))),.6)*(.7+.3*Math.abs(Math.sin(t*170))),48);bp.connect(g);g.connect(pan(PX+(s-1)*.25));noise(a,b-a,bp)}
+    tick(t0+ILEN,PX+.2,.07,2400,3)});
+  // подъём и опускание верхних этажей: воздух и мягкий гул
+  CH.forEach(([t,k],i)=>{const prev=i?CH[i-1][1]:-1,up=prev<0||k<prev;
+    sweep(t,t+.5,up?500:1400,up?1500:450,.1,PX);
+    const o=ac.createOscillator();o.type='triangle';o.frequency.setValueAtTime(up?95:150,t);o.frequency.exponentialRampToValueAtTime(up?150:95,t+.5);const g=ac.createGain();curve(g.gain,t,t+.55,x=>.055*Math.sin(Math.PI*cl((x-t)/.55)));o.connect(g);g.connect(pan(PX));o.start(t);o.stop(t+.6);
+    for(let s=0;s<5;s++)tick(t+.12+s*.055+rnd()*.02,PX-.15+s*.06,.05,5200+rnd()*1500,4,.025)});
+  return ac.startRendering();
+}
+window.__renderAudio=async()=>{
+  const buf=await buildAudio();
+  const n=buf.length,ab=new ArrayBuffer(44+n*4),dv=new DataView(ab),ws=(o,s)=>{for(let i=0;i<s.length;i++)dv.setUint8(o+i,s.charCodeAt(i))};
+  ws(0,'RIFF');dv.setUint32(4,36+n*4,true);ws(8,'WAVEfmt ');dv.setUint32(16,16,true);dv.setUint16(20,1,true);dv.setUint16(22,2,true);
+  dv.setUint32(24,48000,true);dv.setUint32(28,48000*4,true);dv.setUint16(32,4,true);dv.setUint16(34,16,true);ws(36,'data');dv.setUint32(40,n*4,true);
+  const L0=buf.getChannelData(0),R0=buf.getChannelData(1);
+  for(let i=0;i<n;i++){dv.setInt16(44+i*4,Math.max(-1,Math.min(1,L0[i]))*32767,true);dv.setInt16(46+i*4,Math.max(-1,Math.min(1,R0[i]))*32767,true)}
+  let bin='';const u=new Uint8Array(ab);for(let i=0;i<u.length;i+=32768)bin+=String.fromCharCode.apply(null,u.subarray(i,i+32768));
+  return btoa(bin);
+};
+window.__dur=DUR;window.__render=render;
+
+if(!REC){
+  let mode='intro',hover=-1,ac=null,outAt=0,last=0;
+  // пружина по времени: одинаково плавно на 60 и на 120 Гц
+  const sp=floors.map(()=>({off:0,v:0,on:0,ov:0}));
+  const spring=(x,v,to,dt,k=170)=>{const c=2*Math.sqrt(k);v+=(k*(to-x)-c*v)*dt;return [x+v*dt,v]};
+  // какой этаж под курсором: по геометрии на экране, с зазором как частью открытого этажа
+  const toSvg=e=>{const p=svg.createSVGPoint();p.x=e.clientX;p.y=e.clientY;return p.matrixTransform(svg.getScreenCTM().inverse())};
+  const inPoly=(x,y,pts)=>{let c=false;for(let i=0,j=pts.length-1;i<pts.length;j=i++){const [xi,yi]=pts[i],[xj,yj]=pts[j];if((yi>y)!==(yj>y)&&x<(xj-xi)*(y-yi)/(yj-yi)+xi)c=!c}return c};
+  function floorAt(X,Y){
+    const top=TOPZ+24+Math.max(...sp.map(s=>s.off));
+    // контур здания с поднятыми этажами: всё внутри него считается рисунком
+    const hull=[P(0,D,0),P(W,D,0),P(W,0,0),P(W,0,top),P(0,0,top),P(0,D,top)];
+    if(!inPoly(X,Y,hull))return null;
+    // высота точки на передней грани здания под курсором
+    const z=X<(W-D)*C?((X/C+D)+D)/2-Y:(W+(W-X/C))/2-Y;
+
+    for(let j=floors.length-1;j>=0;j--){const f=floors[j],a=f.z0+sp[j].off,b=f.z1+sp[j].off+(j===6?24:0);if(z>=a-1&&z<=b+1)return j}
+    return 'gap';
+  }
+  addEventListener('pointermove',e=>{
+    if(mode!=='live')return;const p=toSvg(e),f=floorAt(p.x,p.y);
+    if(f===null){if(!outAt)outAt=performance.now();return}
+    outAt=0;svg.classList.add('hot');
+    // верхняя грань под курсором, когда ещё ничего не открыто: это этаж, на чью крышу смотришь
+    if(f==='gap'&&hover<0){const p2=toSvg(e);let k=-1;floors.forEach((fl,j)=>{const zz=p2.x<(W-D)*C?((p2.x/C+D)+D)/2-p2.y:(W+(W-p2.x/C))/2-p2.y;if(zz>=fl.z0+sp[j].off)k=j});if(k>=0)pick(k);return}
+    if(f!=='gap'&&f!==hover)pick(f);
+  });
+  svg.addEventListener('pointerleave',()=>{if(!outAt)outAt=performance.now()});
+  const pick=k=>{const up=hover<0||k<hover;hover=k;whoosh(up)};
+  floors.forEach(f=>f.g.addEventListener('focus',()=>{if(mode==='live'&&hover!==f.k)pick(f.k)}));
+  addEventListener('pointerdown',()=>{if(!ac)try{ac=new AudioContext()}catch(_){}});
+  const whoosh=up=>{if(!ac)return;const t=ac.currentTime,o=ac.createOscillator(),g=ac.createGain();o.type='triangle';o.frequency.setValueAtTime(up?95:150,t);o.frequency.exponentialRampToValueAtTime(up?150:95,t+.45);g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(.05,t+.1);g.gain.linearRampToValueAtTime(0,t+.5);o.connect(g);g.connect(ac.destination);o.start(t);o.stop(t+.55)};
+  const liveLoop=n=>{
+    const dt=Math.min(1/30,(n-(last||n))/1000);last=n;
+    // курсор ушёл с рисунка: этажи опускаются, но не сразу, чтобы не дёргалось на краю
+    if(outAt&&n-outAt>120&&hover>=0){hover=-1;whoosh(false);svg.classList.remove('hot')}
+    sp.forEach((s,j)=>{[s.off,s.v]=spring(s.off,s.v,hover>=0&&j>hover?LIFT:0,dt,260);[s.on,s.ov]=spring(s.on,s.ov,j===hover?1:0,dt,700);s.on=cl(s.on)});
+    draw({cur:null,proj:1,fl:sp.map(s=>({ink:1,fill:1,off:Math.abs(s.off)<.01?0:s.off,on:s.on<.002?0:s.on}))});requestAnimationFrame(liveLoop)};
+  document.fonts.ready.then(()=>{
+    // без движения: сразу готовый чертёж
+    if(matchMedia('(prefers-reduced-motion: reduce)').matches){mode='live';requestAnimationFrame(liveLoop);return}
+    const t0=performance.now();
+    const loop=n=>{const t=(n-t0)/1000;if(t<3.1){const S=stateAt(t);S.cur=null;draw(S);requestAnimationFrame(loop)}else{mode='live';requestAnimationFrame(liveLoop)}};
+    requestAnimationFrame(loop)});
+}else{document.fonts.ready.then(()=>render(0))}
+</script>
+</body>
+</html>

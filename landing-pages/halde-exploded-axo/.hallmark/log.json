@@ -1,0 +1,26 @@
+[
+ {
+  "mode": "redesign",
+  "depth": "full",
+  "scope": "page",
+  "shape": "Split Studio, one screen",
+  "theme": "blueprint",
+  "axes": "mid/geometric-sans/neutral",
+  "hero": "Index",
+  "nav": "floating bar",
+  "footer": "colophon line",
+  "imagery": "the product, drawn",
+  "photos": [],
+  "entry": "index.html",
+  "sections": [
+   "hero"
+  ],
+  "signature": "Kade 14 as an exploded axonometric on a cyanotype sheet",
+  "waived": [
+   "80",
+   "77"
+  ],
+  "prompt": "an architecture studio site, hire: projects led by an exploded drawing of one housing building",
+  "date": "2026-10-25"
+ }
+]

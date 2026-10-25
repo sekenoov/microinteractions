@@ -1,0 +1,323 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Halde architects, Rotterdam</title>
+<meta name="description" content="Halde designs housing, schools and the odd pavilion from a former tram depot in Rotterdam. Kade 14, 38 homes over a bakery and workshops, drawn floor by floor.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@600&family=IBM+Plex+Sans:wght@400;500&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+/* Hallmark · shape: Split Studio, one screen · genre: modern-minimal · theme: Blueprint (deal 1/3, seed architecture-studio-hire-projects-0b5c·85814fe0·2026-10-25·r0) · redesign: full · draw: 2b98ce · job: hire
+ * hero: Index (the work list leads, its first row opened as the drawing) · nav: floating bar · footer: colophon line · imagery: the product, Kade 14 drawn from the page's own floor data · signature: Kade 14 as an exploded axonometric on a cyanotype sheet, the floors above the one you point at lifting off to show its plan · blueprint: cyanotype
+ * axes: mid/geometric-sans/neutral · posture: drenched · contrast: pass · fold: pass · v2.0.0 */
+/* Hallmark · pre-emit critique: P4 H4 E4 S5 R4 V4 · weakest: P and H, a studio page that only states a motto; the drawing now carries the claim and the work list sits under the head as the page's index */
+/* Hallmark · waive 80 · the figure is a labelled diagram of Kade 14 built from the page's seven floors, the studio's own project · an architect's drawing of the building is the work itself */
+/* Hallmark · waive 77 · one 1440 by 810 stage recorded as a 16:9 film, the studio's landing concept, no sections below by design · the stage is the whole page */
+/* Hallmark · dropped 14:06 · 66 names the locale clock "Rotterdam 14:06"; Rotterdam moves to the lede and the colophon */
+/* Hallmark · dropped 2019 · the range "2019–2026" over the work list echoed the years each row already states */
+/* Hallmark · reworded "Housing, schools and the odd pavilion. Forty people in a former tram depot, working on buildings that stay useful for a hundred years." to "Housing, schools and the odd pavilion, from a Rotterdam tram depot." · 58 keeps the hero to one sentence */
+/* Hallmark · reworded "Architecture & urban design · Est. 2011" to the colophon "Halde, architects in Rotterdam since 2011" · 54 names the eyebrow */
+/* Hallmark · reworded "Selected work 2019–2026" to the table caption "Selected work" · 19 names the dash and the rows carry the years */
+/* Hallmark · hero-review: folded into the finish review · finish-review: subagent · fix · 8 findings · 7 resolved 1 unresolved (the homes count, 38 in the title block against 27 in the floor notes, waits on the owner) · gap: none */
+/* Hallmark · dismissed kept · the seven floor notes moved into one live caption shown for the floor under the cursor, so the count reads lower; every note is kept */
+@import url("./tokens.css");
+@import url("./base.css");
+
+:root {
+  /* the stage is a fixed 1440 by 810 sheet, so its type is set in px, not in vw */
+  --stage-w: 1440px; --stage-h: 810px;
+  --st-display: 52px; --st-lead: 21px; --st-title: 20px; --st-body: 16px; --st-label: 14px; --st-wordmark: 22px;
+  --color-backdrop: oklch(22% 0.085 258);
+  --color-face-l: var(--color-paper-2); --color-face-r: var(--color-paper-3); --color-glass: oklch(29% 0.098 257);
+  --color-plan-core: oklch(97% 0.012 240 / 0.16); --color-shadow: oklch(22% 0.09 258 / 0.55);
+  --color-cursor: oklch(16% 0.03 258); --color-cursor-edge: oklch(98% 0.008 240);
+}
+html, body { overflow: clip; height: 100%; }
+html { background: var(--color-backdrop); }
+body { background: var(--color-backdrop); }
+#stage { position: absolute; left: 50%; top: 50%; width: var(--stage-w); height: var(--stage-h); margin: calc(var(--stage-h) / -2) 0 0 calc(var(--stage-w) / -2); background: var(--color-paper); overflow: clip; }
+
+/* nav: a floating bar inset on the sheet, keylined */
+.bar { position: absolute; left: var(--space-2xl); right: var(--space-2xl); top: var(--space-lg); height: 64px; display: flex; align-items: center; gap: var(--space-xl); padding-inline: var(--space-lg); border: var(--rule-hair) solid var(--color-rule-2); background: var(--color-paper); z-index: var(--z-sticky-nav); }
+.wordmark { font-family: var(--font-display); font-weight: 600; font-size: var(--st-wordmark); text-transform: uppercase; letter-spacing: 0.02em; text-decoration: none; }
+.bar ul { display: flex; gap: var(--space-lg); margin: 0 0 0 auto; padding: 0; list-style: none; font-size: var(--st-label); font-weight: 500; }
+.bar ul a { text-decoration: none; color: var(--color-ink-2); padding-block: var(--space-xs); }
+.bar ul a[aria-current="page"] { color: var(--color-ink); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 6px; }
+.bar ul a:hover { color: var(--color-ink); text-decoration: underline; }
+.bar a:focus-visible, .btn:focus-visible, .work a:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 3px; }
+
+/* the head, its one sentence, the action */
+.intro { position: absolute; left: var(--space-2xl); top: 136px; width: 552px; }
+h1 .rv { display: block; }
+h1 { font-size: var(--st-display); line-height: 1.02; text-transform: uppercase; max-width: 19ch; }
+.lead { margin-top: var(--space-lg); font-size: var(--st-lead); line-height: 1.45; color: var(--color-ink-2); max-width: 30ch; }
+.btn { margin-top: var(--space-xl); display: inline-flex; align-items: center; min-height: 48px; padding: 0 var(--space-lg); border: var(--rule-hair) solid var(--color-ink); background: var(--color-ink); color: var(--color-accent-ink); font: 500 var(--st-body)/1 var(--font-body); white-space: nowrap; text-decoration: none; cursor: pointer; transition: background-color var(--dur-short) var(--ease-out), transform var(--dur-micro) var(--ease-out); }
+.btn:hover { background: var(--color-ink-2); }
+.btn:active { transform: translateY(1px); }
+.btn.is-down { transform: translateY(1px); background: var(--color-ink-2); }
+
+/* the work, as the page's index: a keylined register */
+.work { position: absolute; left: var(--space-2xl); top: 512px; width: 540px; border-collapse: collapse; font-size: var(--st-label); }
+.work caption { text-align: left; font-weight: 500; color: var(--color-ink); padding-bottom: var(--space-xs); }
+.work th { text-align: left; font-weight: 500; color: var(--color-muted); padding: var(--space-xs) 0; border-bottom: var(--rule-heavy) solid var(--color-rule); }
+.work td { padding: var(--space-sm) 0; border-bottom: var(--rule-hair) solid var(--color-rule-2); color: var(--color-ink-2); vertical-align: baseline; }
+.work td a { font-size: var(--st-body); font-weight: 500; color: var(--color-ink-2); text-decoration: none; }
+.work td a:hover { text-decoration: underline; }
+.work tr.open td a { font-size: var(--st-title); color: var(--color-ink); }
+.work tr.open td { border-bottom-color: var(--color-rule); }
+.work .yr { font-weight: 500; text-align: right; font-variant-numeric: tabular-nums; }
+.work .no { font-family: var(--font-outlier); font-weight: 500; width: 48px; color: var(--color-muted); }
+.work tr.open .no, .work tr.open td { color: var(--color-ink); }
+.work th:last-child { text-align: right; }
+.colophon { position: absolute; left: var(--space-2xl); bottom: var(--space-lg); font-size: var(--st-label); color: var(--color-muted); }
+
+/* the drawing on its sheet: grid only under the drawing, double keyline */
+.fig { position: absolute; left: 640px; top: 112px; width: 736px; height: 674px; margin: 0; border: var(--rule-hair) solid var(--color-rule); }
+.fig::after { content: ""; position: absolute; inset: 5px; border: var(--rule-hair) solid var(--color-rule-2); pointer-events: none; }
+#axo { position: absolute; left: 0; top: 0; overflow: visible; pointer-events: none; }
+.axo .flr { pointer-events: auto; }
+.axo .g1 { fill: none; stroke: var(--color-grid); } .axo .g2 { fill: none; stroke: var(--color-grid-2); }
+.axo .ln { fill: none; stroke: var(--color-ink); stroke-width: 1.1; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
+.axo .fl { fill: var(--color-face-l); } .axo .fr { fill: var(--color-face-r); } .axo .ft { fill: var(--color-paper); } .axo .gl { fill: var(--color-glass); }
+.axo .wn { fill: var(--color-glass); stroke: var(--color-ink); stroke-width: 0.6; }
+.axo .site { fill: none; stroke: var(--color-rule-2); stroke-dasharray: 2 6; }
+.axo .shadow { fill: var(--color-shadow); }
+.axo .plan { fill: none; stroke: var(--color-ink); stroke-width: 1.3; }
+.axo .core { fill: var(--color-plan-core); stroke: var(--color-ink); stroke-width: 1; }
+.axo .lead-ln { stroke: var(--color-rule-2); stroke-dasharray: 2 3; }
+.axo .lead-dot { fill: var(--color-ink); }
+.axo .dim { stroke: var(--color-ink); stroke-width: 1; }
+.axo .dim-t { fill: var(--color-ink); font: 500 13px var(--font-outlier); }
+.flr { cursor: pointer; }
+.flr:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 4px; }
+.flr:focus-visible .ft { stroke-width: 3; }
+.tag { position: absolute; left: 1112px; width: 200px; font-size: var(--st-label); line-height: 1.35; pointer-events: none; transform: translateY(-100%); color: var(--color-muted); }
+.tag b { font-weight: 500; }
+.tag b span { font-family: var(--font-outlier); margin-right: var(--space-xs); }
+.tag.on { color: var(--color-ink); }
+.note { position: absolute; left: 1112px; width: 200px; margin: 0; font-size: var(--st-label); line-height: 1.35; color: var(--color-ink); pointer-events: none; transform: translateY(-100%); }
+
+/* the title block, as on a drawing set */
+.tb { position: absolute; left: 1062px; top: 636px; width: 308px; display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); border: var(--rule-hair) solid var(--color-rule); background: var(--color-paper); font-size: var(--st-label); line-height: 1.35; }
+.tb div { padding: var(--space-xs) var(--space-sm); border-top: var(--rule-hair) solid var(--color-rule-2); }
+.tb div:nth-child(-n+2) { border-top: 0; }
+.tb div:nth-child(even) { border-left: var(--rule-hair) solid var(--color-rule-2); }
+.tb .wide { grid-column: 1 / -1; border-left: 0 !important; }
+.tb b { font-family: var(--font-display); font-weight: 600; font-size: var(--st-title); text-transform: uppercase; line-height: 1.1; }
+.tb div { white-space: nowrap; }
+.tb .num { font-family: var(--font-outlier); font-weight: 500; }
+.tb .yr { font-weight: 500; font-variant-numeric: tabular-nums; }
+.tb b span { font-family: var(--font-outlier); font-weight: 500; font-size: var(--st-label); margin-right: var(--space-xs); vertical-align: 2px; }
+.scale { display: flex; align-items: center; gap: var(--space-xs); font-family: var(--font-outlier); font-weight: 500; }
+.scale i { display: block; width: 95px; height: 6px; border: var(--rule-hair) solid var(--color-ink); border-top: 0; background: linear-gradient(90deg, var(--color-ink) 50%, transparent 50%) 0 0 / 47.5px 100%; }
+.hint { position: absolute; left: 664px; top: 752px; font-size: var(--st-label); color: var(--color-muted); opacity: 0; }
+
+#cur { position: absolute; left: 0; top: 0; width: 22px; height: 30px; z-index: var(--z-tooltip); pointer-events: none; display: none; }
+#cur path { fill: var(--color-cursor); stroke: var(--color-cursor-edge); }
+@media (prefers-reduced-motion: reduce) { .btn { transition: background-color var(--dur-short) linear; } }
+</style>
+</head>
+<body>
+<div id="stage">
+<nav class="bar rv" data-d="0" aria-label="Main">
+  <a class="wordmark" href="#">Halde</a>
+  <ul><li><a href="#" aria-current="page">Work</a></li><li><a href="#">Studio</a></li><li><a href="#">Research</a></li><li><a href="#">Contact</a></li></ul>
+</nav>
+
+<div class="intro">
+  <h1><span class="rv" data-d=".1">We design ordinary buildings very carefully.</span></h1>
+  <p class="lead rv" data-d=".3">Housing, schools and the odd pavilion, from a Rotterdam tram depot.</p>
+  <a class="btn rv" data-d=".45" href="#">Contact the studio</a>
+</div>
+
+<table class="work rv" data-d=".6">
+  <caption>Selected work</caption>
+  <thead><tr><th scope="col">No.</th><th scope="col">Project</th><th scope="col">Place</th><th scope="col">Year</th></tr></thead>
+  <tbody>
+    <tr class="open"><td class="no">01</td><td><a href="#">Kade 14, housing</a></td><td>Rotterdam</td><td class="yr">2026</td></tr>
+    <tr><td class="no">02</td><td><a href="#">Lijnbaan primary school</a></td><td>Delft</td><td class="yr">2024</td></tr>
+    <tr><td class="no">03</td><td><a href="#">Pier pavilion</a></td><td>Scheveningen</td><td class="yr">2022</td></tr>
+  </tbody>
+</table>
+<p class="colophon rv" data-d=".8">Halde, forty people in Rotterdam since 2011</p>
+
+<figure class="fig" aria-label="Diagram: exploded axonometric of Kade 14, seven floors"></figure>
+<svg id="axo" class="axo" width="1440" height="810" viewBox="0 0 1440 810" role="img" aria-label="Kade 14, seven floors from the ground floor bakery to the roof garden"></svg>
+<div id="tags"></div>
+<p class="note" id="note" aria-live="polite"></p>
+<div class="tb rv" data-d="1.6">
+  <div><b><span>01</span>Kade 14</b></div><div class="yr">2026</div>
+  <div class="wide">38 homes over a bakery and workshops</div>
+  <div>Timber frame, brick skin</div><div class="num">4 120 m²</div>
+  <div class="wide scale"><span>0</span><i aria-hidden="true"></i><span>10 m</span></div>
+</div>
+<p class="hint" id="hint">Point at a floor to lift the ones above</p>
+<svg id="cur" viewBox="0 0 22 30" aria-hidden="true"><path d="M2 2v22.5l5.6-5.3 3.6 8.3 3.6-1.6-3.5-8.1h7.7z" stroke-width="1.6" stroke-linejoin="round"/></svg>
+</div>
+
+<script>
+const $=id=>document.getElementById(id),stage=$('stage'),REC=/rec/.test(location.search);
+const cl=x=>Math.max(0,Math.min(1,x)),lerp=(a,b,p)=>a+(b-a)*p;
+const E={lin:cl,eo:x=>1-Math.pow(1-cl(x),3),eio:x=>{x=cl(x);return x<.5?4*x**3:1-Math.pow(-2*x+2,3)/2}};
+const NS='http://www.w3.org/2000/svg',svg=$('axo');
+const el=(t,a,p=svg)=>{const e=document.createElementNS(NS,t);for(const k in a)e.setAttribute(k,a[k]);p.appendChild(e);return e};
+
+// изометрия: x уходит вправо-вниз, y влево-вниз, z вверх; этаж 40 px = 4.2 м, так что 10 м = 95 px
+const OX=878,OY=486,W=212,D=160,H=40,C=.866,LIFT=84;
+const P=(x,y,z)=>[OX+(x-y)*C,OY+(x+y)*.5-z];
+const poly=pts=>pts.map(p=>P(...p).map(v=>v.toFixed(1)).join(',')).join(' ');
+const ln=(a,b,g,cls)=>el('line',{x1:P(...a)[0],y1:P(...a)[1],x2:P(...b)[0],y2:P(...b)[1],class:cls,pathLength:1},g);
+// всё, что рисуется линией, получает pathLength=1, чтобы чертить его одним числом
+const face=(pts,g,cls)=>el('polygon',{points:poly(pts),class:cls,pathLength:1},g);
+
+// чертёжная сетка: только под чертежом, внутри рамки; участок: пунктир границы и тень
+const defs=el('defs',{}),clip=el('clipPath',{id:'sheet'},defs);el('rect',{x:646,y:118,width:724,height:662},clip);
+const gridG=el('g',{'clip-path':'url(#sheet)','aria-hidden':'true'});
+for(let x=666;x<1370;x+=24)el('line',{x1:x,y1:118,x2:x,y2:780,class:(x-666)%120?'g1':'g2'},gridG);
+for(let y=138;y<780;y+=24)el('line',{x1:646,y1:y,x2:1370,y2:y,class:(y-138)%120?'g1':'g2'},gridG);
+const site=el('g',{'clip-path':'url(#sheet)'});
+el('polygon',{points:poly([[0,0,0],[W,0,0],[W+70,D+40,0],[70,D+40,0],[0,D,0]]),class:'shadow'},site);
+el('polygon',{points:poly([[-40,-30,0],[W+60,-30,0],[W+60,D+60,0],[-40,D+60,0]]),class:'site'},site);
+
+const F=[
+  ['00','Ground','Bakery, bike hall for 90 bikes, lobby, 380 m²'],
+  ['01','Level 1','Six workshops with 4.2 m ceilings, 360 m²'],
+  ['02','Level 2','Seven homes, 48 to 96 m², deck access'],
+  ['03','Level 3','Seven homes, two with double height'],
+  ['04','Level 4','Seven homes, 48 to 96 m²'],
+  ['05','Level 5','Six homes and a shared laundry'],
+  ['06','Roof','Garden, beehives, 140 m² of solar']
+];
+const floors=F.map((f,k)=>{
+  const g=el('g',{class:'flr',tabindex:0,role:'button','aria-label':`${f[0]} ${f[1]}: ${f[2]}`}),z0=k*H,z1=z0+(k===6?14:H),roof=k===6,lines=[],fills=[];
+  const L=face([[0,D,z0],[W,D,z0],[W,D,z1],[0,D,z1]],g,'fl ln'),R=face([[W,0,z0],[W,D,z0],[W,D,z1],[W,0,z1]],g,'fr ln');
+  lines.push(L,R);
+  if(!roof){
+    const wz0=z0+(k===0?6:10),wz1=z1-7,n=k===0?5:9;
+    for(let i=0;i<n;i++){const a=12+i*(W-24)/n,b=a+(W-24)/n-7;fills.push(face([[a,D,wz0],[b,D,wz0],[b,D,wz1],[a,D,wz1]],g,'wn'))}
+    for(let i=0;i<5;i++){const a=10+i*(D-20)/5,b=a+(D-20)/5-7;fills.push(face([[W,a,wz0],[W,b,wz0],[W,b,wz1],[W,a,wz1]],g,'wn'))}
+  }
+  const T=face([[0,0,z1],[W,0,z1],[W,D,z1],[0,D,z1]],g,'ft ln');lines.push(T);
+  // план этажа: виден, когда верхние этажи подняты
+  const plan=el('g',{class:'plan'},g);
+  if(roof){
+    for(let i=0;i<6;i++)face([[128,12+i*18,z1],[200,12+i*18,z1],[200,26+i*18,z1],[128,26+i*18,z1]],plan,'');
+    [[34,34],[76,60],[42,90]].forEach(([x,y])=>{const c=P(x,y,z1);el('ellipse',{cx:c[0],cy:c[1],rx:16,ry:9},plan)});
+  }else{
+    const cy=D/2;ln([0,cy-12,z1],[W,cy-12,z1],plan,'');ln([0,cy+12,z1],[W,cy+12,z1],plan,'');
+    const n=k<2?3:7;for(let i=1;i<n;i++){const x=i*W/n;ln([x,0,z1],[x,cy-12,z1],plan,'');ln([x,cy+12,z1],[x,D,z1],plan,'')}
+    face([[W/2-14,cy-12,z1],[W/2+14,cy-12,z1],[W/2+14,cy+12,z1],[W/2-14,cy+12,z1]],plan,'core');
+  }
+  if(roof){const b=face([[17,17,z1],[94,17,z1],[94,17,z1+22],[17,17,z1+22]],g,'fl ln');lines.push(b)}
+  const tg=document.createElement('div');tg.className='tag';tg.innerHTML=`<b><span>${f[0]}</span>${f[1]}</b>`;$('tags').appendChild(tg);
+  return {g,plan,tg,k,z1,lines,fills,faces:[L,R,T],note:f[2]};
+});
+// размер: высота мастерских на первом этаже, единственная мера, которая есть на странице
+const dimG=el('g',{});
+{const a=P(0,D,H),b=P(0,D,2*H),x=a[0]-18;
+  el('line',{x1:x,y1:a[1],x2:x,y2:b[1],class:'dim'},dimG);
+  [a,b].forEach(p=>{el('line',{x1:x-5,y1:p[1]+5,x2:x+5,y2:p[1]-5,class:'dim'},dimG);el('line',{x1:p[0]-4,y1:p[1],x2:x-6,y2:p[1],class:'dim'},dimG)});
+  el('text',{x:x-10,y:(a[1]+b[1])/2+4,'text-anchor':'end',class:'dim-t'},dimG).textContent='4.2 m'}
+const lead=el('g',{});
+floors.forEach(f=>{f.ld=el('line',{class:'lead-ln'},lead);f.dot=el('circle',{r:2.5,class:'lead-dot'},lead)});
+
+function draw(Z){
+  const R=Z.rev;
+  site.style.opacity=Z.fl[0].fill;dimG.style.opacity=Z.dim;
+  floors.forEach((f,j)=>{
+    const s=Z.fl[j],y=-s.off,[x1,y1]=P(W,0,f.z1-H/2+(f.k===6?H/2-7:0)),ty=y1+y;
+    f.g.setAttribute('transform',`translate(0 ${y.toFixed(2)})`);
+    // этаж чертится линией, потом заливается
+    f.lines.forEach(e=>{e.style.strokeDasharray=1;e.style.strokeDashoffset=1-s.ink});
+    f.faces.forEach(e=>{e.style.fillOpacity=s.fill});f.fills.forEach(e=>{e.style.opacity=s.fill});
+    f.g.style.opacity=s.ink>0?1:0;
+    f.ld.setAttribute('x1',x1+8);f.ld.setAttribute('y1',ty);f.ld.setAttribute('x2',1104);f.ld.setAttribute('y2',ty);f.dot.setAttribute('cx',x1+8);f.dot.setAttribute('cy',ty);
+    f.ld.style.opacity=f.dot.style.opacity=s.tag;f.tg.style.top=(ty+8)+'px';
+    f.plan.style.opacity=s.on;f.tg.classList.toggle('on',s.on>.5);f.ty=ty;
+  });
+  // одна подпись на наведённый этаж: в зазоре над его номером
+  let best=null;floors.forEach((f,j)=>{if(Z.fl[j].on>.02&&(!best||Z.fl[j].on>Z.fl[best.k].on))best=f});
+  const nt=$('note');if(best){if(nt.__k!==best.k){nt.__k=best.k;nt.textContent=best.note}const o=Z.fl[best.k].on;nt.style.opacity=o;nt.style.top=(best.ty-14)+'px';nt.style.transform=`translate(${(1-o)*-6}px,-100%)`}else{nt.style.opacity=0;nt.__k=-1;nt.textContent=''}
+  $('hint').style.opacity=Z.hint||0;
+  const cu=$('cur');if(Z.cur){cu.style.display='block';cu.style.transform=`translate(${Z.cur[0]-2}px,${Z.cur[1]-2}px)`}else cu.style.display='none';
+}
+
+// ролик: этажи чертятся снизу вверх, курсор проходит по третьему, первому и четвёртому, верх здания раздвигается
+const DUR=7.8,INK0=.55,IGAP=.24,ILEN=.5;
+const CH=[[3.5,3],[4.85,1],[6.2,4]];
+const fp=k=>[OX-48,OY+(W*.35+D)*.5-H*k-H/2];
+const CP=[[3.0,1500,900],[3.45,...fp(3),'eo'],[4.35,fp(3)[0]+30,fp(3)[1]+8,'eio'],[4.8,...fp(1),'eio'],[5.75,fp(1)[0]+36,fp(1)[1]+6,'eio'],[6.15,fp(4)[0],fp(4)[1]-LIFT,'eio'],[6.7,...fp(4),'eo'],[DUR+1,...fp(4),'lin']];
+function curAt(t){if(t<CP[0][0])return null;for(let k=0;k<CP.length-1;k++){const [a,x0,y0]=CP[k],[b,x1,y1,e]=CP[k+1];if(t<b){const p=E[e]((t-a)/(b-a));return [lerp(x0,x1,p),lerp(y0,y1,p)+(k===0?-Math.sin(p*Math.PI)*40:0)]}}return CP[CP.length-1].slice(1,3)}
+// каждая смена наведения ведёт от текущего положения к новому
+function chain(t,target,dur){let from=0,tc=-9,tg=target(-1);for(const [ct,k] of CH){if(ct>t)break;from=lerp(from,tg,E.eo((ct-tc)/dur));tc=ct;tg=target(k)}return lerp(from,tg,E.eo((t-tc)/dur))}
+function stateAt(t){
+  return {rev:t,cur:curAt(t),dim:E.eo((t-INK0-IGAP*2)/.4),fl:floors.map((f,j)=>{const t0=INK0+j*IGAP;return {
+    ink:E.eio((t-t0)/ILEN),fill:E.eo((t-t0-ILEN*.6)/.35),tag:E.eo((t-t0-ILEN)/.3),
+    off:chain(t,k=>k>=0&&j>k?LIFT:0,.5),on:chain(t,k=>k===j?1:0,.3)}})};
+}
+function render(t){draw(stateAt(t))}
+const END={...stateAt(DUR),cur:null};
+
+// звук: перо по бумаге на каждом этаже, подъём и опускание этажей, штрихи плана
+let seed=17;const rnd=()=>(seed=(seed*16807)%2147483647)/2147483647;
+async function buildAudio(){
+  seed=17;const SR=48000,ac=new OfflineAudioContext(2,Math.ceil(SR*DUR),SR);
+  const nb=ac.createBuffer(1,SR*3,SR),nd=nb.getChannelData(0);for(let i=0;i<nd.length;i++)nd[i]=rnd()*2-1;
+  const out=ac.createGain();out.gain.setValueAtTime(4.6,0);out.gain.setValueAtTime(4.6,DUR-.4);out.gain.linearRampToValueAtTime(0,DUR);out.connect(ac.destination);
+  const pan=v=>{const p=ac.createStereoPanner();p.pan.value=Math.max(-1,Math.min(1,v));p.connect(out);return p};
+  const px=x=>(x-720)/720*.8;
+  const noise=(t,len,dst)=>{const s=ac.createBufferSource();s.buffer=nb;s.connect(dst);s.start(t,rnd()*2,len+.05)};
+  const env=(t,att,dec,peak)=>{const g=ac.createGain();g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(peak,t+att);g.gain.setTargetAtTime(0,t+att,dec/3);return g};
+  const curve=(param,t0,t1,f,n=96)=>{const a=new Float32Array(n);for(let i=0;i<n;i++)a[i]=f(t0+(t1-t0)*i/(n-1));param.setValueCurveAtTime(a,t0,t1-t0)};
+  const tick=(t,p,gain,f,q=1.4,len=.03)=>{const g=env(t,.001,len,gain);g.connect(pan(p));const bp=ac.createBiquadFilter();bp.type='bandpass';bp.frequency.value=f;bp.Q.value=q;bp.connect(g);noise(t,len+.03,bp)};
+  const sweep=(t0,t1,f0,f1,gain,p)=>{const bp=ac.createBiquadFilter();bp.type='bandpass';bp.Q.value=.8;bp.frequency.setValueAtTime(f0,t0);bp.frequency.exponentialRampToValueAtTime(f1,t1);const g=ac.createGain();curve(g.gain,t0,t1,t=>gain*Math.sin(Math.PI*cl((t-t0)/(t1-t0))));bp.connect(g);g.connect(pan(p));noise(t0,t1-t0,bp)};
+  // перо: три штриха на этаж, шершаво, как фломастер по кальке
+  floors.forEach((f,j)=>{const t0=INK0+j*IGAP;
+    for(let s=0;s<3;s++){const a=t0+s*ILEN/3,b=a+ILEN/3-.03,bp=ac.createBiquadFilter();bp.type='bandpass';bp.Q.value=1.6;bp.frequency.value=3600+rnd()*1800;
+      const g=ac.createGain();curve(g.gain,a,b,t=>.11*Math.pow(Math.sin(Math.PI*cl((t-a)/(b-a))),.6)*(.7+.3*Math.abs(Math.sin(t*170))),48);bp.connect(g);g.connect(pan(px(OX)+(s-1)*.25));noise(a,b-a,bp)}
+    tick(t0+ILEN,px(OX+216),.07,2400,3);
+    tick(t0+ILEN+.02,px(1240),.04,3100,2)});
+  // подъём и опускание верхних этажей: воздух и мягкий гул
+  CH.forEach(([t,k],i)=>{const prev=i?CH[i-1][1]:-1,up=prev<0||k<prev;
+    sweep(t,t+.5,up?500:1400,up?1500:450,.1,px(OX));
+    const o=ac.createOscillator();o.type='triangle';o.frequency.setValueAtTime(up?95:150,t);o.frequency.exponentialRampToValueAtTime(up?150:95,t+.5);const g=ac.createGain();curve(g.gain,t,t+.55,x=>.055*Math.sin(Math.PI*cl((x-t)/.55)));o.connect(g);g.connect(pan(px(OX)));o.start(t);o.stop(t+.6);
+    for(let s=0;s<5;s++)tick(t+.12+s*.055+rnd()*.02,px(OX-60+s*30),.05,5200+rnd()*1500,4,.025);
+    tick(t+.05,px(1240),.08,3300,2)});
+  return ac.startRendering();
+}
+window.__renderAudio=async()=>{
+  const buf=await buildAudio();
+  const n=buf.length,ab=new ArrayBuffer(44+n*4),dv=new DataView(ab),ws=(o,s)=>{for(let i=0;i<s.length;i++)dv.setUint8(o+i,s.charCodeAt(i))};
+  ws(0,'RIFF');dv.setUint32(4,36+n*4,true);ws(8,'WAVEfmt ');dv.setUint32(16,16,true);dv.setUint16(20,1,true);dv.setUint16(22,2,true);
+  dv.setUint32(24,48000,true);dv.setUint32(28,48000*4,true);dv.setUint16(32,4,true);dv.setUint16(34,16,true);ws(36,'data');dv.setUint32(40,n*4,true);
+  const L0=buf.getChannelData(0),R0=buf.getChannelData(1);
+  for(let i=0;i<n;i++){dv.setInt16(44+i*4,Math.max(-1,Math.min(1,L0[i]))*32767,true);dv.setInt16(46+i*4,Math.max(-1,Math.min(1,R0[i]))*32767,true)}
+  let bin='';const u=new Uint8Array(ab);for(let i=0;i<u.length;i+=32768)bin+=String.fromCharCode.apply(null,u.subarray(i,i+32768));
+  return btoa(bin);
+};
+window.__dur=DUR;window.__render=render;
+
+if(!REC){
+  // сцена масштабируется под окно, но не шире 1.2, чтобы на 1920 остались поля
+  const fit=()=>{stage.style.transform=`scale(${Math.min(innerWidth/1440,innerHeight/810,1.2)})`};fit();addEventListener('resize',fit);
+  let mode='intro',t0=0,hover=-1,ac=null;const off=floors.map(()=>0),on=floors.map(()=>0);
+  // этаж выбирается наведением, фокусом с клавиатуры или касанием
+  const pick=f=>{if(mode!=='live'||hover===f.k)return;const up=hover<0||f.k<hover;hover=f.k;whoosh(up)};
+  floors.forEach(f=>{f.g.addEventListener('pointerenter',()=>pick(f));f.g.addEventListener('focus',()=>pick(f));f.g.addEventListener('click',()=>pick(f))});
+  svg.addEventListener('pointerleave',()=>{if(mode==='live'&&hover>=0){hover=-1;whoosh(false)}});
+  addEventListener('pointerdown',()=>{if(!ac)try{ac=new AudioContext()}catch(_){}});
+  const whoosh=up=>{if(!ac)return;const t=ac.currentTime,o=ac.createOscillator(),g=ac.createGain();o.type='triangle';o.frequency.setValueAtTime(up?95:150,t);o.frequency.exponentialRampToValueAtTime(up?150:95,t+.45);g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(.06,t+.1);g.gain.linearRampToValueAtTime(0,t+.5);o.connect(g);g.connect(ac.destination);o.start(t);o.stop(t+.55)};
+  const liveLoop=()=>{floors.forEach((f,j)=>{off[j]+=((hover>=0&&j>hover?LIFT:0)-off[j])*.14;on[j]+=((j===hover?1:0)-on[j])*.18});
+    draw({rev:9,cur:null,hint:1,dim:1,fl:floors.map((f,j)=>({ink:1,fill:1,tag:1,off:off[j],on:on[j]}))});requestAnimationFrame(liveLoop)};
+  document.fonts.ready.then(()=>{
+    // без движения: сразу готовый чертёж
+    if(matchMedia('(prefers-reduced-motion: reduce)').matches){mode='live';liveLoop();return}
+    t0=performance.now();
+    const loop=n=>{const t=(n-t0)/1000;if(t<3){const S=stateAt(t);S.cur=null;draw(S);requestAnimationFrame(loop)}else{mode='live';liveLoop()}};
+    requestAnimationFrame(loop)});
+}else{document.fonts.ready.then(()=>render(0))}
+</script>
+</body>
+</html>
