@@ -1,0 +1,239 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Dew skincare</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;700&family=Geist:wght@400;500;600&display=block" rel="stylesheet">
+<style>
+:root{--head:'Inter Tight',system-ui,sans-serif;--body:'Geist',system-ui,sans-serif;--bg:#e4eeea;--ink:#16302d;--mid:#5d736f;--line:rgba(22,48,45,.14);--blush:#e9c9bd}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:var(--bg);height:100%}
+body{overflow:hidden;font-family:var(--body);line-height:1.4;color:var(--ink);-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+#stage{position:absolute;left:50%;top:0;width:1440px;height:810px;margin-left:-720px;transform-origin:50% 0;overflow:hidden;cursor:none}
+.scene{position:absolute;left:0;top:0;width:1440px;height:810px;background:radial-gradient(900px 600px at 78% 40%,#f6f3ec,transparent 70%),linear-gradient(160deg,#e9f2ef,#dfebe7)}
+
+nav{position:absolute;left:0;right:0;top:0;height:88px;padding:0 64px;display:flex;align-items:center;font-size:15px}
+.brand{font-family:var(--head);font-size:26px;font-weight:700;letter-spacing:.005em}
+.links{display:none}
+.right{margin-left:auto;display:flex;gap:28px;align-items:center;color:var(--mid)}
+.right a:last-child{color:var(--ink)}
+.right span{transform-origin:50% 50%;display:inline-block;margin-left:6px;font-variant-numeric:tabular-nums}
+
+h1{position:absolute;left:62px;top:160px;font-family:var(--head);font-weight:600;font-size:92px;line-height:1.0;letter-spacing:.005em}
+h1 span{display:inline-block}
+.lede{position:absolute;left:66px;top:376px;width:440px;font-size:18px;color:var(--mid)}
+.ctas{position:absolute;left:66px;top:508px;display:flex;align-items:center;gap:22px}
+.btn{display:flex;align-items:baseline;gap:10px;font-size:18px;font-weight:500;color:var(--ink)}
+.btn .bt{text-decoration:underline;text-underline-offset:6px;text-decoration-thickness:1px}
+.btn b{font-weight:400;color:var(--mid)}
+.btn{transition:none;white-space:nowrap}
+.fine{position:absolute;left:66px;top:612px;width:470px}
+.fine h5{font-size:14px;font-weight:500;margin-bottom:8px;display:flex;justify-content:space-between}
+.fine h5 span{color:var(--mid);font-weight:400}
+.fine p{font-size:8.6px;line-height:1.55;color:var(--mid);letter-spacing:.01em}
+
+.bottle{position:absolute;left:1098px;top:356px;width:210px;height:380px}
+.glass{position:absolute;left:0;top:70px;width:210px;height:310px;border-radius:38px 38px 30px 30px;background:linear-gradient(90deg,rgba(255,255,255,.55),rgba(233,201,189,.45) 30%,rgba(214,170,155,.55) 70%,rgba(255,255,255,.5));box-shadow:inset 0 0 0 1px rgba(255,255,255,.7),inset 12px 0 20px rgba(255,255,255,.5),0 40px 50px -30px rgba(40,70,65,.5)}
+.liquid{position:absolute;left:10px;right:10px;bottom:10px;height:200px;border-radius:0 0 24px 24px;background:linear-gradient(90deg,rgba(220,160,140,.55),rgba(200,140,120,.6))}
+.neck{position:absolute;left:66px;top:40px;width:78px;height:36px;background:linear-gradient(90deg,#d8d4cc,#f4f1ea 40%,#cfcac1);border-radius:6px 6px 2px 2px}
+.label{position:absolute;left:26px;top:150px;width:158px;height:178px;background:#f7f4ee;border-radius:4px;padding:18px 16px;text-align:center;box-shadow:0 1px 0 rgba(0,0,0,.05)}
+.label b{display:block;font-family:var(--head);font-weight:700;font-size:40px;line-height:1;letter-spacing:.005em}
+.label small{display:block;font-size:11px;margin-top:6px}
+.label p{font-size:10.5px;color:var(--mid);margin-top:20px;line-height:1.4}
+.label em{display:block;font-style:normal;font-size:9px;margin-top:18px;color:var(--mid)}
+.pip{position:absolute;left:1176px;top:96px;width:48px;height:240px}
+.bulb{position:absolute;left:0;top:0;width:48px;height:74px;border-radius:24px 24px 10px 10px;background:linear-gradient(90deg,#1d3a37,#355a55 40%,#16302d)}
+.tube{position:absolute;left:17px;top:72px;width:14px;height:168px;border-radius:0 0 7px 7px;background:linear-gradient(90deg,rgba(255,255,255,.7),rgba(233,201,189,.6) 40%,rgba(255,255,255,.6));box-shadow:inset 0 0 0 1px rgba(255,255,255,.8)}
+.note{display:none}
+.note b{display:block;color:var(--ink);font-weight:500}
+.note::before{content:'';position:absolute;top:9px;width:46px;height:1px;background:var(--line)}
+.note.l::before{right:-58px}.note.r::before{left:-58px}
+
+#drops{position:absolute;inset:0;pointer-events:none}
+.drop{position:absolute;left:0;top:0;border-radius:50%;overflow:hidden;will-change:transform}
+.drop .in{position:absolute;left:0;top:0;transform-origin:0 0}
+.drop .in{filter:saturate(1.2) contrast(1.06)}
+.drop .sh{position:absolute;inset:0;border-radius:50%;box-shadow:inset 0 -16px 24px rgba(255,255,255,.6),inset -6px 12px 22px rgba(20,60,55,.3),inset 0 0 0 1.5px rgba(22,48,45,.18),inset 0 0 6px 2px rgba(255,255,255,.5)}
+.drop .hl{position:absolute;left:22%;top:14%;width:26%;height:16%;border-radius:50%;background:rgba(255,255,255,.85);filter:blur(1.5px);transform:rotate(-30deg)}
+.shadow{position:absolute;left:0;top:0;border-radius:50%;background:radial-gradient(closest-side,rgba(20,55,50,.22),transparent);will-change:transform}
+.ring{position:absolute;border-radius:50%;box-shadow:0 0 0 1.5px rgba(255,255,255,.9);pointer-events:none}
+</style>
+</head>
+<body>
+<div id="stage">
+<div class="scene" id="scene">
+  <nav class="rv" data-d="0">
+    <a class="brand" href="#">Dew</a>
+    <div class="links"><a href="#">Serums</a><a href="#">Cleansers</a><a href="#">Routines</a><a href="#">Ingredients</a></div>
+    <div class="right"><a href="#">Serums</a><a href="#">Ingredients</a><a href="#">Bag<span class="bagn">1</span></a></div>
+  </nav>
+  <h1><span class="rv ln" data-d=".15">Skin that</span><br><span class="rv ln" data-d=".3">drinks it in.</span></h1>
+  <p class="lede rv" data-d=".55">A water-light serum with two weights of hyaluronic acid and kelp from the Faroe Islands. One drop in the morning, one at night.</p>
+  <div class="ctas rv" data-d=".7"><a class="btn" href="#"><span class="bt">Add Dew Serum 02</span> <b>€38</b></a></div>
+  <div class="fine rv" data-d=".85">
+    <h5>Full ingredient list <span>Read it through a drop</span></h5>
+    <p>Aqua (Water), Glycerin, Sodium Hyaluronate (low and high molecular weight, 1.5%), Laminaria Digitata Extract, Panthenol, Betaine, Pentylene Glycol, Allantoin, Sodium PCA, Trehalose, Xanthan Gum, Hydroxyacetophenone, Citric Acid, Sodium Citrate. No fragrance, no essential oils, no alcohol. Vegan. Made in Porto, Portugal, in batches of 2 000. Dermatologist tested on sensitive skin. Store below 25°C, use within 6 months of opening.</p>
+  </div>
+  <div class="note l rv" data-d="1.0" style="left:760px;top:430px"><b>1.5% hyaluronic acid</b>Low weight sinks in, high weight holds water on top</div>
+  <div class="note l rv" data-d="1.1" style="left:760px;top:560px"><b>Faroese kelp</b>Calms redness, harvested by hand</div>
+  <div class="note r rv" data-d="1.2" style="left:1240px;top:300px"><b>pH 5.4</b>Close to your skin's own</div>
+  <div class="pip" data-pip><div class="bulb"></div><div class="tube"></div></div>
+  <div class="bottle rv" data-d=".2"><div class="neck"></div><div class="glass"><div class="liquid"></div></div>
+    <div class="label"><b>Dew</b><small>Serum 02</small><p>Hyaluronic acid<br>+ Faroese kelp</p><em>30 ml, 1.0 fl oz</em></div></div>
+</div>
+<div id="drops"></div>
+</div>
+
+<script>
+const $=id=>document.getElementById(id),stage=$('stage'),REC=/rec/.test(location.search);
+const cl=x=>Math.max(0,Math.min(1,x)),lerp=(a,b,p)=>a+(b-a)*p;
+const E={lin:cl,eo:x=>1-Math.pow(1-cl(x),3),ei:x=>cl(x)**2,eio:x=>{x=cl(x);return x<.5?4*x**3:1-Math.pow(-2*x+2,3)/2},
+  back:x=>{x=cl(x);const c=1.7;return 1+(c+1)*Math.pow(x-1,3)+c*Math.pow(x-1,2)}};
+const drops=$('drops'),scene=$('scene');
+
+// капля = лупа: внутри копия страницы, увеличенная вокруг центра капли
+const roots=[scene];
+function makeDrop(){
+  const sh=document.createElement('div');sh.className='shadow';drops.appendChild(sh);
+  const d=document.createElement('div');d.className='drop';
+  const inn=scene.cloneNode(true);inn.removeAttribute('id');inn.className='scene in';roots.push(inn);
+  d.appendChild(inn);d.insertAdjacentHTML('beforeend','<div class="sh"></div><div class="hl"></div>');drops.appendChild(d);
+  return {d,inn,sh};
+}
+function place(o,s){
+  const {d,inn,sh}=o;if(!s||s.r<.5){d.style.display=sh.style.display='none';return}
+  d.style.display=sh.style.display='';
+  const {x,y,r,mag}=s,D=r*2,q=Math.min(.3,s.sq||0),a=s.ang||0;
+  d.style.width=d.style.height=D+'px';
+  // сплющивается по направлению движения
+  d.style.transform=`translate(${x-r}px,${y-r}px) rotate(${a}rad) scale(${1+q},${1-q*.55}) rotate(${-a}rad)`;
+  inn.style.transform=`translate(${r-x*mag}px,${r-y*mag}px) scale(${mag})`;
+  sh.style.width=sh.style.height=D*1.1+'px';sh.style.transform=`translate(${x-r*1.1+r*.18}px,${y-r*1.1+r*.42}px) scale(1,.9)`;
+}
+const rings=[0,1,2].map(()=>{const g=document.createElement('div');g.className='ring';drops.appendChild(g);return g});
+function ring(g,R){if(!R||R.p<=0||R.p>=1){g.style.display='none';return}g.style.display='';const p=E.eo(R.p),r=20+p*90;
+  g.style.left=R.x-r+'px';g.style.top=R.y-r*.55+'px';g.style.width=r*2+'px';g.style.height=r*1.1+'px';g.style.opacity=1-R.p}
+let main,left=[];
+function setup(){main=makeDrop();for(let i=0;i<5;i++)left.push(makeDrop())}
+
+// состояние страницы одинаково во всех копиях
+function apply(root,Z){
+  root.querySelectorAll('.rv').forEach(el=>{const p=E.eo((Z.rev-(+el.dataset.d))/.8);el.style.opacity=p;el.style.transform=el.classList.contains('ln')?`translateY(${(1-p)*30}px)`:`translateY(${(1-p)*14}px)`});
+  root.querySelector('[data-pip]').style.transform=`translateY(${Z.pipY}px)`;
+  const b=root.querySelector('.bagn');if(b.__v!==Z.bag){b.__v=Z.bag;b.textContent=Z.bag}b.style.transform=`scale(${1+.55*Z.pop})`;
+  const bt=root.querySelector('.bt'),txt=Z.added?'Added to your bag':'Add Dew Serum 02';if(bt.__v!==txt){bt.__v=txt;bt.textContent=txt}
+  root.querySelector('.btn').style.transform=Z.press?'scale(.96)':'';
+}
+function draw(Z){roots.forEach(r=>apply(r,Z));place(main,Z.main);left.forEach((o,i)=>place(o,Z.left[i]));rings.forEach((g,i)=>ring(g,Z.rings[i]))}
+
+// ролик: пипетка опускается, капля набухает и падает на этикетку, дальше капля и есть курсор
+const TIP=[1200,338],LAB=[1200,592],T_FORM=1.0,T_FALL=1.85,T_LAND=2.22,T_FREE=3.05,T_DROP=5.62,T_BUY=6.6,DUR=7.6,R0=70,MAG=1.5;
+let BTN=[180,535];
+const CP=()=>[[T_FREE,LAB[0],LAB[1]],[3.8,430,316,'eio'],[4.3,205,314,'eio'],[4.95,118,662,'eio'],[5.55,410,664,'eio'],[5.75,412,664,'lin'],[6.42,BTN[0],BTN[1],'eio'],[6.75,BTN[0]+4,BTN[1],'lin'],[7.3,330,432,"eio"],[DUR+1,330,432,"lin"]];
+let CPS=CP();
+function pathAt(t){const P=CPS;for(let k=0;k<P.length-1;k++){const [a,x0,y0]=P[k],[b,x1,y1,e]=P[k+1];if(t<b){const p=E[e]((t-a)/(b-a));return [lerp(x0,x1,p),lerp(y0,y1,p)+(k===0||k===5?-Math.sin(p*Math.PI)*50:0)]}}return P[P.length-1].slice(1,3)}
+function mainAt(t){
+  if(t<T_FORM)return null;
+  if(t<T_FALL){const p=E.eio((t-T_FORM)/(T_FALL-T_FORM)),r=3+p*21;return {x:TIP[0],y:TIP[1]+r*.62+Math.sin(t*22)*.6*p,r,mag:1.15,sq:.12*p,ang:Math.PI/2}}
+  if(t<T_LAND){const p=(t-T_FALL)/(T_LAND-T_FALL);return {x:TIP[0],y:lerp(TIP[1]+14,LAB[1],p*p),r:24+p*16,mag:1.2,sq:.08+p*.2,ang:Math.PI/2}}
+  if(t<T_FREE){const u=(t-T_LAND)/(T_FREE-T_LAND);return {x:LAB[0],y:LAB[1],r:lerp(40,R0,E.back(u)),mag:lerp(1.2,MAG,E.eo(u)),sq:.3*Math.exp(-u*5)*Math.cos(u*16),ang:0}}
+  const [x,y]=pathAt(t),[px,py]=pathAt(t-1/60),vx=x-px,vy=y-py,sp=Math.hypot(vx,vy);
+  const pr=Math.max(Math.exp(-(((t-T_DROP)/.06)**2)),Math.exp(-(((t-T_BUY)/.06)**2)));
+  return {x,y,r:R0*(1-.08*pr),mag:MAG,sq:Math.min(.24,sp*.011),ang:sp>.2?Math.atan2(vy,vx):0};
+}
+function stateAt(t){
+  const [dx,dy]=pathAt(T_DROP),lf=t>=T_DROP?[{x:dx,y:dy,r:R0*.9*(1-cl((t-T_DROP)/9)),mag:MAG-.4*cl((t-T_DROP)/9)}]:[];
+  const u=t-T_BUY;
+  return {rev:t,pipY:-34*(1-E.eo((t-.2)/.8)),main:mainAt(t),left:lf,
+    rings:[{x:LAB[0],y:LAB[1],p:(t-T_LAND)/.8},{x:LAB[0],y:LAB[1],p:(t-T_LAND-.16)/.9},t>=T_DROP?{x:dx,y:dy,p:(t-T_DROP)/.8}:null],
+    bag:t>=T_BUY+.03?2:1,pop:u>0?Math.exp(-7*u)*Math.sin(Math.min(Math.PI,u*14)):0,added:t>=T_BUY+.03,press:Math.abs(u)<.07};
+}
+function render(t){draw(stateAt(t))}
+
+// звук: воздух, капля набухает, срывается, плюх, шорох при движении, вторая капля, корзина
+let seed=3;const rnd=()=>(seed=(seed*16807)%2147483647)/2147483647;
+async function buildAudio(){
+  seed=3;const SR=48000,ac=new OfflineAudioContext(2,Math.ceil(SR*DUR),SR);
+  const nb=ac.createBuffer(1,SR*8,SR),nd=nb.getChannelData(0);for(let i=0;i<nd.length;i++)nd[i]=rnd()*2-1;
+  const out=ac.createGain();out.gain.setValueAtTime(1.3,0);out.gain.setValueAtTime(1.3,DUR-.4);out.gain.linearRampToValueAtTime(0,DUR);out.connect(ac.destination);
+  const pan=v=>{const p=ac.createStereoPanner();p.pan.value=Math.max(-1,Math.min(1,v));p.connect(out);return p};
+  const px=x=>(x-720)/720*.7;
+  const noise=(t,len,dst,off)=>{const s=ac.createBufferSource();s.buffer=nb;s.connect(dst);s.start(t,off??rnd()*1.4,len+.05)};
+  const env=(t,att,dec,peak)=>{const g=ac.createGain();g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(peak,t+att);g.gain.setTargetAtTime(0,t+att,dec/3);return g};
+  const curve=(param,t0,t1,f,n=200)=>{const a=new Float32Array(n);for(let i=0;i<n;i++)a[i]=f(t0+(t1-t0)*i/(n-1));param.setValueCurveAtTime(a,t0,t1-t0)};
+  const plink=(t,p,k=1,f0=520,f1=1700)=>{const o=ac.createOscillator();o.frequency.setValueAtTime(f0,t);o.frequency.exponentialRampToValueAtTime(f1,t+.05);const g=env(t,.002,.16,.32*k);o.connect(g);g.connect(pan(p));o.start(t);o.stop(t+.3);
+    const o2=ac.createOscillator();o2.frequency.setValueAtTime(f0*1.7,t+.07);o2.frequency.exponentialRampToValueAtTime(f1*1.3,t+.1);const g2=env(t+.07,.002,.09,.12*k);o2.connect(g2);g2.connect(pan(p+.1));o2.start(t+.07);o2.stop(t+.25);
+    const bp=ac.createBiquadFilter();bp.type='bandpass';bp.frequency.value=6500;bp.Q.value=.8;const g3=env(t,.001,.12,.05*k);bp.connect(g3);g3.connect(pan(p));noise(t,.15,bp)};
+  // воздух и мягкий фон
+  {const bp=ac.createBiquadFilter();bp.type='bandpass';bp.frequency.value=2400;bp.Q.value=.5;const g=ac.createGain();curve(g.gain,0,DUR,t=>.012*E.eo(t/1.2));bp.connect(g);g.connect(pan(0));noise(0,DUR,bp,0)}
+  [[329.6,-.3],[493.9,.3],[659.3,0]].forEach(([f,p],i)=>{const o=ac.createOscillator();o.frequency.value=f;const g=ac.createGain();curve(g.gain,.2,DUR,t=>.016*E.eo((t-.2)/2)*(1-i*.25),64);o.connect(g);g.connect(pan(p));o.start(.2);o.stop(DUR)});
+  // пипетка касается кадра
+  {const bp=ac.createBiquadFilter();bp.type='bandpass';bp.frequency.value=3800;bp.Q.value=6;const g=env(.95,.001,.12,.12);bp.connect(g);g.connect(pan(px(TIP[0])));noise(.95,.1,bp)}
+  // капля набухает: тонкий подъём
+  {const o=ac.createOscillator();o.frequency.setValueAtTime(320,T_FORM);o.frequency.exponentialRampToValueAtTime(560,T_FALL);const g=ac.createGain();curve(g.gain,T_FORM,T_FALL,t=>.035*Math.pow(cl((t-T_FORM)/(T_FALL-T_FORM)),1.5),48);o.connect(g);g.connect(pan(px(TIP[0])));o.start(T_FORM);o.stop(T_FALL+.02)}
+  // срыв
+  {const o=ac.createOscillator();o.frequency.setValueAtTime(900,T_FALL);o.frequency.exponentialRampToValueAtTime(1400,T_FALL+.03);const g=env(T_FALL,.001,.04,.08);o.connect(g);g.connect(pan(px(TIP[0])));o.start(T_FALL);o.stop(T_FALL+.1)}
+  // плюх на этикетку
+  plink(T_LAND,px(LAB[0]),1.1);
+  // шорох воды, пока капля едет за курсором
+  {const bp=ac.createBiquadFilter();bp.type='bandpass';bp.frequency.value=1100;bp.Q.value=.9;const g=ac.createGain();
+    curve(g.gain,T_FREE,DUR,t=>{const [x,y]=pathAt(t),[a,b]=pathAt(t-1/60);return Math.min(.16,Math.hypot(x-a,y-b)*.014)},300);bp.connect(g);g.connect(pan(-.1));noise(T_FREE,DUR-T_FREE,bp)}
+  // оставили каплю на составе
+  plink(T_DROP,px(pathAt(T_DROP)[0]),.75,640,2000);
+  // в корзину
+  {const bp=ac.createBiquadFilter();bp.type='bandpass';bp.frequency.value=5000;bp.Q.value=1.4;const g=env(T_BUY,.001,.03,.4);bp.connect(g);g.connect(pan(px(BTN[0])));noise(T_BUY,.05,bp)}
+  [[1047,1],[1568,.55]].forEach(([f,k])=>{const o=ac.createOscillator();o.frequency.value=f;const g=env(T_BUY+.05,.004,.35,.06*k);o.connect(g);g.connect(pan(px(BTN[0])));o.start(T_BUY+.05);o.stop(T_BUY+.6)});
+  return ac.startRendering();
+}
+window.__renderAudio=async()=>{
+  const buf=await buildAudio();
+  const n=buf.length,ab=new ArrayBuffer(44+n*4),dv=new DataView(ab),ws=(o,s)=>{for(let i=0;i<s.length;i++)dv.setUint8(o+i,s.charCodeAt(i))};
+  ws(0,'RIFF');dv.setUint32(4,36+n*4,true);ws(8,'WAVEfmt ');dv.setUint32(16,16,true);dv.setUint16(20,1,true);dv.setUint16(22,2,true);
+  dv.setUint32(24,48000,true);dv.setUint32(28,48000*4,true);dv.setUint16(32,4,true);dv.setUint16(34,16,true);ws(36,'data');dv.setUint32(40,n*4,true);
+  const L0=buf.getChannelData(0),R0_=buf.getChannelData(1);
+  for(let i=0;i<n;i++){dv.setInt16(44+i*4,Math.max(-1,Math.min(1,L0[i]))*32767,true);dv.setInt16(46+i*4,Math.max(-1,Math.min(1,R0_[i]))*32767,true)}
+  let bin='';const u=new Uint8Array(ab);for(let i=0;i<u.length;i+=32768)bin+=String.fromCharCode.apply(null,u.subarray(i,i+32768));
+  return btoa(bin);
+};
+const center=el=>{const r=el.getBoundingClientRect(),s=stage.getBoundingClientRect(),k=s.width/1440;return [(r.left+r.width/2-s.left)/k,(r.top+r.height/2-s.top)/k]};
+function init(){setup();BTN=center(scene.querySelector('.btn'));CPS=CP()}
+window.__dur=DUR;window.__render=t=>{if(!main)init();render(t)};
+
+if(!REC){
+  const fit=()=>{stage.style.transform=`scale(${Math.min(innerWidth/1440,innerHeight/810,1.25)})`};fit();addEventListener('resize',fit);
+  // после ролика капля тянется за курсором на пружине, клик оставляет каплю, кнопка кладёт в корзину
+  let mode='intro',t0=0,mx=null,my=null,L={x:0,y:0,vx:0,vy:0,sq:0,ang:0},ac=null,bag=2,pop=-9,added=true,press=-9;
+  const lefts=[],ripples=[];
+  const pos=e=>{const r=stage.getBoundingClientRect(),k=r.width/1440;return [(e.clientX-r.left)/k,(e.clientY-r.top)/k]};
+  stage.addEventListener('pointermove',e=>{[mx,my]=pos(e)});
+  const plinkLive=(k=1)=>{if(!ac)return;const t=ac.currentTime,o=ac.createOscillator(),g=ac.createGain();o.frequency.setValueAtTime(600,t);o.frequency.exponentialRampToValueAtTime(1900,t+.05);g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(.25*k,t+.003);g.gain.exponentialRampToValueAtTime(.001,t+.2);o.connect(g);g.connect(ac.destination);o.start(t);o.stop(t+.25)};
+  stage.addEventListener('pointerdown',e=>{if(!ac)try{ac=new AudioContext()}catch(_){}
+    if(mode!=='live')return;const [x,y]=pos(e),n=performance.now();
+    if(e.target.closest('.btn')){e.preventDefault();bag++;pop=n;press=n;added=true;plinkLive(.6);return}
+    lefts.push({x,y,t:n});if(lefts.length>5)lefts.shift();ripples.push({x,y,t:n});if(ripples.length>3)ripples.shift();plinkLive()});
+  stage.addEventListener('click',e=>{if(e.target.closest('a'))e.preventDefault()});
+  document.fonts.ready.then(()=>{
+    init();
+    if(matchMedia('(prefers-reduced-motion: reduce)').matches){const S=stateAt(DUR);S.main=null;S.left=[];draw(S);return}
+    t0=performance.now();
+    const loop=n=>{
+      if(mode==='intro'){const t=(n-t0)/1000;if(t<T_FREE){const S=stateAt(t);S.bag=1;S.added=false;S.left=[];draw(S)}else{mode='live';L.x=LAB[0];L.y=LAB[1];if(mx===null){mx=L.x;my=L.y}added=false;bag=1}}
+      if(mode==='live'){
+        const ax=(mx-L.x)*.09,ay=(my-L.y)*.09;L.vx=L.vx*.72+ax;L.vy=L.vy*.72+ay;L.x+=L.vx;L.y+=L.vy;
+        const sp=Math.hypot(L.vx,L.vy);L.sq+=(Math.min(.26,sp*.012)-L.sq)*.25;if(sp>.3)L.ang=Math.atan2(L.vy,L.vx);
+        const u=(n-pop)/1000;
+        draw({rev:9,pipY:0,main:{x:L.x,y:L.y,r:R0*(n-press<120?.92:1),mag:MAG,sq:L.sq,ang:L.ang},
+          left:lefts.map(d=>{const a=cl((n-d.t)/9000);return {x:d.x,y:d.y,r:R0*.9*(1-a),mag:MAG-.4*a}}),
+          rings:[0,1,2].map(i=>ripples[i]?{...ripples[i],p:(n-ripples[i].t)/800}:null),
+          bag,pop:u>0?Math.exp(-7*u)*Math.sin(Math.min(Math.PI,u*14)):0,added,press:n-press<120});
+      }
+      requestAnimationFrame(loop)};
+    requestAnimationFrame(loop)});
+}else{document.fonts.ready.then(()=>{init();render(0)})}
+</script>
+</body>
+</html>
