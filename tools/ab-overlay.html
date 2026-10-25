@@ -1,0 +1,19 @@
+<!doctype html><html><head><meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;700&family=Geist:wght@400;500;600&display=block" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:1080px;height:1350px;background:transparent;font-family:'Geist',sans-serif;line-height:1.4;color:#f2f0ea;-webkit-font-smoothing:antialiased}
+.hd{position:absolute;right:24px;top:0;height:56px;display:flex;align-items:center;gap:16px}
+.hd b{font-family:'Inter Tight',sans-serif;font-size:26px;font-weight:700;letter-spacing:.005em}
+.hd span{font-size:16px;color:#9a978f}
+.tag{position:absolute;left:18px;display:flex;align-items:center;gap:10px;height:44px;padding:0 16px 0 6px;border-radius:22px;background:transparent;padding-left:0;font-size:17px;font-weight:600}
+.tag i{font-family:'Inter Tight',sans-serif;font-style:normal;width:32px;height:32px;border-radius:50%;background:#f2f0ea;color:#0b0b0b;display:grid;place-items:center;font-size:17px;font-weight:700}
+.tag em{font-style:normal;font-weight:500;color:#b5b2aa}
+.tag u{text-decoration:none;font-size:13px;font-weight:500;color:#0b0b0b;background:#f2f0ea;padding:3px 9px;border-radius:6px;margin-left:4px}
+.a{top:6px}.b{top:677px}
+</style></head><body>
+<div class="hd"><span>Which would you ship?</span><b>A or B?</b></div>
+<div class="tag a"><i>A</i><span id="na"></span> <em id="da"></em><u id="ua">playing</u></div>
+<div class="tag b"><i>B</i><span id="nb"></span> <em id="db"></em><u id="ub">playing</u></div>
+<script>const q=new URLSearchParams(location.search),g=id=>document.getElementById(id);g('na').textContent=q.get('a');g('da').textContent=q.get('ad');g('nb').textContent=q.get('b');g('db').textContent=q.get('bd');g(q.get('ph')==='1'?'ub':'ua').remove()</script>
+</body></html>
