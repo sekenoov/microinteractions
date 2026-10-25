@@ -18,6 +18,13 @@ Desktop landing page concepts in [landing-pages](landing-pages/). Each hero is a
 | [two-coats-paint-fan](landing-pages/two-coats-paint-fan/) | paint shop, the swatch you pick from the fan deck becomes the whole page |
 | [overprint-riso-press](landing-pages/overprint-riso-press/) | riso print studio, the page prints in three inks and never registers closer than 2 px |
 | [slow-burn-match-light](landing-pages/slow-burn-match-light/) | candle maker, the page stays dark until the cursor strikes a match and lights the candle |
+| [pace-topo-route](landing-pages/pace-topo-route/) | running app, a route draws over contour lines and the cursor scrubs back to the hardest climb |
+| [lowtide-lineup-eq](landing-pages/lowtide-lineup-eq/) | music festival, the variable-font line-up pumps to the track |
+| [casa-sal-time-of-day](landing-pages/casa-sal-time-of-day/) | seaside hotel, shutters open and the day runs past in an arched window |
+| [dew-droplet-lens](landing-pages/dew-droplet-lens/) | skincare, a drop from the pipette becomes a water lens cursor |
+| [penny-round-up-jar](landing-pages/penny-round-up-jar/) | savings app, spare change drops into a jar as coins |
+| [second-crack-roast-curve](landing-pages/second-crack-roast-curve/) | coffee roastery, drag the roast curve and the bean and cup change |
+| [halde-exploded-axo](landing-pages/halde-exploded-axo/) | architecture studio, hover a floor and the levels above lift |
 
 ## Microinteractions
 
