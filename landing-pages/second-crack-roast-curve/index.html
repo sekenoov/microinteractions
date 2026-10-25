@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Second Crack roasters</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;700&family=Geist:wght@400;500;600&display=block" rel="stylesheet">
+<style>
+:root{--head:'Inter Tight',system-ui,sans-serif;--body:'Geist',system-ui,sans-serif;--bg:#efe6d6;--ink:#2a1a12;--mid:#7a6656;--line:rgba(42,26,18,.14);--or:#c9502a}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:var(--bg);height:100%}
+body{overflow:hidden;font-family:var(--body);line-height:1.4;color:var(--ink);-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+#stage{position:absolute;left:50%;top:0;width:1440px;height:810px;margin-left:-720px;transform-origin:50% 0;background:var(--bg);overflow:hidden}
+.mono{font-family:var(--head);font-variant-numeric:tabular-nums;letter-spacing:.005em}
+
+nav{position:absolute;left:0;right:0;top:0;height:88px;padding:0 60px;display:flex;align-items:center;font-size:15px}
+.brand{font-family:var(--head);font-weight:700;font-size:23px;letter-spacing:.005em}
+.right{margin-left:auto;display:flex;gap:28px;align-items:center;color:var(--mid)}
+.right b{font-weight:400;color:var(--ink);display:flex;gap:6px}
+.right b i{font-style:normal;display:inline-block;font-variant-numeric:tabular-nums;transform-origin:50% 50%}
+
+/* что в чашке сейчас: читается сверху слева, меняется вместе с кривой */
+.pick{position:absolute;left:62px;top:150px;width:560px;display:grid;grid-template-columns:112px minmax(0,1fr);column-gap:24px;align-items:center}
+.pick .bean{grid-row:1 / span 2}
+.pick .px{grid-column:2}
+.pick .notes{white-space:nowrap}
+.bean{width:112px;height:112px;flex:none}
+.pick .lvl{font-size:15px;color:var(--mid)}
+.pick h3{white-space:nowrap;font-family:var(--head);font-weight:600;font-size:30px;letter-spacing:.005em;margin:2px 0 2px}
+.pick .notes{font-size:16px;color:var(--ink)}
+.pick .px{font-size:15px;color:var(--mid);margin-top:6px}
+.pick .px b{color:var(--ink);font-weight:600}
+
+h1{position:absolute;left:60px;top:470px;width:600px;font-family:var(--head);font-weight:600;font-size:80px;line-height:1.0;letter-spacing:.005em}
+h1 span{display:inline-block}
+.lede{position:absolute;left:62px;top:652px;width:460px;font-size:18px;color:var(--mid)}
+.ctas{position:absolute;left:62px;top:722px;font-size:18px;font-weight:500}
+.btn{text-decoration:underline;text-underline-offset:6px;text-decoration-thickness:1px;display:inline-block}
+.btn.done{color:var(--or)}
+#cur{position:absolute;left:0;top:0;width:22px;height:30px;z-index:50;pointer-events:none}
+
+.chart{position:absolute;left:660px;top:118px;width:724px;height:620px}
+.chart .hd{position:absolute;left:64px;right:40px;top:0;display:flex;gap:48px;align-items:flex-start}
+.chart .hd small{display:block;font-size:14px;color:var(--mid)}
+.chart .hd b{font-family:var(--head);font-weight:600;font-size:34px;letter-spacing:.005em;font-variant-numeric:tabular-nums}
+.chart .hd b span{color:var(--mid);font-size:20px;margin-left:4px}
+.chart svg{position:absolute;left:0;top:0;cursor:ew-resize}
+.drag{position:absolute;left:64px;bottom:0;font-size:14px;color:var(--mid);opacity:0}
+</style>
+</head>
+<body>
+<div id="stage">
+<nav class="rv" data-d="0">
+  <a class="brand" href="#">Second Crack</a>
+  <div class="right"><a href="#">Shop</a><a href="#">Subscriptions</a><b>Cart <i id="cart">2</i></b></div>
+</nav>
+
+<h1><span class="rv ln" data-d=".12">Roasted to</span><br><span class="rv ln" data-d=".26">the minute.</span></h1>
+<p class="lede rv" data-d=".5">Small batches, roasted on Tuesdays and shipped the same week.</p>
+
+<div class="pick rv" data-d=".62">
+  <svg class="bean" viewBox="0 0 132 132">
+    <defs><radialGradient id="sh" cx=".35" cy=".3" r=".8"><stop offset="0" stop-color="#fff" stop-opacity=".35"/><stop offset=".6" stop-color="#fff" stop-opacity="0"/></radialGradient></defs>
+    <g id="beanG" transform="rotate(-28 66 66)">
+      <ellipse cx="66" cy="70" rx="40" ry="54" fill="rgba(42,26,18,.18)" transform="translate(4 6)"/>
+      <ellipse id="beanF" cx="66" cy="66" rx="40" ry="54" fill="#8e9a5b"/>
+      <ellipse cx="66" cy="66" rx="40" ry="54" fill="url(#sh)"/>
+      <path id="crease" d="M66 14c-14 18 14 34 0 52s14 34 0 52" stroke="#2a1a12" stroke-opacity=".55" stroke-width="5" fill="none" stroke-linecap="round"/>
+    </g>
+  </svg>
+  <div class="swap" id="sw">
+    <div class="lvl" id="lvl">Light roast</div>
+    <h3 id="nm">Ethiopia Guji</h3>
+    <div class="notes" id="nt">Jasmine, bergamot, black tea</div>
+  </div>
+  <div class="px"><b>€16</b> for 250 g, whole bean</div>
+</div>
+<div class="ctas rv" data-d=".74"><a class="btn" href="#" id="btn">Add to cart</a></div>
+
+<div class="chart rv" data-d=".3" id="chart">
+  <div class="hd"><div><small>Drop at</small><b id="tm">00:00</b></div><div class="r"><small>Bean temp</small><b id="tp">200<span>°C</span></b></div></div>
+  <svg id="svg" width="724" height="620" viewBox="0 0 724 620"></svg>
+  <div class="drag" id="drag">Drag the point along the curve to drop the beans earlier or later.</div>
+</div>
+<svg id="cur" viewBox="0 0 22 30"><path d="M2 2v22.5l5.6-5.3 3.6 8.3 3.6-1.6-3.5-8.1h7.7z" fill="#000" stroke="#fff" stroke-width="1.6" stroke-linejoin="round"/></svg>
+</div>
+
+<script>
+const $=id=>document.getElementById(id),stage=$('stage'),REC=/rec/.test(location.search);
+const cl=x=>Math.max(0,Math.min(1,x)),lerp=(a,b,p)=>a+(b-a)*p;
+const E={lin:cl,eo:x=>1-Math.pow(1-cl(x),3),ei:x=>cl(x)**2,eio:x=>{x=cl(x);return x<.5?4*x**3:1-Math.pow(-2*x+2,3)/2}};
+const NS='http://www.w3.org/2000/svg',svg=$('svg');
+const el=(t,a,p=svg)=>{const e=document.createElementNS(NS,t);for(const k in a)e.setAttribute(k,a[k]);p.appendChild(e);return e};
+
+// кривая обжарки: загрузка в горячий барабан, точка разворота, потом медленный подъём
+const T=t=>245-185*Math.exp(-.17*t)+140*Math.exp(-2.4*t);
+const ROR=t=>(T(t+.05)-T(t-.05))/.1;
+const X0=64,X1=692,Y0=520,Y1=120,TM=14,tx=t=>X0+(X1-X0)*t/TM,ty=v=>Y0-(Y0-Y1)*(v-80)/(250-80),ry=v=>Y0-(Y0-Y1)*v/32;
+const FC=9.3,SC=12.6,MIN=9.6,MAX=13.6,CX=660,CY=112;
+
+for(let v=100;v<=240;v+=20){el('line',{x1:X0,x2:X1,y1:ty(v),y2:ty(v),stroke:'rgba(42,26,18,.07)'});el('text',{x:X1+6,y:ty(v)+4,fill:'rgba(42,26,18,.35)','font-size':11,'font-family':'Geist'}).textContent=v}
+for(let m=0;m<=TM;m+=2)el('text',{x:tx(m),y:Y0+22,fill:'rgba(42,26,18,.35)','font-size':11,'font-family':'Geist','text-anchor':'middle'}).textContent=m+':00';
+const cracks=[[FC,'First crack'],[SC,'Second crack']].map(([t,l])=>{el('line',{x1:tx(t),x2:tx(t),y1:Y1-10,y2:Y0,stroke:'rgba(42,26,18,.22)','stroke-dasharray':'3 5'});const e=el('text',{x:tx(t)+8,y:Y1-2,fill:'rgba(42,26,18,.55)','font-size':12,'font-family':'Geist'});e.textContent=l;return {t,e}});
+// зоны вкуса
+const zones=[[MIN,10.6,'Light'],[10.6,11.8,'Medium'],[11.8,MAX,'Dark']].map(([a,b,l],i)=>{const r=el('rect',{x:tx(a),y:Y0+34,width:tx(b)-tx(a)-3,height:4,rx:2,fill:'rgba(42,26,18,'+(.12+i*.08)+')'});const t=el('text',{x:tx(a),y:Y0+56,fill:'rgba(42,26,18,.45)','font-size':11.5,'font-family':'Geist'});t.textContent=l;return {a,b,r,t}});
+
+const pts=(f,t0=0)=>{let d='';for(let t=t0;t<=TM+1e-6;t+=.05)d+=(d?'L':'M')+tx(t).toFixed(1)+' '+f(t).toFixed(1);return d};
+const rorP=el('path',{display:'none',d:pts(t=>ry(Math.max(0,Math.min(32,ROR(t)))),1.2),stroke:'#c9502a','stroke-width':1.6,'stroke-dasharray':'4 4',fill:'none'});
+const ghost=el('path',{d:pts(t=>ty(T(t))),stroke:'rgba(42,26,18,.16)','stroke-width':2.5,fill:'none'});
+const curve=el('path',{d:pts(t=>ty(T(t))),stroke:'#2a1a12','stroke-width':2,fill:'none','stroke-linecap':'round'});
+const L=curve.getTotalLength();curve.style.strokeDasharray=L;
+const vline=el('line',{y1:Y1-10,y2:Y0,stroke:'#c9502a','stroke-width':1.5});
+const halo=el('circle',{r:16,fill:'#c9502a'});
+const dot=el('circle',{r:7,fill:'#efe6d6',stroke:'#c9502a','stroke-width':3});
+const lenAt=(()=>{const N=280,acc=[0];let px=tx(0),py=ty(T(0));for(let i=1;i<=N;i++){const t=TM*i/N,x=tx(t),y=ty(T(t));acc.push(acc[i-1]+Math.hypot(x-px,y-py));px=x;py=y}return t=>{const f=t/TM*N,i=Math.floor(f);return i>=N?acc[N]:acc[i]+(acc[i+1]-acc[i])*(f-i)}})();
+
+const STOPS=[[0,[142,154,91]],[5,[201,170,95]],[8.2,[176,118,64]],[10,[170,112,62]],[11.2,[120,70,38]],[12.6,[70,40,24]],[14,[30,19,14]]];
+function beanCol(t){let i=0;while(i<STOPS.length-2&&t>STOPS[i+1][0])i++;const [a,c0]=STOPS[i],[b,c1]=STOPS[i+1],p=cl((t-a)/(b-a));return 'rgb('+c0.map((v,k)=>Math.round(v+(c1[k]-v)*p)).join(',')+')'}
+const LV=[[10.6,'Light roast','Ethiopia Guji','Jasmine, bergamot, black tea'],[11.8,'Medium roast','Colombia Huila','Caramel, red apple, cocoa'],[99,'Dark roast','Sumatra Lintong','Dark chocolate, molasses, cedar']];
+const lvlOf=f=>LV.findIndex(l=>f<l[0]);
+const mmss=t=>{const s=Math.round(t*60);return String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0')};
+const set=(e,v)=>{if(e.__v!==v){e.__v=v;e.textContent=v}};
+
+function draw(Z){
+  const f=Z.f,x=tx(f),y=ty(T(f));
+  document.querySelectorAll('.rv').forEach(e=>{const p=E.eo((Z.rev-(+e.dataset.d))/.8);e.style.opacity=p;e.style.transform=`translateY(${(1-p)*(e.classList.contains('ln')?28:16)}px)`});
+  curve.style.strokeDashoffset=L-lenAt(f);
+  set($('tm'),mmss(f));set($('tp').firstChild,String(Math.round(T(f))));
+  $('beanF').setAttribute('fill',beanCol(f));
+  // зерно растёт при обжарке, на крэке вздрагивает, бороздка раскрывается
+  const g=(1+.12*cl((f-4)/8))*(1+.05*Z.pop);$('beanG').setAttribute('transform',`rotate(${-28+Z.pop*4} 66 66) translate(66 66) scale(${g}) translate(-66 -66)`);
+  $('crease').setAttribute('stroke-width',4+Math.max(0,f-FC)*1.4);
+  [dot,halo].forEach(e=>{e.setAttribute('cx',x);e.setAttribute('cy',y)});vline.setAttribute('x1',x);vline.setAttribute('x2',x);
+  dot.setAttribute('opacity',Z.ui);vline.setAttribute('opacity',Z.ui*.6);rorP.setAttribute('opacity',Z.ui*.7);
+  halo.setAttribute('r',16+Z.halo*22+(Z.grab?6:0));halo.setAttribute('opacity',Z.ui*(Z.halo>0&&Z.halo<1?.25*(1-Z.halo):Z.grab?.3:.18));
+  dot.setAttribute('r',Z.grab?8.5:7);
+  cracks.forEach(c=>{const on=f>=c.t;c.e.setAttribute('fill',on?'#c9502a':'rgba(42,26,18,.55)')});
+  zones.forEach(z=>{const on=f>=z.a&&f<z.b;z.t.setAttribute('fill',on?'#2a1a12':'rgba(42,26,18,.45)')});
+  // карточка кофе: подменяется на уровне, с коротким провалом прозрачности
+  const li=lvlOf(f),show=f>=MIN-.3;
+  set($('lvl'),LV[li][1]);set($('nm'),LV[li][2]);set($('nt'),LV[li][3]);
+  const sw=$('sw');sw.style.opacity=show?Z.swap:1;sw.style.transform=`translateY(${(1-Z.swap)*6}px)`;
+  $('drag').style.opacity=Z.hint||0;
+  const b=$('btn');b.classList.toggle('done',!!Z.added);set(b,Z.added?'Added to cart':'Add to cart');b.style.transform=Z.press?'scale(.96)':'';
+  const c=$('cart');set(c,String(Z.cart));c.style.transform=`scale(${1+.6*Z.cpop})`;
+  const cu=$('cur');if(Z.cur){cu.style.display='block';cu.style.transform=`translate(${Z.cur[0]-2}px,${Z.cur[1]-2}px) scale(${Z.down?.86:1})`}else cu.style.display='none';
+}
+
+// ролик: кривая рисуется, на первом крэке зерно вздрагивает, курсор тянет выгрузку к тёмной обжарке и кладёт в корзину
+const T_RUN=.9,T_DRAWN=4.3,F_MED=11.2,F_DARK=12.95,T_GRAB=5.55,T_LET=6.42,T_ADD=7.15,DUR=7.6;
+let BTN=[133,717];
+const fAt=t=>t<T_RUN?0:t<T_DRAWN?F_MED*E.eio((t-T_RUN)/(T_DRAWN-T_RUN)):t<T_GRAB?F_MED:lerp(F_MED,F_DARK,E.eio((t-T_GRAB)/(T_LET-T_GRAB-.05)));
+const dotXY=f=>[CX+tx(f),CY+ty(T(f))];
+const CP=()=>[[4.85,1500,900],[5.45,...dotXY(F_MED),'eo'],[T_GRAB,...dotXY(F_MED),'lin'],[T_LET+.08,...dotXY(F_DARK),'lin'],[6.98,BTN[0],BTN[1],'eio'],[DUR+1,BTN[0],BTN[1],'lin']];
+let CPS=CP();
+function curAt(t){const P=CPS;if(t<P[0][0])return null;
+  if(t>=T_GRAB&&t<T_LET+.08)return dotXY(fAt(t));
+  for(let k=0;k<P.length-1;k++){const [a,x0,y0]=P[k],[b,x1,y1,e]=P[k+1];if(t<b){const p=E[e]((t-a)/(b-a));return [lerp(x0,x1,p),lerp(y0,y1,p)+(k===0||k===3?-Math.sin(p*Math.PI)*40:0)]}}return P[P.length-1].slice(1,3)}
+// когда меняется уровень и когда проходим крэки
+const crossings=(thr)=>{const out=[];let prev=fAt(0);for(let t=1/120;t<DUR;t+=1/120){const f=fAt(t);thr.forEach(v=>{if((prev<v)!==(f<v))out.push(t)});prev=f}return out};
+const SWAPS=crossings([10.6,11.8]),T_FC=crossings([FC])[0],T_SC=crossings([SC])[0];
+function stateAt(t){
+  const f=fAt(t),sw=SWAPS.reduce((m,c)=>Math.min(m,Math.abs(t-c)),9),u=t-T_ADD,p1=t-T_FC,p2=t-(T_SC||99);
+  const pop=Math.max(p1>0?Math.exp(-p1*6)*Math.sin(Math.min(Math.PI,p1*22)):0,p2>0?.7*Math.exp(-p2*6)*Math.sin(Math.min(Math.PI,p2*22)):0);
+  return {rev:t,f,ui:E.eo((t-T_DRAWN)/.4),halo:cl((t-T_DRAWN)/.9),swap:cl(sw/.2),pop,grab:t>=T_GRAB&&t<T_LET,down:t>=T_GRAB&&t<T_LET||Math.abs(u)<.08,
+    cur:curAt(t),added:t>=T_ADD+.03,press:Math.abs(u)<.08,cart:t>=T_ADD+.03?3:2,cpop:u>0?Math.exp(-7*u)*Math.sin(Math.min(Math.PI,u*14)):0};
+}
+function render(t){draw(stateAt(t))}
+
+// звук: барабан и горелка, треск первого и второго крэка, хват точки, корзина
+let seed=13;const rnd=()=>(seed=(seed*16807)%2147483647)/2147483647;
+async function buildAudio(){
+  seed=13;const SR=48000,ac=new OfflineAudioContext(2,Math.ceil(SR*DUR),SR);
+  const nb=ac.createBuffer(1,SR*8,SR),nd=nb.getChannelData(0);for(let i=0;i<nd.length;i++)nd[i]=rnd()*2-1;
+  const out=ac.createGain();out.gain.setValueAtTime(2.5,0);out.gain.setValueAtTime(2.5,DUR-.4);out.gain.linearRampToValueAtTime(0,DUR);out.connect(ac.destination);
+  const pan=v=>{const p=ac.createStereoPanner();p.pan.value=Math.max(-1,Math.min(1,v));p.connect(out);return p};
+  const px=x=>(x-720)/720*.8;
+  const noise=(t,len,dst,off)=>{const s=ac.createBufferSource();s.buffer=nb;s.connect(dst);s.start(t,off??rnd()*1.4,len+.05)};
+  const env=(t,att,dec,peak)=>{const g=ac.createGain();g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(peak,t+att);g.gain.setTargetAtTime(0,t+att,dec/3);return g};
+  const curve=(param,t0,t1,f,n=200)=>{const a=new Float32Array(n);for(let i=0;i<n;i++)a[i]=f(t0+(t1-t0)*i/(n-1));param.setValueCurveAtTime(a,t0,t1-t0)};
+  const tick=(t,p,gain,f,q=1.4,len=.03)=>{const g=env(t,.001,len,gain);g.connect(pan(p));const bp=ac.createBiquadFilter();bp.type='bandpass';bp.frequency.value=f;bp.Q.value=q;bp.connect(g);noise(t,len+.03,bp)};
+  // барабан крутится: низкий гул с покачиванием, зёрна шуршат, горелка шипит
+  {const lp=ac.createBiquadFilter();lp.type='lowpass';lp.frequency.value=160;const g=ac.createGain();curve(g.gain,0,DUR,t=>.22*E.eo((t-.3)/.8)*(.75+.25*Math.sin(t*2*Math.PI*1.1)));lp.connect(g);g.connect(pan(.2));noise(0,DUR,lp,0)}
+  {const bp=ac.createBiquadFilter();bp.type='bandpass';bp.frequency.value=900;bp.Q.value=.7;const g=ac.createGain();curve(g.gain,0,DUR,t=>.035*E.eo((t-.4)/.8)*(.5+.5*Math.abs(Math.sin(t*Math.PI*1.1))));bp.connect(g);g.connect(pan(.3));noise(0,DUR,bp,2)}
+  {const bp=ac.createBiquadFilter();bp.type='highpass';bp.frequency.value=5000;const g=ac.createGain();curve(g.gain,0,DUR,t=>.012*E.eo((t-.4)/1));bp.connect(g);g.connect(pan(-.3));noise(0,DUR,bp,4)}
+  // первый крэк: громкие щелчки, сначала редко, потом гуще, потом стихают
+  for(let i=0;i<34;i++){const u=rnd(),t=T_FC+Math.pow(u,1.3)*1.6;if(t>DUR)continue;tick(t,.15+(rnd()-.5)*.6,.18+rnd()*.25,1300+rnd()*1700,1.8,.025)}
+  // второй крэк: мельче и чаще
+  if(T_SC)for(let i=0;i<40;i++){const t=T_SC+rnd()*1.1;if(t<DUR)tick(t,.25+(rnd()-.5)*.5,.06+rnd()*.08,3800+rnd()*2400,2,.012)}
+  // смена кофе на карточке
+  SWAPS.forEach(t=>{tick(t,-.5,.08,2600,2);const bp=ac.createBiquadFilter();bp.type='bandpass';bp.frequency.setValueAtTime(1800,t-.15);bp.frequency.exponentialRampToValueAtTime(3600,t+.15);const g=ac.createGain();curve(g.gain,t-.15,t+.15,x=>.04*Math.sin(Math.PI*cl((x-t+.15)/.3)),32);bp.connect(g);g.connect(pan(-.5));noise(t-.15,.3,bp)});
+  // точка появилась
+  {const o=ac.createOscillator();o.frequency.value=740;const g=env(T_DRAWN,.005,.35,.04);o.connect(g);g.connect(pan(px(dotXY(F_MED)[0])));o.start(T_DRAWN);o.stop(T_DRAWN+.5)}
+  // хват и отпуск
+  tick(T_GRAB,px(dotXY(F_MED)[0]),.3,4200);tick(T_LET,px(dotXY(F_DARK)[0]),.22,3200);
+  // корзина
+  tick(T_ADD,px(BTN[0]),.45,5200);[[988,1],[1480,.55]].forEach(([f,k])=>{const o=ac.createOscillator();o.frequency.value=f;const g=env(T_ADD+.05,.004,.38,.06*k);o.connect(g);g.connect(pan(px(BTN[0])));o.start(T_ADD+.05);o.stop(T_ADD+.5)});
+  return ac.startRendering();
+}
+window.__renderAudio=async()=>{
+  const buf=await buildAudio();
+  const n=buf.length,ab=new ArrayBuffer(44+n*4),dv=new DataView(ab),ws=(o,s)=>{for(let i=0;i<s.length;i++)dv.setUint8(o+i,s.charCodeAt(i))};
+  ws(0,'RIFF');dv.setUint32(4,36+n*4,true);ws(8,'WAVEfmt ');dv.setUint32(16,16,true);dv.setUint16(20,1,true);dv.setUint16(22,2,true);
+  dv.setUint32(24,48000,true);dv.setUint32(28,48000*4,true);dv.setUint16(32,4,true);dv.setUint16(34,16,true);ws(36,'data');dv.setUint32(40,n*4,true);
+  const L0=buf.getChannelData(0),R0=buf.getChannelData(1);
+  for(let i=0;i<n;i++){dv.setInt16(44+i*4,Math.max(-1,Math.min(1,L0[i]))*32767,true);dv.setInt16(46+i*4,Math.max(-1,Math.min(1,R0[i]))*32767,true)}
+  let bin='';const u=new Uint8Array(ab);for(let i=0;i<u.length;i+=32768)bin+=String.fromCharCode.apply(null,u.subarray(i,i+32768));
+  return btoa(bin);
+};
+const center=e=>{const r=e.getBoundingClientRect(),s=stage.getBoundingClientRect(),k=s.width/1440;return [(r.left+r.width/2-s.left)/k,(r.top+r.height/2-s.top)/k]};
+function setup(){BTN=center($('btn'));CPS=CP()}
+window.__dur=DUR;window.__render=t=>{if(!window.__ok){setup();window.__ok=1}render(t)};
+
+if(!REC){
+  const fit=()=>{stage.style.transform=`scale(${Math.min(innerWidth/1440,innerHeight/810,1.25)})`};fit();addEventListener('resize',fit);
+  // после ролика кривую тянет гость, кнопка кладёт в корзину
+  let mode='intro',t0=0,f=F_DARK,tgt=F_DARK,lastL=lvlOf(F_DARK),swapAt=-9,cart=3,cpop=-9,press=-9,ac=null;
+  const chart=$('chart'),fromEvent=e=>{const r=svg.getBoundingClientRect(),k=r.width/724;return Math.max(MIN,Math.min(MAX,((e.clientX-r.left)/k-X0)/(X1-X0)*TM))};
+  chart.addEventListener('pointermove',e=>{if(mode==='live')tgt=fromEvent(e)});
+  addEventListener('pointerdown',()=>{if(!ac)try{ac=new AudioContext()}catch(_){}});
+  $('btn').addEventListener('click',e=>{e.preventDefault();if(mode!=='live')return;cart++;cpop=press=performance.now()});
+  const crack=()=>{if(!ac)return;const t=ac.currentTime;for(let i=0;i<5;i++){const b=ac.createBuffer(1,400,ac.sampleRate),d=b.getChannelData(0);for(let j=0;j<d.length;j++)d[j]=(Math.random()*2-1)*Math.exp(-j/60);
+    const s=ac.createBufferSource(),bp=ac.createBiquadFilter(),g=ac.createGain();bp.type='bandpass';bp.frequency.value=1500+Math.random()*2000;g.gain.value=.25;s.buffer=b;s.connect(bp);bp.connect(g);g.connect(ac.destination);s.start(t+Math.random()*.25)}};
+  document.fonts.ready.then(()=>{
+    setup();
+    if(matchMedia('(prefers-reduced-motion: reduce)').matches){draw({...stateAt(DUR),cur:null});return}
+    t0=performance.now();
+    const loop=n=>{
+      if(mode==='intro'){const t=(n-t0)/1000;if(t<T_GRAB){const S=stateAt(t);S.cur=null;S.down=false;draw(S)}else{mode='live';f=tgt=F_MED;lastL=lvlOf(F_MED);cart=2}}
+      if(mode==='live'){const pf=f;f+=(tgt-f)*.16;const l=lvlOf(f);if(l!==lastL){lastL=l;swapAt=n}if((pf<FC)!==(f<FC)||(pf<SC)!==(f<SC))crack();
+        const u=(n-cpop)/1000;
+        draw({rev:9,f,ui:1,halo:1,swap:cl(Math.abs(n-swapAt-200)/200),pop:0,grab:false,down:false,cur:null,hint:1,added:cart>2,press:n-press<120,cart,cpop:u>0?Math.exp(-7*u)*Math.sin(Math.min(Math.PI,u*14)):0})}
+      requestAnimationFrame(loop)};
+    requestAnimationFrame(loop)});
+}else{document.fonts.ready.then(()=>{setup();window.__ok=1;render(0)})}
+</script>
+</body>
+</html>
