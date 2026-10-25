@@ -1,0 +1,248 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Penny, round-up savings</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;700&family=Geist:wght@400;500;600&display=block" rel="stylesheet">
+<style>
+/* одна пара шрифтов на все лендинги: Inter Tight для заголовков, Geist для остального (TYPOGRAPHY.md) */
+:root{--bg:#f3f1ea;--panel:#fbfaf6;--ink:#11241b;--ink2:#3a4a41;--mid:#66736b;--line:rgba(17,36,27,.12);--green:#1d5a3c;--coin:#e9c45a;--coin2:#c99a2e;
+  --head:'Inter Tight',system-ui,sans-serif;--body:'Geist',system-ui,sans-serif}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:var(--bg);height:100%}
+body{overflow:hidden;font-family:var(--body);line-height:1.4;color:var(--ink);-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+/* сцена прижата к верху и стоит на фоне того же цвета, поэтому полей вокруг не видно */
+#stage{position:absolute;left:50%;top:0;width:1440px;height:810px;margin-left:-720px;transform-origin:50% 0;background:var(--bg);overflow:hidden}
+.num{font-family:var(--head);font-variant-numeric:tabular-nums;letter-spacing:.005em}
+
+nav{position:absolute;left:0;right:0;top:0;height:88px;padding:0 64px;display:flex;align-items:center;font-size:15px}
+.brand{font-family:var(--head);font-weight:700;font-size:24px;letter-spacing:.005em}
+.right{margin-left:auto;display:flex;gap:28px;align-items:center;color:var(--mid)}
+.right a:hover{color:var(--ink)}
+.right a:last-child{color:var(--ink);text-decoration:underline;text-underline-offset:5px}
+
+/* выписка за день: строки текстом, без рамок; сдача стоит справа и улетает в банку */
+.ledger{position:absolute;left:64px;top:150px;width:560px}
+.ledger .hd{display:flex;align-items:baseline;gap:16px;font-size:15px;color:var(--mid);margin-bottom:14px}
+.seg{display:flex;gap:4px;position:relative}
+.seg button{border:0;background:none;font:500 15px var(--body);color:var(--mid);cursor:pointer;padding:2px 8px}
+.seg button.on{color:var(--ink)}
+.seg i{position:absolute;bottom:-3px;left:0;height:1.5px;width:calc(100%/3);background:var(--ink)}
+.row{display:grid;grid-template-columns:150px 1fr auto 72px;gap:16px;align-items:baseline;height:40px;font-size:17px}
+.row .nm{font-weight:500;display:contents}
+.row .nm small{font-size:14px;color:var(--mid);font-weight:400}
+.row .pr{display:contents}
+.row .pr small{color:var(--green);text-align:right;font-size:17px}
+.sweep{margin-top:16px;font-size:15px;color:var(--mid)}
+.sweep b{color:var(--ink);font-weight:600}
+
+h1{position:absolute;left:62px;top:520px;font-family:var(--head);font-size:68px;line-height:1.0;letter-spacing:.005em;font-weight:600}
+h1 .ln{display:block;overflow:hidden;padding-bottom:4px}
+h1 .ln span{display:inline-block}
+.lede{position:absolute;left:66px;top:682px;width:520px;font-size:18px;color:var(--ink2)}
+.ctas{position:absolute;left:66px;top:740px;font-size:18px;font-weight:500}
+.ctas a{text-decoration:underline;text-underline-offset:6px;text-decoration-thickness:1px}
+
+.jarwrap{position:absolute;left:1040px;top:92px;width:330px;height:700px}
+.jarbox{position:absolute;left:0;top:0;width:250px;height:560px;transform:scale(1.3);transform-origin:0 0}
+.jar{position:absolute;left:0;top:0}
+.coins{position:absolute;left:40px;top:136px;width:170px;height:382px;overflow:hidden;border-radius:0 0 34px 34px}
+.glass{position:absolute;left:0;top:0;pointer-events:none}
+.coin{position:absolute;width:36px;height:36px;margin:-18px 0 0 -18px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#f7dd85,var(--coin) 55%,var(--coin2));box-shadow:inset 0 0 0 3px rgba(150,105,20,.35),0 2px 0 rgba(120,80,10,.25);display:grid;place-items:center;font:600 10.5px var(--body);color:#6d4c0c}
+.coin.old{font-size:0}
+.coin.cu{background:radial-gradient(circle at 35% 30%,#f0b48a,#c9774a 55%,#9c5330);box-shadow:inset 0 0 0 3px rgba(110,50,20,.3),0 2px 0 rgba(90,40,10,.25);width:30px;height:30px;margin:-15px 0 0 -15px}
+.foot{position:absolute;left:24px;right:24px;bottom:20px;font-size:13px;color:var(--mid);display:flex;justify-content:space-between}
+.coin.big{width:42px;height:42px;margin:-21px 0 0 -21px;font-size:11px}
+#fly{position:absolute;inset:0;pointer-events:none;z-index:20}
+#cur{position:absolute;left:0;top:0;width:22px;height:30px;z-index:50;pointer-events:none}
+.fly{position:absolute;z-index:20;pointer-events:none}
+.total{position:absolute;left:0;right:0;top:10px;text-align:center}
+.total b{display:block;font-size:40px;font-weight:600}
+.total small{font-size:13px;color:var(--mid)}
+.year{position:absolute;left:0;right:0;top:534px;text-align:center;font-size:14px;color:var(--mid)}
+.year b{color:var(--ink);font-weight:600}
+</style>
+</head>
+<body>
+<div id="stage">
+<nav class="rv" data-d="0">
+  <a class="brand" href="#">Penny</a>
+  <div class="right"><a href="#">Log in</a><a href="#">Get the app</a></div>
+</nav>
+
+<div class="ledger rv" data-d=".2">
+  <div class="hd"><span>Today, rounded up to</span><div class="seg" id="seg"><i id="segi"></i><button class="on" data-v="1">€1</button><button data-v="5">€5</button><button data-v="10" id="b10">€10</button></div></div>
+  <div id="rows"></div>
+  <p class="sweep">At this pace, <b class="num" id="yr">€0</b> a year. Swept into the jar at midnight, from any bank card.</p>
+</div>
+
+<h1><span class="ln"><span>Spend like usual.</span></span><span class="ln"><span>Keep the change.</span></span></h1>
+<p class="lede rv" data-d=".5">Every purchase rounds up to the next euro, and the spare cents drop into a jar you can't spend by accident.</p>
+<div class="ctas rv" data-d=".62"><a href="#">Start saving</a></div>
+
+<div class="jarwrap rv" data-d=".45">
+<div class="jarbox" id="jarbox">
+  <div class="total"><b class="num" id="tot">€0.00</b><small id="today">+€0.00 today</small></div>
+  <svg class="jar" width="250" height="530" viewBox="0 0 250 530">
+    <rect x="44" y="92" width="162" height="22" rx="6" fill="#11241b"/>
+    <path d="M58 114 h134 v8 c0 6 14 8 20 16 v346 a36 36 0 0 1 -36 36 H74 a36 36 0 0 1 -36 -36 V138 c6 -8 20 -10 20 -16 z" fill="rgba(255,255,255,.6)"/>
+  </svg>
+  <div class="coins" id="coins"></div>
+  <svg class="glass" width="250" height="530" viewBox="0 0 250 530"><path d="M58 114 h134 v8 c0 6 14 8 20 16 v346 a36 36 0 0 1 -36 36 H74 a36 36 0 0 1 -36 -36 V138 c6 -8 20 -10 20 -16 z" fill="rgba(255,255,255,.12)" stroke="#0f241a" stroke-opacity=".2" stroke-width="2"/><path d="M52 166 v290" stroke="#fff" stroke-width="6" stroke-linecap="round" opacity=".75"/><path d="M198 180 v60" stroke="#fff" stroke-width="3" stroke-linecap="round" opacity=".6"/></svg>
+</div>
+</div>
+<div id="fly"></div>
+<svg id="cur" viewBox="0 0 22 30"><path d="M2 2v22.5l5.6-5.3 3.6 8.3 3.6-1.6-3.5-8.1h7.7z" fill="#000" stroke="#fff" stroke-width="1.6" stroke-linejoin="round"/></svg>
+</div>
+
+<script>
+const $=id=>document.getElementById(id),stage=$('stage'),REC=/rec/.test(location.search);
+const cl=x=>Math.max(0,Math.min(1,x)),lerp=(a,b,p)=>a+(b-a)*p;
+const E={lin:cl,eo:x=>1-Math.pow(1-cl(x),3),ei:x=>cl(x)**2,eio:x=>{x=cl(x);return x<.5?4*x**3:1-Math.pow(-2*x+2,3)/2},
+  spring:x=>{x=Math.max(0,x);return 1-Math.exp(-6*x)*Math.cos(9*x)}};
+const eur=v=>'€'+v.toFixed(2);
+
+const P=[['☕','Flat white','Kaffeebar, 08:12',3.40],['🚌','Bus ticket','Line 12, 08:31',1.75],['🥬','Groceries','Market Hall, 12:50',23.18],['📖','Paperback','Corner Books, 13:22',12.49],['🍜','Lunch','Noodle Bar, 13:40',8.90],['🎬','Cinema','Kino Ost, 19:05',11.20]];
+const rows=$('rows');
+P.forEach(([ic,nm,sub,pr])=>{rows.insertAdjacentHTML('beforeend',`<div class="row"><div class="nm">${nm}<small>${sub}</small></div><div class="pr num">${eur(pr)}<small></small></div></div>`)});
+const R=[...rows.children],RS=R.map(r=>r.querySelector('.pr small'));
+const up=(pr,step)=>{const c=Math.ceil(pr/step+1e-9)*step-pr;return Math.round((c<0.005?step:c)*100)/100};
+const STEPS=[1,5,10];
+
+// монеты в банке: ряды по пять, со сдвигом, снизу вверх
+const slot=i=>{const r=Math.floor(i/5),c=i%5,j=Math.sin(i*12.9)*3;return [19+c*31+(r%2?14:0)+j,382-19-r*22-Math.abs(Math.sin(i*3.1))*5]};
+// в банке уже лежит то, что накопилось за месяц
+const BASE=84.2,OLD=45,JK=1.3,JL=1040,JT=92,JX=JL+40*JK,JY=JT+136*JK;
+for(let i=0;i<OLD;i++){const [x,y]=slot(i),c=document.createElement('div');c.className='coin old'+(Math.sin(i*91.7)>.35?' cu':'');c.style.left=x+'px';c.style.top=y+'px';$('coins').appendChild(c)}
+
+// откуда летит монета: из суммы округления в строке
+let SRC=[];
+function measure(){const s=stage.getBoundingClientRect(),k=s.width/1440;SRC=RS.map(e=>{e.textContent='+€0.00';const r=e.getBoundingClientRect();return [(r.right-s.left)/k-16,(r.top-s.top)/k+8]})}
+
+// каждый выбор шага = событие: монеты прежнего шага вылетают, новые сыплются по строкам
+const FLY=.72,events=[];
+function addEvent(at,step,first){
+  const prev=events[events.length-1];if(prev)prev.emptyAt=at+.05;
+  const delay=first?0:.55,gap=first?.2:.17,coins=[];let n=0;
+  P.forEach((p,i)=>{const amt=up(p[3],step),k=amt>=5?3:amt>=1?2:1;
+    for(let j=0;j<k;j++){const t0=at+delay+i*gap+j*.06,e1=document.createElement('div'),e2=document.createElement('div');
+      const lab=j?'':(amt>=1?'€'+Math.round(amt):Math.round(amt*100)+'¢'),big=amt>=1;
+      e1.className=e2.className='coin'+(big?' big':'');e1.textContent=e2.textContent=lab;e1.style.display=e2.style.display='none';
+      $('fly').appendChild(e1);$('coins').appendChild(e2);const [sx,sy]=slot(OLD+n);
+      coins.push({row:i,amt:amt/k,t0,land:t0+FLY,sx,sy,e1,e2,spin:(i*7+j*3)%5,n:n++})}});
+  events.push({at,step,coins,emptyAt:Infinity,idx:STEPS.indexOf(step),rowAmt:P.map(p=>up(p[3],step)),showAt:at+delay-.12});
+}
+function drawCoins(t){
+  let today=0;
+  events.forEach(ev=>{ev.coins.forEach(c=>{
+    const out=t>=ev.emptyAt?(t-ev.emptyAt-c.n*.025)/.42:0;
+    if(t<c.t0||out>=1){c.e1.style.display=c.e2.style.display='none';return}
+    if(t<c.land){
+      const u=(t-c.t0)/FLY,[x0,y0]=SRC[c.row],x1=JX+c.sx*JK,y1=JY+c.sy*JK,top=JT+56*JK,x=lerp(x0,x1,u),y=u<.45?lerp(y0,top,E.eo(u/.45)):lerp(top,y1,((u-.45)/.55)**2);
+      c.e1.style.display='';c.e2.style.display='none';c.e1.style.transform=`translate(${x}px,${y}px) rotate(${u*(400+c.spin*60)}deg) scale(${(.6+.4*Math.min(1,u*3))*lerp(1,JK,u)})`;
+    }else{
+      c.e1.style.display='none';c.e2.style.display='';c.e2.style.left=c.sx+'px';c.e2.style.top=c.sy+'px';
+      const b=t-c.land,o=cl(out);
+      c.e2.style.transform=o>0?`translateY(${-o*o*40}px) scale(${1-o})`:`translateY(${-Math.sin(Math.min(1,b/.38)*Math.PI)*9*(1-Math.min(1,b/.38))}px)`;c.e2.style.opacity=1-o;
+      today+=c.amt*E.eo(b/.3)*(1-E.eo((t-ev.emptyAt)/.4));
+    }
+  })});
+  return today;
+}
+function draw(Z){
+  const t=Z.t;
+  document.querySelectorAll('.rv').forEach(el=>{const p=E.eo((Z.rev-(+el.dataset.d))/.8);el.style.opacity=p;el.style.transform=`translateY(${(1-p)*16}px)`});
+  document.querySelectorAll('h1 .ln span').forEach((s,i)=>{s.style.transform=`translateY(${(1-E.eo((Z.rev-.15-i*.12)/.9))*105}%)`});
+  R.forEach((r,i)=>{const p=E.eo((Z.rev-.6-i*.07)/.5);r.style.opacity=p;r.style.transform=`translateY(${(1-p)*10}px)`});
+  const today=drawCoins(t);
+  $('tot').textContent=eur(BASE+today);$('today').textContent='+'+eur(today)+' today';$('yr').textContent='€'+Math.round(today*365).toLocaleString('en');
+  // переключатель и суммы в строках
+  let cur=null,prev=null;events.forEach(ev=>{if(t>=ev.at){prev=cur;cur=ev}});
+  const si=cur?(prev?lerp(prev.idx,cur.idx,E.spring((t-cur.at)/.6)):cur.idx):0;$('segi').style.transform=`translateX(${si*100}%)`;
+  document.querySelectorAll('.seg button').forEach((b,i)=>b.classList.toggle('on',i===(cur?cur.idx:0)));
+  $('b10').style.transform=Z.press?'scale(.94)':'';
+  RS.forEach((s,i)=>{let txt='',op=0;events.forEach(ev=>{const a=ev.showAt+i*(ev===events[0]?.2:.17);if(t>=a&&t<ev.emptyAt){txt='+'+eur(ev.rowAmt[i]);op=E.eo((t-a)/.25)}else if(t>=ev.emptyAt&&t<ev.emptyAt+.2){txt='+'+eur(ev.rowAmt[i]);op=1-(t-ev.emptyAt)/.2}});
+    if(s.__t!==txt){s.__t=txt;s.textContent=txt}s.style.opacity=op});
+  const cu=$('cur');if(Z.cur){cu.style.display='block';cu.style.transform=`translate(${Z.cur[0]-2}px,${Z.cur[1]-2}px) scale(${Z.press?.86:1})`}else cu.style.display='none';
+}
+
+// ролик: страница собирается, сдача сыплется по евро, курсор переключает на €10, банка наполняется
+const T_POUR=1.3,T_PRESS=4.4,DUR=7.6;
+let B10=[1043,222];
+const CP=()=>[[3.55,1500,900],[4.25,B10[0],B10[1]+4,'eo'],[4.6,B10[0],B10[1]+4,'lin'],[5.7,1250,600,'eio'],[6.9,1230,560,'eio'],[DUR+1,1230,560,'lin']];
+let CPS=CP();
+function curAt(t){const P=CPS;if(t<P[0][0])return null;for(let k=0;k<P.length-1;k++){const [a,x0,y0]=P[k],[b,x1,y1,e]=P[k+1];if(t<b){const p=E[e]((t-a)/(b-a));return [lerp(x0,x1,p),lerp(y0,y1,p)+(k===0||k===2?-Math.sin(p*Math.PI)*36:0)]}}return P[P.length-1].slice(1,3)}
+function stateAt(t){return {t,rev:t,cur:curAt(t),press:Math.abs(t-T_PRESS)<.08}}
+function render(t){draw(stateAt(t))}
+const center=el=>{const r=el.getBoundingClientRect(),s=stage.getBoundingClientRect(),k=s.width/1440;return [(r.left+r.width/2-s.left)/k,(r.top+r.height/2-s.top)/k]};
+function setup(){measure();B10=center($('b10'));CPS=CP();addEvent(T_POUR,1,true);addEvent(T_PRESS,10)}
+
+// звук: монеты звенят о стекло и друг о друга
+let seed=9;const rnd=()=>(seed=(seed*16807)%2147483647)/2147483647;
+async function buildAudio(){
+  seed=9;const SR=48000,ac=new OfflineAudioContext(2,Math.ceil(SR*DUR),SR);
+  const nb=ac.createBuffer(1,SR*2,SR),nd=nb.getChannelData(0);for(let i=0;i<nd.length;i++)nd[i]=rnd()*2-1;
+  const out=ac.createGain();out.gain.setValueAtTime(.55,0);out.gain.setValueAtTime(.55,DUR-.4);out.gain.linearRampToValueAtTime(0,DUR);out.connect(ac.destination);
+  const pan=v=>{const p=ac.createStereoPanner();p.pan.value=Math.max(-1,Math.min(1,v));p.connect(out);return p};
+  const px=x=>(x-720)/720*.8;
+  const noise=(t,len,dst)=>{const s=ac.createBufferSource();s.buffer=nb;s.connect(dst);s.start(t,rnd()*1.4,len+.05)};
+  const env=(t,att,dec,peak)=>{const g=ac.createGain();g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(peak,t+att);g.gain.setTargetAtTime(0,t+att,dec/3);return g};
+  const tick=(t,p,gain,f,q=1.4)=>{const g=env(t,.0015,.03,gain);g.connect(pan(p));const bp=ac.createBiquadFilter();bp.type='bandpass';bp.frequency.value=f;bp.Q.value=q;bp.connect(g);noise(t,.05,bp)};
+  // звон: неровные обертоны, как у металла
+  const clink=(t,p,k,f)=>{[[1,1],[2.76,.5],[5.4,.28],[8.9,.14]].forEach(([m,a])=>{const o=ac.createOscillator();o.frequency.value=f*m;const g=env(t,.001,.22/m**.3,.09*k*a);o.connect(g);g.connect(pan(p));o.start(t);o.stop(t+.5)});tick(t,p,.12*k,6500,.8)};
+  const whoosh=(t,p)=>{const bp=ac.createBiquadFilter();bp.type='bandpass';bp.Q.value=.9;bp.frequency.setValueAtTime(900,t);bp.frequency.exponentialRampToValueAtTime(2600,t+FLY*.45);bp.frequency.exponentialRampToValueAtTime(1200,t+FLY);
+    const g=ac.createGain(),n=48,c=new Float32Array(n);for(let i=0;i<n;i++)c[i]=.05*Math.sin(Math.PI*i/(n-1));g.gain.setValueCurveAtTime(c,t,FLY);bp.connect(g);g.connect(pan(p));noise(t,FLY,bp)};
+  // строки появляются
+  P.forEach((_,i)=>tick(.6+i*.07,.15,.05,3400));
+  events.forEach(ev=>{
+    ev.coins.forEach(c=>{whoosh(c.t0,px(1000));clink(c.land,px(JX+c.sx*JK),1,2300+((c.n*577)%1900));if(c.n%3===0)clink(c.land+.045,px(JX+c.sx*JK),.45,3100+((c.n*331)%1500))});
+    if(ev.emptyAt<DUR)ev.coins.forEach(c=>{if(c.n<8)clink(ev.emptyAt+c.n*.03,px(JX+c.sx*JK),.35,3400+c.n*180)});
+    // касса звенит, когда упала последняя монета
+    const end=Math.max(...ev.coins.map(c=>c.land))+.15;if(end<DUR)[[1568,1],[2093,.6]].forEach(([f,k],i)=>{const o=ac.createOscillator();o.frequency.value=f;const g=env(end+i*.08,.003,.5,.05*k);o.connect(g);g.connect(pan(.6));o.start(end+i*.08);o.stop(end+.8)});
+  });
+  // клик по €10 и мягкий толчок переключателя
+  tick(T_PRESS,px(B10[0]),.45,5200);{const o=ac.createOscillator();o.frequency.setValueAtTime(240,T_PRESS+.02);o.frequency.exponentialRampToValueAtTime(140,T_PRESS+.12);const g=env(T_PRESS+.02,.004,.1,.12);o.connect(g);g.connect(pan(px(B10[0])));o.start(T_PRESS);o.stop(T_PRESS+.2)}
+  return ac.startRendering();
+}
+window.__renderAudio=async()=>{
+  const buf=await buildAudio();
+  const n=buf.length,ab=new ArrayBuffer(44+n*4),dv=new DataView(ab),ws=(o,s)=>{for(let i=0;i<s.length;i++)dv.setUint8(o+i,s.charCodeAt(i))};
+  ws(0,'RIFF');dv.setUint32(4,36+n*4,true);ws(8,'WAVEfmt ');dv.setUint32(16,16,true);dv.setUint16(20,1,true);dv.setUint16(22,2,true);
+  dv.setUint32(24,48000,true);dv.setUint32(28,48000*4,true);dv.setUint16(32,4,true);dv.setUint16(34,16,true);ws(36,'data');dv.setUint32(40,n*4,true);
+  const L0=buf.getChannelData(0),R0=buf.getChannelData(1);
+  for(let i=0;i<n;i++){dv.setInt16(44+i*4,Math.max(-1,Math.min(1,L0[i]))*32767,true);dv.setInt16(46+i*4,Math.max(-1,Math.min(1,R0[i]))*32767,true)}
+  let bin='';const u=new Uint8Array(ab);for(let i=0;i<u.length;i+=32768)bin+=String.fromCharCode.apply(null,u.subarray(i,i+32768));
+  return btoa(bin);
+};
+window.__dur=DUR;window.__render=t=>{if(!events.length)setup();render(t)};
+
+if(!REC){
+  const fit=()=>{stage.style.transform=`scale(${Math.min(innerWidth/1440,innerHeight/810,1.25)})`};fit();addEventListener('resize',fit);
+  // после ролика переключатель живой: монеты прежнего шага вылетают, новые сыплются
+  let mode='intro',t0=0,ac=null;
+  const clinkLive=(f,k=1)=>{if(!ac)return;const t=ac.currentTime;[[1,1],[2.76,.5],[5.4,.28]].forEach(([m,a])=>{const o=ac.createOscillator(),g=ac.createGain();o.frequency.value=f*m;g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(.08*k*a,t+.002);g.gain.exponentialRampToValueAtTime(.001,t+.3);o.connect(g);g.connect(ac.destination);o.start(t);o.stop(t+.35)})};
+  document.querySelectorAll('.seg button').forEach(b=>b.addEventListener('click',()=>{
+    if(!ac)try{ac=new AudioContext()}catch(_){}
+    if(mode!=='live')return;const t=(performance.now()-t0)/1000,last=events[events.length-1],st=+b.dataset.v;
+    if(st===last.step||t<Math.max(...last.coins.map(c=>c.land))+.1)return;
+    addEvent(t,st);const ev=events[events.length-1];
+    // звон по таймингам приземления
+    ev.coins.forEach(c=>setTimeout(()=>clinkLive(2300+(c.n*577)%1900,.8),(c.land-t)*1000));
+    // старые события больше не нужны
+    while(events.length>3){const o=events.shift();o.coins.forEach(c=>{c.e1.remove();c.e2.remove()})}
+  }));
+  document.fonts.ready.then(()=>{
+    setup();
+    if(matchMedia('(prefers-reduced-motion: reduce)').matches){draw({...stateAt(DUR),cur:null});return}
+    t0=performance.now();
+    const loop=n=>{const t=(n-t0)/1000;if(mode==='intro'&&t>=DUR)mode='live';
+      const S=stateAt(t);S.cur=null;S.press=false;draw(S);requestAnimationFrame(loop)};
+    requestAnimationFrame(loop)});
+}else{document.fonts.ready.then(()=>{setup();render(0)})}
+</script>
+</body>
+</html>
