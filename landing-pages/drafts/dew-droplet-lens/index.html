@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Dew skincare</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;1,6..96,400&family=Hanken+Grotesk:wght@400;500;600&display=block" rel="stylesheet">
+<style>
+:root{--bg:#e6efec;--ink:#16302d;--mid:#5d736f;--line:rgba(22,48,45,.14);--blush:#e9c9bd}
+*{box-sizing:border-box;margin:0;padding:0}
+html{background:#cddcd7;height:100%}
+body{height:100%;overflow:hidden;font-family:'Hanken Grotesk',system-ui,sans-serif;color:var(--ink);-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+#stage{position:absolute;left:50%;top:50%;width:1440px;height:810px;margin:-405px 0 0 -720px;overflow:hidden;cursor:none}
+.scene{position:absolute;left:0;top:0;width:1440px;height:810px;background:radial-gradient(900px 600px at 78% 40%,#f6f3ec,transparent 70%),linear-gradient(160deg,#e9f2ef,#dfebe7)}
+
+nav{position:absolute;left:0;right:0;top:0;height:84px;padding:0 64px;display:flex;align-items:center;font-size:14.5px}
+.brand{font-family:'Bodoni Moda',serif;font-size:30px;font-style:italic;letter-spacing:-.01em}
+.links{display:flex;gap:30px;margin-left:80px;color:var(--mid)}
+.right{margin-left:auto;display:flex;gap:26px;align-items:center}
+.right span{width:24px;height:24px;border-radius:50%;background:var(--ink);color:#fff;font-size:12px;display:inline-grid;place-items:center;margin-left:6px}
+
+h1{position:absolute;left:60px;top:156px;font-family:'Bodoni Moda',serif;font-weight:400;font-size:112px;line-height:.94;letter-spacing:-.035em}
+h1 i{font-weight:400}
+.lede{position:absolute;left:66px;top:408px;width:420px;font-size:17.5px;line-height:1.55;color:var(--mid)}
+.ctas{position:absolute;left:66px;top:508px;display:flex;align-items:center;gap:22px}
+.btn{height:54px;padding:0 28px;border-radius:27px;background:var(--ink);color:#f3f1ea;display:flex;align-items:center;gap:12px;font-size:15.5px;font-weight:500}
+.btn b{font-weight:400;opacity:.6}
+.stars{font-size:14px;color:var(--mid)}
+.stars i{font-style:normal;color:var(--ink);letter-spacing:2px}
+.fine{position:absolute;left:66px;top:612px;width:470px}
+.fine h5{font-size:12.5px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;margin-bottom:10px;display:flex;justify-content:space-between}
+.fine h5 span{color:var(--mid);font-weight:400;letter-spacing:0;text-transform:none}
+.fine p{font-size:8.6px;line-height:1.55;color:var(--mid);letter-spacing:.01em}
+
+.bottle{position:absolute;left:968px;top:356px;width:210px;height:380px}
+.glass{position:absolute;left:0;top:70px;width:210px;height:310px;border-radius:38px 38px 30px 30px;background:linear-gradient(90deg,rgba(255,255,255,.55),rgba(233,201,189,.45) 30%,rgba(214,170,155,.55) 70%,rgba(255,255,255,.5));box-shadow:inset 0 0 0 1px rgba(255,255,255,.7),inset 12px 0 20px rgba(255,255,255,.5),0 40px 50px -30px rgba(40,70,65,.5)}
+.liquid{position:absolute;left:10px;right:10px;bottom:10px;height:200px;border-radius:0 0 24px 24px;background:linear-gradient(90deg,rgba(220,160,140,.55),rgba(200,140,120,.6))}
+.neck{position:absolute;left:66px;top:40px;width:78px;height:36px;background:linear-gradient(90deg,#d8d4cc,#f4f1ea 40%,#cfcac1);border-radius:6px 6px 2px 2px}
+.label{position:absolute;left:26px;top:150px;width:158px;height:178px;background:#f7f4ee;border-radius:4px;padding:18px 16px;text-align:center;box-shadow:0 1px 0 rgba(0,0,0,.05)}
+.label b{display:block;font-family:'Bodoni Moda',serif;font-style:italic;font-weight:400;font-size:44px;line-height:1}
+.label small{display:block;font-size:9px;letter-spacing:.2em;text-transform:uppercase;margin-top:6px}
+.label p{font-size:10.5px;color:var(--mid);margin-top:20px;line-height:1.4}
+.label em{display:block;font-style:normal;font-size:8px;letter-spacing:.16em;margin-top:18px;color:var(--mid)}
+.pip{position:absolute;left:1046px;top:96px;width:48px;height:240px}
+.bulb{position:absolute;left:0;top:0;width:48px;height:74px;border-radius:24px 24px 10px 10px;background:linear-gradient(90deg,#1d3a37,#355a55 40%,#16302d)}
+.tube{position:absolute;left:17px;top:72px;width:14px;height:168px;border-radius:0 0 7px 7px;background:linear-gradient(90deg,rgba(255,255,255,.7),rgba(233,201,189,.6) 40%,rgba(255,255,255,.6));box-shadow:inset 0 0 0 1px rgba(255,255,255,.8)}
+.note{position:absolute;font-size:13px;line-height:1.4;color:var(--mid);width:170px}
+.note b{display:block;color:var(--ink);font-weight:500}
+.note::before{content:'';position:absolute;top:9px;width:46px;height:1px;background:var(--line)}
+.note.l::before{right:-58px}.note.r::before{left:-58px}
+
+#drops{position:absolute;inset:0;pointer-events:none}
+.drop{position:absolute;left:0;top:0;border-radius:50%;overflow:hidden;will-change:transform}
+.drop .in{position:absolute;left:0;top:0;transform-origin:0 0}
+.drop .in{filter:saturate(1.2) contrast(1.06)}
+.drop .sh{position:absolute;inset:0;border-radius:50%;box-shadow:inset 0 -16px 24px rgba(255,255,255,.6),inset -6px 12px 22px rgba(20,60,55,.3),inset 0 0 0 1.5px rgba(22,48,45,.18),inset 0 0 6px 2px rgba(255,255,255,.5)}
+.drop .hl{position:absolute;left:22%;top:14%;width:26%;height:16%;border-radius:50%;background:rgba(255,255,255,.85);filter:blur(1.5px);transform:rotate(-30deg)}
+.shadow{position:absolute;left:0;top:0;border-radius:50%;background:radial-gradient(closest-side,rgba(20,55,50,.22),transparent);will-change:transform}
+.ring{position:absolute;border-radius:50%;box-shadow:0 0 0 1.5px rgba(255,255,255,.9);pointer-events:none}
+</style>
+</head>
+<body>
+<div id="stage">
+<div class="scene" id="scene">
+  <nav>
+    <a class="brand" href="#">Dew</a>
+    <div class="links"><a href="#">Serums</a><a href="#">Cleansers</a><a href="#">Routines</a><a href="#">Ingredients</a></div>
+    <div class="right"><a href="#">Search</a><a href="#">Account</a><a href="#">Bag<span>1</span></a></div>
+  </nav>
+  <h1>Skin that<br><i>drinks it in.</i></h1>
+  <p class="lede">A water-light serum with two weights of hyaluronic acid and kelp from the Faroe Islands. One drop in the morning, one at night.</p>
+  <div class="ctas"><a class="btn" href="#">Add Dew Serum 02 <b>€38</b></a><span class="stars"><i>★★★★★</i> 2 140 reviews</span></div>
+  <div class="fine">
+    <h5>Full ingredient list <span>Read it through a drop</span></h5>
+    <p>Aqua (Water), Glycerin, Sodium Hyaluronate (low and high molecular weight, 1.5%), Laminaria Digitata Extract, Panthenol, Betaine, Pentylene Glycol, Allantoin, Sodium PCA, Trehalose, Xanthan Gum, Hydroxyacetophenone, Citric Acid, Sodium Citrate. No fragrance, no essential oils, no alcohol. Vegan. Made in Porto, Portugal, in batches of 2 000. Dermatologist tested on sensitive skin. Store below 25°C, use within 6 months of opening.</p>
+  </div>
+  <div class="note l" style="left:760px;top:430px"><b>1.5% hyaluronic acid</b>Low weight sinks in, high weight holds water on top</div>
+  <div class="note l" style="left:760px;top:560px"><b>Faroese kelp</b>Calms redness, harvested by hand</div>
+  <div class="note r" style="left:1240px;top:300px"><b>pH 5.4</b>Close to your skin's own</div>
+  <div class="pip"><div class="bulb"></div><div class="tube"></div></div>
+  <div class="bottle"><div class="neck"></div><div class="glass"><div class="liquid"></div></div>
+    <div class="label"><b>Dew</b><small>Serum 02</small><p>Hyaluronic acid<br>+ Faroese kelp</p><em>30 ml · 1.0 fl oz</em></div></div>
+</div>
+<div id="drops"></div>
+</div>
+
+<script>
+const $=id=>document.getElementById(id),stage=$('stage');
+const fit=()=>{stage.style.transform=`scale(${Math.min(innerWidth/1440,innerHeight/810)})`};fit();addEventListener('resize',fit);
+const ease={o:x=>1-Math.pow(1-x,3),io:x=>x<.5?4*x*x*x:1-Math.pow(-2*x+2,3)/2};
+const tween=(ms,fn,e=ease.o)=>new Promise(r=>{const t0=performance.now();const f=now=>{const p=Math.min(1,(now-t0)/ms);fn(e(p));p<1?requestAnimationFrame(f):r()};requestAnimationFrame(f)});
+const wait=ms=>new Promise(r=>setTimeout(r,ms));
+const drops=$('drops'),scene=$('scene');
+
+// капля = лупа: внутри копия страницы, увеличенная вокруг центра капли
+function makeDrop(){
+  const sh=document.createElement('div');sh.className='shadow';drops.appendChild(sh);
+  const d=document.createElement('div');d.className='drop';
+  const inn=scene.cloneNode(true);inn.removeAttribute('id');inn.className='scene in';
+  d.appendChild(inn);d.insertAdjacentHTML('beforeend','<div class="sh"></div><div class="hl"></div>');drops.appendChild(d);
+  return {d,inn,sh,x:0,y:0,r:0,mag:1.5,vx:0,vy:0,sq:0,ang:0};
+}
+function place(o){
+  const {d,inn,sh,x,y,r,mag}=o,D=r*2;
+  d.style.width=d.style.height=D+'px';
+  // сплющивается по направлению движения
+  const s=Math.min(.28,o.sq);
+  d.style.transform=`translate(${x-r}px,${y-r}px) rotate(${o.ang}rad) scale(${1+s},${1-s*.55}) rotate(${-o.ang}rad)`;
+  inn.style.transform=`translate(${r-x*mag}px,${r-y*mag}px) scale(${mag})`;
+  sh.style.width=sh.style.height=D*1.1+'px';sh.style.transform=`translate(${x-r*1.1+r*.18}px,${y-r*1.1+r*.42}px) scale(1,.9)`;sh.style.opacity=r?1:0;
+}
+function ripple(x,y){const g=document.createElement('div');g.className='ring';drops.appendChild(g);
+  tween(800,p=>{const R=20+p*90;g.style.left=x-R+'px';g.style.top=y-R*.55+'px';g.style.width=R*2+'px';g.style.height=R*1.1+'px';g.style.opacity=1-p}).then(()=>g.remove())}
+
+let lens=null,mx=1070,my=560,live=false;
+const left=[];
+const pos=e=>{const r=stage.getBoundingClientRect(),k=r.width/1440;return [(e.clientX-r.left)/k,(e.clientY-r.top)/k]};
+stage.addEventListener('pointermove',e=>{[mx,my]=pos(e)});
+// клик оставляет каплю, она медленно высыхает
+stage.addEventListener('pointerdown',e=>{if(!live)return;const [x,y]=pos(e);const o=makeDrop();o.x=x;o.y=y;o.r=lens.r*.9;place(o);left.push(o);ripple(x,y);
+  if(left.length>5){const z=left.shift();z.d.remove();z.sh.remove()}
+  tween(9000,p=>{o.r=lens.r*.9*(1-p);o.mag=1.5-p*.4;place(o)},x=>x).then(()=>{o.d.remove();o.sh.remove();const i=left.indexOf(o);if(i>=0)left.splice(i,1)})});
+
+(async()=>{
+  await document.fonts.ready;await wait(500);
+  lens=makeDrop();lens.x=1070;lens.y=338;
+  // капля набухает на кончике пипетки
+  await tween(900,p=>{lens.r=4+p*20;lens.y=338+p*14;place(lens)},ease.io);
+  await wait(200);
+  // отрывается и падает на этикетку
+  await tween(520,p=>{lens.y=352+p*p*(590-352);lens.r=24+p*20;lens.sq=p*.22;lens.ang=Math.PI/2;place(lens)},x=>x);
+  ripple(1070,590);
+  await tween(520,p=>{lens.r=44+Math.sin(p*Math.PI)*14+p*26;lens.sq=.22*(1-p)*Math.cos(p*9);place(lens)});
+  lens.r=70;lens.sq=0;place(lens);mx=lens.x;my=lens.y;live=true;
+  // дальше капля тянется за курсором на пружине
+  (function loop(){
+    const ax=(mx-lens.x)*.09,ay=(my-lens.y)*.09;lens.vx=lens.vx*.72+ax;lens.vy=lens.vy*.72+ay;lens.x+=lens.vx;lens.y+=lens.vy;
+    const sp=Math.hypot(lens.vx,lens.vy);lens.sq+=(Math.min(.28,sp*.012)-lens.sq)*.25;if(sp>.3)lens.ang=Math.atan2(lens.vy,lens.vx);
+    place(lens);requestAnimationFrame(loop)})();
+})();
+</script>
+</body>
+</html>

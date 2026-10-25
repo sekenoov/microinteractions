@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Margin, writing assistant</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400&display=block" rel="stylesheet">
+<style>
+:root{--bg:#f6f4ef;--ink:#1b1a17;--mid:#6f6b63;--low:#a7a299;--line:rgba(27,26,23,.1);--vi:#5838f0;--vi2:rgba(88,56,240,.1)}
+*{box-sizing:border-box;margin:0;padding:0}
+html{background:#e4e1d9;height:100%}
+body{height:100%;overflow:hidden;font-family:'Geist',system-ui,sans-serif;color:var(--ink);-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+#stage{position:absolute;left:50%;top:50%;width:1440px;height:810px;margin:-405px 0 0 -720px;background:var(--bg);overflow:hidden}
+.serif{font-family:'Newsreader',Georgia,serif}
+
+nav{position:absolute;left:0;right:0;top:0;height:80px;padding:0 60px;display:flex;align-items:center}
+.brand{font-family:'Newsreader',serif;font-size:27px;letter-spacing:-.02em;display:flex;align-items:center;gap:9px}
+.brand svg{width:16px;height:22px}
+.links{display:flex;gap:30px;margin-left:76px;font-size:15px;color:var(--mid)}
+.links a:hover{color:var(--ink)}
+.right{margin-left:auto;display:flex;gap:24px;align-items:center;font-size:15px}
+.right .b{height:40px;padding:0 18px;border-radius:8px;background:var(--ink);color:var(--bg);display:flex;align-items:center;font-weight:500}
+
+h1{position:absolute;left:58px;top:168px;font-family:'Newsreader',serif;font-weight:400;font-size:92px;line-height:.98;letter-spacing:-.035em;width:640px}
+h1 i{color:var(--vi)}
+.lede{position:absolute;left:62px;top:384px;width:470px;font-size:19px;line-height:1.5;color:var(--mid)}
+.ctas{position:absolute;left:62px;top:500px;display:flex;gap:20px;align-items:center}
+.btn{height:54px;padding:0 26px;border-radius:10px;background:var(--vi);color:#fff;font-size:16.5px;font-weight:500;display:flex;align-items:center;gap:10px;transition:transform .15s,filter .2s}
+.btn:hover{filter:brightness(1.08)}.btn:active{transform:scale(.97)}
+.btn kbd{font:400 12px 'Geist Mono';background:rgba(255,255,255,.18);padding:3px 6px;border-radius:5px}
+.ghost{font-size:16.5px;font-weight:500}
+.logos{position:absolute;left:62px;bottom:62px;font-size:13px;color:var(--low)}
+.logos div{display:flex;gap:36px;margin-top:14px;font-family:'Newsreader',serif;font-size:22px;color:var(--mid);letter-spacing:-.01em}
+.logos div span:nth-child(2){font-family:'Geist';font-weight:600;font-size:18px;letter-spacing:-.04em}
+.logos div span:nth-child(4){font-family:'Geist Mono';font-size:16px}
+
+.doc{position:absolute;left:724px;top:118px;width:660px;height:640px;background:#fff;border-radius:14px;box-shadow:0 0 0 1px var(--line),0 40px 80px -40px rgba(40,30,10,.28)}
+.bar{height:52px;border-bottom:1px solid var(--line);display:flex;align-items:center;padding:0 18px;gap:8px;font-size:13.5px;color:var(--mid)}
+.bar i{width:11px;height:11px;border-radius:50%;background:#e6e2da}
+.bar .ttl{margin-left:12px;color:var(--ink)}
+.bar .ttl span{color:var(--low)}
+.bar .tool{margin-left:auto;display:flex;gap:8px}
+.chip{height:30px;padding:0 12px;border-radius:7px;display:flex;align-items:center;gap:6px;font-size:13px;background:var(--bg);color:var(--ink);border:0;font-family:inherit;cursor:pointer}
+.chip.v{background:var(--vi2);color:var(--vi);font-weight:500}
+.chip.v:hover{background:rgba(88,56,240,.16)}
+.body{padding:40px 56px 0;height:520px;overflow:hidden;-webkit-mask:linear-gradient(#000 82%,transparent);mask:linear-gradient(#000 82%,transparent)}
+.body h2{font-family:'Newsreader',serif;font-weight:500;font-size:30px;letter-spacing:-.02em;margin-bottom:6px}
+.meta{font-size:13px;color:var(--low);margin-bottom:26px}
+.p+.p{margin-top:18px}
+.p{font-family:'Newsreader',serif;font-size:21px;line-height:1.62;color:#2b2925}
+.s{border-radius:3px;cursor:pointer;transition:background .2s;box-decoration-break:clone;-webkit-box-decoration-break:clone}
+.s:hover{background:var(--vi2)}
+.s.done{cursor:default}.s.done:hover{background:none}
+.w{display:inline-block;white-space:pre;position:relative;vertical-align:top}
+.w.del::after{content:'';position:absolute;left:0;right:.25em;top:52%;height:1.5px;background:var(--vi);transform:scaleX(var(--k,0));transform-origin:0 50%}
+.w.del{color:var(--low)}
+.w.add{color:var(--vi);overflow:hidden}
+.w.gone{overflow:hidden}
+.stats{position:absolute;left:56px;right:56px;bottom:26px;display:flex;gap:10px;align-items:center;font-size:13px;color:var(--mid)}
+.stats b{font:400 13px 'Geist Mono';color:var(--ink);margin-left:4px}
+.stats .sep{width:1px;height:14px;background:var(--line)}
+.stats .hint{margin-left:auto;color:var(--vi);opacity:0;transition:opacity .4s}
+</style>
+</head>
+<body>
+<div id="stage">
+<nav>
+  <a class="brand" href="#"><svg viewBox="0 0 16 22"><path d="M2 1v20M8 1v20" stroke="#5838f0" stroke-width="2"/></svg>Margin</a>
+  <div class="links"><a href="#">Product</a><a href="#">For teams</a><a href="#">Style guides</a><a href="#">Pricing</a></div>
+  <div class="right"><a href="#">Sign in</a><a class="b" href="#">Try it free</a></div>
+</nav>
+
+<h1>Say it in <i>fewer</i> words.</h1>
+<p class="lede">Margin reads your draft like a good editor. It cuts the filler, keeps your voice, and shows every change before you accept it.</p>
+<div class="ctas"><a class="btn" href="#">Add to your browser <kbd>⌘ ⇧ M</kbd></a><a class="ghost" href="#">Watch a 1 min demo →</a></div>
+<div class="logos">Used by writers at<div><span>Lumen</span><span>northwind</span><span><i>The Fold</i></span><span>ACME/OS</span></div></div>
+
+<div class="doc">
+  <div class="bar"><i></i><i></i><i></i><span class="ttl">Q3 product update <span>· draft</span></span>
+    <div class="tool"><button class="chip">Tone: plain</button><button class="chip v" id="all">✦ Tighten all</button></div></div>
+  <div class="body">
+    <h2>Onboarding, a quick update</h2>
+    <div class="meta">Edited by you and Margin · just now</div>
+    <div id="p"><p class="p"></p></div>
+  </div>
+  <div class="stats"><span>Words<b id="wc">0</b></span><span class="sep"></span><span>Reading time<b id="rt">0s</b></span><span class="sep"></span><span>Grade<b id="gr">14</b></span><span class="hint" id="hint">Click any sentence to tighten it</span></div>
+</div>
+</div>
+
+<script>
+const $=id=>document.getElementById(id),stage=$('stage');
+const fit=()=>{stage.style.transform=`scale(${Math.min(innerWidth/1440,innerHeight/810)})`};fit();addEventListener('resize',fit);
+const ease={o:x=>1-Math.pow(1-x,3),io:x=>x<.5?4*x*x*x:1-Math.pow(-2*x+2,3)/2};
+const tween=(ms,fn,e=ease.o)=>new Promise(r=>{const t0=performance.now();const f=now=>{const p=Math.min(1,(now-t0)/ms);fn(e(p));p<1?requestAnimationFrame(f):r()};requestAnimationFrame(f)});
+const wait=ms=>new Promise(r=>setTimeout(r,ms));
+
+// [-вычеркнуть-]{+вставить+}
+const S=[
+  "[-At this point in time, we are in the process of conducting a comprehensive review of-]{+We're reviewing+} our onboarding[- flow-]. ",
+  "[-It has come to our attention that a significant number of-]{+Many+} new users [-are experiencing difficulties when attempting to-]{+can't+} find the import button[- located in the settings menu-]. ",
+  "[-In order to address this issue, we-]{+We+} will [-be moving-]{+move+} it to the [-main -]toolbar [-at some point during-]{+in+} the next sprint. ",
+  "[-Going forward, it is our hope that this change will result in a meaningful reduction in the number of-]{+That should cut+} support tickets[- related to importing-]. ",
+  "[-Please do not hesitate to reach out if you happen to have any questions or concerns.-]{+Questions? Ask me.+}",
+  "|[-We would also like to take this opportunity to let everyone know that-]{+Also,+} the new pricing page [-is currently scheduled to go-]{+goes+} live on October 14[-, assuming that no unexpected blockers come up between now and then-]. ",
+  "[-If you are interested in being one of the first people to get early access to the beta, please let us know by replying to this email-]{+Want the beta? Reply here+}."
+];
+const P=$('p'),words=s=>s.match(/\S+\s*|\s+/g)||[];
+const sents=S.map(src=>{
+  if(src[0]==='|'){src=src.slice(1);P.insertAdjacentHTML('beforeend','<p class="p"></p>')}
+  const el=document.createElement('span');el.className='s';
+  const ops=[];src.replace(/\[-(.*?)-\]|\{\+(.*?)\+\}|([^\[\{]+)/g,(m,d,a,k)=>{ops.push(d!=null?['del',d]:a!=null?['add',a]:['keep',k])});
+  ops.forEach(([t,txt])=>{if(t==='add')return;words(txt).forEach(w=>{const s=document.createElement('span');s.className='w'+(t==='del'?' del0':'');s.textContent=w;el.appendChild(s)})});
+  P.lastElementChild.appendChild(el);
+  return {el,ops,done:false};
+});
+const count=()=>{let n=0;P.querySelectorAll('.w').forEach(w=>{if(!w.classList.contains('gone')&&/\S/.test(w.textContent))n++});return n};
+let shown=0;
+function stats(){const n=count(),t=n;const a=shown;tween(500,p=>{const v=Math.round(a+(t-a)*p);$('wc').textContent=v;$('rt').textContent=Math.max(1,Math.round(v/4))+'s';$('gr').textContent=Math.max(5,Math.round(5+v/12))});shown=t}
+
+async function tighten(s){
+  if(s.done)return;s.done=true;s.el.classList.add('done');
+  const dels=[...s.el.querySelectorAll('.del0')];
+  dels.forEach(w=>{w.classList.remove('del0');w.classList.add('del')});
+  // зачеркнуть слева направо
+  await Promise.all(dels.map((w,i)=>wait(i*28).then(()=>tween(220,p=>w.style.setProperty('--k',p)))));
+  await wait(160);
+  // собрать новые слова туда, где была первая зачёркнутая цепочка
+  const kids=[...s.el.children],adds=[];
+  let cursor=0;
+  s.ops.forEach(([t,txt])=>{
+    const ws=words(txt);
+    if(t==='add'){const ref=kids[cursor]||null;ws.forEach(w=>{const n=document.createElement('span');n.className='w add';n.textContent=w;n.style.width='0px';s.el.insertBefore(n,ref);adds.push(n)})}
+    else cursor+=ws.length;
+  });
+  const widths=dels.map(w=>w.getBoundingClientRect().width/(stage.getBoundingClientRect().width/1440));
+  const aw=adds.map(n=>{n.style.width='';const v=n.getBoundingClientRect().width/(stage.getBoundingClientRect().width/1440);n.style.width='0px';return v});
+  dels.forEach(w=>w.classList.add('gone'));stats();
+  // сначала схлопнуть лишнее, потом раскрыть новое
+  await tween(360,p=>{dels.forEach((w,i)=>{w.style.width=widths[i]*(1-p)+'px';w.style.opacity=1-p})},ease.io);
+  dels.forEach(w=>w.remove());
+  await tween(380,p=>{adds.forEach((n,i)=>{n.style.width=aw[i]*p+'px'})});
+  adds.forEach(n=>{n.style.width=''});
+  await wait(1100);
+  adds.forEach(n=>{n.style.transition='color 1s';n.style.color='#2b2925'});
+}
+sents.forEach(s=>s.el.addEventListener('click',()=>tighten(s)));
+$('all').onclick=async()=>{for(const s of sents){if(!s.done){tighten(s);await wait(260)}}};
+
+(async()=>{
+  await document.fonts.ready;stats();
+  const h=document.querySelector('h1');h.style.opacity=0;
+  await wait(200);tween(900,p=>{h.style.opacity=p;h.style.transform=`translateY(${(1-p)*14}px)`});
+  await wait(1000);
+  // показать, как это работает, на первом предложении
+  const s0=sents[0].el;s0.style.background='var(--vi2)';await wait(500);s0.style.background='';
+  await tighten(sents[0]);
+  $('hint').style.opacity=1;
+})();
+</script>
+</body>
+</html>

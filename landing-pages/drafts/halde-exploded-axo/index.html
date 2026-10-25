@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Halde architects</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400;62..125,500;62..125,600&family=JetBrains+Mono:wght@400;500&display=block" rel="stylesheet">
+<style>
+:root{--bg:#e9e7e2;--ink:#121212;--mid:#6d6b66;--line:rgba(18,18,18,.16);--or:#ff4a1c}
+*{box-sizing:border-box;margin:0;padding:0}
+html{background:#d4d1ca;height:100%}
+body{height:100%;overflow:hidden;font-family:'Archivo',system-ui,sans-serif;color:var(--ink);-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+#stage{position:absolute;left:50%;top:50%;width:1440px;height:810px;margin:-405px 0 0 -720px;background:var(--bg);overflow:hidden}
+.mono{font-family:'JetBrains Mono',monospace}
+
+nav{position:absolute;left:0;right:0;top:0;height:72px;padding:0 48px;display:flex;align-items:center;border-bottom:1px solid var(--line);font-size:14px}
+.brand{font-weight:600;font-size:20px;letter-spacing:-.02em;font-stretch:115%}
+.brand sup{font:400 10px 'JetBrains Mono';margin-left:3px;vertical-align:8px}
+.links{display:flex;gap:30px;margin-left:auto}
+.links a{color:var(--mid)}.links a:hover,.links a.on{color:var(--ink)}
+.links a.on::before{content:'';display:inline-block;width:6px;height:6px;background:var(--or);margin-right:8px;vertical-align:1px}
+.cnt{margin-left:48px;font-family:'JetBrains Mono';font-size:12.5px}
+
+.col{position:absolute;left:48px;top:120px;width:560px}
+.eyebrow{font:400 12.5px 'JetBrains Mono';color:var(--mid);letter-spacing:.02em;display:flex;gap:24px}
+h1{margin-top:28px;font-size:84px;line-height:.94;letter-spacing:-.045em;font-weight:500;font-stretch:88%}
+h1 span{display:block;overflow:hidden}
+h1 span i{display:block;font-style:normal;transform:translateY(100%)}
+h1 em{font-style:normal;color:var(--or)}
+.lede{margin-top:30px;width:430px;font-size:17px;line-height:1.5;color:var(--mid)}
+.work{position:absolute;left:48px;bottom:44px;width:560px}
+.work h4{font:400 12px 'JetBrains Mono';color:var(--mid);margin-bottom:10px;display:flex;justify-content:space-between}
+.work a{display:grid;grid-template-columns:34px 1fr 120px 60px;height:46px;align-items:center;border-top:1px solid var(--line);font-size:16px}
+.work a:last-child{border-bottom:1px solid var(--line)}
+.work a span{font:400 12.5px 'JetBrains Mono';color:var(--mid)}
+.work a.on b{font-weight:500}
+.work a.on span:first-child{color:var(--or)}
+.work a:hover{background:rgba(18,18,18,.03)}
+
+#axo{position:absolute;left:620px;top:72px}
+.flr{cursor:pointer}
+.tag{position:absolute;left:1246px;width:170px;font-size:13px;line-height:1.35;pointer-events:none}
+.tag{transform:translateY(-100%)}
+.tag b{display:block;font:500 12px 'JetBrains Mono';color:var(--mid)}
+.tag.on b{color:var(--or)}
+.tag p{margin-bottom:8px;opacity:0;transform:translateX(-6px);transition:opacity .25s,transform .25s;color:var(--ink)}
+.tag.on p{opacity:1;transform:none}
+.proj{position:absolute;left:688px;top:104px;font-size:13px;color:var(--mid);line-height:1.5}
+.proj b{display:block;color:var(--ink);font-weight:500;font-size:22px;letter-spacing:-.02em;margin-bottom:2px}
+.scale{position:absolute;left:688px;bottom:44px;font:400 11.5px 'JetBrains Mono';color:var(--mid);display:flex;gap:10px;align-items:center}
+.scale i{display:inline-block;width:80px;height:6px;border:1px solid var(--ink);border-top:0;background:linear-gradient(90deg,var(--ink) 50%,transparent 50%) 0 0/40px 100%}
+.hint{position:absolute;right:48px;bottom:44px;font:400 11.5px 'JetBrains Mono';color:var(--or);opacity:0;transition:opacity .5s}
+</style>
+</head>
+<body>
+<div id="stage">
+<nav>
+  <a class="brand" href="#">Halde<sup>®</sup></a>
+  <div class="links"><a class="on" href="#">Work</a><a href="#">Studio</a><a href="#">Research</a><a href="#">Contact</a></div>
+  <span class="cnt">Rotterdam 14:06</span>
+</nav>
+
+<div class="col">
+  <div class="eyebrow"><span>Architecture &amp; urban design</span><span>Est. 2011</span></div>
+  <h1><span><i>We design</i></span><span><i>ordinary buildings</i></span><span><i><em>very</em> carefully.</i></span></h1>
+  <p class="lede">Housing, schools and the odd pavilion. Forty people in a former tram depot, working on buildings that stay useful for a hundred years.</p>
+</div>
+<div class="work">
+  <h4><span>Selected work</span><span>2019–2026</span></h4>
+  <a class="on" href="#"><span>01</span><b>Kade 14, housing</b><span>Rotterdam</span><span>2026</span></a>
+  <a href="#"><span>02</span><b>Lijnbaan primary school</b><span>Delft</span><span>2024</span></a>
+  <a href="#"><span>03</span><b>Pier pavilion</b><span>Scheveningen</span><span>2022</span></a>
+</div>
+
+<div class="proj"><b>Kade 14</b>38 homes over a bakery and workshops<br>Timber frame, brick skin, 4 120 m²</div>
+<svg id="axo" width="820" height="738" viewBox="620 72 820 738"></svg>
+<div id="tags"></div>
+<div class="scale"><i></i>0 — 10 m</div>
+<div class="hint" id="hint">Hover a floor to lift the ones above</div>
+</div>
+
+<script>
+const $=id=>document.getElementById(id),stage=$('stage');
+const fit=()=>{stage.style.transform=`scale(${Math.min(innerWidth/1440,innerHeight/810)})`};fit();addEventListener('resize',fit);
+const ease={o:x=>1-Math.pow(1-x,3),io:x=>x<.5?4*x*x*x:1-Math.pow(-2*x+2,3)/2,bounce:x=>{const c=1-x;return 1-c*c*Math.cos(x*9)*(1-x)}};
+const tween=(ms,fn,e=ease.o)=>new Promise(r=>{const t0=performance.now();const f=now=>{const p=Math.min(1,(now-t0)/ms);fn(e(p));p<1?requestAnimationFrame(f):r()};requestAnimationFrame(f)});
+const wait=ms=>new Promise(r=>setTimeout(r,ms));
+const NS='http://www.w3.org/2000/svg',svg=$('axo');
+const el=(t,a,p=svg)=>{const e=document.createElementNS(NS,t);for(const k in a)e.setAttribute(k,a[k]);p.appendChild(e);return e};
+
+// изометрия: x уходит вправо-вниз, y влево-вниз, z вверх
+const OX=960,OY=548,W=250,D=150,H=46,C=.866;
+const P=(x,y,z)=>[OX+(x-y)*C,OY+(x+y)*.5-z];
+const poly=pts=>pts.map(p=>P(...p).map(v=>v.toFixed(1)).join(',')).join(' ');
+const line=(a,b,g,at={})=>el('line',Object.assign({x1:P(...a)[0],y1:P(...a)[1],x2:P(...b)[0],y2:P(...b)[1]},at),g);
+const ST={stroke:'#121212','stroke-width':1.1,'stroke-linejoin':'round'};
+
+// земля: точечная сетка и тень
+const ground=el('g',{opacity:0});
+for(let i=-3;i<=8;i++){line([i*50,-120,0],[i*50,D+160,0],ground,{stroke:'rgba(18,18,18,.12)','stroke-dasharray':'2 6'})}
+for(let j=-2;j<=6;j++){line([-150,j*50,0],[W+170,j*50,0],ground,{stroke:'rgba(18,18,18,.12)','stroke-dasharray':'2 6'})}
+el('polygon',{points:poly([[0,0,0],[W,0,0],[W+70,D+40,0],[70,D+40,0],[0,D,0]]),fill:'rgba(18,18,18,.08)'},ground);
+
+const F=[
+  ['00','Ground','Bakery, bike hall for 90 bikes, lobby · 380 m²'],
+  ['01','Level 1','Six workshops with 4.2 m ceilings · 360 m²'],
+  ['02','Level 2','Seven homes, 48–96 m², deck access'],
+  ['03','Level 3','Seven homes, two with double height'],
+  ['04','Level 4','Seven homes, 48–96 m²'],
+  ['05','Level 5','Six homes and a shared laundry'],
+  ['06','Roof','Garden, beehives, 140 m² of solar']
+];
+const floors=F.map((f,k)=>{
+  const g=el('g',{class:'flr',opacity:0}),z0=k*H,z1=z0+(k===6?14:H),roof=k===6;
+  // боковые грани
+  el('polygon',Object.assign({points:poly([[0,D,z0],[W,D,z0],[W,D,z1],[0,D,z1]]),fill:roof?'#d8d5ce':'#d9d6cf'},ST),g);
+  el('polygon',Object.assign({points:poly([[W,0,z0],[W,D,z0],[W,D,z1],[W,0,z1]]),fill:'#c5c1b8'},ST),g);
+  if(!roof){
+    const wz0=z0+(k===0?6:12),wz1=z1-8,n=k===0?5:9;
+    for(let i=0;i<n;i++){const a=14+i*(W-28)/n,b=a+(W-28)/n-8;
+      el('polygon',{points:poly([[a,D,wz0],[b,D,wz0],[b,D,wz1],[a,D,wz1]]),fill:k===0?'#8f9799':'#a7aeae',stroke:'#121212','stroke-width':.6},g)}
+    for(let i=0;i<5;i++){const a=12+i*(D-24)/5,b=a+(D-24)/5-8;
+      el('polygon',{points:poly([[W,a,wz0],[W,b,wz0],[W,b,wz1],[W,a,wz1]]),fill:'#959c9c',stroke:'#121212','stroke-width':.6},g)}
+  }
+  // верх: план этажа виден, когда верхние этажи подняты
+  el('polygon',Object.assign({points:poly([[0,0,z1],[W,0,z1],[W,D,z1],[0,D,z1]]),fill:'#f3f2ee'},ST),g);
+  const plan=el('g',{opacity:0,stroke:'#ff4a1c','stroke-width':1.1,fill:'none'},g);
+  if(roof){
+    for(let i=0;i<6;i++)el('polygon',{points:poly([[150,14+i*21,z1],[236,14+i*21,z1],[236,30+i*21,z1],[150,30+i*21,z1]])},plan);
+    [[40,40],[90,70],[50,105]].forEach(([x,y])=>{const c=P(x,y,z1);el('ellipse',{cx:c[0],cy:c[1],rx:16,ry:9},plan)});
+  }else{
+    const cy=D/2;line([0,cy-12,z1],[W,cy-12,z1],plan);line([0,cy+12,z1],[W,cy+12,z1],plan);
+    const n=k<2?3:7;for(let i=1;i<n;i++){const x=i*W/n;line([x,0,z1],[x,cy-12,z1],plan);line([x,cy+12,z1],[x,D,z1],plan)}
+    el('polygon',{points:poly([[W/2-14,cy-12,z1],[W/2+14,cy-12,z1],[W/2+14,cy+12,z1],[W/2-14,cy+12,z1]]),fill:'rgba(255,74,28,.15)'},plan);
+  }
+  if(roof){el('polygon',Object.assign({points:poly([[20,20,z1],[110,20,z1],[110,20,z1+26],[20,20,z1+26]]),fill:'#d9d6cf'},ST),g)}
+  const cx=P(W,0,z1);
+  const tg=document.createElement('div');tg.className='tag';tg.innerHTML=`<p>${f[2]}</p><b>${f[0]}  ${f[1]}</b>`;$('tags').appendChild(tg);
+  return {g,plan,tg,k,off:0,to:0,z1,drop:0};
+});
+// подписи этажей справа, с выносной линией
+const lead=el('g',{});
+floors.forEach(f=>{f.ld=el('line',{stroke:'rgba(18,18,18,.3)','stroke-width':1,'stroke-dasharray':'2 3'},lead);f.dot=el('circle',{r:2.5,fill:'#121212'},lead)});
+
+let hover=-1;
+function layout(){
+  floors.forEach(f=>{
+    const y=-f.off-f.drop,[x1,y1]=P(W,0,f.z1-H/2+(f.k===6?H/2-7:0));
+    f.g.setAttribute('transform',`translate(0 ${y})`);
+    const ty=y1+y;f.ld.setAttribute('x1',x1+8);f.ld.setAttribute('y1',ty);f.ld.setAttribute('x2',1236);f.ld.setAttribute('y2',ty);
+    f.dot.setAttribute('cx',x1+8);f.dot.setAttribute('cy',ty);f.tg.style.top=(ty+8)+'px';
+  });
+}
+(function loop(){let m=false;floors.forEach(f=>{f.to=hover>=0&&f.k>hover?96:0;const d=f.to-f.off;if(Math.abs(d)>.1){f.off+=d*.14;m=true}else f.off=f.to});layout();requestAnimationFrame(loop)})();
+let live=false;
+floors.forEach(f=>{
+  f.g.addEventListener('pointerenter',()=>{if(!live)return;hover=f.k;floors.forEach(o=>{o.tg.classList.toggle('on',o===f);o.plan.style.transition='opacity .3s';o.plan.setAttribute('opacity',o===f?1:0)})});
+});
+svg.addEventListener('pointerleave',()=>{hover=-1;floors.forEach(o=>{o.tg.classList.remove('on');o.plan.setAttribute('opacity',0)})});
+
+(async()=>{
+  await document.fonts.ready;floors.forEach(f=>{f.drop=420;f.tg.style.opacity=0;f.ld.setAttribute('opacity',0);f.dot.setAttribute('opacity',0)});layout();
+  await wait(200);
+  document.querySelectorAll('h1 span i').forEach((s,i)=>setTimeout(()=>tween(800,p=>{s.style.transform=`translateY(${(1-p)*100}%)`}),i*110));
+  tween(800,p=>ground.setAttribute('opacity',p));
+  await wait(400);
+  // этажи падают по одному и чуть пружинят
+  for(const f of floors){
+    f.g.setAttribute('opacity',1);
+    tween(620,p=>{f.drop=420*(1-p)},x=>{if(x<.7)return Math.pow(x/.7,2);const u=(x-.7)/.3;return 1-Math.sin(u*Math.PI)*.04*(1-u)});
+    setTimeout(()=>{tween(300,p=>{f.tg.style.opacity=p;f.ld.setAttribute('opacity',p);f.dot.setAttribute('opacity',p)})},560);
+    await wait(190);
+  }
+  await wait(800);
+  // показать раскрытие на третьем этаже
+  const demo=floors[3];hover=3;demo.tg.classList.add('on');demo.plan.setAttribute('opacity',1);
+  await wait(1500);hover=-1;demo.tg.classList.remove('on');demo.plan.setAttribute('opacity',0);
+  live=true;$('hint').style.opacity=1;
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Pace, running app</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;800;900&family=Space+Grotesk:wght@400;500&family=Space+Mono&display=block" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.9.0/d3.min.js"></script>
+<style>
+:root{--bg:#0c0c0b;--ink:#f1efe8;--mid:#8b8a84;--low:#4a4945;--line:rgba(241,239,232,.1);--or:#ff5a1f}
+*{box-sizing:border-box;margin:0;padding:0}
+html{background:#000;height:100%}
+body{height:100%;overflow:hidden;font-family:'Space Grotesk',system-ui,sans-serif;color:var(--ink);-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+#stage{position:absolute;left:50%;top:50%;width:1440px;height:810px;margin:-405px 0 0 -720px;background:var(--bg);overflow:hidden}
+.mono{font-family:'Space Mono',monospace}
+#map{position:absolute;left:0;top:0}
+.fade{position:absolute;inset:0;background:linear-gradient(90deg,var(--bg) 30%,rgba(12,12,11,.6) 46%,transparent 62%);pointer-events:none}
+
+nav{position:absolute;left:0;right:0;top:0;height:80px;padding:0 56px;display:flex;align-items:center;font-size:15px;z-index:3}
+.brand{font-family:'Big Shoulders Display';font-weight:900;font-size:30px;letter-spacing:.01em;text-transform:uppercase;display:flex;align-items:center;gap:8px}
+.brand i{width:12px;height:12px;background:var(--or);border-radius:50%}
+.links{display:flex;gap:30px;margin-left:68px;color:var(--mid)}
+.links a:hover{color:var(--ink)}
+.right{margin-left:auto;display:flex;gap:24px;align-items:center}
+.right a.b{height:40px;padding:0 18px;border-radius:20px;background:var(--ink);color:var(--bg);display:flex;align-items:center;font-weight:500}
+
+.col{position:absolute;left:56px;top:118px;z-index:2;pointer-events:none}
+.col>*{pointer-events:auto}
+.eyebrow{font:400 12.5px 'Space Mono';color:var(--or);letter-spacing:.06em;text-transform:uppercase}
+h1{margin-top:18px;font-family:'Big Shoulders Display';font-weight:800;font-size:150px;line-height:.8;letter-spacing:-.01em;text-transform:uppercase}
+h1 span{display:block}
+h1 span:last-child{color:transparent;-webkit-text-stroke:2px var(--ink)}
+.lede{margin-top:26px;width:400px;font-size:17.5px;line-height:1.5;color:var(--mid)}
+.ctas{margin-top:24px;display:flex;gap:14px}
+.store{height:52px;padding:0 20px;border-radius:12px;background:var(--ink);color:var(--bg);display:flex;align-items:center;gap:10px;font-weight:500;font-size:15px;transition:transform .15s}
+.store small{display:block;font-size:10.5px;font-weight:400;opacity:.6;line-height:1}
+.store:active{transform:scale(.97)}
+.store.o{background:none;color:var(--ink);box-shadow:inset 0 0 0 1px rgba(241,239,232,.3)}
+
+.stats{position:absolute;left:56px;bottom:150px;display:flex;gap:0;z-index:2}
+.stats div{width:150px;padding-right:20px}
+.stats small{display:block;font:400 11.5px 'Space Mono';color:var(--mid);text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px}
+.stats b{font-family:'Big Shoulders Display';font-weight:600;font-size:40px;letter-spacing:.01em;font-variant-numeric:tabular-nums}
+.stats b span{font-size:20px;color:var(--mid);margin-left:3px}
+.prof{position:absolute;left:56px;right:56px;bottom:40px;height:86px;z-index:2;cursor:ew-resize}
+.prof svg{position:absolute;inset:0;overflow:visible}
+.km{position:absolute;top:-22px;font:400 11px 'Space Mono';color:var(--ink);transform:translateX(-50%);white-space:nowrap;opacity:0;transition:opacity .3s}
+.who{position:absolute;right:56px;top:120px;z-index:2;text-align:right;font-size:13px;color:var(--mid);line-height:1.5}
+.who b{color:var(--ink);font-weight:500;font-size:15px}
+</style>
+</head>
+<body>
+<div id="stage">
+<svg id="map" width="1440" height="810"></svg>
+<div class="fade"></div>
+<nav>
+  <a class="brand" href="#"><i></i>Pace</a>
+  <div class="links"><a href="#">Routes</a><a href="#">Training plans</a><a href="#">Clubs</a><a href="#">Watch</a></div>
+  <div class="right"><a href="#">Log in</a><a class="b" href="#">Get Pace</a></div>
+</nav>
+
+<div class="col">
+  <div class="eyebrow">Routes that know the terrain</div>
+  <h1><span>Every hill</span><span>counts.</span></h1>
+  <p class="lede">Pace plans your run around the real ground under it, then tells you which climb cost you the most and how to run it next time.</p>
+  <div class="ctas"><a class="store" href="#"> <span><small>Download on the</small>App Store</span></a><a class="store o" href="#">▶ <span><small>Get it on</small>Google Play</span></a></div>
+</div>
+<div class="who"><b>Sunday long run</b><br>Hollow Ridge loop · Maya R.</div>
+
+<div class="stats">
+  <div><small>Distance</small><b id="sd">0.0<span>km</span></b></div>
+  <div><small>Time</small><b id="st">0:00</b></div>
+  <div><small>Pace</small><b id="sp">–<span>/km</span></b></div>
+  <div><small>Elevation</small><b id="se">0<span>m</span></b></div>
+</div>
+<div class="prof" id="prof"><svg id="psvg" width="1328" height="86"></svg><div class="km" id="km"></div></div>
+</div>
+
+<script>
+const $=id=>document.getElementById(id),stage=$('stage');
+const fit=()=>{stage.style.transform=`scale(${Math.min(innerWidth/1440,innerHeight/810)})`};fit();addEventListener('resize',fit);
+const ease={o:x=>1-Math.pow(1-x,3),io:x=>x<.5?4*x*x*x:1-Math.pow(-2*x+2,3)/2};
+const tween=(ms,fn,e=ease.o)=>new Promise(r=>{const t0=performance.now();const f=now=>{const p=Math.min(1,(now-t0)/ms);fn(e(p));p<1?requestAnimationFrame(f):r()};requestAnimationFrame(f)});
+const wait=ms=>new Promise(r=>setTimeout(r,ms));
+
+// рельеф: шум из нескольких октав, из него и горизонтали, и высоты маршрута
+const hash=(x,y)=>{const n=Math.sin(x*127.1+y*311.7)*43758.5453;return n-Math.floor(n)};
+const vn=(x,y)=>{const i=Math.floor(x),j=Math.floor(y),fx=x-i,fy=y-j,u=fx*fx*(3-2*fx),v=fy*fy*(3-2*fy);
+  return (hash(i,j)*(1-u)+hash(i+1,j)*u)*(1-v)+(hash(i,j+1)*(1-u)+hash(i+1,j+1)*u)*v};
+const H=(x,y)=>{x/=210;y/=210;return .55*vn(x+3.1,y+1.7)+.3*vn(x*2.1+8,y*2.1+2)+.15*vn(x*4.3,y*4.3+5)};
+const G=8,NX=Math.ceil(1440/G)+1,NY=Math.ceil(810/G)+1,vals=new Float64Array(NX*NY);
+for(let j=0;j<NY;j++)for(let i=0;i<NX;i++)vals[j*NX+i]=H(i*G,j*G);
+const map=d3.select('#map');
+const conts=d3.contours().size([NX,NY]).thresholds(d3.range(.18,.95,.032))(vals);
+const gpath=d3.geoPath(d3.geoIdentity().scale(G));
+const cg=map.append('g');
+const cps=cg.selectAll('path').data(conts).join('path').attr('d',gpath).attr('fill','none')
+  .attr('stroke',(d,i)=>i%5===0?'rgba(241,239,232,.26)':'rgba(241,239,232,.1)').attr('stroke-width',(d,i)=>i%5===0?1.1:.8).attr('opacity',0);
+
+// маршрут: петля через хребет справа
+const ctrl=[[760,610],[850,470],[960,420],[1080,300],[1210,250],[1330,330],[1300,470],[1180,560],[1060,640],[900,690],[760,610]];
+const line=d3.line().curve(d3.curveCatmullRomClosed.alpha(.5));
+const rp=map.append('path').attr('d',line(ctrl.slice(0,-1))).attr('fill','none').attr('stroke','rgba(255,90,31,.25)').attr('stroke-width',4).attr('stroke-linejoin','round');
+const route=map.append('path').attr('d',line(ctrl.slice(0,-1))).attr('fill','none').attr('stroke','#ff5a1f').attr('stroke-width',3.5).attr('stroke-linecap','round');
+const RL=route.node().getTotalLength();route.attr('stroke-dasharray',RL).attr('stroke-dashoffset',RL);rp.attr('opacity',0);
+const N=500,S=[];for(let i=0;i<=N;i++){const p=route.node().getPointAtLength(RL*i/N);S.push({x:p.x,y:p.y,e:Math.round(40+H(p.x,p.y)*380)})}
+const KM=21.1,TOT=98*60+42;
+// время по участкам: в гору медленнее
+let acc=0;S.forEach((s,i)=>{if(i){const g=(s.e-S[i-1].e)/(KM*1000/N);s.sec=270+g*700;acc+=Math.max(200,s.sec)*KM/N}s.t=acc});
+const tk=TOT/acc;S.forEach(s=>s.t*=tk);
+const start=map.append('g').attr('opacity',0);start.append('circle').attr('cx',S[0].x).attr('cy',S[0].y).attr('r',9).attr('fill','none').attr('stroke','#f1efe8').attr('stroke-width',2);
+start.append('text').attr('x',S[0].x-16).attr('y',S[0].y+4).attr('text-anchor','end').attr('fill','#f1efe8').attr('font-family','Space Mono').attr('font-size',11).text('START / FINISH');
+const halo=map.append('circle').attr('r',22).attr('fill','#ff5a1f').attr('opacity',0);
+const dot=map.append('circle').attr('r',8).attr('fill','#f1efe8').attr('stroke','#ff5a1f').attr('stroke-width',3.5).attr('opacity',0);
+// отметки километров
+const kmg=map.append('g').attr('opacity',0);
+[5,10,15,20].forEach(k=>{const s=S[Math.round(k/KM*N)];kmg.append('circle').attr('cx',s.x).attr('cy',s.y).attr('r',3).attr('fill','#0c0c0b').attr('stroke','#f1efe8').attr('stroke-width',1.5);
+  kmg.append('text').attr('x',s.x+10).attr('y',s.y-8).attr('fill','#8b8a84').attr('font-family','Space Mono').attr('font-size',10.5).text(k+' km')});
+
+// профиль высоты внизу
+const PW=1328,PH=86,ps=d3.select('#psvg'),emin=d3.min(S,s=>s.e)-20,emax=d3.max(S,s=>s.e);
+const px=i=>i/N*PW,py=e=>PH-(e-emin)/(emax-emin)*(PH-10);
+const area=d3.area().x((s,i)=>px(i)).y0(PH).y1(s=>py(s.e)).curve(d3.curveBasis);
+const cl=ps.append('clipPath').attr('id','cp').append('rect').attr('width',0).attr('height',PH+20).attr('y',-20);
+const pg=ps.append('g').attr('clip-path','url(#cp)');
+pg.append('path').attr('d',area(S)).attr('fill','rgba(241,239,232,.07)');
+pg.append('path').attr('d',d3.line().x((s,i)=>px(i)).y(s=>py(s.e)).curve(d3.curveBasis)(S)).attr('fill','none').attr('stroke','rgba(241,239,232,.5)').attr('stroke-width',1.2);
+const done=ps.append('clipPath').attr('id','cd').append('rect').attr('width',0).attr('height',PH);
+ps.append('path').attr('d',area(S)).attr('fill','rgba(255,90,31,.28)').attr('clip-path','url(#cd)');
+ps.append('line').attr('x1',0).attr('x2',PW).attr('y1',PH).attr('y2',PH).attr('stroke','rgba(241,239,232,.2)');
+const pl=ps.append('line').attr('y1',-6).attr('y2',PH).attr('stroke','#ff5a1f').attr('stroke-width',1.5).attr('opacity',0);
+
+const fmt=s=>{s=Math.round(s);const h=Math.floor(s/3600),m=Math.floor(s%3600/60),x=s%60;return (h?h+':'+String(m).padStart(2,'0'):m)+':'+String(x).padStart(2,'0')};
+function show(f){
+  const i=Math.max(0,Math.min(N,Math.round(f*N))),s=S[i];
+  dot.attr('cx',s.x).attr('cy',s.y);halo.attr('cx',s.x).attr('cy',s.y);
+  route.attr('stroke-dashoffset',RL*(1-f));
+  done.attr('width',px(i));pl.attr('x1',px(i)).attr('x2',px(i));
+  const d=f*KM,j=Math.max(1,i),seg=S.slice(Math.max(0,j-12),j+1),sp=seg.length>1?(seg[seg.length-1].t-seg[0].t)/((seg.length-1)*KM/N):0;
+  $('sd').firstChild.textContent=d.toFixed(1);$('st').textContent=fmt(s.t);
+  $('sp').firstChild.textContent=i?fmt(sp):'–';
+  let gain=0;for(let k=1;k<=i;k++)gain+=Math.max(0,S[k].e-S[k-1].e);$('se').firstChild.textContent='+'+Math.round(gain);
+  const km=$('km');km.style.left=px(i)+'px';km.textContent=d.toFixed(1)+' km · '+s.e+' m';
+}
+
+let live=false,now=0,tgt=1;
+(async()=>{
+  await document.fonts.ready;
+  // горизонтали проступают снизу вверх по высоте
+  cps.transition().delay((d,i)=>i*35).duration(700).attr('opacity',1);
+  await wait(700);
+  rp.transition().duration(600).attr('opacity',1);start.transition().duration(400).attr('opacity',1);dot.attr('opacity',1);
+  tween(500,p=>cl.attr('width',PW*p));
+  await tween(3400,p=>{now=p;show(p)},ease.io);
+  kmg.transition().duration(500).attr('opacity',1);pl.attr('opacity',1);$('km').style.opacity=1;
+  tween(900,p=>halo.attr('r',22+p*26).attr('opacity',.3*(1-p)));
+  live=true;tgt=1;
+})();
+// перемотка: по профилю или по самой карте
+const prof=$('prof');
+prof.addEventListener('pointermove',e=>{if(!live)return;const r=prof.getBoundingClientRect();tgt=Math.max(0,Math.min(1,(e.clientX-r.left)/r.width))});
+$('map').addEventListener('pointermove',e=>{if(!live)return;const r=stage.getBoundingClientRect(),k=r.width/1440,x=(e.clientX-r.left)/k,y=(e.clientY-r.top)/k;
+  let bi=-1,bd=70*70;S.forEach((s,i)=>{const d=(s.x-x)**2+(s.y-y)**2;if(d<bd){bd=d;bi=i}});if(bi>=0)tgt=bi/N});
+(function loop(){if(live&&Math.abs(tgt-now)>.0005){now+=(tgt-now)*.15;show(now)}requestAnimationFrame(loop)})();
+</script>
+</body>
+</html>

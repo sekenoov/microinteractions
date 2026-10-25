@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Second Crack roasters</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT@9..144,300..600,100&family=DM+Mono:wght@400;500&family=DM+Sans:opsz,wght@9..40,400;9..40,500&display=block" rel="stylesheet">
+<style>
+:root{--bg:#efe6d6;--ink:#2a1a12;--mid:#7a6656;--line:rgba(42,26,18,.14);--or:#d9572b;--card:#241710;--cl:rgba(239,230,214,.1)}
+*{box-sizing:border-box;margin:0;padding:0}
+html{background:#d8ccb8;height:100%}
+body{height:100%;overflow:hidden;font-family:'DM Sans',system-ui,sans-serif;color:var(--ink);-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+#stage{position:absolute;left:50%;top:50%;width:1440px;height:810px;margin:-405px 0 0 -720px;background:var(--bg);overflow:hidden}
+.mono{font-family:'DM Mono',monospace}
+
+nav{position:absolute;left:0;right:0;top:0;height:84px;padding:0 60px;display:flex;align-items:center}
+.brand{font-family:'Fraunces',serif;font-variation-settings:'SOFT' 100;font-weight:500;font-size:24px;letter-spacing:-.01em;display:flex;gap:10px;align-items:center}
+.brand svg{width:22px;height:22px}
+.links{display:flex;gap:30px;margin-left:70px;font-size:15px;color:var(--mid)}
+.links a:hover{color:var(--ink)}
+.right{margin-left:auto;display:flex;gap:26px;align-items:center;font-size:15px}
+.right b{font-weight:500;display:flex;align-items:center;gap:8px}
+.right b i{font-style:normal;width:22px;height:22px;border-radius:50%;background:var(--ink);color:var(--bg);font-size:12px;display:grid;place-items:center}
+
+h1{position:absolute;left:58px;top:150px;width:560px;font-family:'Fraunces',serif;font-variation-settings:'SOFT' 100;font-weight:350;font-size:96px;line-height:.95;letter-spacing:-.035em}
+h1 i{font-weight:300;color:var(--or)}
+.lede{position:absolute;left:62px;top:356px;width:470px;font-size:18.5px;line-height:1.5;color:var(--mid)}
+
+.pick{position:absolute;left:62px;top:470px;width:556px;height:176px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);display:flex;align-items:center;gap:26px}
+.bean{width:132px;height:132px;flex:none}
+.pick .lvl{font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--mid)}
+.pick h3{white-space:nowrap;font-family:'Fraunces',serif;font-weight:400;font-size:31px;letter-spacing:-.02em;margin:4px 0 6px}
+.pick .notes{font-size:15.5px;color:var(--ink)}
+.pick .px{margin-left:auto;text-align:right;align-self:stretch;display:flex;flex-direction:column;justify-content:center;gap:12px}
+.pick .px{white-space:nowrap}
+.pick .px span{font-size:14px;color:var(--mid)}
+.swap{transition:opacity .25s,transform .25s}
+.swap.out{opacity:0;transform:translateY(6px)}
+.ctas{position:absolute;left:62px;top:690px;display:flex;gap:22px;align-items:center}
+.btn{height:54px;padding:0 28px;border-radius:27px;background:var(--ink);color:var(--bg);font-size:16px;font-weight:500;display:flex;align-items:center;gap:10px;transition:transform .15s,background .2s}
+.btn:hover{background:#3c271b}.btn:active{transform:scale(.97)}
+.ghost{font-size:16px;font-weight:500;border-bottom:1px solid var(--ink);padding-bottom:2px}
+
+.chart{position:absolute;left:660px;top:112px;width:724px;height:620px;background:var(--card);border-radius:24px;color:#efe6d6;overflow:hidden}
+.chart .hd{position:absolute;left:32px;right:32px;top:26px;display:flex;justify-content:space-between;align-items:flex-start}
+.chart .hd small{display:block;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:rgba(239,230,214,.5);margin-bottom:6px}
+.chart .hd b{font-family:'DM Mono';font-weight:400;font-size:34px;letter-spacing:-.02em}
+.chart .hd b span{color:rgba(239,230,214,.4);font-size:20px;margin-left:4px}
+.chart .hd .r{text-align:right}
+.chart svg{position:absolute;left:0;top:0;cursor:ew-resize}
+.lg{position:absolute;left:32px;bottom:22px;display:flex;gap:20px;font-size:12.5px;color:rgba(239,230,214,.55)}
+.lg i{display:inline-block;width:14px;height:2px;background:#efe6d6;vertical-align:3px;margin-right:7px}
+.lg i.r{background:none;border-top:2px dashed var(--or)}
+.drag{position:absolute;right:32px;bottom:20px;font-size:12.5px;color:var(--or);opacity:0;transition:opacity .5s}
+</style>
+</head>
+<body>
+<div id="stage">
+<nav>
+  <a class="brand" href="#"><svg viewBox="0 0 22 22"><ellipse cx="11" cy="11" rx="7.5" ry="10" transform="rotate(30 11 11)" fill="#2a1a12"/><path d="M6 16c4-2 6-7 10-10" stroke="#efe6d6" stroke-width="1.6" fill="none" stroke-linecap="round"/></svg>Second Crack</a>
+  <div class="links"><a href="#">Shop</a><a href="#">Subscriptions</a><a href="#">Wholesale</a><a href="#">Roastery</a></div>
+  <div class="right"><a href="#">Account</a><b>Cart <i>2</i></b></div>
+</nav>
+
+<h1>Roasted <i>to the</i> minute.</h1>
+<p class="lede">Small batches, roasted on Tuesdays and shipped the same week. Pull the curve to see how a few minutes in the drum changes the cup.</p>
+
+<div class="pick">
+  <svg class="bean" viewBox="0 0 132 132">
+    <defs><radialGradient id="sh" cx=".35" cy=".3" r=".8"><stop offset="0" stop-color="#fff" stop-opacity=".35"/><stop offset=".6" stop-color="#fff" stop-opacity="0"/></radialGradient></defs>
+    <g id="beanG" transform="rotate(-28 66 66)">
+      <ellipse cx="66" cy="70" rx="40" ry="54" fill="rgba(42,26,18,.18)" transform="translate(4 6)"/>
+      <ellipse id="beanF" cx="66" cy="66" rx="40" ry="54" fill="#8e9a5b"/>
+      <ellipse cx="66" cy="66" rx="40" ry="54" fill="url(#sh)"/>
+      <path id="crease" d="M66 14c-14 18 14 34 0 52s14 34 0 52" stroke="#2a1a12" stroke-opacity=".55" stroke-width="5" fill="none" stroke-linecap="round"/>
+    </g>
+  </svg>
+  <div class="swap" id="sw">
+    <div class="lvl" id="lvl">Light roast</div>
+    <h3 id="nm">Ethiopia Guji</h3>
+    <div class="notes" id="nt">Jasmine, bergamot, black tea</div>
+  </div>
+  <div class="px"><span>250 g · whole bean</span><b class="mono" style="font-size:22px;font-weight:400">€16</b></div>
+</div>
+<div class="ctas"><a class="btn" href="#">Add to cart</a><a class="ghost" href="#">Subscribe and save 15%</a></div>
+
+<div class="chart" id="chart">
+  <div class="hd"><div><small>Drop at</small><b id="tm">00:00</b></div><div class="r"><small>Bean temp</small><b id="tp">200<span>°C</span></b></div></div>
+  <svg id="svg" width="724" height="620" viewBox="0 0 724 620"></svg>
+  <div class="lg"><span><i></i>Bean temperature</span><span><i class="r"></i>Rate of rise</span></div>
+  <div class="drag" id="drag">← drag to drop earlier or later →</div>
+</div>
+</div>
+
+<script>
+const $=id=>document.getElementById(id),stage=$('stage');
+const fit=()=>{stage.style.transform=`scale(${Math.min(innerWidth/1440,innerHeight/810)})`};fit();addEventListener('resize',fit);
+const ease={o:x=>1-Math.pow(1-x,3),io:x=>x<.5?4*x*x*x:1-Math.pow(-2*x+2,3)/2};
+const tween=(ms,fn,e=ease.o)=>new Promise(r=>{const t0=performance.now();const f=now=>{const p=Math.min(1,(now-t0)/ms);fn(e(p));p<1?requestAnimationFrame(f):r()};requestAnimationFrame(f)});
+const wait=ms=>new Promise(r=>setTimeout(r,ms));
+const NS='http://www.w3.org/2000/svg',svg=$('svg');
+const el=(t,a,p=svg)=>{const e=document.createElementNS(NS,t);for(const k in a)e.setAttribute(k,a[k]);p.appendChild(e);return e};
+
+// кривая обжарки: загрузка в горячий барабан, точка разворота, потом медленный подъём
+const T=t=>245-185*Math.exp(-.17*t)+140*Math.exp(-2.4*t);
+const ROR=t=>(T(t+.05)-T(t-.05))/.1;
+const X0=64,X1=692,Y0=520,Y1=120,TM=14,tx=t=>X0+(X1-X0)*t/TM,ty=v=>Y0-(Y0-Y1)*(v-80)/(250-80),ry=v=>Y0-(Y0-Y1)*v/32;
+const FC=9.3,SC=12.6,MIN=9.6,MAX=13.6;
+
+for(let v=100;v<=240;v+=20){el('line',{x1:X0,x2:X1,y1:ty(v),y2:ty(v),stroke:'rgba(239,230,214,.07)'});el('text',{x:X1+6,y:ty(v)+4,fill:'rgba(239,230,214,.35)','font-size':11,'font-family':'DM Mono'}).textContent=v}
+for(let m=0;m<=TM;m+=2)el('text',{x:tx(m),y:Y0+22,fill:'rgba(239,230,214,.35)','font-size':11,'font-family':'DM Mono','text-anchor':'middle'}).textContent=m+':00';
+[[FC,'First crack'],[SC,'Second crack']].forEach(([t,l])=>{el('line',{x1:tx(t),x2:tx(t),y1:Y1-10,y2:Y0,stroke:'rgba(239,230,214,.22)','stroke-dasharray':'3 5'});el('text',{x:tx(t)+8,y:Y1-2,fill:'rgba(239,230,214,.55)','font-size':12,'font-family':'DM Sans'}).textContent=l});
+// зоны вкуса
+[[MIN,10.6,'Light'],[10.6,11.8,'Medium'],[11.8,MAX,'Dark']].forEach(([a,b,l],i)=>{el('rect',{x:tx(a),y:Y0+34,width:tx(b)-tx(a)-3,height:4,rx:2,fill:'rgba(239,230,214,'+(.12+i*.08)+')'});el('text',{x:tx(a),y:Y0+56,fill:'rgba(239,230,214,.45)','font-size':11.5,'font-family':'DM Sans'}).textContent=l});
+
+const pts=(f,t0=0)=>{let d='';for(let t=t0;t<=TM+1e-6;t+=.05)d+=(d?'L':'M')+tx(t).toFixed(1)+' '+f(t).toFixed(1);return d};
+const rorP=el('path',{d:pts(t=>ry(Math.max(0,Math.min(32,ROR(t)))),1.2),stroke:'#d9572b','stroke-width':1.6,'stroke-dasharray':'4 4',fill:'none',opacity:.0});
+const ghost=el('path',{d:pts(t=>ty(T(t))),stroke:'rgba(239,230,214,.16)','stroke-width':2.5,fill:'none'});
+const curve=el('path',{d:pts(t=>ty(T(t))),stroke:'#efe6d6','stroke-width':3,fill:'none','stroke-linecap':'round'});
+const L=curve.getTotalLength();curve.style.strokeDasharray=L;curve.style.strokeDashoffset=L;
+const vline=el('line',{y1:Y1-10,y2:Y0,stroke:'#d9572b','stroke-width':1.5,opacity:0});
+const halo=el('circle',{r:16,fill:'#d9572b',opacity:0});
+const dot=el('circle',{r:7,fill:'#efe6d6',stroke:'#d9572b','stroke-width':3,opacity:0});
+
+// длина кривой до момента t (по x почти равномерно, считаем честно)
+const lenAt=(()=>{const N=280,acc=[0];let px=tx(0),py=ty(T(0));for(let i=1;i<=N;i++){const t=TM*i/N,x=tx(t),y=ty(T(t));acc.push(acc[i-1]+Math.hypot(x-px,y-py));px=x;py=y}return t=>{const f=t/TM*N,i=Math.floor(f);return i>=N?acc[N]:acc[i]+(acc[i+1]-acc[i])*(f-i)}})();
+
+const STOPS=[[0,[142,154,91]],[5,[201,170,95]],[8.2,[176,118,64]],[10,[170,112,62]],[11.2,[120,70,38]],[12.6,[70,40,24]],[14,[30,19,14]]];
+function beanCol(t){let i=0;while(i<STOPS.length-2&&t>STOPS[i+1][0])i++;const [a,c0]=STOPS[i],[b,c1]=STOPS[i+1],p=Math.max(0,Math.min(1,(t-a)/(b-a)));return 'rgb('+c0.map((v,k)=>Math.round(v+(c1[k]-v)*p)).join(',')+')'}
+const LV=[[10.6,'Light roast','Ethiopia Guji','Jasmine, bergamot, black tea'],[11.8,'Medium roast','Colombia Huila','Caramel, red apple, cocoa'],[99,'Dark roast','Sumatra Lintong','Dark chocolate, molasses, cedar']];
+let cur=-1;
+function setLevel(t){const i=LV.findIndex(l=>t<l[0]);if(i===cur)return;const first=cur<0;cur=i;const sw=$('sw');
+  const put=()=>{$('lvl').textContent=LV[i][1];$('nm').textContent=LV[i][2];$('nt').textContent=LV[i][3];sw.classList.remove('out')};
+  if(first)put();else{sw.classList.add('out');setTimeout(put,220)}}
+const mmss=t=>{const s=Math.round(t*60);return String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0')};
+function show(t,drawn=true){
+  const x=tx(t),y=ty(T(t));
+  if(drawn)curve.style.strokeDashoffset=L-lenAt(t);
+  $('tm').textContent=mmss(t);$('tp').firstChild.textContent=Math.round(T(t));
+  $('beanF').setAttribute('fill',beanCol(t));
+  // зерно растёт при обжарке, после первого крэка бороздка раскрывается
+  const g=1+.12*Math.max(0,Math.min(1,(t-4)/8));$('beanG').setAttribute('transform',`rotate(-28 66 66) translate(66 66) scale(${g}) translate(-66 -66)`);
+  $('crease').setAttribute('stroke-width',4+Math.max(0,t-FC)*1.4);
+  dot.setAttribute('cx',x);dot.setAttribute('cy',y);halo.setAttribute('cx',x);halo.setAttribute('cy',y);vline.setAttribute('x1',x);vline.setAttribute('x2',x);
+  if(t>=MIN-.3)setLevel(t);
+}
+
+let live=false,now=11.2;
+(async()=>{
+  await document.fonts.ready;show(0);await wait(400);
+  // кривая рисуется, таймер бежит, зерно темнеет
+  await tween(3600,p=>{now=11.2*p;show(now)},ease.io);
+  tween(500,p=>{dot.setAttribute('opacity',p);vline.setAttribute('opacity',p*.6);halo.setAttribute('opacity',p*.25);rorP.setAttribute('opacity',p*.7)});
+  // пульс на точке
+  tween(900,p=>{halo.setAttribute('r',16+p*22);halo.setAttribute('opacity',.25*(1-p))});
+  await wait(500);$('drag').style.opacity=1;live=true;
+})();
+
+let tgt=now;
+const chart=$('chart');
+function fromEvent(e){const r=svg.getBoundingClientRect(),k=r.width/724;return Math.max(MIN,Math.min(MAX,((e.clientX-r.left)/k-X0)/(X1-X0)*TM))}
+chart.addEventListener('pointermove',e=>{if(!live)return;tgt=fromEvent(e)});
+chart.addEventListener('pointerdown',e=>{if(!live)return;tgt=fromEvent(e)});
+(function loop(){if(live&&Math.abs(tgt-now)>.002){now+=(tgt-now)*.16;show(now);halo.setAttribute('r',16);halo.setAttribute('opacity',.25)}requestAnimationFrame(loop)})();
+</script>
+</body>
+</html>

@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Lowtide festival</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anybody:wdth,wght@50..150,100..900&family=IBM+Plex+Mono:wght@400;500&display=block" rel="stylesheet">
+<style>
+:root{--bg:#2626f2;--ink:#fff4dc;--mid:rgba(255,244,220,.62);--line:rgba(255,244,220,.22);--lime:#d9ff3f}
+*{box-sizing:border-box;margin:0;padding:0}
+html{background:#11118a;height:100%}
+body{height:100%;overflow:hidden;font-family:'Anybody',system-ui,sans-serif;color:var(--ink);-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+#stage{position:absolute;left:50%;top:50%;width:1440px;height:810px;margin:-405px 0 0 -720px;background:var(--bg);overflow:hidden}
+.mono{font-family:'IBM Plex Mono',monospace}
+
+nav{position:absolute;left:0;right:0;top:0;height:76px;padding:0 44px;display:flex;align-items:center;font:500 13px 'IBM Plex Mono';text-transform:uppercase;letter-spacing:.04em}
+.brand{font-family:'Anybody';font-variation-settings:'wdth' 150,'wght' 900;font-size:24px;letter-spacing:-.01em;text-transform:none}
+.links{display:flex;gap:28px;margin-left:64px}
+.links a{opacity:.75}.links a:hover{opacity:1}
+.right{margin-left:auto;display:flex;gap:20px;align-items:center}
+.tix{height:40px;padding:0 18px;border-radius:20px;background:var(--lime);color:#14148a;display:flex;align-items:center}
+
+.meta{position:absolute;left:44px;right:44px;top:96px;display:flex;justify-content:space-between;font:400 13px 'IBM Plex Mono';color:var(--mid);text-transform:uppercase;border-top:1px solid var(--line);padding-top:12px}
+.meta b{color:var(--ink);font-weight:500}
+
+#lineup{position:absolute;left:0;right:0;top:136px;text-align:center;user-select:none}
+.day{font:500 12.5px 'IBM Plex Mono';color:var(--lime);text-transform:uppercase;letter-spacing:.08em;margin:14px 0 4px}
+.ln{display:block;white-space:nowrap;line-height:.86;text-transform:uppercase;font-size:120px}
+.ln.s{font-size:70px;line-height:.95;color:var(--mid)}
+.ch{display:inline-block;font-variation-settings:'wdth' 60,'wght' 400}
+
+.bar{position:absolute;left:44px;right:44px;bottom:30px;height:64px;display:flex;align-items:center;gap:16px;border-top:1px solid var(--line);padding-top:14px}
+.play{width:50px;height:50px;border-radius:50%;background:var(--ink);color:var(--bg);border:0;cursor:pointer;display:grid;place-items:center;transition:transform .15s}
+.play:active{transform:scale(.93)}
+.play svg{width:18px;height:18px}
+.trk{font:400 13px 'IBM Plex Mono';line-height:1.4}
+.trk small{display:block;color:var(--mid)}
+.wave{display:flex;gap:3px;align-items:center;height:30px;margin-left:12px}
+.wave i{width:3px;height:4px;background:var(--ink);border-radius:2px;opacity:.6}
+.bar .r{margin-left:auto;display:flex;gap:12px;align-items:center;font:400 13px 'IBM Plex Mono';text-transform:uppercase}
+.bar .r .p{padding:0 18px;height:44px;border-radius:22px;box-shadow:inset 0 0 0 1px var(--line);display:flex;align-items:center}
+.bar .r .p.on{background:var(--lime);color:#14148a;box-shadow:none;font-weight:500}
+</style>
+</head>
+<body>
+<div id="stage">
+<nav>
+  <a class="brand" href="#">Lowtide</a>
+  <div class="links"><a href="#">Line-up</a><a href="#">Timetable</a><a href="#">Getting there</a><a href="#">Camping</a></div>
+  <div class="right"><a href="#">EN / ET</a><a class="tix" href="#">Tickets</a></div>
+</nav>
+<div class="meta"><span><b>14–16 Aug 2027</b></span><span>Harbour Island, Tallinn</span><span>Three stages, one beach</span><span><b>Phase 2</b> line-up</span></div>
+
+<div id="lineup">
+  <div class="day">Friday</div>
+  <span class="ln">Salt Flats · Vera Nova</span>
+  <span class="ln s">Moth &amp; Mirror · Kalju · Dune Radio</span>
+  <div class="day">Saturday</div>
+  <span class="ln">Kids of Atlas · Lumo</span>
+  <span class="ln s">Halcyon Twin · Ostra · Night Ferry</span>
+  <div class="day">Sunday</div>
+  <span class="ln">Low Hours · Tidepool</span>
+</div>
+
+<div class="bar">
+  <button class="play" id="play" aria-label="Play preview"><svg viewBox="0 0 18 18" id="pi"><path d="M4 2.5v13l11-6.5z" fill="currentColor"/></svg></button>
+  <div class="trk">Lowtide 2027, preview mix<small id="tsub">Press play, the line-up dances</small></div>
+  <div class="wave" id="wave"></div>
+  <div class="r"><span>Weekend from €149</span><a class="p" href="#">Day tickets</a><a class="p on" href="#">Get weekend pass</a></div>
+</div>
+</div>
+
+<script>
+const $=id=>document.getElementById(id),stage=$('stage');
+const fit=()=>{stage.style.transform=`scale(${Math.min(innerWidth/1440,innerHeight/810)})`};fit();addEventListener('resize',fit);
+const wait=ms=>new Promise(r=>setTimeout(r,ms));
+
+// каждая буква отдельно, у каждой своя ширина и жирность
+const chars=[],lines=[...document.querySelectorAll('.ln')],gain=lines.map(()=>1);
+lines.forEach((ln,li)=>{
+  const txt=ln.textContent;ln.textContent='';
+  [...txt].forEach(ch=>{const s=document.createElement('span');s.className='ch';s.textContent=ch===' '?' ':ch;ln.appendChild(s);chars.push({el:s,li,big:!ln.classList.contains('s'),v:0,x:0,y:0})});
+});
+const wave=$('wave');for(let i=0;i<28;i++)wave.appendChild(document.createElement('i'));
+const bars=[...wave.children];
+function measure(){const r=stage.getBoundingClientRect(),k=r.width/1440;chars.forEach(c=>{const b=c.el.getBoundingClientRect();c.x=(b.left+b.width/2-r.left)/k;c.y=(b.top+b.height/2-r.top)/k})}
+
+let mx=-999,my=-999,t0=performance.now(),intro=true;
+stage.addEventListener('pointermove',e=>{const r=stage.getBoundingClientRect(),k=r.width/1440;mx=(e.clientX-r.left)/k;my=(e.clientY-r.top)/k});
+stage.addEventListener('pointerleave',()=>{mx=my=-999});
+
+// звук: простая петля на 124 bpm, бочка, хэт, бас
+let ac=null,an=null,data=null,playing=false,nextT=0,step=0,timer=null;
+function initAudio(){
+  ac=new (window.AudioContext||window.webkitAudioContext)();an=ac.createAnalyser();an.fftSize=256;an.smoothingTimeConstant=.7;data=new Uint8Array(an.frequencyBinCount);
+  const g=ac.createGain();g.gain.value=.55;g.connect(an);an.connect(ac.destination);ac.out=g;
+  const n=ac.createBuffer(1,ac.sampleRate*.5,ac.sampleRate),d=n.getChannelData(0);for(let i=0;i<d.length;i++)d[i]=Math.random()*2-1;ac.noise=n;
+}
+const BASS=[45,0,45,0,48,0,43,0,45,0,45,52,48,0,43,0];
+function sched(t,s){
+  const o=ac.out;
+  if(s%4===0){const k=ac.createOscillator(),g=ac.createGain();k.frequency.setValueAtTime(150,t);k.frequency.exponentialRampToValueAtTime(42,t+.12);g.gain.setValueAtTime(1,t);g.gain.exponentialRampToValueAtTime(.001,t+.4);k.connect(g);g.connect(o);k.start(t);k.stop(t+.42)}
+  if(s%2===1){const b=ac.createBufferSource(),f=ac.createBiquadFilter(),g=ac.createGain();b.buffer=ac.noise;f.type='highpass';f.frequency.value=7000;g.gain.setValueAtTime(s%4===3?.35:.18,t);g.gain.exponentialRampToValueAtTime(.001,t+.06);b.connect(f);f.connect(g);g.connect(o);b.start(t);b.stop(t+.08)}
+  if(s%8===4){const b=ac.createBufferSource(),f=ac.createBiquadFilter(),g=ac.createGain();b.buffer=ac.noise;f.type='bandpass';f.frequency.value=1800;g.gain.setValueAtTime(.5,t);g.gain.exponentialRampToValueAtTime(.001,t+.18);b.connect(f);f.connect(g);g.connect(o);b.start(t);b.stop(t+.2)}
+  const m=BASS[s%16];if(m){const v=ac.createOscillator(),f=ac.createBiquadFilter(),g=ac.createGain();v.type='sawtooth';v.frequency.value=440*Math.pow(2,(m-69)/12);f.type='lowpass';f.frequency.setValueAtTime(900,t);f.frequency.exponentialRampToValueAtTime(160,t+.2);g.gain.setValueAtTime(.32,t);g.gain.exponentialRampToValueAtTime(.001,t+.24);v.connect(f);f.connect(g);g.connect(o);v.start(t);v.stop(t+.26)}
+  if(s%32===0){[57,60,64].forEach(m=>{const v=ac.createOscillator(),g=ac.createGain();v.type='triangle';v.frequency.value=440*Math.pow(2,(m-69)/12);g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(.06,t+.3);g.gain.linearRampToValueAtTime(0,t+3.6);v.connect(g);g.connect(o);v.start(t);v.stop(t+3.7)})}
+}
+function pump(){const spb=60/124/4;while(nextT<ac.currentTime+.12){sched(nextT,step++);nextT+=spb}}
+$('play').onclick=()=>{
+  if(!ac)initAudio();
+  playing=!playing;
+  if(playing){ac.resume();nextT=ac.currentTime+.05;step=0;timer=setInterval(pump,25);$('pi').innerHTML='<path d="M4 2.5h3.5v13H4zM10.5 2.5H14v13h-3.5z" fill="currentColor"/>';$('tsub').textContent='Salt Flats, "Brine" (edit) · 124 bpm'}
+  else{clearInterval(timer);$('pi').innerHTML='<path d="M4 2.5v13l11-6.5z" fill="currentColor"/>';$('tsub').textContent='Press play, the line-up dances'}
+};
+
+let mt=0;
+function frame(now){
+  const t=(now-t0)/1000;
+  if(now-mt>400){measure();mt=now}
+  let spec=null;
+  if(playing&&an){an.getByteFrequencyData(data);spec=data}
+  chars.forEach((c,i)=>{
+    let v=0;
+    // вступление: волна прокатывается по строкам
+    if(intro){const front=(t-.3-c.li*.25)*620-200;v=Math.exp(-((c.x-front)**2)/(2*150*150))*.85}
+    const d2=(c.x-mx)**2+(c.y-my)**2*2.2;v=Math.max(v,Math.exp(-d2/(2*120*120)));
+    if(spec){const bin=Math.floor(2+Math.pow(c.x/1440,1.6)*60),e=spec[bin]/255;v=Math.max(v,Math.pow(e,2.2)*(c.big?.75:.9))}
+    v*=gain[c.li];c.v+=(v-c.v)*(v>c.v?.35:.12);
+    c.el.style.fontVariationSettings=`'wdth' ${(60+c.v*90).toFixed(1)},'wght' ${(380+c.v*520).toFixed(0)}`;
+    c.el.style.color=c.v>.55?'#d9ff3f':'';
+  });
+  // строка не должна вылезать за край: если шире, приглушаем её буквы
+  lines.forEach((ln,i)=>{const over=ln.lastChild.offsetLeft+ln.lastChild.offsetWidth-ln.firstChild.offsetLeft>1360;gain[i]=over?gain[i]*.9:Math.min(1,gain[i]+.01)});
+  bars.forEach((b,i)=>{const e=spec?spec[2+i*2]/255:.08+.06*Math.sin(t*3+i);b.style.height=(4+e*26)+'px';b.style.opacity=spec?.9:.5});
+  if(intro&&t>5)intro=false;
+  requestAnimationFrame(frame);
+}
+document.fonts.ready.then(()=>{measure();t0=performance.now();requestAnimationFrame(frame)});
+</script>
+</body>
+</html>
