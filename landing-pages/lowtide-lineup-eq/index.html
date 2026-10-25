@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Lowtide festival</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anybody:wdth,wght@50..150,100..900&family=Inter+Tight:wght@600;700&family=Geist:wght@400;500;600&display=block" rel="stylesheet">
+<style>
+:root{--head:'Inter Tight',system-ui,sans-serif;--body:'Geist',system-ui,sans-serif;--bg:#2626f2;--ink:#fff4dc;--mid:rgba(255,244,220,.62);--line:rgba(255,244,220,.22);--lime:#d9ff3f}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:var(--bg);height:100%}
+body{overflow:hidden;font-family:var(--body);line-height:1.4;color:var(--ink);-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+#stage{position:absolute;left:50%;top:0;width:1440px;height:810px;margin-left:-720px;transform-origin:50% 0;background:var(--bg);overflow:hidden}
+
+nav{position:absolute;left:0;right:0;top:0;height:76px;padding:0 44px;display:flex;align-items:center;font-size:15px}
+.brand{font-family:var(--head);font-weight:700;font-size:24px;letter-spacing:.005em}
+.links{display:flex;gap:28px;margin-left:64px}
+.links a{opacity:.75}
+.right{margin-left:auto;display:flex;gap:28px;align-items:center;color:var(--mid)}
+.right a:last-child{color:var(--ink)}
+.tix{display:flex;align-items:center}
+.tix b{display:inline-block;margin-left:6px;font-weight:600;color:var(--lime)}
+
+.meta{position:absolute;left:44px;right:44px;top:88px;display:flex;justify-content:space-between;font-size:16px;color:var(--mid)}
+.meta b{color:var(--ink);font-weight:500}
+
+#lineup{position:absolute;left:0;right:0;top:132px;text-align:center;user-select:none;font-family:'Anybody',sans-serif}
+.day{font-size:15px;font-weight:500;color:var(--lime);margin:14px 0 2px}
+.ln{display:block;white-space:nowrap;line-height:.86;text-transform:uppercase;font-size:120px}
+.ln.s{font-size:70px;line-height:.95;color:var(--mid)}
+.ch{display:inline-block;font-variation-settings:'wdth' 60,'wght' 380}
+
+.bar{position:absolute;left:44px;right:44px;bottom:28px;height:60px;display:flex;align-items:center;gap:16px}
+.play{width:50px;height:50px;border-radius:50%;background:var(--ink);color:var(--bg);border:0;cursor:pointer;display:grid;place-items:center}
+.play svg{width:18px;height:18px}
+.trk{font-size:14px}
+.trk small{display:block;color:var(--mid)}
+.wave{display:none}
+.wave i{width:3px;height:4px;background:var(--ink);border-radius:2px}
+.bar .r{margin-left:auto;font-size:18px;font-weight:500}
+.bar .r a{text-decoration:underline;text-underline-offset:6px;text-decoration-thickness:1px;display:inline-block}
+.bar .r a.got{color:var(--lime)}
+.bar .r .p{padding:0 20px;height:46px;border-radius:10px;box-shadow:inset 0 0 0 1px var(--line);display:flex;align-items:center;gap:8px;white-space:nowrap}
+.bar .r .p.on{background:var(--lime);color:#14148a;box-shadow:none;font-weight:500}
+.bar .r .p.on svg{width:14px;height:14px}
+#cur{position:absolute;left:0;top:0;width:22px;height:30px;z-index:50;pointer-events:none}
+</style>
+</head>
+<body>
+<div id="stage">
+<nav id="nav">
+  <a class="brand" href="#">Lowtide</a>
+  <div class="links"></div>
+  <div class="right"><a href="#">Line-up</a><a href="#">Getting there</a><a class="tix" href="#" id="tix">Tickets</a></div>
+</nav>
+<div class="meta" id="meta"><span><b>14 to 16 August 2027</b>, Harbour Island, Tallinn</span><span>Second line-up announcement</span></div>
+
+<div id="lineup">
+  <div class="day">Friday</div>
+  <span class="ln">Salt Flats Vera Nova</span>
+  <span class="ln s">Moth &amp; Mirror Kalju Dune Radio</span>
+  <div class="day">Saturday</div>
+  <span class="ln">Kids of Atlas Lumo</span>
+  <span class="ln s">Halcyon Twin Ostra Night Ferry</span>
+  <div class="day">Sunday</div>
+  <span class="ln">Low Hours Tidepool</span>
+</div>
+
+<div class="bar" id="bar">
+  <button class="play" id="play" aria-label="Play preview"><svg viewBox="0 0 18 18" id="pi"></svg></button>
+  <div class="trk">Lowtide 2027, preview mix<small id="tsub"></small></div>
+  <div class="wave" id="wave"></div>
+  <div class="r"><a href="#" id="buy">Weekend pass, €149</a></div>
+</div>
+<svg id="cur" viewBox="0 0 22 30"><path d="M2 2v22.5l5.6-5.3 3.6 8.3 3.6-1.6-3.5-8.1h7.7z" fill="#000" stroke="#fff" stroke-width="1.6" stroke-linejoin="round"/></svg>
+</div>
+
+<script>
+const $=id=>document.getElementById(id),stage=$('stage'),REC=/rec/.test(location.search);
+const cl=x=>Math.max(0,Math.min(1,x)),lerp=(a,b,p)=>a+(b-a)*p;
+const E={lin:cl,eo:x=>1-Math.pow(1-cl(x),3),ei:x=>cl(x)**2,eio:x=>{x=cl(x);return x<.5?4*x**3:1-Math.pow(-2*x+2,3)/2}};
+const gauss=(x,m,s)=>Math.exp(-((x-m)**2)/(2*s*s));
+
+// каждая буква отдельно, у каждой своя ширина и жирность
+const chars=[],lines=[...document.querySelectorAll('.ln')];
+lines.forEach((ln,li)=>{const txt=ln.textContent;ln.textContent='';
+  [...txt].forEach(ch=>{const s=document.createElement('span');s.className='ch';s.textContent=ch===' '?' ':ch;ln.appendChild(s);chars.push({el:s,li,big:!ln.classList.contains('s'),v:-1})})});
+const wave=$('wave');for(let i=0;i<28;i++)wave.appendChild(document.createElement('i'));
+const bars=[...wave.children];
+// замер: где буква стоит в покое и насколько она шире на максимуме
+function measure(){
+  const r=stage.getBoundingClientRect(),k=r.width/1440,fv=(a,b)=>chars.forEach(c=>c.el.style.fontVariationSettings=`'wdth' ${a},'wght' ${b}`);
+  fv(150,900);chars.forEach(c=>c.w1=c.el.getBoundingClientRect().width/k);
+  fv(60,380);chars.forEach(c=>{const b=c.el.getBoundingClientRect();c.w0=b.width/k;c.x=(b.left+b.width/2-r.left)/k;c.y=(b.top+b.height/2-r.top)/k;c.s=c.x/1440;c.v=-1});
+  lines.forEach((ln,i)=>{const cs=chars.filter(c=>c.li===i);ln.cs=cs;ln.w0=cs.reduce((a,c)=>a+c.w0,0)});
+}
+
+// партитура: 124 bpm, бочка на каждую долю, хлопок на 2 и 4, хэт, бас, аккорд раз в два такта
+const SPB=60/124/4,BASS=[45,0,45,0,48,0,43,0,45,0,45,52,48,0,43,0];
+const isK=s=>s%4===0,isH=s=>s%2===1,isC=s=>s%8===4||(s%64>=28&&s%64<32),isB=s=>!!BASS[s%16],isX=s=>s%64===32;
+function envAt(m,pred,dec){if(m<0)return 0;const s=Math.floor(m/SPB);for(let k=s;k>s-40&&k>=0;k--)if(pred(k))return Math.exp(-(m-k*SPB)*dec);return 0}
+function bands(m){return {k:envAt(m,isK,13),b:envAt(m,isB,11),c:envAt(m,isC,10),h:envAt(m,isH,28),x:envAt(m,isX,3.5)}}
+
+// буква = смесь: близость курсора и свой кусок спектра (слева низ, справа верх)
+function draw(Z){
+  const B=Z.m>=0?bands(Z.m):null,mg=Z.mg;
+  lines.forEach((ln,li)=>{
+    const vs=ln.cs.map(c=>{
+      let v=0;
+      if(Z.cur){const d2=(c.x-Z.cur[0])**2+(c.y-Z.cur[1])**2*2.2;v=Math.exp(-d2/(2*125*125))}
+      if(B){const w=c.big?1:.7,e=B.k*gauss(c.s,.12,.11)*w+B.b*gauss(c.s,.37,.1)*.85*w+B.c*gauss(c.s,.63,.1)*(c.big?.75:1)+B.h*gauss(c.s,.88,.09)*(c.big?.5:.85);
+        v=Math.max(v,Math.pow(Math.min(1,e),1.25)*.85*mg+B.x*.5*mg)}
+      return cl(v);
+    });
+    // строка не должна вылезать за край
+    const extra=ln.cs.reduce((a,c,i)=>a+vs[i]*(c.w1-c.w0),0),room=1376-ln.w0,k=extra>room?room/extra:1;
+    ln.cs.forEach((c,i)=>{const v=vs[i]*k,r=Z.rev[li];if(Math.abs(v-c.v)<.002&&c.r===r)return;c.v=v;c.r=r;
+      c.el.style.fontVariationSettings=`'wdth' ${(lerp(50,60,r)+v*90).toFixed(1)},'wght' ${(lerp(100,380,r)+v*520).toFixed(0)}`;
+      c.el.style.opacity=r;const g=cl((v-.42)/.2);c.el.style.color=g>0?`color-mix(in srgb,#d9ff3f ${Math.round(g*100)}%,${c.big?'#fff4dc':'rgba(255,244,220,.62)'})`:''});
+  });
+  bars.forEach((b,i)=>{const s=i/27,e=B?Math.min(1,(B.k*gauss(s,.1,.2)+B.b*gauss(s,.35,.18)+B.c*gauss(s,.62,.16)+B.h*gauss(s,.88,.12))*mg+B.x*.5*mg):0;b.style.height=(4+e*26)+'px';b.style.opacity=.5+e*.5});
+  $('pi').innerHTML=Z.playing?'<path d="M4 2.5h3.5v13H4zM10.5 2.5H14v13h-3.5z" fill="currentColor"/>':'<path d="M4 2.5v13l11-6.5z" fill="currentColor"/>';
+  $('tsub').textContent=Z.playing?'Salt Flats, “Brine” (edit), 124 bpm':'Press play, the line-up dances';
+  $('play').style.transform=`scale(${Z.pp?.9:1})`;
+  $('buy').style.transform=`scale(${Z.bp?.95:1})`;
+  if($('buy').__s!==Z.bought){$('buy').__s=Z.bought;$('buy').textContent=Z.bought?'Weekend pass in your bag':'Weekend pass, €149';$('buy').classList.toggle('got',!!Z.bought);
+    $('tix').innerHTML=Z.bought?'Tickets<b>1</b>':'Tickets'}
+  const tb=$('tix').querySelector('b');if(tb)tb.style.transform=`scale(${1+.6*Z.pop})`;
+  ['nav','meta','bar'].forEach((id,i)=>{$(id).style.opacity=E.eo((Z.t-.05*i)/.5)});
+  const c=$('cur');if(Z.cur&&Z.showCur){c.style.display='block';c.style.transform=`translate(${Z.cur[0]-2}px,${Z.cur[1]-2}px) scale(${Z.pp||Z.bp?.86:1})`}else c.style.display='none';
+}
+
+// ролик: строки проступают, курсор жмёт play, музыка, курсор проводит по строкам, на третьем такте дроп, покупка
+const T_PLAY=1.42,T_BUY=6.95,DUR=7.6;
+let PLAY=[69,756],BUY=[1300,756];
+const CP=()=>[[.55,1500,900],[1.3,PLAY[0]+4,PLAY[1]+4,'eo'],[1.62,PLAY[0]+4,PLAY[1]+4,'lin'],[2.35,250,436,'eio'],[3.75,1170,428,'eio'],[4.35,1050,610,'eio'],[5.5,420,622,'eio'],[6.75,BUY[0],BUY[1],'eio'],[DUR+1,BUY[0],BUY[1],'lin']];
+let CPS=null;
+function curAt(t){const P=CPS;if(t<P[0][0])return null;for(let k=0;k<P.length-1;k++){const [a,x0,y0]=P[k],[b,x1,y1,e]=P[k+1];if(t<b){const p=E[e]((t-a)/(b-a));return [lerp(x0,x1,p),lerp(y0,y1,p)+(k===2||k===5?-Math.sin(p*Math.PI)*60:0)]}}return P[P.length-1].slice(1,3)}
+function stateAt(t){
+  const m=t-T_PLAY;
+  return {t,m:m>=0?m:-1,mg:E.eo(m/.25),rev:lines.map((l,i)=>E.eo((t-.1-i*.09)/.6)),cur:curAt(t),showCur:true,playing:t>=T_PLAY,
+    pp:Math.abs(t-T_PLAY+.03)<.07,bp:Math.abs(t-T_BUY)<.07,bought:t>=T_BUY+.03,pop:t>T_BUY?Math.exp(-7*(t-T_BUY))*Math.sin(Math.min(Math.PI,(t-T_BUY)*14)):0};
+}
+function render(t){draw(stateAt(t))}
+
+// звук: один синт для ролика (офлайн) и для страницы (живьём)
+function synth(ac,out,noise,t,s){
+  const env=(g,t,a,v,d)=>{g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(v,t+a);g.gain.exponentialRampToValueAtTime(.001,t+a+d)};
+  if(isK(s)){const k=ac.createOscillator(),g=ac.createGain();k.frequency.setValueAtTime(150,t);k.frequency.exponentialRampToValueAtTime(42,t+.12);env(g,t,.002,1,.38);k.connect(g);g.connect(out);k.start(t);k.stop(t+.45)}
+  if(isH(s)){const b=ac.createBufferSource(),f=ac.createBiquadFilter(),g=ac.createGain();b.buffer=noise;f.type='highpass';f.frequency.value=7000;env(g,t,.001,s%4===3?.32:.16,.05);b.connect(f);f.connect(g);g.connect(out);b.start(t,(s*.137)%1,.1)}
+  if(isC(s)){const roll=s%64>=28&&s%64<32,b=ac.createBufferSource(),f=ac.createBiquadFilter(),g=ac.createGain();b.buffer=noise;f.type='bandpass';f.frequency.value=roll?1400+(s%4)*300:1800;env(g,t,.002,roll?.22+(s%4)*.08:.5,.16);b.connect(f);f.connect(g);g.connect(out);b.start(t,(s*.311)%1,.25)}
+  const m=BASS[s%16];if(m){const v=ac.createOscillator(),f=ac.createBiquadFilter(),g=ac.createGain();v.type='sawtooth';v.frequency.value=440*Math.pow(2,(m-69)/12);f.type='lowpass';f.frequency.setValueAtTime(900,t);f.frequency.exponentialRampToValueAtTime(160,t+.2);env(g,t,.004,.3,.22);v.connect(f);f.connect(g);g.connect(out);v.start(t);v.stop(t+.3)}
+  if(s%32===0){[57,60,64].forEach((m,i)=>{const v=ac.createOscillator(),g=ac.createGain();v.type='triangle';v.frequency.value=440*Math.pow(2,(m-69)/12);g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(.06,t+.25);g.gain.linearRampToValueAtTime(0,t+3.6);v.connect(g);g.connect(out);v.start(t);v.stop(t+3.7)})}
+  if(isX(s)){const b=ac.createBufferSource(),f=ac.createBiquadFilter(),g=ac.createGain();b.buffer=noise;f.type='highpass';f.frequency.value=3500;env(g,t,.003,.4,1.6);b.connect(f);f.connect(g);g.connect(out);b.start(t,0,1.8)}
+}
+const noiseBuf=ac=>{const n=ac.createBuffer(1,ac.sampleRate*2,ac.sampleRate),d=n.getChannelData(0);let x=7;for(let i=0;i<d.length;i++){x=(x*16807)%2147483647;d[i]=x/1073741823.5-1}return n};
+function click(ac,out,noise,t,f=5200,v=.4){const b=ac.createBufferSource(),bp=ac.createBiquadFilter(),g=ac.createGain();b.buffer=noise;bp.type='bandpass';bp.frequency.value=f;bp.Q.value=1.4;g.gain.setValueAtTime(v,t);g.gain.exponentialRampToValueAtTime(.001,t+.03);b.connect(bp);bp.connect(g);g.connect(out);b.start(t,.3,.05)}
+async function buildAudio(){
+  const SR=48000,ac=new OfflineAudioContext(2,Math.ceil(SR*DUR),SR),noise=noiseBuf(ac);
+  const out=ac.createGain();out.gain.setValueAtTime(.55,0);out.gain.setValueAtTime(.55,DUR-.35);out.gain.linearRampToValueAtTime(0,DUR);out.connect(ac.destination);
+  click(ac,out,noise,T_PLAY-.03);
+  for(let s=0;T_PLAY+s*SPB<DUR;s++)synth(ac,out,noise,T_PLAY+s*SPB,s);
+  click(ac,out,noise,T_BUY,5600,.45);
+  [[1319,1],[1976,.5]].forEach(([f,k])=>{const o=ac.createOscillator(),g=ac.createGain();o.frequency.value=f;g.gain.setValueAtTime(0,T_BUY+.05);g.gain.linearRampToValueAtTime(.07*k,T_BUY+.055);g.gain.exponentialRampToValueAtTime(.001,T_BUY+.4);o.connect(g);g.connect(out);o.start(T_BUY+.05);o.stop(T_BUY+.45)});
+  return ac.startRendering();
+}
+window.__renderAudio=async()=>{
+  const buf=await buildAudio();
+  const n=buf.length,ab=new ArrayBuffer(44+n*4),dv=new DataView(ab),ws=(o,s)=>{for(let i=0;i<s.length;i++)dv.setUint8(o+i,s.charCodeAt(i))};
+  ws(0,'RIFF');dv.setUint32(4,36+n*4,true);ws(8,'WAVEfmt ');dv.setUint32(16,16,true);dv.setUint16(20,1,true);dv.setUint16(22,2,true);
+  dv.setUint32(24,48000,true);dv.setUint32(28,48000*4,true);dv.setUint16(32,4,true);dv.setUint16(34,16,true);ws(36,'data');dv.setUint32(40,n*4,true);
+  const L0=buf.getChannelData(0),R0=buf.getChannelData(1);
+  for(let i=0;i<n;i++){dv.setInt16(44+i*4,Math.max(-1,Math.min(1,L0[i]))*32767,true);dv.setInt16(46+i*4,Math.max(-1,Math.min(1,R0[i]))*32767,true)}
+  let bin='';const u=new Uint8Array(ab);for(let i=0;i<u.length;i+=32768)bin+=String.fromCharCode.apply(null,u.subarray(i,i+32768));
+  return btoa(bin);
+};
+const center=el=>{const r=el.getBoundingClientRect(),s=stage.getBoundingClientRect(),k=s.width/1440;return [(r.left+r.width/2-s.left)/k,(r.top+r.height/2-s.top)/k]};
+function setup(){measure();PLAY=center($('play'));BUY=center($('buy'));CPS=CP()}
+window.__dur=DUR;window.__render=t=>{if(!CPS)setup();render(t)};
+
+if(!REC){
+  const fit=()=>{stage.style.transform=`scale(${Math.min(innerWidth/1440,innerHeight/810,1.25)})`;if(CPS)measure()};fit();addEventListener('resize',fit);
+  // после ролика: буквы тянутся к курсору, play включает тот же трек вживую
+  let mode='intro',t0=0,mouse=null,ac=null,out=null,noise=null,playing=false,m0=0,nextS=0,timer=null,bought=false,pop=-9;
+  stage.addEventListener('pointermove',e=>{const r=stage.getBoundingClientRect(),k=r.width/1440;mouse=[(e.clientX-r.left)/k,(e.clientY-r.top)/k]});
+  stage.addEventListener('pointerleave',()=>{mouse=null});
+  const pump=()=>{while(m0+nextS*SPB<ac.currentTime+.12){synth(ac,out,noise,m0+nextS*SPB,nextS);nextS++}};
+  $('play').onclick=()=>{
+    if(!ac){ac=new AudioContext();noise=noiseBuf(ac);out=ac.createGain();out.gain.value=.55;out.connect(ac.destination)}
+    if(mode==='intro')mode='live';
+    playing=!playing;
+    if(playing){ac.resume();m0=ac.currentTime+.06;nextS=0;timer=setInterval(pump,25)}else clearInterval(timer);
+  };
+  $('buy').onclick=e=>{e.preventDefault();if(mode!=='live')return;bought=true;pop=performance.now()};
+  document.fonts.ready.then(()=>{
+    setup();
+    if(matchMedia('(prefers-reduced-motion: reduce)').matches){draw({...stateAt(DUR),m:-1,playing:false,cur:null});return}
+    t0=performance.now();
+    const loop=n=>{
+      if(mode==='intro'){const t=(n-t0)/1000;if(t<1.3){const S=stateAt(t);S.m=-1;S.playing=false;S.bought=false;S.showCur=false;S.cur=mouse||null;S.mg=0;
+        // браузер не даст играть звук без клика, поэтому на живой странице только проявление строк
+        draw(S)}else mode='live'}
+      if(mode==='live'){const m=playing?ac.currentTime-m0:-1,u=(n-pop)/1000;
+        draw({t:DUR,m,mg:1,rev:lines.map(()=>1),cur:mouse,showCur:false,playing,pp:false,bp:false,bought,pop:u>0?Math.exp(-7*u)*Math.sin(Math.min(Math.PI,u*14)):0})}
+      requestAnimationFrame(loop)};
+    requestAnimationFrame(loop)});
+}else{document.fonts.ready.then(()=>{setup();render(0)})}
+</script>
+</body>
+</html>
