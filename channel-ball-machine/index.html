@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>@channel</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="stage" id="stage">
+  <div class="world">
+    <div class="frame" id="frame">
+      <canvas class="cv" id="cv" role="img" aria-label="Monday, 9:00 AM in the general channel. The channel is a ping-pong table, and at the far end a ball machine fires messages from colleagues: morning, quick q, got a sec, any update. A paddle returns each one with a thumbs-up reaction, the machine fires faster and faster, the last three fly past and the unread badge grows. Then Mark posts @channel, the hopper refills to the brim and forty balls spray across the table, the badge rolls up to 99 plus and the paddle gives up and lies down on the table. Silence. One last slow lob floats over the net: Mark, sorry, wrong channel. It rolls up to the paddle. The clock says 9:07 AM."></canvas>
+    </div>
+  </div>
+  <div class="tools" id="tools">
+    <button class="ghost" id="play">Replay</button>
+    <button class="ghost" id="try" aria-pressed="false">Try it</button>
+    <span class="hint" id="hint">Tap or Space to return</span>
+    <button class="ghost" id="snd" aria-pressed="true">Sound on</button>
+    <div class="seg-ctl" id="theme" role="group" aria-label="Theme">
+      <button data-theme="light">Light</button>
+      <button data-theme="dark">Dark</button>
+    </div>
+  </div>
+</div>
+<script src="sound.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
