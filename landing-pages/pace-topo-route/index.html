@@ -259,7 +259,7 @@ if(!REC){
     if(matchMedia('(prefers-reduced-motion: reduce)').matches){render(DUR);return}
     t0=performance.now();
     const loop=n=>{
-      if(mode==='intro'){const t=(n-t0)/1000;if(t<DUR)render(t);else{mode='live';f=tgt=stateAt(DUR).f}}
+      if(mode==="intro"){const t=(n-t0)/1000;if(t<DUR){const S=stateAt(t);S.cur=null;draw(S)}else{mode='live';f=tgt=stateAt(DUR).f}}
       if(mode==='live'){f+=(tgt-f)*.15;const k=Math.floor(f*KM*2);if(lastK!==null&&k!==lastK)tick(k);lastK=k;
         draw({rev:DUR,f,ghost:1,halo:1,prof:1,km:[1,1,1,1],climb:climbOn(f),cur:null})}
       requestAnimationFrame(loop)};
