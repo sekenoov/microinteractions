@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ice Tray</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="stage">
+  <div class="world">
+    <div class="frame" id="frame">
+      <div class="app" id="app" data-style="glass">
+        <div class="bg"></div>
+        <header class="top">
+          <h1 class="title" id="title">Today</h1>
+          <p class="sub" id="sub">Saturday, 25 October</p>
+          <div class="seg" role="radiogroup" aria-label="Style">
+            <span class="seg__thumb" aria-hidden="true"></span>
+            <button role="radio" data-set="glass" aria-checked="true">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.5c3.5 4.2 6 7.6 6 10.5a6 6 0 0 1-12 0c0-2.9 2.5-6.3 6-10.5z"/></svg>Glass
+            </button>
+            <button role="radio" data-set="flat" aria-checked="false">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="5" width="14" height="14" rx="3"/></svg>Flat
+            </button>
+          </div>
+        </header>
+        <main class="content" id="content"></main>
+        <div class="tray" id="tray" role="tablist" aria-label="Sections"></div>
+        <button class="plus" id="plus" aria-label="Create" aria-expanded="false">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+        </button>
+        <div class="cubes" id="cubes"></div>
+      </div>
+      <svg class="cursor" id="cursor" viewBox="0 0 24 28" aria-hidden="true"><path d="M3 2v19.5l5.2-5 3.4 7.8 3.3-1.4-3.4-7.7h7.3z"/></svg>
+    </div>
+  </div>
+  <div class="tools">
+    <button class="ghost" id="play">Replay</button>
+    <span class="hint">Click the tabs, the plus and the cubes</span>
+    <button class="ghost" id="snd" aria-pressed="true">Sound on</button>
+  </div>
+</div>
+<script src="sound.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
