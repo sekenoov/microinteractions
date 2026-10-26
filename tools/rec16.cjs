@@ -11,7 +11,8 @@ const puppeteer=require('puppeteer-core');const fs=require('fs');
   const list=only?only.split(',').map(Number):[...Array(n).keys()];
   for(const i of list){
     await p.evaluate(t=>{window.__render(t)},only?i:i/FPS);
-    const s=await cdp.send('Page.captureScreenshot',{format:'jpeg',quality:93});
+    // Brave не учитывает масштаб пикселей при снимке, поэтому масштаб задаётся в clip явно: 1440 × 4/3 = 1920
+    const s=await cdp.send('Page.captureScreenshot',{format:'jpeg',quality:93,clip:{x:0,y:0,width:1440,height:810,scale:4/3}});
     fs.writeFileSync(`${out}/f${only?String(i).replace('.','_'):String(i).padStart(5,'0')}.jpg`,Buffer.from(s.data,'base64'));
   }
   if(!only){const a=await p.evaluate(()=>window.__renderAudio?window.__renderAudio():null);if(a)fs.writeFileSync(`${out}/audio.wav`,Buffer.from(a,'base64'));console.log('frames',n,a?'audio':'no audio')}
