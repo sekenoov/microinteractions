@@ -6,7 +6,7 @@
 <title>Lowtide festival</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Anybody:wdth,wght@50..150,100..900&family=Inter+Tight:wght@600;700&family=Geist:wght@400;500;600&display=block" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@100..900&family=Geist:wght@400;500;600&display=block" rel="stylesheet">
 <style>
 :root{--head:'Inter Tight',system-ui,sans-serif;--body:'Geist',system-ui,sans-serif;--bg:#2626f2;--ink:#fff4dc;--mid:rgba(255,244,220,.62);--line:rgba(255,244,220,.22);--lime:#d9ff3f}
 *{box-sizing:border-box;margin:0;padding:0}
@@ -27,11 +27,11 @@ nav{position:absolute;left:0;right:0;top:0;height:76px;padding:0 44px;display:fl
 .meta{position:absolute;left:44px;right:44px;top:88px;display:flex;justify-content:space-between;font-size:16px;color:var(--mid)}
 .meta b{color:var(--ink);font-weight:500}
 
-#lineup{position:absolute;left:0;right:0;top:132px;text-align:center;user-select:none;font-family:'Anybody',sans-serif}
+#lineup{position:absolute;left:0;right:0;top:132px;text-align:center;user-select:none;font-family:var(--head)}
 .day{font-size:15px;font-weight:500;color:var(--lime);margin:14px 0 2px}
-.ln{display:block;white-space:nowrap;line-height:.86;text-transform:uppercase;font-size:120px}
-.ln.s{font-size:70px;line-height:.95;color:var(--mid)}
-.ch{display:inline-block;font-variation-settings:'wdth' 60,'wght' 380}
+.ln{display:block;white-space:nowrap;line-height:1.0;text-transform:uppercase;font-size:96px;letter-spacing:.005em}
+.ln.s{font-size:56px;line-height:1.1;color:var(--mid)}
+.ch{display:inline-block;font-weight:300}
 
 .bar{position:absolute;left:44px;right:44px;bottom:28px;height:60px;display:flex;align-items:center;gap:16px}
 .play{width:50px;height:50px;border-radius:50%;background:var(--ink);color:var(--bg);border:0;cursor:pointer;display:grid;place-items:center}
@@ -41,8 +41,8 @@ nav{position:absolute;left:0;right:0;top:0;height:76px;padding:0 44px;display:fl
 .wave{display:none}
 .wave i{width:3px;height:4px;background:var(--ink);border-radius:2px}
 .bar .r{margin-left:auto;font-size:18px;font-weight:500}
-.bar .r a{text-decoration:underline;text-underline-offset:6px;text-decoration-thickness:1px;display:inline-block}
-.bar .r a.got{color:var(--lime)}
+.bar .r a{display:inline-flex;align-items:center;height:48px;padding:0 22px;border-radius:10px;background:var(--lime);color:#14148a;font-size:16px;font-weight:600}
+.bar .r a.got{background:var(--ink)}
 .bar .r .p{padding:0 20px;height:46px;border-radius:10px;box-shadow:inset 0 0 0 1px var(--line);display:flex;align-items:center;gap:8px;white-space:nowrap}
 .bar .r .p.on{background:var(--lime);color:#14148a;box-shadow:none;font-weight:500}
 .bar .r .p.on svg{width:14px;height:14px}
@@ -92,9 +92,9 @@ const wave=$('wave');for(let i=0;i<28;i++)wave.appendChild(document.createElemen
 const bars=[...wave.children];
 // замер: где буква стоит в покое и насколько она шире на максимуме
 function measure(){
-  const r=stage.getBoundingClientRect(),k=r.width/1440,fv=(a,b)=>chars.forEach(c=>c.el.style.fontVariationSettings=`'wdth' ${a},'wght' ${b}`);
+  const r=stage.getBoundingClientRect(),k=r.width/1440,fv=(a,b)=>chars.forEach(c=>c.el.style.fontWeight=b);
   fv(150,900);chars.forEach(c=>c.w1=c.el.getBoundingClientRect().width/k);
-  fv(60,380);chars.forEach(c=>{const b=c.el.getBoundingClientRect();c.w0=b.width/k;c.x=(b.left+b.width/2-r.left)/k;c.y=(b.top+b.height/2-r.top)/k;c.s=c.x/1440;c.v=-1});
+  fv(60,300);chars.forEach(c=>{const b=c.el.getBoundingClientRect();c.w0=b.width/k;c.x=(b.left+b.width/2-r.left)/k;c.y=(b.top+b.height/2-r.top)/k;c.s=c.x/1440;c.v=-1});
   lines.forEach((ln,i)=>{const cs=chars.filter(c=>c.li===i);ln.cs=cs;ln.w0=cs.reduce((a,c)=>a+c.w0,0)});
 }
 
@@ -118,7 +118,7 @@ function draw(Z){
     // строка не должна вылезать за край
     const extra=ln.cs.reduce((a,c,i)=>a+vs[i]*(c.w1-c.w0),0),room=1376-ln.w0,k=extra>room?room/extra:1;
     ln.cs.forEach((c,i)=>{const v=vs[i]*k,r=Z.rev[li];if(Math.abs(v-c.v)<.002&&c.r===r)return;c.v=v;c.r=r;
-      c.el.style.fontVariationSettings=`'wdth' ${(lerp(50,60,r)+v*90).toFixed(1)},'wght' ${(lerp(100,380,r)+v*520).toFixed(0)}`;
+      c.el.style.fontWeight=(lerp(100,300,r)+v*600).toFixed(0);
       c.el.style.opacity=r;const g=cl((v-.42)/.2);c.el.style.color=g>0?`color-mix(in srgb,#d9ff3f ${Math.round(g*100)}%,${c.big?'#fff4dc':'rgba(255,244,220,.62)'})`:''});
   });
   bars.forEach((b,i)=>{const s=i/27,e=B?Math.min(1,(B.k*gauss(s,.1,.2)+B.b*gauss(s,.35,.18)+B.c*gauss(s,.62,.16)+B.h*gauss(s,.88,.12))*mg+B.x*.5*mg):0;b.style.height=(4+e*26)+'px';b.style.opacity=.5+e*.5});
