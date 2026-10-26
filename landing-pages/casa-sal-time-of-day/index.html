@@ -6,12 +6,12 @@
 <title>Casa Sal hotel</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;700&family=Geist:wght@400;500;600&display=block" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Young+Serif&family=Alegreya+Sans:wght@400;500;700&display=block" rel="stylesheet">
 <style>
-:root{--head:'Inter Tight',system-ui,sans-serif;--body:'Geist',system-ui,sans-serif;--bg:#f1e7d8;--ink:#2b2119;--mid:#85735f;--line:rgba(43,33,25,.15);--terra:#b8532f}
+:root{--head:'Young Serif',Georgia,serif;--body:'Alegreya Sans',system-ui,sans-serif;--bg:#f1e7d8;--ink:#2b2119;--mid:#85735f;--line:rgba(43,33,25,.15);--terra:#b8532f}
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{background:var(--bg);height:100%}
-body{overflow:hidden;font-family:var(--body);line-height:1.4;color:var(--ink);-webkit-font-smoothing:antialiased}
+body{overflow:hidden;font-family:var(--body);font-size:17px;line-height:1.4;color:var(--ink);-webkit-font-smoothing:antialiased}
 a{color:inherit;text-decoration:none}
 #stage{position:absolute;left:50%;top:0;width:1440px;height:810px;margin-left:-720px;transform-origin:50% 0;background:var(--bg);overflow:hidden}
 #tint{position:absolute;inset:0;pointer-events:none;mix-blend-mode:multiply}
@@ -19,27 +19,27 @@ a{color:inherit;text-decoration:none}
 
 nav{position:absolute;left:0;right:0;top:0;height:88px;padding:0 64px;display:flex;align-items:center;font-size:15px}
 .links{display:none}
-.brand{font-family:var(--head);font-size:24px;order:-1;letter-spacing:.005em;font-weight:700}
+.brand{font-family:var(--head);font-size:26px;order:-1;letter-spacing:0;font-weight:400}
 .right{margin-left:auto;display:flex;gap:28px;align-items:center;color:var(--mid)}
 .right a.b{color:var(--ink)}
 
-h1{position:absolute;left:62px;top:458px;font-family:var(--head);font-weight:600;font-size:84px;line-height:1.0;letter-spacing:.005em}
+h1{position:absolute;left:62px;top:440px;font-family:var(--head);font-weight:400;font-size:84px;line-height:1.02;letter-spacing:-.012em}
 h1 span{display:inline-block}
-.lede{position:absolute;left:64px;top:640px;width:500px;font-size:18px;color:var(--mid)}
+.lede{position:absolute;left:64px;top:640px;width:500px;font-size:19px;color:var(--mid)}
 .now{position:absolute;left:64px;top:150px;display:flex;flex-direction:column;gap:2px}
-.now b{font-family:var(--head);font-weight:600;font-size:56px;line-height:1;letter-spacing:.005em;font-variant-numeric:tabular-nums}
+.now b{font-family:var(--head);font-weight:400;font-size:56px;line-height:1;letter-spacing:-.01em;font-variant-numeric:tabular-nums}
 .now span{font-size:16px;color:var(--mid)}
-.book{position:absolute;left:64px;top:712px;display:flex;gap:24px;align-items:center;font-size:17px}
+.book{position:absolute;left:64px;top:712px;display:flex;gap:24px;align-items:center;font-size:18px}
 .book span{color:var(--mid)}
 .book small{display:block;font-size:13px;color:var(--mid);margin-bottom:2px}
 .book div span{font-size:16px;font-weight:500}
-.book a{display:inline-flex;align-items:center;height:48px;padding:0 22px;border-radius:10px;background:var(--ink);color:var(--bg);font-size:16px;font-weight:600}
+.book a{display:inline-flex;align-items:center;height:48px;padding:0 22px;border-radius:10px;background:var(--ink);color:var(--bg);font-size:17px;font-weight:500}
 .foot{display:none}
 
 .win{position:absolute;left:760px;top:104px;width:560px;height:672px;border-radius:280px 280px 0 0;overflow:hidden;isolation:isolate;box-shadow:0 0 0 1px var(--line);cursor:col-resize}
 #sky{position:absolute;left:0;top:0;width:100%;height:100%}
 .rail{position:absolute;left:0;bottom:0;pointer-events:none}
-.cap{position:absolute;left:760px;top:790px;width:560px;text-align:center;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--mid)}
+.cap{position:absolute;left:760px;top:790px;width:560px;text-align:center;font-size:13px;color:var(--mid)}
 .dial{position:absolute;left:1352px;top:120px;width:40px;height:640px;visibility:hidden}
 .dial i{position:absolute;left:19px;top:0;bottom:0;width:1px;background:var(--line)}
 .dial span{position:absolute;left:0;width:40px;font-size:11px;color:var(--mid);text-align:center;background:var(--bg);transform:translateY(-50%)}
@@ -51,7 +51,7 @@ h1 span{display:inline-block}
 .book a{white-space:nowrap}
 .book a.done{background:var(--terra)}
 #cur{position:absolute;left:0;top:0;width:22px;height:30px;z-index:50;pointer-events:none}
-.hint{position:absolute;left:760px;top:788px;width:560px;text-align:center;font-size:12px;color:var(--mid);opacity:0;transition:opacity .6s}
+.hint{position:absolute;left:760px;top:788px;width:560px;text-align:center;font-size:14px;color:var(--mid);opacity:0;transition:opacity .6s}
 </style>
 </head>
 <body>

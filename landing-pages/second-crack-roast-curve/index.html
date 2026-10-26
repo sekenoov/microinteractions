@@ -6,18 +6,18 @@
 <title>Second Crack roasters</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;700&family=Geist:wght@400;500;600&display=block" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&display=block" rel="stylesheet">
 <style>
-:root{--head:'Inter Tight',system-ui,sans-serif;--body:'Geist',system-ui,sans-serif;--bg:#efe6d6;--ink:#2a1a12;--mid:#7a6656;--line:rgba(42,26,18,.14);--or:#c9502a}
+:root{--head:'Archivo',system-ui,sans-serif;--body:'Archivo',system-ui,sans-serif;--bg:#efe6d6;--ink:#2a1a12;--mid:#7a6656;--line:rgba(42,26,18,.14);--or:#c9502a}
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{background:var(--bg);height:100%}
 body{overflow:hidden;font-family:var(--body);line-height:1.4;color:var(--ink);-webkit-font-smoothing:antialiased}
 a{color:inherit;text-decoration:none}
 #stage{position:absolute;left:50%;top:0;width:1440px;height:810px;margin-left:-720px;transform-origin:50% 0;background:var(--bg);overflow:hidden}
-.mono{font-family:var(--head);font-variant-numeric:tabular-nums;letter-spacing:.005em}
+.mono{font-family:var(--head);font-variant-numeric:tabular-nums}
 
 nav{position:absolute;left:0;right:0;top:0;height:88px;padding:0 60px;display:flex;align-items:center;font-size:15px}
-.brand{font-family:var(--head);font-weight:700;font-size:23px;letter-spacing:.005em}
+.brand{font-family:var(--head);font-weight:800;font-stretch:72%;font-size:27px;letter-spacing:0}
 .right{margin-left:auto;display:flex;gap:28px;align-items:center;color:var(--mid)}
 .right b{font-weight:400;color:var(--ink);display:flex;gap:6px}
 .right b i{font-style:normal;display:inline-block;font-variant-numeric:tabular-nums;transform-origin:50% 50%}
@@ -29,12 +29,12 @@ nav{position:absolute;left:0;right:0;top:0;height:88px;padding:0 60px;display:fl
 .pick .notes{white-space:nowrap}
 .bean{width:112px;height:112px;flex:none}
 .pick .lvl{font-size:15px;color:var(--mid)}
-.pick h3{white-space:nowrap;font-family:var(--head);font-weight:600;font-size:30px;letter-spacing:.005em;margin:2px 0 2px}
+.pick h3{white-space:nowrap;font-family:var(--head);font-weight:700;font-stretch:80%;font-size:32px;letter-spacing:0;margin:2px 0 2px}
 .pick .notes{font-size:16px;color:var(--ink)}
 .pick .px{font-size:15px;color:var(--mid);margin-top:6px}
 .pick .px b{color:var(--ink);font-weight:600}
 
-h1{position:absolute;left:60px;top:470px;width:600px;font-family:var(--head);font-weight:600;font-size:80px;line-height:1.0;letter-spacing:.005em}
+h1{position:absolute;left:58px;top:426px;width:600px;font-family:var(--head);font-weight:700;font-stretch:68%;font-size:104px;line-height:.92;letter-spacing:-.005em}
 h1 span{display:inline-block}
 .lede{position:absolute;left:62px;top:652px;width:460px;font-size:18px;color:var(--mid)}
 .ctas{position:absolute;left:62px;top:722px;font-size:18px;font-weight:500}
@@ -45,7 +45,7 @@ h1 span{display:inline-block}
 .chart{position:absolute;left:660px;top:118px;width:724px;height:620px}
 .chart .hd{position:absolute;left:64px;right:40px;top:0;display:flex;gap:48px;align-items:flex-start}
 .chart .hd small{display:block;font-size:14px;color:var(--mid)}
-.chart .hd b{font-family:var(--head);font-weight:600;font-size:34px;letter-spacing:.005em;font-variant-numeric:tabular-nums}
+.chart .hd b{font-family:var(--head);font-weight:700;font-stretch:80%;font-size:38px;font-variant-numeric:tabular-nums}
 .chart .hd b span{color:var(--mid);font-size:20px;margin-left:4px}
 .chart svg{position:absolute;left:0;top:0;cursor:ew-resize}
 .drag{position:absolute;left:64px;bottom:0;font-size:14px;color:var(--mid);opacity:0}
@@ -101,11 +101,11 @@ const ROR=t=>(T(t+.05)-T(t-.05))/.1;
 const X0=64,X1=692,Y0=520,Y1=120,TM=14,tx=t=>X0+(X1-X0)*t/TM,ty=v=>Y0-(Y0-Y1)*(v-80)/(250-80),ry=v=>Y0-(Y0-Y1)*v/32;
 const FC=9.3,SC=12.6,MIN=9.6,MAX=13.6,CX=660,CY=112;
 
-for(let v=100;v<=240;v+=20){el('line',{x1:X0,x2:X1,y1:ty(v),y2:ty(v),stroke:'rgba(42,26,18,.07)'});el('text',{x:X1+6,y:ty(v)+4,fill:'rgba(42,26,18,.35)','font-size':11,'font-family':'Geist'}).textContent=v}
-for(let m=0;m<=TM;m+=2)el('text',{x:tx(m),y:Y0+22,fill:'rgba(42,26,18,.35)','font-size':11,'font-family':'Geist','text-anchor':'middle'}).textContent=m+':00';
-const cracks=[[FC,'First crack'],[SC,'Second crack']].map(([t,l])=>{el('line',{x1:tx(t),x2:tx(t),y1:Y1-10,y2:Y0,stroke:'rgba(42,26,18,.22)','stroke-dasharray':'3 5'});const e=el('text',{x:tx(t)+8,y:Y1-2,fill:'rgba(42,26,18,.55)','font-size':12,'font-family':'Geist'});e.textContent=l;return {t,e}});
+for(let v=100;v<=240;v+=20){el('line',{x1:X0,x2:X1,y1:ty(v),y2:ty(v),stroke:'rgba(42,26,18,.07)'});el('text',{x:X1+6,y:ty(v)+4,fill:'rgba(42,26,18,.35)','font-size':11,'font-family':'Archivo'}).textContent=v}
+for(let m=0;m<=TM;m+=2)el('text',{x:tx(m),y:Y0+22,fill:'rgba(42,26,18,.35)','font-size':11,'font-family':'Archivo','text-anchor':'middle'}).textContent=m+':00';
+const cracks=[[FC,'First crack'],[SC,'Second crack']].map(([t,l])=>{el('line',{x1:tx(t),x2:tx(t),y1:Y1-10,y2:Y0,stroke:'rgba(42,26,18,.22)','stroke-dasharray':'3 5'});const e=el('text',{x:tx(t)+8,y:Y1-2,fill:'rgba(42,26,18,.55)','font-size':12,'font-family':'Archivo'});e.textContent=l;return {t,e}});
 // зоны вкуса
-const zones=[[MIN,10.6,'Light'],[10.6,11.8,'Medium'],[11.8,MAX,'Dark']].map(([a,b,l],i)=>{const r=el('rect',{x:tx(a),y:Y0+34,width:tx(b)-tx(a)-3,height:4,rx:2,fill:'rgba(42,26,18,'+(.12+i*.08)+')'});const t=el('text',{x:tx(a),y:Y0+56,fill:'rgba(42,26,18,.45)','font-size':11.5,'font-family':'Geist'});t.textContent=l;return {a,b,r,t}});
+const zones=[[MIN,10.6,'Light'],[10.6,11.8,'Medium'],[11.8,MAX,'Dark']].map(([a,b,l],i)=>{const r=el('rect',{x:tx(a),y:Y0+34,width:tx(b)-tx(a)-3,height:4,rx:2,fill:'rgba(42,26,18,'+(.12+i*.08)+')'});const t=el('text',{x:tx(a),y:Y0+56,fill:'rgba(42,26,18,.45)','font-size':11.5,'font-family':'Archivo'});t.textContent=l;return {a,b,r,t}});
 
 const pts=(f,t0=0)=>{let d='';for(let t=t0;t<=TM+1e-6;t+=.05)d+=(d?'L':'M')+tx(t).toFixed(1)+' '+f(t).toFixed(1);return d};
 const rorP=el('path',{display:'none',d:pts(t=>ry(Math.max(0,Math.min(32,ROR(t)))),1.2),stroke:'#c9502a','stroke-width':1.6,'stroke-dasharray':'4 4',fill:'none'});

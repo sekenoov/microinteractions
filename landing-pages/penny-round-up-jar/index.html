@@ -6,21 +6,21 @@
 <title>Penny, round-up savings</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;700&family=Geist:wght@400;500;600&display=block" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Gabarito:wght@500;600;700&family=Hanken+Grotesk:wght@400;500;600&display=block" rel="stylesheet">
 <style>
-/* одна пара шрифтов на все лендинги: Inter Tight для заголовков, Geist для остального (TYPOGRAPHY.md) */
+/* Gabarito для заголовка и сумм, Hanken Grotesk для остального */
 :root{--bg:#f3f1ea;--panel:#fbfaf6;--ink:#11241b;--ink2:#3a4a41;--mid:#66736b;--line:rgba(17,36,27,.12);--green:#1d5a3c;--coin:#e9c45a;--coin2:#c99a2e;
-  --head:'Inter Tight',system-ui,sans-serif;--body:'Geist',system-ui,sans-serif}
+  --head:'Gabarito',system-ui,sans-serif;--body:'Hanken Grotesk',system-ui,sans-serif}
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{background:var(--bg);height:100%}
 body{overflow:hidden;font-family:var(--body);line-height:1.4;color:var(--ink);-webkit-font-smoothing:antialiased}
 a{color:inherit;text-decoration:none}
 /* сцена прижата к верху и стоит на фоне того же цвета, поэтому полей вокруг не видно */
 #stage{position:absolute;left:50%;top:0;width:1440px;height:810px;margin-left:-720px;transform-origin:50% 0;background:var(--bg);overflow:hidden}
-.num{font-family:var(--head);font-variant-numeric:tabular-nums;letter-spacing:.005em}
+.num{font-family:var(--head);font-variant-numeric:tabular-nums;letter-spacing:0}
 
 nav{position:absolute;left:0;right:0;top:0;height:88px;padding:0 64px;display:flex;align-items:center;font-size:15px}
-.brand{font-family:var(--head);font-weight:700;font-size:24px;letter-spacing:.005em}
+.brand{font-family:var(--head);font-weight:700;font-size:27px;letter-spacing:-.01em}
 .right{margin-left:auto;display:flex;gap:28px;align-items:center;color:var(--mid)}
 .right a:hover{color:var(--ink)}
 .right a:last-child{color:var(--ink)}
@@ -40,7 +40,7 @@ nav{position:absolute;left:0;right:0;top:0;height:88px;padding:0 64px;display:fl
 .sweep{margin-top:16px;font-size:15px;color:var(--mid)}
 .sweep b{color:var(--ink);font-weight:600}
 
-h1{position:absolute;left:62px;top:520px;font-family:var(--head);font-size:68px;line-height:1.0;letter-spacing:.005em;font-weight:600}
+h1{position:absolute;left:62px;top:508px;font-family:var(--head);font-size:70px;line-height:1.0;letter-spacing:-.02em;font-weight:700}
 h1 .ln{display:block;overflow:hidden;padding-bottom:4px}
 h1 .ln span{display:inline-block}
 .lede{position:absolute;left:66px;top:682px;width:520px;font-size:18px;color:var(--ink2)}
@@ -61,7 +61,7 @@ h1 .ln span{display:inline-block}
 #cur{position:absolute;left:0;top:0;width:22px;height:30px;z-index:50;pointer-events:none}
 .fly{position:absolute;z-index:20;pointer-events:none}
 .total{position:absolute;left:0;right:0;top:10px;text-align:center}
-.total b{display:block;font-size:40px;font-weight:600}
+.total b{display:block;font-size:42px;font-weight:700;letter-spacing:-.01em}
 .total small{font-size:13px;color:var(--mid)}
 .year{position:absolute;left:0;right:0;top:534px;text-align:center;font-size:14px;color:var(--mid)}
 .year b{color:var(--ink);font-weight:600}
