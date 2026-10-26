@@ -30,6 +30,7 @@ Desktop landing page concepts in [landing-pages](landing-pages/). Each hero is a
 
 | Folder | What it is |
 | --- | --- |
+| [radius-corner-feedback](radius-corner-feedback/) | three rounds of make it friendlier: the corner radius hits max, the icon rolls out of the frame, then actually the first one |
 | [lowpower-honey-keyboard](lowpower-honey-keyboard/) | at 1% low power mode turns the keyboard to honey, and the phone dies right on send |
 | [compress-hydraulic-press](compress-hydraulic-press/) | a hydraulic press squeezes 48 MB of files into a 47.9 MB zip |
 | [strike-todo-bowling](strike-todo-bowling/) | today’s to-do list stands up as bowling pins: nine fall, do taxes never does |

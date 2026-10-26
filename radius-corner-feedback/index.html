@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Radius</title>
+<link rel="preload" href="fonts/inter-tight.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/geist.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="stage" id="stage">
+  <div class="world">
+    <div class="frame" id="frame">
+      <canvas class="cv" id="cv" role="img" aria-label="A design tool. A square app icon with the letters Aa sits selected in a frame. A comment pin drops: make it friendlier. The cursor drags the corner radius handle a little. Another pin: friendlier, it drags more. Another: more, it drags to the maximum and the square becomes a circle. The handle slips, the circle rolls away out of the frame and its selection box spins off the canvas while the X field keeps counting. A pin says perfect on the empty frame, then actually the first one. Command Z three times: the icon comes back and unrounds step by step to a square. All comments close."></canvas>
+    </div>
+  </div>
+  <div class="tools" id="tools">
+    <button class="ghost" id="play">Replay</button>
+    <button class="ghost" id="try" aria-pressed="false">Try it</button>
+    <span class="hint" id="hint">Tap to drag, tap to undo</span>
+    <button class="ghost" id="snd" aria-pressed="true">Sound on</button>
+    <div class="seg-ctl" id="theme" role="group" aria-label="Theme">
+      <button data-theme="light">Light</button>
+      <button data-theme="dark">Dark</button>
+    </div>
+  </div>
+</div>
+<script src="sound.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
