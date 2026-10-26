@@ -1,0 +1,55 @@
+:root{
+  --bg:#f2f1ed;
+  --card:#ffffff;
+  --scene:#fbfaf7;
+  --ink:#0d0d0e;
+  --sub:#8a8a8f;
+  --line:rgba(0,0,0,.1);
+  --ball:#ff7a1a;
+  --tableB:#2a5fa8;
+  --tableG:#2f7a4f;
+  --red:#e5372c;
+  --rubber:#1b1b1d;
+  --pill:#0d0d0e;
+  --pillInk:#ffffff;
+  --ui:-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  --mono:ui-monospace,"SF Mono",Menlo,monospace;
+}
+@media(prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#161513;--card:#1e1d1b;--scene:#1b1a18;--ink:#f5f5f7;--sub:#8d8d93;--line:rgba(255,255,255,.12);
+    --tableB:#3a72c4;--tableG:#3b8d5d;--rubber:#000000;--pill:#f5f5f7;--pillInk:#0d0d0e;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#161513;--card:#1e1d1b;--scene:#1b1a18;--ink:#f5f5f7;--sub:#8d8d93;--line:rgba(255,255,255,.12);
+  --tableB:#3a72c4;--tableG:#3b8d5d;--rubber:#000000;--pill:#f5f5f7;--pillInk:#0d0d0e;
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--ui);color:var(--ink);background:var(--bg);-webkit-font-smoothing:antialiased;padding:40px 32px 64px}
+
+.head{max-width:1280px;margin:0 auto 28px}
+.head h1{font-size:22px;font-weight:700;letter-spacing:-.01em}
+.head p{color:var(--sub);font-size:14px;margin-top:4px}
+
+.grid{max-width:1280px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:20px}
+.card{background:var(--card);border-radius:18px;padding:12px;border:1px solid var(--line);cursor:pointer;transition:transform .2s cubic-bezier(.2,.75,.2,1)}
+.card:hover{transform:translateY(-2px)}
+.card canvas{display:block;width:100%;aspect-ratio:4/5;border-radius:10px;background:var(--scene)}
+.meta{padding:12px 4px 4px}
+.num{font-family:var(--mono);font-size:11px;color:var(--sub)}
+.title{font-size:15px;font-weight:600;margin-top:2px}
+.cap{font-size:13px;color:var(--sub);margin-top:6px;line-height:1.4}
+
+/* одиночный режим для записи */
+body.single{padding:0;height:100vh;overflow:hidden;display:flex;align-items:center;justify-content:center}
+body.single .head{display:none}
+body.single .grid{display:block;max-width:none;margin:0}
+body.single .card{display:none;background:none;border:0;padding:0;cursor:default}
+body.single .card:hover{transform:none}
+body.single .card.on{display:block}
+body.single .card canvas{height:min(92vh,115vw);width:auto;border-radius:0}
+body.single .meta{display:none}
+
+@media(max-width:520px){body{padding:24px 16px 48px}}
