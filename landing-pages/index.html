@@ -49,7 +49,11 @@ const GROUPS=[
   ['Earlier',[['couchette-split-flap','Couchette','night trains'],['two-coats-paint-fan','Two Coats','paint shop'],['overprint-riso-press','Overprint','riso studio'],['slow-burn-match-light','Slow Burn','candles']]]
 ];
 const main=document.getElementById('main'),cards=[];
-GROUPS.forEach(([title,items])=>{
+// ?pairs показывает только лендинги, которые идут парами на сравнение
+const ONLY_PAIRS=/pairs/.test(location.search);
+// ?pair=1 показывает одну пару
+const ONE=new URLSearchParams(location.search).get('pair');
+GROUPS.filter(([t])=>ONE?t==='Pair '+ONE:!ONLY_PAIRS||t.startsWith('Pair')).forEach(([title,items])=>{
   main.insertAdjacentHTML('beforeend',`<h2>${title}</h2>`);
   const g=document.createElement('div');g.className='grid';main.appendChild(g);
   items.forEach(([dir,name,what])=>{
