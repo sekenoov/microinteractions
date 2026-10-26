@@ -6,20 +6,21 @@
 <title>Pace, running app</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;700&family=Geist:wght@400;500;600&display=block" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Geologica:wght,SHRP@300..800,0..100&family=Atkinson+Hyperlegible+Next:wght@400;500;600&display=block" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.9.0/d3.min.js"></script>
 <style>
-:root{--head:'Inter Tight',system-ui,sans-serif;--body:'Geist',system-ui,sans-serif;--bg:#0c0c0b;--ink:#f1efe8;--mid:#8b8a84;--low:#4a4945;--line:rgba(241,239,232,.1);--or:#ff5a1f}
+/* свои шрифты у Pace: Geologica с острыми срезами для заголовков и цифр, Atkinson Hyperlegible Next для чтения на тёмном */
+:root{--head:'Geologica',system-ui,sans-serif;--body:'Atkinson Hyperlegible Next',system-ui,sans-serif;--bg:#0c0c0b;--ink:#f1efe8;--mid:#8b8a84;--low:#4a4945;--line:rgba(241,239,232,.1);--or:#ff5a1f}
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{background:var(--bg);height:100%}
-body{overflow:hidden;font-family:var(--body);line-height:1.4;color:var(--ink);-webkit-font-smoothing:antialiased}
+body{overflow:hidden;font-family:var(--body);line-height:1.45;color:var(--ink);-webkit-font-smoothing:antialiased}
 a{color:inherit;text-decoration:none}
 #stage{position:absolute;left:50%;top:0;width:1440px;height:810px;margin-left:-720px;transform-origin:50% 0;background:var(--bg);overflow:hidden}
 #map{position:absolute;left:0;top:0;transform-origin:1060px 470px}
 .fade{position:absolute;inset:0;background:linear-gradient(90deg,var(--bg) 30%,rgba(12,12,11,.6) 46%,transparent 62%);pointer-events:none}
 
 nav{position:absolute;left:0;right:0;top:0;height:80px;padding:0 56px;display:flex;align-items:center;font-size:15px;z-index:3}
-.brand{font-family:var(--head);font-weight:700;font-size:24px;letter-spacing:.005em}
+.brand{font-family:var(--head);font-weight:700;font-size:24px;letter-spacing:-.01em;font-variation-settings:'SHRP' 100}
 .links{display:flex;gap:30px;margin-left:68px;color:var(--mid)}
 .links a:hover{color:var(--ink)}
 .right{margin-left:auto;display:flex;gap:24px;align-items:center}
@@ -27,12 +28,12 @@ nav{position:absolute;left:0;right:0;top:0;height:80px;padding:0 56px;display:fl
 .right{color:var(--mid)}
 
 .col{position:absolute;left:56px;top:168px;z-index:2}
-h1{font-family:var(--head);font-weight:600;font-size:96px;line-height:1.0;letter-spacing:.005em}
+h1{font-family:var(--head);font-weight:600;font-size:92px;line-height:1.02;letter-spacing:-.02em;font-variation-settings:'SHRP' 100}
 h1 span{display:block;overflow:hidden;padding-top:6px;margin-top:-6px}
 h1 span i{display:block;font-style:normal}
 .lede{margin-top:24px;width:420px;font-size:18px;color:var(--mid)}
 .ctas{margin-top:32px;display:flex;gap:14px}
-.btn{font-weight:500;font-size:18px;text-decoration:underline;text-underline-offset:6px;text-decoration-thickness:1px}
+.btn{display:inline-flex;align-items:center;height:48px;padding:0 22px;border-radius:10px;background:var(--ink);color:var(--bg);font-weight:600;font-size:16px}
 .store{height:52px;padding:0 20px;border-radius:12px;background:var(--ink);color:var(--bg);display:flex;align-items:center;gap:10px;font-weight:500;font-size:15px}
 .store small{display:block;font-size:10.5px;font-weight:400;opacity:.6;line-height:1}
 .store.o{background:none;color:var(--ink);box-shadow:inset 0 0 0 1px rgba(241,239,232,.3)}
@@ -44,11 +45,11 @@ h1 span i{display:block;font-style:normal}
 .stats b span{font-size:17px;font-weight:500;color:var(--mid);margin-left:3px}
 .prof{position:absolute;left:56px;right:56px;bottom:40px;height:86px;z-index:2;cursor:ew-resize}
 .prof svg{position:absolute;inset:0;overflow:visible}
-.km{position:absolute;top:-28px;font-size:15px;font-weight:500;color:var(--ink);transform:translateX(-50%);white-space:nowrap}
+.km{position:absolute;top:-28px;font-family:var(--head);font-variation-settings:'SHRP' 60;font-size:15px;font-weight:500;font-variant-numeric:tabular-nums;color:var(--ink);transform:translateX(-50%);white-space:nowrap}
 .who{display:none;position:absolute;right:56px;top:120px;z-index:2;text-align:right;font-size:13px;color:var(--mid);line-height:1.5}
 .who b{color:var(--ink);font-weight:500;font-size:15px}
 .climb{position:absolute;z-index:2;width:220px;padding:2px 0 2px 14px;border-left:1px solid var(--or);font-size:13.5px;color:var(--mid);line-height:1.45;pointer-events:none;transform-origin:0 100%}
-.climb b{display:block;color:var(--ink);font-weight:500;font-size:14px;margin-bottom:2px}
+.climb b{font-family:var(--head);font-variation-settings:'SHRP' 100;display:block;color:var(--ink);font-weight:500;font-size:14px;margin-bottom:2px}
 .climb em{display:block;margin-top:2px;font-style:normal;color:var(--or);font-size:13.5px}
 #cur{position:absolute;left:0;top:0;width:22px;height:30px;z-index:50;pointer-events:none}
 </style>
@@ -117,12 +118,12 @@ const C0=CI/N,C1=(CI+WN)/N,CG=Math.round(GAIN[CI+WN]-GAIN[CI]);
 const climbPath=map.append('path').attr('d',d3.line()(S.slice(CI,CI+WN+1).map(s=>[s.x,s.y]))).attr('fill','none').attr('stroke','#f1efe8').attr('stroke-width',5).attr('stroke-linecap','round').attr('opacity',0).node();
 const start=map.append('g').node();
 d3.select(start).append('circle').attr('cx',S[0].x).attr('cy',S[0].y).attr('r',9).attr('fill','none').attr('stroke','#f1efe8').attr('stroke-width',2);
-d3.select(start).append('text').attr('x',S[0].x-16).attr('y',S[0].y+4).attr('text-anchor','end').attr('fill','#f1efe8').attr('font-family','Geist').attr('font-size',13).text('Start and finish');
+d3.select(start).append('text').attr('x',S[0].x-16).attr('y',S[0].y+4).attr('text-anchor','end').attr('fill','#f1efe8').attr('font-family','Atkinson Hyperlegible Next').attr('font-size',13).text('Start and finish');
 const halo=map.append('circle').attr('r',22).attr('fill','#ff5a1f').attr('opacity',0).node();
 const dot=map.append('circle').attr('r',8).attr('fill','#f1efe8').attr('stroke','#ff5a1f').attr('stroke-width',3.5).node();
 const KMS=[5,10,15,20].map(k=>{const s=S[Math.round(k/KM*N)],g=map.append('g').attr('transform',`translate(${s.x},${s.y})`);
   g.append('circle').attr('r',3).attr('fill','#0c0c0b').attr('stroke','#f1efe8').attr('stroke-width',1.5);
-  g.append('text').attr('x',10).attr('y',-8).attr('fill','#8b8a84').attr('font-family','Geist').attr('font-size',12).text(k+' km');
+  g.append('text').attr('x',10).attr('y',-8).attr('fill','#8b8a84').attr('font-family','Atkinson Hyperlegible Next').attr('font-size',12).text(k+' km');
   return {f:k/KM,g:g.node(),x:s.x,y:s.y}});
 
 // профиль высоты внизу
