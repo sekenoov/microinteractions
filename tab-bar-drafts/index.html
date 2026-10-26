@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ru" data-style="glass">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Таб-бар, четыре материала</title>
+<script>try{const s=localStorage.getItem('tb-style');if(s)document.documentElement.dataset.style=s}catch(e){}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&family=Caveat:wght@600&display=swap">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="wrap">
+<header>
+  <div>
+    <h1>Таб-бар</h1>
+    <p>Четыре материала одной механики: вкладки и плюс с шестью действиями.</p>
+  </div>
+  <div class="switch" role="radiogroup" aria-label="Стиль">
+    <span class="switch__thumb" aria-hidden="true"></span>
+    <button role="radio" data-style="glass" aria-checked="true">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.5c3.5 4.2 6 7.6 6 10.5a6 6 0 0 1-12 0c0-2.9 2.5-6.3 6-10.5z"/><path d="M9.2 14.5a2.8 2.8 0 0 0 2.3 2.4"/></svg>
+      Glass
+    </button>
+    <button role="radio" data-style="flat" aria-checked="false">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="5" width="14" height="14" rx="3"/></svg>
+      Flat
+    </button>
+  </div>
+</header>
+
+<main class="grid">
+  <figure>
+    <div class="stage" id="mist"></div>
+    <figcaption><span>01</span> Запотевшее стекло <em>Вкладку протирают, туман возвращается. Плюс пишет действия по конденсату.</em></figcaption>
+  </figure>
+  <figure>
+    <div class="stage" id="tool"></div>
+    <figcaption><span>02</span> Ящик на рычагах <em>Защёлка вместо индикатора. Лотки раскладываются, из верхнего падают Untitled.</em></figcaption>
+  </figure>
+  <figure>
+    <div class="stage" id="bub"></div>
+    <figcaption><span>03</span> Мыльный пузырь <em>Индикатор тянется при переезде. Кликни вкладки быстро, и он лопнет.</em></figcaption>
+  </figure>
+  <figure>
+    <div class="stage" id="ice"></div>
+    <figcaption><span>04</span> Формочка для льда <em>Активная вкладка замёрзла. Voice примерзает и выпадает последним.</em></figcaption>
+  </figure>
+</main>
+</div>
+<script src="script.js"></script>
+</body>
+</html>
