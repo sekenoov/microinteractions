@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Landing pages</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;700&family=Geist:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f4f3ef;--ink:#151515;--mid:#6d6c68;--line:rgba(21,21,21,.12);--head:'Inter Tight',system-ui,sans-serif;--body:'Geist',system-ui,sans-serif}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);line-height:1.4;padding:32px 32px 80px}
+a{color:inherit}
+header{display:flex;align-items:baseline;gap:24px;margin-bottom:28px;flex-wrap:wrap}
+h1{font-family:var(--head);font-weight:700;font-size:28px;letter-spacing:.005em}
+header p{color:var(--mid);font-size:15px}
+.size{margin-left:auto;display:flex;gap:4px;font-size:14px}
+.size button{border:0;background:none;font:inherit;color:var(--mid);padding:4px 8px;cursor:pointer;border-radius:6px}
+.size button.on{color:var(--ink);background:rgba(21,21,21,.06)}
+h2{font-family:var(--head);font-weight:600;font-size:18px;letter-spacing:.005em;margin:40px 0 14px}
+.grid{display:grid;grid-template-columns:repeat(var(--cols,2),minmax(0,1fr));gap:28px 24px}
+.card .frame{position:relative;aspect-ratio:16/9;overflow:hidden;border-radius:10px;background:#fff;box-shadow:0 0 0 1px var(--line)}
+.card iframe{position:absolute;left:0;top:0;width:1440px;height:810px;border:0;transform-origin:0 0}
+.meta{display:flex;align-items:baseline;gap:14px;margin-top:10px;font-size:14px}
+.meta b{font-family:var(--head);font-weight:600;font-size:16px;letter-spacing:.005em}
+.meta span{color:var(--mid)}
+.meta .acts{margin-left:auto;display:flex;gap:14px}
+.meta .acts a,.meta .acts button{border:0;background:none;font:inherit;color:var(--mid);cursor:pointer;text-decoration:underline;text-underline-offset:4px}
+.meta .acts a:hover,.meta .acts button:hover{color:var(--ink)}
+.flash{position:absolute;inset:0;box-shadow:inset 0 0 0 2px #1d7a4e;border-radius:10px;opacity:0;transition:opacity .6s;pointer-events:none}
+.flash.on{opacity:1;transition:none}
+</style>
+</head>
+<body>
+<header>
+  <h1>Landing pages</h1>
+  <p>Every page runs live. Save a file and its frame reloads by itself.</p>
+  <div class="size" id="size"><button data-c="1">1 across</button><button data-c="2" class="on">2 across</button><button data-c="3">3 across</button></div>
+</header>
+<main id="main"></main>
+<script>
+// все лендинги: пары для постов, одиночный и ранние
+const GROUPS=[
+  ['Pair 1',[['pace-topo-route','Pace','running app'],['lowtide-lineup-eq','Lowtide','music festival']]],
+  ['Pair 2',[['casa-sal-time-of-day','Casa Sal','boutique hotel'],['dew-droplet-lens','Dew','skincare']]],
+  ['Pair 3',[['penny-round-up-jar','Penny','savings app'],['second-crack-roast-curve','Second Crack','coffee roastery']]],
+  ['Solo',[['halde-exploded-axo','Halde','architecture studio']]],
+  ['Earlier',[['couchette-split-flap','Couchette','night trains'],['two-coats-paint-fan','Two Coats','paint shop'],['overprint-riso-press','Overprint','riso studio'],['slow-burn-match-light','Slow Burn','candles']]]
+];
+const main=document.getElementById('main'),cards=[];
+GROUPS.forEach(([title,items])=>{
+  main.insertAdjacentHTML('beforeend',`<h2>${title}</h2>`);
+  const g=document.createElement('div');g.className='grid';main.appendChild(g);
+  items.forEach(([dir,name,what])=>{
+    const c=document.createElement('div');c.className='card';
+    c.innerHTML=`<div class="frame"><iframe src="${dir}/" loading="lazy" title="${name}"></iframe><div class="flash"></div></div>
+      <div class="meta"><b>${name}</b><span>${what}</span><span>${dir}/index.html</span><div class="acts"><button>Replay</button><a href="${dir}/" target="_blank">Open</a></div></div>`;
+    g.appendChild(c);
+    const f=c.querySelector('iframe');c.querySelector('button').onclick=()=>reload(card);
+    const card={dir,c,f,flash:c.querySelector('.flash'),stamp:null};cards.push(card);
+  });
+});
+// окно 1440 × 810 вписывается в карточку
+const fit=()=>cards.forEach(k=>{const w=k.c.querySelector('.frame').clientWidth;k.f.style.transform=`scale(${w/1440})`});
+new ResizeObserver(fit).observe(main);fit();
+// сетка: 1, 2 или 3 в ряд, запоминается
+const sz=document.getElementById('size'),setCols=n=>{main.style.setProperty('--cols',n);sz.querySelectorAll('button').forEach(b=>b.classList.toggle('on',b.dataset.c==n));try{localStorage.setItem('lp-cols',n)}catch(_){}requestAnimationFrame(fit)};
+sz.onclick=e=>{const b=e.target.closest('button');if(b)setCols(b.dataset.c)};
+try{const n=localStorage.getItem('lp-cols');if(n)setCols(n)}catch(_){}
+function reload(k){k.f.src=k.f.src;k.flash.classList.add('on');setTimeout(()=>k.flash.classList.remove('on'),60)}
+// живая перезагрузка: раз в секунду смотрим, не поменялся ли index.html и файлы рядом
+const WATCH=['index.html','tokens.css','base.css'];
+async function stampOf(dir){let s='';for(const f of WATCH){try{const r=await fetch(`${dir}/${f}`,{method:'HEAD',cache:'no-store'});if(r.ok)s+=(r.headers.get('last-modified')||'')+(r.headers.get('content-length')||'')}catch(_){}}return s}
+async function poll(){for(const k of cards){const s=await stampOf(k.dir);if(k.stamp!==null&&s!==k.stamp)reload(k);k.stamp=s}setTimeout(poll,1000)}
+poll();
+</script>
+</body>
+</html>

@@ -1,5 +1,7 @@
 # landing pages
 
+Open [index.html](index.html) through the local server to see every landing live on one page; each frame reloads by itself when its file is saved.
+
 Desktop landing page concepts. Each hero plays one short animation (under 6 seconds) and ends on a small interaction. The videos are 1920×1080 at 60 fps with sound.
 
 | Folder | Business | What happens |
