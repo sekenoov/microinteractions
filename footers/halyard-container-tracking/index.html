@@ -1,0 +1,249 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Halyard footer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--fg:#f5efe8;--mute:rgba(245,239,232,.66);--line:rgba(245,239,232,.34);--bg:#1d2236}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:var(--bg);color:var(--fg);font:400 14px/1.45 "IBM Plex Sans",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+.ft{position:relative;height:100vh;min-height:640px;overflow:hidden;background:var(--bg)}
+.ft::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:.16;mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.1' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E")}
+canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+.top{position:relative;z-index:2;display:flex;justify-content:space-between;gap:48px;padding:56px 64px 0}
+.brand{width:380px}
+.logo{display:inline-flex;align-items:center;gap:10px;font-weight:600;font-size:21px;letter-spacing:-.01em}
+.logo svg{width:20px;height:22px}
+.brand p{margin-top:16px;color:var(--mute);font-size:15px;max-width:320px}
+.track{margin-top:28px}
+.track label{display:block;font-size:13px;color:var(--mute);margin-bottom:8px}
+.row{display:flex;gap:8px}
+.field{flex:1;display:flex;align-items:center;height:42px;padding:0 14px;border:1px solid var(--line);border-radius:4px;font:400 14px "IBM Plex Mono",monospace;letter-spacing:.02em;white-space:pre;transition:border-color .2s}
+.field.on{border-color:var(--fg)}
+.field .ph{color:rgba(245,239,232,.45);font-family:"IBM Plex Sans";letter-spacing:0}
+.caret[hidden]{display:none}
+.caret{display:inline-block;width:1px;height:17px;background:var(--fg);margin-left:1px}
+.go{height:42px;padding:0 18px;border:0;border-radius:4px;background:var(--fg);color:#1b1d2a;font:500 14px "IBM Plex Sans";cursor:pointer;transform-origin:center}
+.cols{display:grid;grid-template-columns:repeat(3,auto);gap:0 72px}
+.cols h4{font-size:13px;font-weight:500;color:var(--mute);margin-bottom:14px}
+.cols li{list-style:none;margin-bottom:9px;font-size:14.5px}
+.cols a:hover{text-decoration:underline;text-underline-offset:3px}
+.bar{position:absolute;z-index:2;left:64px;right:64px;bottom:20px;display:flex;justify-content:space-between;color:var(--mute);font-size:13px}
+.bar>div{display:flex;gap:22px}
+.tag{position:absolute;z-index:2;transform:translate(-50%,-100%);opacity:0;pointer-events:none}
+.tag .card{background:var(--fg);color:#1b1d2a;border-radius:4px;padding:8px 11px;white-space:nowrap;font-size:12.5px;line-height:1.35}
+.tag b{display:block;font:500 12.5px "IBM Plex Mono",monospace;letter-spacing:.02em}
+.tag span{color:#545766}
+.tag i{display:block;width:1px;margin:0 auto;background:var(--fg)}
+.tag em{position:absolute;left:50%;bottom:-3px;width:6px;height:6px;margin-left:-3px;border-radius:50%;background:var(--fg)}
+.cur{position:absolute;z-index:3;left:0;top:0;width:20px;height:24px;pointer-events:none;display:none}
+.rec .cur{display:block}
+a:focus-visible,.go:focus-visible{outline:2px solid var(--fg);outline-offset:3px}
+@media (max-width:900px){.top{flex-direction:column;padding:40px 24px 0}.brand{width:auto}.cols{grid-template-columns:repeat(2,1fr);gap:24px 32px}.bar{left:24px;right:24px;flex-direction:column;gap:4px}}
+</style>
+</head>
+<body>
+<footer class="ft" id="ft">
+  <canvas id="gl" aria-hidden="true"></canvas>
+  <canvas id="ov" aria-hidden="true"></canvas>
+  <div class="top">
+    <div class="brand">
+      <a class="logo" href="#"><svg viewBox="0 0 20 22" fill="currentColor"><rect x="2" y="1" width="2" height="20"/><path d="M5 2h12l-4 4.5L17 11H5z"/></svg>Halyard</a>
+      <p>Ocean freight for companies that ship by the container.</p>
+      <div class="track">
+        <label>Track a shipment</label>
+        <div class="row"><div class="field" id="field"><span class="ph" id="ph">Container or B/L number</span><span id="val"></span><span class="caret" id="caret" hidden></span></div><button class="go" id="go">Track</button></div>
+      </div>
+    </div>
+    <nav class="cols" aria-label="Footer">
+      <div><h4>Services</h4><ul><li><a href="#">Full container load</a></li><li><a href="#">Less than container</a></li><li><a href="#">Customs brokerage</a></li><li><a href="#">Warehousing</a></li><li><a href="#">Cargo insurance</a></li></ul></div>
+      <div><h4>Trade lanes</h4><ul><li><a href="#">Asia to Europe</a></li><li><a href="#">Transpacific</a></li><li><a href="#">Transatlantic</a></li><li><a href="#">Intra-Asia</a></li></ul></div>
+      <div><h4>Company</h4><ul><li><a href="#">About</a></li><li><a href="#">Careers</a></li><li><a href="#">Sustainability</a></li><li><a href="#">Contact</a></li></ul></div>
+    </nav>
+  </div>
+  <div class="tag" id="tag"><div class="card"><b>HLYU 482910 3</b><span>At sea · ETA 14 Nov, Rotterdam</span></div><i id="stem"></i><em></em></div>
+  <div class="bar"><div><span>© 2026 Halyard Freight B.V.</span><span>Rotterdam · Singapore · Long Beach</span></div><div><a href="#">Privacy</a><a href="#">Terms</a><a href="#">Cookies</a></div></div>
+  <svg class="cur" id="cur" viewBox="0 0 20 24"><path d="M2 1.5v18.2l4.6-4.3 2.9 6.6 3-1.3-2.9-6.5h6.3z" fill="#111" stroke="#fff" stroke-width="1.4" stroke-linejoin="round"/></svg>
+</footer>
+<script>
+const REC=location.search.includes('rec');
+if(REC)document.body.classList.add('rec');
+const DUR=6.2;window.__dur=DUR;
+const HZ=600,SUNX=760; // design units, 1440 x 810
+
+// ---------- sea + sky shader ----------
+const gl=document.getElementById('gl').getContext('webgl',{preserveDrawingBuffer:true,antialias:false});
+const VS='attribute vec2 p;void main(){gl_Position=vec4(p,0.,1.);}';
+const FS=`precision highp float;
+uniform vec2 R;uniform float T,HZ,SX;
+vec3 SUN;
+float h21(vec2 p){p=fract(p*vec2(123.34,456.21));p+=dot(p,p+45.32);return fract(p.x*p.y);}
+float vn(vec2 p){vec2 i=floor(p),f=fract(p);f=f*f*(3.-2.*f);
+  return mix(mix(h21(i),h21(i+vec2(1,0)),f.x),mix(h21(i+vec2(0,1)),h21(i+vec2(1,1)),f.x),f.y);}
+float fbm(vec2 p){float s=0.,a=.5;for(int i=0;i<5;i++){s+=a*vn(p);p=p*2.07+vec2(3.1,1.7);a*=.5;}return s;}
+// directional waves with sharpened crests
+float waves(vec2 p,int n){
+  float h=0.,a=.42,f=.22,ang=.35;
+  for(int i=0;i<12;i++){
+    if(i>=n)break;
+    vec2 d=vec2(cos(ang),sin(ang));
+    float x=dot(d,p)*f+T*sqrt(9.8*f)*.55+float(i)*1.31;
+    float w=exp(sin(x)-1.);
+    p+=d*w*a*.38*(-cos(x));
+    h+=w*a;
+    a*=.6;f*=1.62;ang+=2.39;
+  }
+  return h;
+}
+float mapG(vec3 p){return p.y-waves(p.xz,6);}
+float mapD(vec3 p){return p.y-waves(p.xz,12);}
+vec3 sky(vec3 d){
+  float y=max(d.y,0.);
+  float s=max(dot(d,SUN),0.);
+  vec3 hor=vec3(1.,.66,.46),mid=vec3(.62,.47,.55),top=vec3(.14,.17,.3);
+  vec3 c=mix(hor,mid,smoothstep(0.,.07,y));
+  c=mix(c,top,smoothstep(.05,.42,y));
+  c+=vec3(1.,.55,.3)*pow(s,6.)*.32+vec3(1.,.72,.45)*pow(s,90.)*.55;
+  float disk=smoothstep(.99962,.9998,s);
+  c=mix(c,vec3(1.,.9,.74)*1.6,disk);
+  // long cloud streaks
+  vec2 q=vec2(d.x/(y+.08)*.9+T*.004,log(y+.012)*9.);
+  float n=fbm(q*vec2(1.,1.3));
+  float band=smoothstep(.015,.05,y)*(1.-smoothstep(.16,.3,y));
+  float m=smoothstep(.52,.78,n)*band;
+  vec3 cc=mix(vec3(.36,.28,.36),vec3(1.,.66,.45),pow(s,5.)*.9);
+  c=mix(c,cc,m*.75);
+  return c;
+}
+float trace(vec3 o,vec3 d,out vec3 p){
+  float tm=0.,tx=2000.;
+  float hx=mapG(o+d*tx);
+  if(hx>0.){p=o+d*tx;return tx;}
+  float hm=mapG(o),tmid=0.;
+  for(int i=0;i<10;i++){
+    tmid=mix(tm,tx,hm/(hm-hx));p=o+d*tmid;float hmid=mapG(p);
+    if(hmid<0.){tx=tmid;hx=hmid;}else{tm=tmid;hm=hmid;}
+  }
+  return tmid;
+}
+void main(){
+  vec2 fc=gl_FragCoord.xy;
+  float f=1.45;
+  vec3 rd=normalize(vec3((fc.x-R.x*.5)/R.y,(fc.y-HZ)/R.y,-f));
+  vec3 ro=vec3(0.,3.4,0.);
+  SUN=normalize(vec3((SX-R.x*.5)/R.y,.028,-f));
+  vec3 col;
+  if(rd.y>=0.){col=sky(rd);}
+  else{
+    vec3 p;float t=trace(ro,rd,p);
+    float e=max(.004*t,.02);
+    float h0=mapD(p);
+    vec3 n=normalize(vec3(mapD(p+vec3(e,0,0))-h0,e,mapD(p+vec3(0,0,e))-h0));
+    n=normalize(mix(n,vec3(0,1,0),smoothstep(30.,400.,t)));
+    vec3 r=reflect(rd,n);r.y=abs(r.y);
+    float fr=.02+.98*pow(1.-max(dot(n,-rd),0.),5.);
+    vec3 deep=vec3(.03,.045,.09)+vec3(.12,.1,.12)*max(dot(n,SUN),0.)*.4;
+    col=mix(deep,sky(r),fr);
+    float sp=max(dot(r,SUN),0.);
+    col+=vec3(1.,.8,.55)*(pow(sp,600.)*5.+pow(sp,70.)*.35);
+    vec3 hc=sky(normalize(vec3(rd.x,0.,rd.z)));
+    col=mix(col,hc,1.-exp(-t*.0055));
+  }
+  col=col/(1.+col*.18);
+  col=pow(col,vec3(.96));
+  gl_FragColor=vec4(col,1.);
+}`;
+function sh(t,s){const o=gl.createShader(t);gl.shaderSource(o,s);gl.compileShader(o);if(!gl.getShaderParameter(o,gl.COMPILE_STATUS))console.error(gl.getShaderInfoLog(o));return o}
+const pr=gl.createProgram();gl.attachShader(pr,sh(gl.VERTEX_SHADER,VS));gl.attachShader(pr,sh(gl.FRAGMENT_SHADER,FS));gl.linkProgram(pr);gl.useProgram(pr);
+const buf=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,buf);gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,3,-1,-1,3]),gl.STATIC_DRAW);
+const ap=gl.getAttribLocation(pr,'p');gl.enableVertexAttribArray(ap);gl.vertexAttribPointer(ap,2,gl.FLOAT,false,0,0);
+const uR=gl.getUniformLocation(pr,'R'),uT=gl.getUniformLocation(pr,'T'),uHZ=gl.getUniformLocation(pr,'HZ'),uSX=gl.getUniformLocation(pr,'SX');
+
+// ---------- ship overlay ----------
+const ov=document.getElementById('ov'),cx=ov.getContext('2d');
+const ft=document.getElementById('ft'),tag=document.getElementById('tag'),stem=document.getElementById('stem');
+const field=document.getElementById('field'),ph=document.getElementById('ph'),val=document.getElementById('val'),caret=document.getElementById('caret'),go=document.getElementById('go'),cur=document.getElementById('cur');
+let cw,ch,dpr,K,OY,gs;
+function resize(){
+  const r=ft.getBoundingClientRect();cw=r.width;ch=r.height;dpr=devicePixelRatio||1;K=cw/1440;OY=ch-810*K;
+  gs=REC?dpr:Math.min(dpr,1.25);
+  gl.canvas.width=Math.round(cw*gs);gl.canvas.height=Math.round(ch*gs);
+  ov.width=Math.round(cw*dpr);ov.height=Math.round(ch*dpr);
+}
+const bays=(()=>{let s=11,a=[];for(let i=0;i<19;i++){s=(s*16807)%2147483647;a.push(9+(s%7)*1.6)}return a})();
+function ship(x,wl,t){
+  cx.fillStyle='rgba(52,36,48,.9)';
+  cx.beginPath();
+  cx.moveTo(x-104,wl-11);cx.lineTo(x+96,wl-11);cx.lineTo(x+108,wl-14);cx.lineTo(x+101,wl);cx.lineTo(x-99,wl);cx.lineTo(x-105,wl-5);cx.closePath();cx.fill();
+  for(let i=0;i<bays.length;i++){const bx=x-60+i*8;cx.fillRect(bx,wl-11-bays[i],7.2,bays[i]+.5)}
+  cx.fillRect(x-92,wl-46,22,36);cx.fillRect(x-96,wl-49,30,4);cx.fillRect(x-101,wl-38,7,28);cx.fillRect(x-82,wl-58,1.2,10);
+  cx.fillRect(x+92,wl-24,1.2,13);
+  // lights
+  cx.fillStyle='rgba(255,214,160,.9)';
+  for(let k=0;k<5;k++)cx.fillRect(x-94+k*5.6,wl-43,2,1.4);
+  const blink=.6+.4*Math.sin(t*3);
+  cx.fillStyle=`rgba(255,248,235,${blink})`;cx.beginPath();cx.arc(x+92.6,wl-25,1.3,0,7);cx.arc(x-81.4,wl-59,1.3,0,7);cx.fill();
+  // faint reflection
+  cx.save();cx.globalAlpha=.16;cx.fillStyle='#1c1622';
+  for(let k=0;k<7;k++){const y=wl+2+k*2.4,w=200-k*18;cx.fillRect(x-w/2+Math.sin(t*2+k)*3,y,w,1.2)}
+  cx.restore();
+}
+// ---------- timeline ----------
+const ease=x=>x<=0?0:x>=1?1:x<.5?4*x*x*x:1-Math.pow(-2*x+2,3)/2;
+const eout=x=>x<=0?0:x>=1?1:1-Math.pow(1-x,3);
+const seg=(t,a,b)=>Math.min(1,Math.max(0,(t-a)/(b-a)));
+const ID='HLYU 482910 3';
+function rel(el,fx,fy){const r=el.getBoundingClientRect(),f=ft.getBoundingClientRect();return[r.left-f.left+r.width*fx,r.top-f.top+r.height*fy]}
+function cursorAt(t){
+  const p0=[cw*.6,ch*.52],p1=rel(field,.62,.55),p2=rel(go,.5,.6);
+  if(t<.55)return p0;
+  if(t<1.3){const k=ease(seg(t,.55,1.3));return[p0[0]+(p1[0]-p0[0])*k,p0[1]+(p1[1]-p0[1])*k]}
+  if(t<2.75)return p1;
+  if(t<3.3){const k=ease(seg(t,2.75,3.3));return[p1[0]+(p2[0]-p1[0])*k,p1[1]+(p2[1]-p1[1])*k]}
+  const k=ease(seg(t,4.3,5.2));return[p2[0]+k*cw*.05,p2[1]+k*ch*.12];
+}
+function render(t){
+  window.__t=t;
+  gl.viewport(0,0,gl.canvas.width,gl.canvas.height);
+  gl.uniform2f(uR,gl.canvas.width,gl.canvas.height);gl.uniform1f(uT,t+12.);
+  gl.uniform1f(uHZ,(ch-(OY+HZ*K))*gs);gl.uniform1f(uSX,SUNX*K*gs);
+  gl.drawArrays(gl.TRIANGLES,0,3);
+
+  cx.setTransform(1,0,0,1,0,0);cx.clearRect(0,0,ov.width,ov.height);
+  cx.setTransform(dpr*K,0,0,dpr*K,0,dpr*OY);
+  const sx=560+t*7,wl=HZ+4.5;ship(sx,wl,t);
+
+  // tracking form
+  const focused=t>=1.38,n=Math.max(0,Math.min(ID.length,Math.floor((t-1.5)/.075)));
+  field.classList.toggle('on',focused);
+  ph.hidden=n>0;val.textContent=ID.slice(0,n);
+  caret.hidden=!(focused&&t<3.4&&(n<ID.length||Math.floor(t*2.2)%2===0));
+  const press=t>3.36&&t<3.5;go.style.transform=press?'scale(.96)':'';
+  go.textContent=t>3.45&&t<3.95?'···':'Track';
+  // ship tag
+  const a=eout(seg(t,3.95,4.4)),stemH=70*eout(seg(t,3.95,4.35));
+  tag.style.opacity=a;stem.style.height=stemH+'px';
+  tag.style.left=(sx*K)+'px';tag.style.top=(OY+(wl-60)*K)+'px';
+  tag.querySelector('.card').style.transform=`translateY(${(1-a)*8}px)`;
+  // cursor
+  const[cxp,cyp]=cursorAt(t);const down=(t>1.32&&t<1.42)||press;
+  cur.style.transform=`translate(${cxp-2}px,${cyp-2}px) scale(${down?.88:1})`;
+}
+window.__render=render;
+addEventListener('resize',()=>{resize();render(window.__t||0)});
+document.fonts.ready.then(()=>{
+  resize();render(0);window.__ready=true;
+  if(REC)return;
+  if(matchMedia('(prefers-reduced-motion: reduce)').matches){render(5);return}
+  const t0=performance.now();
+  (function loop(n){render(((n-t0)/1000)%(DUR+1.2));requestAnimationFrame(loop)})(t0);
+});
+</script>
+</body>
+</html>
