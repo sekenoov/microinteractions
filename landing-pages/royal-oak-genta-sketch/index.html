@@ -1,0 +1,426 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Royal Oak Selfwinding, a concept</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Display:wdth,wght@62.5..100,100..500&family=Geist:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html{background:#efebe3}
+body{width:1440px;height:810px;overflow:hidden;position:relative;background:#efebe3;color:#1d1c1a;font-family:Geist,system-ui,sans-serif;-webkit-font-smoothing:antialiased;font-feature-settings:'tnum' 1;user-select:none}
+a,button{color:inherit;font:inherit}
+button{background:none;border:0;cursor:pointer}
+a:focus-visible,button:focus-visible{outline:1.5px solid #1d1c1a;outline-offset:4px}
+.skip{position:absolute;left:24px;top:-80px;z-index:20;background:#1d1c1a;color:#efebe3;padding:10px 14px;font-size:14px}
+.skip:focus{top:20px}
+#wash,#ink{position:absolute;left:0;top:0;width:1440px;height:810px;pointer-events:none;overflow:visible}
+#wash{z-index:1}#ink{z-index:3}
+canvas{position:absolute;left:0;top:0;width:1440px;height:810px;z-index:2;opacity:0}
+#hit{position:absolute;left:360px;top:90px;width:720px;height:640px;z-index:4;cursor:grab}
+header{position:absolute;left:48px;right:48px;top:0;height:76px;display:flex;align-items:center;z-index:5;font-size:13.5px}
+.mark{font-weight:500;font-size:14.5px;letter-spacing:-.01em;text-decoration:none}
+nav{margin-left:auto;display:flex;gap:28px}
+nav a{text-decoration:none;color:#77736b;padding:4px 0;position:relative}
+nav a[aria-current]{color:#1d1c1a}
+nav a[aria-current]::after{content:'';position:absolute;left:0;right:0;bottom:-2px;height:1px;background:#1d1c1a}
+.cap{position:absolute;left:48px;top:96px;z-index:5;font-size:12px;color:#77736b}
+.about{position:absolute;left:48px;bottom:44px;width:300px;z-index:5}
+.about h1{font-family:'Noto Serif Display',serif;font-stretch:62.5%;font-weight:300;font-size:46px;line-height:1;letter-spacing:.07em;text-transform:uppercase;margin-bottom:14px}
+.about p{font-size:12.5px;line-height:1.55;color:#55524c}
+.studies{position:absolute;right:48px;top:150px;width:92px;z-index:5;display:flex;flex-direction:column;gap:18px}
+.studies .h{font-size:11.5px;color:#77736b;margin-bottom:-6px}
+.study{display:flex;flex-direction:column;align-items:center;gap:4px;font-size:11px;color:#77736b}
+.study svg{width:70px;height:70px;overflow:visible}
+.study[aria-pressed=true]{color:#1d1c1a}
+.cta{position:absolute;right:48px;bottom:44px;z-index:5;font-size:14px;text-decoration:none;padding-bottom:7px}
+.cta svg{position:absolute;left:0;bottom:0;width:100%;height:8px;overflow:visible}
+.cta path{fill:none;stroke:#1d1c1a;stroke-width:1.3;stroke-linecap:round;stroke-dasharray:240;stroke-dashoffset:240;transition:stroke-dashoffset .55s cubic-bezier(.6,.05,.3,1)}
+.cta:hover path,.cta:focus-visible path,.cta.on path{stroke-dashoffset:0}
+.hint{position:absolute;left:48px;top:118px;z-index:5;font-size:12px;color:#77736b;pointer-events:none}
+.note{position:absolute;right:48px;bottom:16px;z-index:5;font-size:10.5px;color:#a19c92}
+#cur{position:absolute;left:0;top:0;width:22px;height:30px;z-index:9;pointer-events:none;display:none}
+</style>
+</head>
+<body>
+<a class="skip" href="#about">Skip to details</a>
+<svg id="wash" aria-hidden="true"><defs>
+  <filter id="gouache" x="-10%" y="-10%" width="120%" height="120%"><feTurbulence type="fractalNoise" baseFrequency=".035" numOctaves="3" seed="4" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="5"/><feGaussianBlur stdDeviation=".35"/></filter>
+</defs><g id="washes" filter="url(#gouache)"></g></svg>
+<canvas id="gl" aria-label="Royal Oak Selfwinding in steel" role="img"></canvas>
+<svg id="ink" aria-hidden="true"><defs>
+  <filter id="nib" x="-5%" y="-5%" width="110%" height="110%"><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" seed="2" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="1.4"/></filter>
+</defs><g id="lines" filter="url(#nib)"></g></svg>
+<div id="hit" aria-hidden="true"></div>
+<header>
+  <a class="mark" href="#">Audemars Piguet</a>
+  <nav aria-label="Main">
+    <a href="#">Collections</a>
+    <a href="#" aria-current="page">Royal Oak</a>
+    <a href="#">Boutiques</a>
+    <a href="#">Appointment</a>
+  </nav>
+</header>
+<p class="cap">Geneva, the night before Basel. 04:00.</p>
+<section class="about" id="about">
+  <h1>Royal Oak</h1>
+  <p>Selfwinding, 15510ST. 41 mm, stainless steel, calibre 4302.<br>Gérald Genta drew it in a single night in 1970.</p>
+</section>
+<div class="studies" role="group" aria-label="Dial">
+  <span class="h">Dial</span>
+</div>
+<a class="cta" id="cta" href="#">Request an appointment →<svg viewBox="0 0 200 8" preserveAspectRatio="none" aria-hidden="true"><path d="M1 5.2 C 38 3.4, 86 6.4, 130 4.2 S 186 3.6, 199 4.8"/></svg></a>
+<p class="hint" id="hint">Drag to turn</p>
+<p class="note">Unofficial concept, not affiliated with Audemars Piguet</p>
+<svg id="cur" viewBox="0 0 22 30" aria-hidden="true"><path d="M2 2 L2 23 L7.2 18.4 L10.6 26.4 L14 25 L10.7 17.2 L17.6 17.2 Z" fill="#111" stroke="#fff" stroke-width="1.6" stroke-linejoin="round"/></svg>
+
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}</script>
+<script type="module">
+import * as THREE from 'three';
+import {RoundedBoxGeometry} from 'three/addons/geometries/RoundedBoxGeometry.js';
+
+const W=1440,H=810,PI=Math.PI,REC=/rec/.test(location.search),NS='http://www.w3.org/2000/svg';
+const $=id=>document.getElementById(id);
+const clamp=x=>x<0?0:x>1?1:x,span=(t,a,b)=>clamp((t-a)/(b-a));
+const ease=x=>x<.5?4*x*x*x:1-Math.pow(-2*x+2,3)/2,smooth=x=>x*x*(3-2*x);
+const rng=a=>()=>{a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296};
+await document.fonts.load('300 46px "Noto Serif Display"');await document.fonts.load('500 12px Geist');await document.fonts.ready;
+
+const DPR=REC?2:Math.min(2,devicePixelRatio||1);
+const canvas=$('gl');
+const renderer=new THREE.WebGLRenderer({canvas,antialias:true,alpha:true,preserveDrawingBuffer:true});
+renderer.setPixelRatio(DPR);renderer.setSize(W,H,false);renderer.setClearColor(0,0);
+renderer.outputColorSpace=THREE.SRGBColorSpace;renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=1.25;
+const scene=new THREE.Scene();
+const camera=new THREE.PerspectiveCamera(22,W/H,10,2000);
+
+// ---------- студия: два длинных софтбокса, тёмная комната, тёплая бумага снизу ----------
+{const es=new THREE.Scene(),pmrem=new THREE.PMREMGenerator(renderer);
+  es.add(new THREE.Mesh(new THREE.SphereGeometry(600,32,16),new THREE.MeshBasicMaterial({color:new THREE.Color(.035,.035,.038),side:THREE.BackSide})));
+  const panel=(w,h,pos,k,rotZ=0)=>{const m=new THREE.Mesh(new THREE.PlaneGeometry(w,h),new THREE.MeshBasicMaterial({color:new THREE.Color().setScalar(k),side:THREE.DoubleSide}));m.position.copy(pos);m.lookAt(0,0,0);m.rotateZ(rotZ);es.add(m)};
+  panel(34,760,new THREE.Vector3(-210,250,-90),10,.25);
+  panel(28,700,new THREE.Vector3(230,220,-30),7,-.2);
+  panel(520,380,new THREE.Vector3(-40,520,-80),1.5);
+  panel(320,120,new THREE.Vector3(0,140,420),.9);
+  panel(560,260,new THREE.Vector3(60,300,-430),1.25);
+  const fl=new THREE.Mesh(new THREE.PlaneGeometry(2000,2000),new THREE.MeshBasicMaterial({color:new THREE.Color(.6,.57,.52)}));fl.rotation.x=-PI/2;fl.position.y=-30;es.add(fl);
+  scene.environment=pmrem.fromScene(es,.012,1,3000).texture;}
+{const d=new THREE.DirectionalLight(0xfff6ea,.55);d.position.set(-60,180,-40);scene.add(d)}
+
+// ---------- материалы ----------
+function brushedNormal(){// продольные риски сатина: нормаль качается поперёк направления шлифовки
+  const S=1024,c=document.createElement('canvas');c.width=c.height=S;const g=c.getContext('2d'),img=g.createImageData(S,S),d=img.data,r=rng(9);
+  const col=new Float32Array(S);let v=0;for(let x=0;x<S;x++){v=v*.55+(r()-.5)*.9;col[x]=v+(r()<.04?(r()-.5)*1.6:0)}
+  for(let y=0;y<S;y++)for(let x=0;x<S;x++){const i=(y*S+x)*4,nx=Math.max(-1,Math.min(1,col[x]*.22));d[i]=(nx*.5+.5)*255;d[i+1]=128;d[i+2]=Math.sqrt(1-nx*nx)*255;d[i+3]=255}
+  g.putImageData(img,0,0);const t=new THREE.CanvasTexture(c);t.colorSpace=THREE.NoColorSpace;t.wrapS=t.wrapT=THREE.RepeatWrapping;t.repeat.set(1/9,1/9);t.anisotropy=8;return t}
+const satin=new THREE.MeshPhysicalMaterial({color:0xcfd2d6,metalness:1,roughness:.3,anisotropy:.85,anisotropyRotation:PI/2,normalMap:brushedNormal(),normalScale:new THREE.Vector2(.55,.55)});
+const mirror=new THREE.MeshPhysicalMaterial({color:0xeef0f2,metalness:1,roughness:.025});
+const wgold=new THREE.MeshPhysicalMaterial({color:0xeeebe4,metalness:1,roughness:.06});
+const lumeM=new THREE.MeshStandardMaterial({color:0xdde3c8,roughness:.8});
+
+// ---------- геометрия Royal Oak 15510, мм; форма (x,s), мир z=-s, 12 часов к -z ----------
+const roundPoly=(P,r,n=6)=>{const out=[];for(let i=0;i<P.length;i++){const a=P[(i-1+P.length)%P.length],b=P[i],c=P[(i+1)%P.length];
+  const v1=[a[0]-b[0],a[1]-b[1]],v2=[c[0]-b[0],c[1]-b[1]],l1=Math.hypot(...v1),l2=Math.hypot(...v2);
+  const p1=[b[0]+v1[0]/l1*r,b[1]+v1[1]/l1*r],p2=[b[0]+v2[0]/l2*r,b[1]+v2[1]/l2*r];
+  for(let k=0;k<=n;k++){const u=k/n,q=1-u;out.push([q*q*p1[0]+2*q*u*b[0]+u*u*p2[0],q*q*p1[1]+2*q*u*b[1]+u*u*p2[1]])}}return out};
+const circ=(r,n=128,a0=PI/2)=>Array.from({length:n},(_,i)=>{const a=a0-i/n*2*PI;return[r*Math.cos(a),r*Math.sin(a)]});
+const OCT=ap=>{const R=ap/Math.cos(PI/8);return Array.from({length:8},(_,k)=>{const a=PI/2+PI/8-k*PI/4;return[R*Math.cos(a),R*Math.sin(a)]})};
+const CASE_P=[[-13.7,21.8],[13.7,21.8],[20.5,15],[20.5,-15],[13.7,-21.8],[-13.7,-21.8],[-20.5,-15],[-20.5,15]];
+const shapeOf=(pts,holes=[])=>{const s=new THREE.Shape(pts.map(p=>new THREE.Vector2(p[0],p[1])));holes.forEach(h=>s.holes.push(new THREE.Path(h.map(p=>new THREE.Vector2(p[0],p[1])))));return s};
+const flatUp=(geo,y)=>{geo.rotateX(-PI/2);geo.translate(0,y,0);return geo};
+const watch=new THREE.Group();scene.add(watch);
+const mesh=(geo,mat,parent=watch)=>{const m=new THREE.Mesh(geo,mat);parent.add(m);return m};
+const ext=(shape,depth,bev,y,mats)=>mesh(flatUp(new THREE.ExtrudeGeometry(shape,{depth,bevelEnabled:true,bevelThickness:bev,bevelSize:bev,bevelSegments:1,curveSegments:40}),y),mats);
+// корпус: крышки сатин, скосы зеркальные
+const CASE_Y=2.4,CASE_D=5,CASE_B=.55,CASE_TOP=CASE_Y+CASE_D+CASE_B;
+mesh(new THREE.CylinderGeometry(16.5,15.5,CASE_Y,64).translate(0,CASE_Y/2,0),satin);
+ext(shapeOf(roundPoly(CASE_P,1.4),[circ(16)]),CASE_D,CASE_B,CASE_Y,[satin,mirror]);
+const BEZ_Y=CASE_TOP+.45,BEZ_D=1.1,BEZ_B=.45,BEZ_TOP=BEZ_Y+BEZ_D+BEZ_B;
+ext(shapeOf(roundPoly(OCT(18.15),2.2,8),[circ(15.75,160)]),BEZ_D,BEZ_B,BEZ_Y,[satin,mirror]);
+// восемь винтов белого золота, все шестигранники повёрнуты одинаково
+const SCREWS=[];for(let k=0;k<8;k++){const a=PI/2+PI/8-k*PI/4;SCREWS.push([17.85*Math.cos(a),17.85*Math.sin(a)]);const m=mesh(new THREE.CylinderGeometry(.9,.98,.45,6),wgold);m.position.set(17.85*Math.cos(a),BEZ_TOP+.2,-17.85*Math.sin(a));m.rotation.y=PI/2}
+{const g=new THREE.CylinderGeometry(2.25,2.25,2.3,48);g.rotateZ(PI/2);mesh(g,mirror).position.set(21.9,5.1,0)}
+// браслет: трапеции сужаются к застёжке, первая строка выходит прямо из корпуса без зазора
+const P_LINK=4.9,Z0=21.8;
+const Wz=z=>27.4-(Math.abs(z)-Z0)*.11;
+const LINKS=[];
+const trap=(xl0,xr0,xl1,xr1,za,zb)=>[[xl0,-za],[xr0,-za],[xr1,-zb],[xl1,-zb]];
+for(const sd of [-1,1])for(let k=0;k<7;k++){
+  const z0=Z0+k*P_LINK,z1=z0+P_LINK,dep=k===0?3.8:k===1?2.4:1.9,y=1.0,hc=z=>.225*Wz(z);
+  const c=trap(-hc(z0+.7),hc(z0+.7),-hc(z1-.2),hc(z1-.2),sd*(z0+.7),sd*(z1-.2));
+  ext(shapeOf(c),dep,.28,y,[satin,mirror]);LINKS.push({pts:c,top:y+dep+.28,k});
+  for(const sx of [-1,1]){const xi=z=>sx*(hc(z)+.14),xo=z=>sx*Wz(z)/2;const o=trap(xi(z0+.06),xo(z0+.06),xi(z1-.06),xo(z1-.06),sd*(z0+.06),sd*(z1-.06));
+    ext(shapeOf(o),dep,.28,y,[satin,mirror]);LINKS.push({pts:o,top:y+dep+.28,k})}
+  mesh(new RoundedBoxGeometry(hc(z0)*1.6,1.8,.62,2,.3),mirror).position.set(0,y+dep*.55,sd*(z0+.36));
+}
+// циферблат Grande Tapisserie: пирамидки с шагом 0.8 мм
+const DIAL_Y=6.4,DIAL_R=14.25,PITCH=.8;
+function tapisserieNormal(){const S=2048,c=document.createElement('canvas');c.width=c.height=S;const g=c.getContext('2d'),img=g.createImageData(S,S),d=img.data;
+  const cs=S/(DIAL_R*2/PITCH),sn=Math.sin(.62),cn=Math.cos(.62);
+  for(let y=0;y<S;y++)for(let x=0;x<S;x++){const u=(x%cs)/cs-.5,v=(y%cs)/cs-.5,i=(y*S+x)*4;let nx=0,ny=0,nz=1;
+    if(Math.max(Math.abs(u),Math.abs(v))<.42){if(Math.abs(u)>Math.abs(v)){nx=Math.sign(u)*sn;nz=cn}else{ny=-Math.sign(v)*sn;nz=cn}}
+    d[i]=(nx*.5+.5)*255;d[i+1]=(ny*.5+.5)*255;d[i+2]=(nz*.5+.5)*255;d[i+3]=255}
+  g.putImageData(img,0,0);const t=new THREE.CanvasTexture(c);t.colorSpace=THREE.NoColorSpace;t.anisotropy=8;return t}
+const DIALS={blue:{c:'#1f3b70',n:'Blue'},grey:{c:'#5a616b',n:'Grey'},green:{c:'#3a4c3b',n:'Khaki green'},black:{c:'#18191c',n:'Black'}};
+function dialTexture(col){const c=document.createElement('canvas'),S=2048;c.width=c.height=S;const g=c.getContext('2d');
+  g.fillStyle=col;g.fillRect(0,0,S,S);const cs=S/(DIAL_R*2/PITCH);g.fillStyle='rgba(0,0,0,.4)';for(let x=0;x<=S;x+=cs){g.fillRect(x-cs*.08,0,cs*.16,S);g.fillRect(0,x-cs*.08,S,cs*.16)}
+  const gr=g.createRadialGradient(S/2,S/2,S*.1,S/2,S/2,S*.5);gr.addColorStop(0,'rgba(255,255,255,.03)');gr.addColorStop(1,'rgba(0,0,0,.25)');g.fillStyle=gr;g.fillRect(0,0,S,S);
+  g.setTransform(S/28.5,0,0,S/28.5,S/2,S/2);g.fillStyle='#e9ecf1';g.textAlign='center';g.textBaseline='middle';
+  g.font='500 .78px Geist';g.letterSpacing='.16px';g.fillText('AUDEMARS PIGUET',.08,-5.8);g.font='500 .62px Geist';g.letterSpacing='.13px';g.fillText('AUTOMATIC',.07,6.6);
+  const t=new THREE.CanvasTexture(c);t.colorSpace=THREE.SRGBColorSpace;t.anisotropy=8;return t}
+const TEX={};for(const k in DIALS)TEX[k]=dialTexture(DIALS[k].c);
+const tapN=tapisserieNormal();
+const dialMat=new THREE.MeshPhysicalMaterial({map:TEX.blue,normalMap:tapN,normalScale:new THREE.Vector2(1.15,1.15),roughness:.4,metalness:.35,clearcoat:.4,clearcoatRoughness:.2});
+const dialMatB=dialMat.clone();dialMatB.transparent=true;dialMatB.opacity=0;dialMatB.depthWrite=false;
+mesh(flatUp(new THREE.CircleGeometry(DIAL_R,180),DIAL_Y),dialMat);
+mesh(flatUp(new THREE.CircleGeometry(DIAL_R,180),DIAL_Y+.01),dialMatB);
+const flangeMat=new THREE.MeshStandardMaterial({color:new THREE.Color('#1f3b70').multiplyScalar(.7),roughness:.55,metalness:.2,side:THREE.DoubleSide});
+mesh(new THREE.CylinderGeometry(15.75,DIAL_R,1.6,240,1,true),flangeMat).position.y=DIAL_Y+.8;
+{const c2=document.createElement('canvas');c2.width=4096;c2.height=64;const g2=c2.getContext('2d');for(let i=0;i<60;i++){const x=i/60*4096;g2.fillStyle='#e8ebf0';g2.fillRect(x-(i%5?3:6),i%5?8:4,i%5?6:12,i%5?22:40)}
+  const t2=new THREE.CanvasTexture(c2);t2.colorSpace=THREE.SRGBColorSpace;mesh(new THREE.CylinderGeometry(15.74,DIAL_R-.01,1.6,240,1,true),new THREE.MeshStandardMaterial({map:t2,transparent:true,roughness:.6,side:THREE.DoubleSide})).position.y=DIAL_Y+.81}
+for(let h=0;h<12;h++){if(h===3)continue;const a=h*PI/6,xs=h===0?[-.72,.72]:[0],w=h===0?.95:1.15;
+  for(const ox of xs){const grp=new THREE.Group();grp.rotation.y=-a;watch.add(grp);
+    mesh(new RoundedBoxGeometry(w,.55,3.35,2,.16),wgold,grp).position.set(ox,DIAL_Y+.3,-11.55);
+    mesh(new THREE.BoxGeometry(.4,.08,2.6),lumeM,grp).position.set(ox,DIAL_Y+.58,-11.55)}}
+{const c=document.createElement('canvas');c.width=256;c.height=200;const g=c.getContext('2d');g.fillStyle='#f3f2ee';g.fillRect(0,0,256,200);g.fillStyle='#141518';g.font='600 120px Geist';g.textAlign='center';g.textBaseline='middle';g.fillText('29',128,106);
+  const t=new THREE.CanvasTexture(c);t.colorSpace=THREE.SRGBColorSpace;mesh(flatUp(new THREE.PlaneGeometry(2.3,1.8),DIAL_Y+.06),new THREE.MeshStandardMaterial({map:t,roughness:.6})).position.x=10.9;
+  for(const [w,d,x,z] of [[2.9,.3,10.9,-1.05],[2.9,.3,10.9,1.05],[.3,2.4,9.6,0],[.3,2.4,12.2,0]])mesh(new THREE.BoxGeometry(w,.32,d),wgold).position.set(x,DIAL_Y+.16,z)}
+function makeHand(len,w,tail,y,lu){const g=new THREE.Group();watch.add(g);
+  const sh=new THREE.Shape([[-w,-tail],[w,-tail],[w,len-w*1.6],[0,len],[-w,len-w*1.6]].map(p=>new THREE.Vector2(p[0],p[1])));
+  mesh(flatUp(new THREE.ExtrudeGeometry(sh,{depth:.12,bevelEnabled:true,bevelThickness:.14,bevelSize:.12,bevelSegments:1}),y),wgold,g);
+  mesh(flatUp(new THREE.ExtrudeGeometry(new THREE.Shape([[-lu[2],lu[0]],[lu[2],lu[0]],[lu[2],lu[1]],[-lu[2],lu[1]]].map(p=>new THREE.Vector2(p[0],p[1]))),{depth:.05,bevelEnabled:false}),y+.27),lumeM,g);return g}
+makeHand(9,.6,1.6,7.25,[1.2,7.2,.24]).rotation.y=-(10+10/60)/12*2*PI;
+makeHand(13.2,.48,1.8,7.75,[1.3,11.6,.2]).rotation.y=-10/60*2*PI;
+const secH=new THREE.Group();watch.add(secH);
+mesh(new THREE.BoxGeometry(.16,.08,16.4),wgold,secH).position.set(0,8.25,-5.4);mesh(new THREE.CylinderGeometry(.48,.48,.1,32),wgold,secH).position.set(0,8.25,2.4);
+mesh(new THREE.BoxGeometry(.3,.1,1),lumeM,secH).position.set(0,8.32,-12.5);mesh(new THREE.CylinderGeometry(.62,.7,.5,40),mirror).position.y=8.4;
+
+// контактная тень: только там, где сталь касается бумаги, плотная и короткая
+{const S=1024,MM=130,c=document.createElement('canvas');c.width=c.height=S;const g=c.getContext('2d'),k=S/MM;g.setTransform(k,0,0,k,S/2,S/2);
+  const fillPts=(pts,a,blur)=>{g.filter=`blur(${blur*k}px)`;g.fillStyle=`rgba(255,255,255,${a})`;g.beginPath();pts.forEach((p,i)=>i?g.lineTo(p[0],-p[1]):g.moveTo(p[0],-p[1]));g.closePath();g.fill()};
+  fillPts(circ(17),.5,2.2);fillPts(circ(16),.95,.5);
+  for(const l of LINKS)fillPts(l.pts.map(p=>[p[0]*.96,p[1]]),.85,.35);
+  g.filter='none';const t=new THREE.CanvasTexture(c);
+  const m=mesh(flatUp(new THREE.PlaneGeometry(MM,MM),.02),new THREE.MeshBasicMaterial({color:0x000000,alphaMap:t,transparent:true,opacity:.62,depthWrite:false,toneMapped:false}));m.renderOrder=-1}
+
+// ---------- камера: одна точка, с которой Джента рисовал ----------
+const TARGET=new THREE.Vector3(0,4.5,1.5);
+{const th=.64,az=-.3,d=188;camera.position.set(TARGET.x+d*Math.sin(th)*Math.sin(az),TARGET.y+d*Math.cos(th),TARGET.z+d*Math.sin(th)*Math.cos(az));camera.lookAt(TARGET);camera.updateMatrixWorld()}
+
+// ---------- эскиз тушью: линии считаются из геометрии модели этой же камерой ----------
+const camH=new THREE.Vector3(camera.position.x,0,camera.position.z).normalize();
+const proj=(x,y,s)=>{const v=new THREE.Vector3(x,y,-s).project(camera);return[(v.x+1)/2*W,(1-v.y)/2*H]};
+const toD=pts=>pts.map((p,i)=>(i?'L':'M')+p[0].toFixed(2)+' '+p[1].toFixed(2)).join(' ');
+const proj2=(pts,y)=>pts.map(p=>proj(p[0],y,p[1]));
+const seg=(pts,y)=>proj2([...pts,pts[0]],y);
+const isCW=pts=>{let a=0;for(let i=0;i<pts.length;i++){const p=pts[i],q=pts[(i+1)%pts.length];a+=(q[0]-p[0])*(q[1]+p[1])}return a>0};
+const ccw=pts=>isCW(pts)?[...pts].reverse():pts;
+// видимая часть нижней кромки: где наружная нормаль смотрит на камеру
+function frontPart(pts,y){const n=pts.length,vis=[];for(let i=0;i<n;i++){const a=pts[i],b=pts[(i+1)%n],dx=b[0]-a[0],ds=b[1]-a[1],l=Math.hypot(dx,ds);
+    const mx=ds/l,ms=-dx/l;vis.push(mx*camH.x+(-ms)*camH.z>.02)}
+  const runs=[];let cur=null;for(let i=0;i<n;i++){if(vis[i]){if(!cur){cur=[pts[i]];runs.push(cur)}cur.push(pts[(i+1)%n])}else cur=null}
+  if(runs.length>1&&vis[0]&&vis[n-1]){const f=runs.shift();runs[runs.length-1].push(...f.slice(1))}
+  return runs.map(r=>proj2(r,y))}
+const grow=(pts,d)=>pts.map(p=>{const l=Math.hypot(...p);return[p[0]*(1+d/l),p[1]*(1+d/l)]});
+const CASE_OUT=ccw(roundPoly(CASE_P,1.4)),BEZ_OUT=ccw(roundPoly(OCT(18.15),2.2,8));
+const INK=[];
+const addInk=(pts,w,t0,t1,o={})=>INK.push({pts,w,t0,t1,...o});
+addInk(seg(CASE_OUT,CASE_TOP),1.75,.25,.9);
+frontPart(grow(CASE_OUT,CASE_B),CASE_Y).forEach((r,i)=>addInk(r,1.35,.75+i*.05,1.15));
+addInk(seg(grow(BEZ_OUT,BEZ_B),BEZ_Y+BEZ_B),1.4,1.0,1.45);
+addInk(seg(BEZ_OUT,BEZ_TOP),1.95,1.25,1.7);
+addInk(seg(circ(15.75,160),BEZ_TOP),1.5,1.55,1.85);
+addInk(seg(circ(DIAL_R,160),DIAL_Y),.9,1.75,2.0,{a:.7});
+SCREWS.forEach((s,i)=>addInk(seg(Array.from({length:6},(_,k)=>{const b=PI/3*k;return[s[0]+.94*Math.cos(b),s[1]+.94*Math.sin(b)]}),BEZ_TOP+.42),.95,1.85+i*.03,1.92+i*.03));
+addInk(proj2([[20.5+CASE_B,1.25],[22.9,1.25],[22.9,-1.25],[20.5+CASE_B,-1.25]],7.35),1,2.05,2.15);
+LINKS.filter(l=>l.k<3).forEach((l,i)=>addInk(seg(l.pts,l.top),1.05,2.1+i*.02,2.18+i*.02));
+// исправление: сначала скруглённый безель, потом зачёркнут
+const CORR=proj2(Array.from({length:22},(_,i)=>{const a=PI*(.56+i*.012);return[20.2*Math.cos(a),20.2*Math.sin(a)]}),BEZ_TOP);
+addInk(CORR,1.25,0,1.1,{corr:true});
+{const m=CORR[11],n=CORR[6],q=CORR[16];for(let i=0;i<4;i++){const c=[m[0]+(q[0]-n[0])*(i-1.5)*.3,m[1]+(q[1]-n[1])*(i-1.5)*.3];addInk([[c[0]-15,c[1]+11],[c[0]+15,c[1]-11]],1.7,1.4+i*.2,1.58+i*.2,{corr:true})}}
+// неровная толщина: основной штрих и тонкий второй проход со сдвигом
+const jr=rng(3);
+for(const s of INK){let L=0;for(let i=1;i<s.pts.length;i++)L+=Math.hypot(s.pts[i][0]-s.pts[i-1][0],s.pts[i][1]-s.pts[i-1][1]);s.L=L;
+  const mk=(dx,dy,w,a)=>{const p=document.createElementNS(NS,'path');p.setAttribute('d',toD(s.pts.map(q=>[q[0]+dx,q[1]+dy])));p.setAttribute('fill','none');p.setAttribute('stroke','#1e1b17');p.setAttribute('stroke-width',w.toFixed(2));p.setAttribute('stroke-opacity',(a*(s.a||1)).toFixed(2));p.setAttribute('stroke-linecap','round');p.setAttribute('stroke-linejoin','round');p.style.strokeDasharray=L+1;p.style.strokeDashoffset=L+1;$('lines').appendChild(p);return p};
+  s.el=[mk(0,0,s.w*(.85+jr()*.35),.9),mk((jr()-.5)*.9,(jr()-.5)*.9,s.w*.45,.45)]}
+// гуашь: заливки тех же областей
+const addWash=(d,fill,a,rule)=>{const p=document.createElementNS(NS,'path');p.setAttribute('d',d);p.setAttribute('fill',fill);p.setAttribute('fill-opacity',a);if(rule)p.setAttribute('fill-rule',rule);p.style.opacity=0;$('washes').appendChild(p);return p};
+const WASH=[
+  {el:addWash(toD(seg(CASE_OUT,CASE_TOP))+'Z','#8d939a',.55),t:0},
+  {el:addWash(LINKS.map(l=>toD(seg(l.pts,l.top))+'Z').join(' '),'#9298a0',.5),t:.12},
+  {el:addWash(toD(seg(BEZ_OUT,BEZ_TOP))+'Z '+toD(seg(circ(15.75,160),BEZ_TOP))+'Z','#c4c8cd',.62,'evenodd'),t:.22},
+  {el:addWash(toD(seg(circ(DIAL_R,160),DIAL_Y))+'Z','#1f3b70',.85),t:.34,dial:true}];
+
+// ---------- этюды циферблатов на полях ----------
+const studies=document.querySelector('.studies');const STUDY={};
+for(const k of Object.keys(DIALS)){
+  const b=document.createElement('button');b.className='study';b.setAttribute('aria-pressed',k==='blue');b.setAttribute('aria-label',DIALS[k].n+' dial');b.dataset.k=k;
+  const sv=document.createElementNS(NS,'svg');sv.setAttribute('viewBox','-36 -36 72 72');
+  const r=rng(k.length*7+3),paths=[];const circleP=rad=>Array.from({length:49},(_,i)=>{const a=i/48*2*PI;return[rad*Math.cos(a)+(r()-.5)*.5,rad*Math.sin(a)+(r()-.5)*.5]});
+  paths.push(circleP(30),circleP(25.5));for(let i=-4;i<=4;i++){const v=i*5.2,x=Math.sqrt(Math.max(0,24*24-v*v));paths.push([[-x,v],[x,v]]);paths.push([[v,-x],[v,x]])}
+  paths.push([[0,0],[-13,-7]],[[0,0],[12,-17]]);
+  const wash=document.createElementNS(NS,'circle');wash.setAttribute('r',25.5);wash.setAttribute('fill',DIALS[k].c);wash.setAttribute('filter','url(#gouache)');wash.style.opacity=k==='blue'?.9:0;sv.appendChild(wash);
+  const pencil=document.createElementNS(NS,'g'),ink=document.createElementNS(NS,'g');sv.append(pencil,ink);
+  const inks=[];paths.forEach((p,i)=>{const d=toD(p),grid=i>1&&i<20;
+    const a=document.createElementNS(NS,'path');a.setAttribute('d',d);a.setAttribute('fill','none');a.setAttribute('stroke','#8e8a82');a.setAttribute('stroke-width',grid?.45:.8);a.setAttribute('stroke-opacity',grid?.5:.85);pencil.appendChild(a);
+    const L=p.reduce((s,q,j)=>j?s+Math.hypot(q[0]-p[j-1][0],q[1]-p[j-1][1]):0,0);
+    const c=document.createElementNS(NS,'path');c.setAttribute('d',d);c.setAttribute('fill','none');c.setAttribute('stroke',grid?'#e9ecf1':'#1e1b17');c.setAttribute('stroke-width',grid?.5:1.3);c.setAttribute('stroke-opacity',grid?.55:1);c.setAttribute('stroke-linecap','round');c.style.strokeDasharray=L+1;c.style.strokeDashoffset=k==='blue'?0:L+1;ink.appendChild(c);inks.push({c,L,i})});
+  const lab=document.createElement('span');lab.textContent=DIALS[k].n;b.append(sv,lab);studies.appendChild(b);STUDY[k]={b,wash,inks};
+}
+
+// ---------- состояние сцены ----------
+const S={trace:0,corr:0,fill:0,resolve:0,ink:1,yaw:0,dialFrom:'blue',dialTo:'blue',dialMix:1,study:{blue:1,grey:0,green:0,black:0},cta:false,sec:0};
+function setStudy(k,p){const s=STUDY[k];s.wash.style.opacity=(.9*smooth(span(p,.55,1))).toFixed(3);s.b.setAttribute('aria-pressed',p>.5);
+  s.inks.forEach(({c,L,i})=>{const a=clamp(p*1.35-i*.012);c.style.strokeDashoffset=((L+1)*(1-a)).toFixed(2)})}
+function apply(){
+  for(const s of INK){const q=s.corr?span(S.corr,s.t0/2.2,s.t1/2.2):span(S.trace,s.t0/2.25,s.t1/2.25);s.el.forEach((e,i)=>{e.style.strokeDashoffset=((s.L+1)*(1-clamp(q*1.03-i*.04))).toFixed(2)})}
+  $('lines').style.opacity=S.ink.toFixed(3);
+  WASH.forEach(w=>{w.el.style.opacity=(smooth(span(S.fill,w.t,w.t+.5))*(1-smooth(span(S.resolve,.75,1)))).toFixed(3);if(w.dial)w.el.setAttribute('fill',DIALS[S.dialTo].c)});
+  canvas.style.opacity=smooth(S.resolve).toFixed(3);
+  watch.rotation.y=S.yaw;
+  dialMat.map=TEX[S.dialMix>=1?S.dialTo:S.dialFrom];dialMatB.map=TEX[S.dialTo];dialMatB.opacity=S.dialMix<1?S.dialMix:0;
+  flangeMat.color.set(DIALS[S.dialMix>.5?S.dialTo:S.dialFrom].c).multiplyScalar(.7);
+  secH.rotation.y=-S.sec/60*2*PI;
+  for(const k in STUDY)setStudy(k,S.study[k]);
+  $('cta').classList.toggle('on',S.cta);
+  if(S.resolve>0)renderer.render(scene,camera);
+}
+
+// ---------- ролик: та же логика по часам ----------
+const T={trace:[.1,2.6],corr:[2.3,2.85],drag:[3.15,4.45],turn:[4.45,5.3],back:[5.7,6.9],click:6.55,ink:[6.55,7.15],dial:[7.1,7.45],hover:[7.75,8.4],dis:[8.55,9.15],out:[9.25,9.6]},DUR=9.75;
+const CUR=[[0,1520,620],[2.75,1520,620],[3.1,905,455],[3.15,905,455],[4.45,780,545],[5.3,560,560],[5.42,560,560],[6.45,0,0],[6.6,0,0],[7.7,1255,773],[8.4,1290,773],[8.9,1520,700],[99,1520,700]];
+let TGS=null;
+function cr(p0,p1,p2,p3,u){const u2=u*u,u3=u2*u;return .5*((2*p1)+(-p0+p2)*u+(2*p0-5*p1+4*p2-p3)*u2+(-p0+3*p1-3*p2+p3)*u3)}
+function cursorAt(t){const P=CUR.map(p=>p[1]===0?[p[0],TGS.x,TGS.y]:p);let i=0;while(i<P.length-2&&t>P[i+1][0])i++;const a=P[Math.max(0,i-1)],b=P[i],c=P[i+1],d=P[Math.min(P.length-1,i+2)];const u=ease(clamp((t-b[0])/(c[0]-b[0])));return{x:cr(a[1],b[1],c[1],d[1],u),y:cr(a[2],b[2],c[2],d[2],u)}}
+function render(t){
+  const out=1-span(t,...T.out),dr=span(t,...T.drag),dis=smooth(span(t,...T.dis));
+  S.trace=span(t,...T.trace);S.corr=span(t,...T.corr);
+  S.fill=clamp(dr/.6)*(1-dis);S.resolve=smooth(span(dr,.35,1))*(1-dis);S.ink=Math.min(1,1-smooth(span(dr,.62,1))+dis)*out;
+  $('wash').style.opacity=out;
+  // поворот: тянут влево, потом часы мягко возвращаются в позу эскиза
+  S.yaw=-.62*ease(span(t,...T.turn))*(1-ease(span(t,...T.back)));
+  const g=t>=T.click&&t<T.dis[1];S.dialFrom='blue';S.dialTo=g?'green':'blue';S.dialMix=g?smooth(span(t,...T.dial)):1;
+  S.study={blue:g?1-span(t,T.ink[0],T.ink[0]+.35):1,grey:0,green:g?span(t,...T.ink):0,black:0};
+  S.cta=t>T.hover[0]+.05&&t<T.hover[1]+.2;
+  S.sec=t>T.drag[0]?Math.floor((t-T.drag[0])*8)/8:0;
+  apply();
+  $('hint').style.opacity=(span(t,2.7,3.0)*(1-span(t,5.4,5.8))).toFixed(3);
+  if(window.__demo){const c=cursorAt(t),cur=$('cur');cur.style.display='block';const press=(t>T.drag[0]-.04&&t<T.turn[1]+.04)||(t>T.click-.06&&t<T.click+.06);cur.style.transform=`translate(${c.x-2}px,${c.y-2}px) scale(${press?.9:1})`}
+}
+
+// ---------- звук: одна библиотека и для ролика, и для живой страницы ----------
+let seed=11;const rnd=()=>(seed=(seed*16807)%2147483647)/2147483647;
+function makeSfx(ac,dest){
+  const SR=ac.sampleRate,nb=ac.createBuffer(1,SR*2,SR),nd=nb.getChannelData(0);for(let i=0;i<nd.length;i++)nd[i]=rnd()*2-1;
+  // маленькая комната: короткий хвост, чтобы щелчки звучали в пространстве, а не в вакууме
+  const ir=ac.createBuffer(2,Math.round(SR*.42),SR);for(let c=0;c<2;c++){const d=ir.getChannelData(c);for(let i=0;i<d.length;i++){const x=i/d.length;d[i]=(rnd()*2-1)*Math.pow(1-x,3.2)*(i<SR*.004?0:1)}}
+  const verb=ac.createConvolver();verb.buffer=ir;const wet=ac.createGain();wet.gain.value=.16;verb.connect(wet);wet.connect(dest);
+  const bus=ac.createGain();bus.connect(dest);bus.connect(verb);
+  const pan=v=>{const p=ac.createStereoPanner();p.pan.value=Math.max(-1,Math.min(1,v));p.connect(bus);return p};
+  const noise=(t,len,dst)=>{const s=ac.createBufferSource();s.buffer=nb;s.connect(dst);s.start(t,rnd()*1.5,len+.05)};
+  const env=(t,att,dec,peak)=>{const g=ac.createGain();g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(peak,t+att);g.gain.setTargetAtTime(0,t+att,dec/3);return g};
+  const bp=(f,q,type='bandpass')=>{const b=ac.createBiquadFilter();b.type=type;b.frequency.value=f;b.Q.value=q;return b};
+  const tone=(t,f,dec,gain,p=0,type='sine',f1)=>{const o=ac.createOscillator();o.type=type;o.frequency.setValueAtTime(f,t);if(f1)o.frequency.exponentialRampToValueAtTime(f1,t+dec);const g=env(t,.0015,dec,gain);o.connect(g);g.connect(pan(p));o.start(t);o.stop(t+dec*2.5+.05)};
+  const burst=(t,f,q,dec,gain,p=0)=>{const b=bp(f,q),g=env(t,.0008,dec,gain);b.connect(g);g.connect(pan(p));noise(t,dec*3+.02,b)};
+  const X={};
+  // перо: зернистый шорох, касание и отрыв
+  X.nib=(t0,t1,p=0,gain=.07,f=4600)=>{if(t1-t0<.02)return;burst(t0,6500,2,.006,gain*1.6,p);
+    const b=bp(f+rnd()*900,.75),h=bp(1700,.7,'highpass');b.connect(h);const g=ac.createGain(),n=Math.max(16,Math.round((t1-t0)*420)),c=new Float32Array(n);
+    for(let i=0;i<n;i++){const x=i/(n-1);c[i]=gain*Math.pow(Math.sin(PI*x),.25)*(rnd()<.18?1:.35+.4*rnd())}
+    g.gain.setValueCurveAtTime(c,t0,t1-t0);h.connect(g);g.connect(pan(p));noise(t0,t1-t0,b);burst(t1,5200,2,.004,gain*.7,p)};
+  // кисть с гуашью: мягкий влажный мазок
+  X.brush=(t0,t1,p=0,gain=.05)=>{const b=bp(900,.6,'lowpass'),g=ac.createGain(),n=48,c=new Float32Array(n);for(let i=0;i<n;i++){const x=i/(n-1);c[i]=gain*Math.pow(Math.sin(PI*Math.pow(x,.7)),1.5)*(.8+.2*Math.sin(x*19))}
+    g.gain.setValueCurveAtTime(c,t0,t1-t0);b.connect(g);g.connect(pan(p));noise(t0,t1-t0,b)};
+  // приятный тактильный щелчок: короткий шум, тело и низ
+  X.click=(t,p=0,gain=.3,k=1)=>{burst(t,3400*k,1.6,.006,gain,p);tone(t,1850*k,.022,gain*.22,p);tone(t,190*k,.03,gain*.35,p,'sine',120*k)};
+  // фиксатор при повороте: суше и выше, как зубчатое колесо головки
+  X.detent=(t,p=0,gain=.16)=>{burst(t,5200,2.4,.004,gain,p);tone(t,2650,.012,gain*.18,p)};
+  // ход механизма 4 Гц
+  X.tick=(t,alt,gain=.03)=>{burst(t,alt?3900:4700,3,.005,gain,.05)};
+  // сталь проявляется: тихий металлический аккорд и шум, который поднимается
+  X.shimmer=(t0,t1,gain=.022,down=false)=>{[[1318,1],[1976,.7],[2960,.45],[4180,.3]].forEach(([f,k])=>{const o=ac.createOscillator();o.frequency.value=f*(1+(rnd()-.5)*.004);const g=ac.createGain(),n=40,c=new Float32Array(n);
+      for(let i=0;i<n;i++){const x=i/(n-1),e=down?1-x:x;c[i]=gain*k*Math.pow(Math.sin(PI*Math.pow(e,.8)*.5),2)*(down?1:Math.min(1,(1-x)*6))}g.gain.setValueCurveAtTime(c,t0,t1-t0);o.connect(g);g.connect(pan((rnd()-.5)*.5));o.start(t0);o.stop(t1+.05)});
+    const b=bp(1500,.8);b.frequency.setValueAtTime(down?5000:900,t0);b.frequency.exponentialRampToValueAtTime(down?900:5000,t1);const g=ac.createGain(),n=32,c=new Float32Array(n);for(let i=0;i<n;i++){const x=i/(n-1);c[i]=gain*.9*Math.pow(Math.sin(PI*x),2)}g.gain.setValueCurveAtTime(c,t0,t1-t0);b.connect(g);g.connect(pan(0));noise(t0,t1-t0,b)};
+  // часы встали на место: глухой стук и короткий звон стали
+  X.clunk=(t,gain=.22)=>{tone(t,96,.16,gain,0,'sine',54);burst(t,1200,1,.012,gain*.5);[[2240,1],[3380,.6],[5150,.35]].forEach(([f,k])=>tone(t+.002,f,.28,gain*.05*k,(rnd()-.5)*.3))};
+  X.clink=(t,p=0,gain=.03)=>{tone(t,3300+rnd()*2600,.06,gain,p);tone(t,7000+rnd()*1400,.04,gain*.4,p);burst(t,5600,2,.004,gain*1.2,p)};
+  // кнопка-этюд: мягкий хлопок по бумаге
+  X.tap=(t,p=0,gain=.22)=>{burst(t,1700,1.1,.01,gain,p);tone(t,150,.04,gain*.5,p,'sine',100)};
+  // циферблат сменился: щелчок и тихий колокольчик
+  X.swap=(t,gain=.12)=>{X.click(t,0,gain,1.15);tone(t+.01,2637,.45,gain*.12,.1);tone(t+.01,3951,.35,gain*.06,-.1)};
+  return X}
+
+const yawAt=t=>-.62*ease(span(t,...T.turn))*(1-ease(span(t,...T.back)));
+window.__renderAudio=async()=>{
+  const SR=48000,ac=new OfflineAudioContext(2,Math.ceil(SR*DUR),SR);const X=makeSfx(ac,ac.destination);
+  // эскиз: перо по каждой линии, зачёркивание резче
+  // одно перо: интервалы линий сливаются, касание бумаги в начале каждой линии
+  const iv=INK.filter(s=>!s.corr).map(s=>{const k=2.25,sp=T.trace;return[sp[0]+(sp[1]-sp[0])*s.t0/k,sp[0]+(sp[1]-sp[0])*Math.min(1,s.t1/k),(s.pts[0][0]-720)/720*.7]}).sort((x,y)=>x[0]-y[0]);
+  const runs=[];for(const v of iv){const r=runs[runs.length-1];if(r&&v[0]<r[1]-.01)r[1]=Math.max(r[1],v[1]);else runs.push([v[0],v[1]])}
+  runs.forEach(r=>X.nib(r[0],r[1],0,.038,4300));iv.forEach(v=>X.click(v[0],v[2],.05,2.2));
+  INK.filter(s=>s.corr).forEach(s=>{const sp=T.corr,a=sp[0]+(sp[1]-sp[0])*s.t0/2.2,b=sp[0]+(sp[1]-sp[0])*Math.min(1,s.t1/2.2);X.nib(a,b,-.35,.085,5400)});
+  // гуашь, потом сталь
+  const D0=T.drag[0],DL=T.drag[1]-T.drag[0];
+  WASH.forEach((w,i)=>X.brush(D0+DL*w.t*.6,D0+DL*(w.t+.5)*.6+.12,(i-1.5)*.15,.055));
+  X.click(D0,.25,.12,.9);
+  X.shimmer(D0+DL*.4,T.drag[1]+.05);X.clunk(T.drag[1]+.02);
+  for(let i=0,t=T.drag[1]+.25;t<T.dis[0];i++,t=T.drag[1]+.25+i/8)X.tick(t,i%2);
+  // поворот: щелчок на каждые 2.6 градуса, как у головки
+  let last=Math.round(yawAt(T.turn[0])/.045);for(let t=T.turn[0];t<T.back[1]+.05;t+=1/480){const q=Math.round(yawAt(t)/.045);if(q!==last){X.detent(t,yawAt(t)*1.2);last=q}}
+  X.clink(T.turn[1]+.06,-.3);X.clink(T.turn[1]+.12,.2,.02);X.clink(T.back[1]-.02,.1);
+  // этюд: хлопок, перо обводит тушью, циферблат меняется
+  X.tap(T.click,.75);X.nib(T.ink[0]+.03,T.ink[1]-.05,.75,.06,5000);X.swap(T.dial[0]+.05);
+  X.nib(T.hover[0]+.05,T.hover[0]+.58,.6,.05,5400);
+  X.shimmer(T.dis[0],T.dis[1]+.1,.016,true);X.brush(T.out[0]-.05,T.out[1]+.1,0,.03);
+  const b=await ac.startRendering();
+  const n=b.length,ab=new ArrayBuffer(44+n*4),dv=new DataView(ab),ws=(o,s)=>{for(let i=0;i<s.length;i++)dv.setUint8(o+i,s.charCodeAt(i))};
+  ws(0,'RIFF');dv.setUint32(4,36+n*4,true);ws(8,'WAVEfmt ');dv.setUint32(16,16,true);dv.setUint16(20,1,true);dv.setUint16(22,2,true);
+  dv.setUint32(24,SR,true);dv.setUint32(28,SR*4,true);dv.setUint16(32,4,true);dv.setUint16(34,16,true);ws(36,'data');dv.setUint32(40,n*4,true);
+  const L0=b.getChannelData(0),R0=b.getChannelData(1);
+  for(let i=0;i<n;i++){dv.setInt16(44+i*4,Math.max(-1,Math.min(1,L0[i]))*32767,true);dv.setInt16(46+i*4,Math.max(-1,Math.min(1,R0[i]))*32767,true)}
+  let bin='';const u=new Uint8Array(ab);for(let i=0;i<u.length;i+=32768)bin+=String.fromCharCode.apply(null,u.subarray(i,i+32768));
+  return btoa(bin);
+};
+
+{const r=STUDY.green.b.getBoundingClientRect(),bb=document.body.getBoundingClientRect();TGS={x:r.left-bb.left+r.width/2,y:r.top-bb.top+35}}
+window.__dur=DUR;window.__render=render;
+
+// ---------- живая страница: эскиз рисуется, перетаскивание или прокрутка проявляет сталь, потом поворачивает ----------
+if(REC){window.__demo=true;render(0);window.__ready=true}
+else{
+  const fit=()=>{const k=Math.min(innerWidth/W,innerHeight/H);document.body.style.transform=`scale(${k})`;document.body.style.transformOrigin='0 0'};fit();addEventListener('resize',fit);
+  const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const t0=performance.now();let prog=reduce?1:0,yaw=0,vel=0,drag=null;
+  // звук включается с первым касанием: браузер не даёт играть раньше
+  let ac=null,X=null,master=null;const sfx=()=>{if(!ac){ac=new AudioContext();master=ac.createGain();master.gain.value=3.2;const lim=ac.createDynamicsCompressor();lim.threshold.value=-6;lim.ratio.value=12;master.connect(lim);lim.connect(ac.destination);X=makeSfx(ac,master)}if(ac.state!=='running')ac.resume();return X};
+  const now=()=>ac.currentTime+.01;
+  let fired={brush:false,shim:false,clunk:false},lastQ=0;
+  const nudge=d=>{if(prog<1){prog=clamp(prog+d);const x=sfx();
+      if(!fired.brush&&prog>.05){fired.brush=true;x.click(now(),0,.12,.9);WASH.forEach((w,i)=>x.brush(now()+i*.18,now()+i*.18+.6,(i-1.5)*.15,.055))}
+      if(!fired.shim&&prog>.4){fired.shim=true;x.shimmer(now(),now()+.9)}
+      if(!fired.clunk&&prog>=1){fired.clunk=true;x.clunk(now())}
+      return true}return false};
+  const hit=$('hit');
+  hit.addEventListener('pointerdown',e=>{sfx();drag={x:e.clientX,y:e.clientY};hit.setPointerCapture(e.pointerId);hit.style.cursor='grabbing'});
+  hit.addEventListener('pointermove',e=>{if(!drag)return;const dx=e.clientX-drag.x,dy=e.clientY-drag.y;drag={x:e.clientX,y:e.clientY};if(!nudge((Math.abs(dx)+Math.abs(dy))/420)){yaw+=dx*.006;vel=dx*.006}});
+  addEventListener('pointerup',()=>{if(drag&&prog>=1&&X)X.clink(now(),0,.02);drag=null;hit.style.cursor='grab'});
+  addEventListener('wheel',e=>nudge(Math.abs(e.deltaY)/700),{passive:true});
+  let cur='blue',next=null,ink0=0;
+  for(const k in STUDY)STUDY[k].b.addEventListener('click',()=>{if(k===cur||next)return;const x=sfx();x.tap(now(),.75);x.nib(now()+.03,now()+.6,.75,.06,5000);x.swap(now()+.55);next=k;ink0=performance.now()});
+  const cta=$('cta');cta.addEventListener('mouseenter',()=>{if(ac)X.nib(now(),now()+.5,.6,.05,5400)});
+  const loop=n=>{const t=(n-t0)/1000;
+    S.trace=reduce?1:span(t,.1,2.6);S.corr=reduce?1:span(t,2.3,2.85);
+    S.fill=clamp(prog/.6);S.resolve=smooth(span(prog,.35,1));S.ink=1-smooth(span(prog,.62,1));
+    if(!drag){vel*=.92;yaw+=vel;yaw*=.985}S.yaw=yaw;
+    const q=Math.round(yaw/.045);if(q!==lastQ){if(X&&prog>=1)X.detent(now(),Math.max(-1,Math.min(1,yaw)));lastQ=q}
+    if(next){const p=(n-ink0)/1000;S.study={...S.study,[next]:span(p,0,.6),[cur]:1-span(p,0,.35)};S.dialFrom=cur;S.dialTo=next;S.dialMix=smooth(span(p,.55,.9));
+      if(p>.95){cur=next;next=null;S.dialFrom=S.dialTo=cur;S.dialMix=1}}
+    S.sec=t%60;$('hint').style.opacity=(prog<1||Math.abs(yaw)<.01)?1:0;
+    apply();requestAnimationFrame(loop)};
+  requestAnimationFrame(loop);
+}
+</script>
+</body>
+</html>

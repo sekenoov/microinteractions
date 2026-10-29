@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Mood, четыре черновика</title>
+<style>
+:root{--bg:#151412;--ink:#eee9e0;--ink2:#9a948a;--line:#2c2a26}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:var(--bg)}
+body{font-family:-apple-system,system-ui,sans-serif;color:var(--ink);padding:44px 24px 80px;-webkit-font-smoothing:antialiased}
+h1{max-width:1280px;margin:0 auto 6px;font-size:26px;letter-spacing:-.02em;font-weight:600}
+.sub{max-width:1280px;margin:0 auto 30px;color:var(--ink2);font-size:14px}
+.grid{max-width:1280px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:30px 22px}
+a{color:inherit;text-decoration:none}
+.thumb{aspect-ratio:16/9;border-radius:12px;overflow:hidden;position:relative;border:1px solid var(--line)}
+.thumb iframe{position:absolute;left:0;top:0;width:1440px;height:810px;border:0;transform-origin:0 0;pointer-events:none}
+.meta{display:flex;justify-content:space-between;gap:12px;margin-top:12px;font-size:14.5px}
+.meta b{font-weight:600}
+.meta span{color:var(--ink2);text-align:right}
+.tag{font-size:13px;color:var(--ink2);margin-top:4px;line-height:1.45}
+body.wall{padding:0}
+body.wall h1,body.wall .sub,body.wall .meta,body.wall .tag{display:none}
+body.wall .grid{max-width:none;gap:0}
+body.wall .thumb{border:0;border-radius:0}
+@media (max-width:760px){.grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<h1>Mood</h1>
+<p class="sub">Четыре черновика под дизайн-посты, эстетика доски: портной, часы, лондонский туман, вещи на каждый день. Клик открывает в полный размер.</p>
+<div class="grid">
+  <a href="tailor/"><div class="thumb"><iframe src="tailor/" tabindex="-1" title="Pembury"></iframe></div><div class="meta"><b>1. Cut</b><span>сайт ателье, Savile Row</span></div><div class="tag">мелок чертит выкройку пиджака по шерсти в меловую полоску, деталь вырезают и она поднимается над крафтом</div></a>
+  <a href="../royal-oak-genta-sketch/"><div class="thumb"><iframe src="../royal-oak-genta-sketch/" tabindex="-1" title="Royal Oak"></iframe></div><div class="meta"><b>2. Royal Oak</b><span>концепт страницы Audemars Piguet</span></div><div class="tag">ночь Дженты: эскиз тушью рисуется сам, заливается гуашью и становится сталью, этюды циферблатов на полях, звук</div></a>
+  <a href="fog/"><div class="thumb"><iframe src="fog/" tabindex="-1" title="Fairlight"></iframe></div><div class="meta"><b>3. Fog</b><span>сайт отеля в Лондоне</span></div><div class="tag">окно запотело, курсор протирает Биг-Бен с живыми часами, стекают капли, стекло снова запотевает</div></a>
+  <a href="carry/"><div class="thumb"><iframe src="carry/" tabindex="-1" title="Carry"></iframe></div><div class="meta"><b>4. Carry</b><span>приложение, три экрана</span></div><div class="tag">вещи из карманов падают на кожаный поднос и раскладываются нолингом, ключам остаётся пунктирное место</div></a>
+</div>
+<script>
+if(/wall/.test(location.search))document.body.classList.add('wall');
+function fit(){document.querySelectorAll('.thumb').forEach(t=>{t.querySelector('iframe').style.transform=`scale(${t.clientWidth/1440})`})}
+addEventListener('resize',fit);fit();
+</script>
+</body>
+</html>

@@ -1,0 +1,364 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Royal Oak Selfwinding, a concept</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Display:wdth,wght@62.5..100,100..500&family=Geist:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html{background:#050607}
+body{width:1440px;height:810px;overflow:hidden;position:relative;font-family:Geist,system-ui,sans-serif;-webkit-font-smoothing:antialiased;
+  --bg:#e4e3df;--ink:#16191e;--ink2:rgba(22,25,30,.56);--line:rgba(22,25,30,.16);--glow:none;--bglow:none;--big:#16191e;
+  background:var(--bg);color:var(--ink)}
+a,button{color:inherit;font:inherit}
+button{background:none;border:0;cursor:pointer}
+a:focus-visible,button:focus-visible{outline:2px solid var(--ink);outline-offset:3px;border-radius:4px}
+.skip{position:absolute;left:24px;top:-80px;z-index:20;background:var(--ink);color:var(--bg);padding:10px 14px;font-size:14px}
+.skip:focus{top:20px}
+#big{position:absolute;inset:0;z-index:1;font-family:'Noto Serif Display',serif;font-weight:200;font-size:276px;line-height:1;letter-spacing:-.045em;color:var(--big);text-shadow:var(--bglow);pointer-events:none;will-change:transform}
+#big span{position:absolute;white-space:nowrap}
+#big .l1{left:30px;top:58px}
+#big .l2{right:40px;top:410px}
+canvas{position:absolute;left:0;top:0;width:1440px;height:810px;pointer-events:none}
+#w{z-index:2}#l{z-index:3}
+header{position:absolute;left:0;right:0;top:0;height:84px;padding:0 48px;display:flex;align-items:center;z-index:5;text-shadow:var(--glow)}
+.mark{font-family:'Noto Serif Display',serif;font-weight:400;font-size:15px;letter-spacing:.2em;text-decoration:none;white-space:nowrap}
+nav{display:flex;gap:28px;margin-left:auto;margin-right:32px;font-size:14px}
+nav a{text-decoration:none;color:var(--ink2);padding:5px 0;position:relative}
+nav a[aria-current]{color:var(--ink)}
+nav a[aria-current]::after{content:'';position:absolute;left:0;right:0;bottom:-1px;height:1px;background:currentColor;box-shadow:var(--glow)}
+.seg{display:flex;padding:3px;border-radius:999px;box-shadow:inset 0 0 0 1px var(--line);font-size:13px}
+.seg button{padding:7px 14px;border-radius:999px;color:var(--ink2);text-shadow:var(--glow)}
+.seg button[aria-pressed=true]{background:var(--segbg,var(--ink));color:var(--segink,var(--bg));box-shadow:var(--segring,none);text-shadow:none}
+.genta{position:absolute;right:48px;top:372px;z-index:5;font-size:13px;color:var(--ink2);text-shadow:var(--glow);text-align:right;line-height:1.5}
+.buy{position:absolute;left:48px;right:48px;bottom:34px;z-index:5;display:flex;align-items:flex-end;justify-content:space-between;text-shadow:var(--glow)}
+.name b{display:block;font-weight:500;font-size:16px;letter-spacing:-.01em}
+.name span{display:block;font-size:13px;color:var(--ink2);margin-top:3px}
+.sw{display:flex;align-items:center;gap:10px;margin-top:16px}
+.sw button{width:22px;height:22px;border-radius:50%;position:relative;
+  background-image:repeating-linear-gradient(0deg,rgba(0,0,0,.28) 0 1px,transparent 1px 3.5px),repeating-linear-gradient(90deg,rgba(0,0,0,.28) 0 1px,transparent 1px 3.5px),radial-gradient(circle at 35% 30%,rgba(255,255,255,.35),transparent 60%);
+  box-shadow:inset 0 0 0 1px rgba(0,0,0,.15)}
+.sw button[aria-pressed=true]::after{content:'';position:absolute;inset:-4px;border-radius:50%;box-shadow:0 0 0 1.25px var(--ink),var(--glow2,0 0 0 transparent)}
+.sw em{font-style:normal;font-size:13px;color:var(--ink2);margin-left:6px;min-width:90px}
+.act{display:flex;align-items:center;gap:20px;text-align:right}
+.act small{font-size:13px;color:var(--ink2)}
+.cta{display:inline-block;padding:13px 22px;border-radius:999px;background:var(--btn,var(--ink));color:var(--btnink,var(--bg));font-size:14.5px;font-weight:500;text-decoration:none;box-shadow:var(--btnring,none);text-shadow:none}
+.note{position:absolute;right:48px;bottom:12px;z-index:5;font-size:10.5px;color:var(--ink2);opacity:.7}
+#cur{position:absolute;left:0;top:0;width:22px;height:30px;z-index:9;pointer-events:none;display:none}
+</style>
+</head>
+<body>
+<a class="skip" href="#buy">Skip to product</a>
+<h1 id="big"><span class="l1">Royal</span><span class="l2">Oak</span></h1>
+<canvas id="w" aria-hidden="true"></canvas>
+<canvas id="l" aria-hidden="true"></canvas>
+<header>
+  <a class="mark" href="#">AUDEMARS PIGUET</a>
+  <nav aria-label="Main">
+    <a href="#" aria-current="page">Royal Oak</a>
+    <a href="#">Code 11.59</a>
+    <a href="#">Complications</a>
+    <a href="#">Boutiques</a>
+  </nav>
+  <div class="seg" role="group" aria-label="Lighting">
+    <button id="day" aria-pressed="false">Day</button>
+    <button id="night" aria-pressed="true">Night</button>
+  </div>
+</header>
+<p class="genta">Designed by Gérald Genta, 1972.<br>Eight screws, one octagon.</p>
+<section class="buy" id="buy" aria-label="Product">
+  <div class="name">
+    <b>Royal Oak Selfwinding</b>
+    <span>41 mm, stainless steel, Grande Tapisserie dial</span>
+    <div class="sw" role="group" aria-label="Dial">
+      <button aria-label="Night blue" data-k="blue" style="background-color:#1f3a6b" aria-pressed="true"></button>
+      <button aria-label="Slate grey" data-k="grey" style="background-color:#5c636c" aria-pressed="false"></button>
+      <button aria-label="Khaki green" data-k="green" style="background-color:#3c4d3c" aria-pressed="false"></button>
+      <button aria-label="Black" data-k="black" style="background-color:#17191d" aria-pressed="false"></button>
+      <em id="dialname">Night blue</em>
+    </div>
+  </div>
+  <div class="act"><small>Price on request</small><a class="cta" href="#">Book an appointment</a></div>
+</section>
+<p class="note">Unofficial concept, not affiliated with Audemars Piguet</p>
+<svg id="cur" viewBox="0 0 22 30" aria-hidden="true"><path d="M2 2 L2 23 L7.2 18.4 L10.6 26.4 L14 25 L10.7 17.2 L17.6 17.2 Z" fill="#111" stroke="#fff" stroke-width="1.6" stroke-linejoin="round"/></svg>
+<script>
+const W=1440,H=810,D=2,PI=Math.PI,TAU=PI*2;
+const $=id=>document.getElementById(id);
+const mk=(w,h)=>{const c=document.createElement('canvas');c.width=w;c.height=h;return c};
+const rng=a=>()=>{a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296};
+const clamp=x=>x<0?0:x>1?1:x,span=(t,a,b)=>clamp((t-a)/(b-a));
+const ease=x=>x<.5?2*x*x:1-Math.pow(-2*x+2,2)/2,easeOut=x=>1-Math.pow(1-x,3);
+const mixc=(a,b,k)=>a.map((v,i)=>v+(b[i]-v)*k),rgb=(c,a=1)=>`rgba(${c[0]|0},${c[1]|0},${c[2]|0},${a})`;
+const wcv=$('w'),wc=wcv.getContext('2d'),lcv=$('l'),lc=lcv.getContext('2d');
+wcv.width=lcv.width=W*D;wcv.height=lcv.height=H*D;
+
+// геометрия Royal Oak 41 мм, центр часов
+const RD=134,RFL=150,RBEV=157,AS=171,AO=178,RSCREW=167;
+const DIALS={blue:{c:[28,56,104],n:'Night blue',bg:[228,227,223]},grey:{c:[88,95,104],n:'Slate grey',bg:[226,226,224]},green:{c:[50,72,54],n:'Khaki green',bg:[225,226,219]},black:{c:[20,22,26],n:'Black',bg:[227,226,223]}};
+const LUME=[160,255,200];
+let L3=[-.5,-.6,.62];
+
+// грани таписсери: четыре маски, у каждой пирамидки по одной грани
+const DS=RD*2*D;
+const masks=[0,1,2,3].map(()=>mk(DS,DS)),grooveC=mk(DS,DS),dialCs=[mk(DS,DS),mk(DS,DS)],tmp=mk(DS,DS),tg=tmp.getContext('2d');
+{const cell=9.2*D,gp=1.3*D,mc=masks.map(m=>m.getContext('2d'));mc.forEach(c=>{c.fillStyle='#fff';c.beginPath()});
+  const n=Math.ceil(DS/cell)+2,off=DS/2-Math.ceil(DS/2/cell)*cell-cell/2;
+  const tri=(c,a,b,d,e,f,g)=>{c.moveTo(a,b);c.lineTo(d,e);c.lineTo(f,g);c.closePath()};
+  for(let i=0;i<n;i++)for(let j=0;j<n;j++){const x0=off+i*cell+gp/2,y0=off+j*cell+gp/2,x1=x0+cell-gp,y1=y0+cell-gp,cx=(x0+x1)/2,cy=(y0+y1)/2;
+    tri(mc[0],x0,y0,x1,y0,cx,cy);tri(mc[1],x1,y0,x1,y1,cx,cy);tri(mc[2],x1,y1,x0,y1,cx,cy);tri(mc[3],x0,y1,x0,y0,cx,cy)}
+  mc.forEach(c=>c.fill());
+}
+const NF=[[0,-.7,.714],[.7,0,.714],[0,.7,.714],[-.7,0,.714]];
+function dialImage(col,slot=0){
+  const dialC=dialCs[slot],dg=dialC.getContext('2d');
+  dg.globalCompositeOperation='source-over';dg.fillStyle=rgb(mixc(col,[0,0,0],.72));dg.fillRect(0,0,DS,DS);
+  const hv=norm([L3[0],L3[1],L3[2]+1]);
+  NF.forEach((n,i)=>{const d=Math.max(0,dot(n,L3)),sp=Math.pow(Math.max(0,dot(n,hv)),22);
+    const c=mixc(col.map(v=>v*(.2+1.25*d)),[225,235,250],sp*.75);
+    tg.globalCompositeOperation='copy';tg.drawImage(masks[i],0,0);tg.globalCompositeOperation='source-in';tg.fillStyle=rgb(c);tg.fillRect(0,0,DS,DS);
+    dg.drawImage(tmp,0,0)});
+  const gr=dg.createRadialGradient(DS/2+L3[0]*DS*.25,DS/2+L3[1]*DS*.25,DS*.05,DS/2,DS/2,DS/2);gr.addColorStop(0,'rgba(255,255,255,.07)');gr.addColorStop(.7,'rgba(0,0,0,0)');gr.addColorStop(1,'rgba(0,0,0,.42)');
+  dg.fillStyle=gr;dg.fillRect(0,0,DS,DS);
+  dg.globalCompositeOperation='destination-in';dg.fillStyle='#000';dg.beginPath();dg.arc(DS/2,DS/2,DS/2,0,TAU);dg.fill();
+  return dialC;
+}
+function dot(a,b){return a[0]*b[0]+a[1]*b[1]+a[2]*b[2]}
+function norm(a){const l=Math.hypot(...a);return a.map(v=>v/l)}
+
+// сталь
+const DARK=[52,56,62],BRIGHT=[252,252,253];
+function pol(nx,ny,tilt=.72){const I=dot(norm([nx*tilt,ny*tilt,Math.sqrt(1-tilt*tilt)]),L3),v=clamp((I+.05)/.95);return rgb(mixc(DARK,BRIGHT,Math.pow(v,1.7)))}
+function conic(inward,tilt=.72){const g=wc.createConicGradient(0,0,0);for(let a=0;a<=360;a+=10){const r=a*PI/180,s=inward?-1:1;g.addColorStop(a/360,pol(Math.cos(r)*s,Math.sin(r)*s,tilt))}return g}
+function satinConic(){const g=wc.createConicGradient(0,0,0),th=Math.atan2(L3[1],L3[0]);for(let a=0;a<=360;a+=10){const r=a*PI/180,v=.5+.2*Math.cos(2*(r-th))+.12*Math.cos(r-th);g.addColorStop(a/360,rgb(mixc([112,116,122],[226,229,232],clamp(v))))}return g}
+function satinLin(x0,x1){const g=wc.createLinearGradient(x0,0,x1,0),s=L3[0];g.addColorStop(0,rgb(mixc([120,124,130],[222,225,228],.52-s*.18)));g.addColorStop(.5,rgb(mixc([120,124,130],[222,225,228],.66-L3[1]*.12)));g.addColorStop(1,rgb(mixc([120,124,130],[222,225,228],.52+s*.18)));return g}
+// шлифовка: тонкие продольные риски
+const brush=mk(256,256);{const g=brush.getContext('2d'),r=rng(8);for(let i=0;i<900;i++){const x=r()*256,y=r()*256,l=20+r()*120;g.strokeStyle=r()<.5?`rgba(255,255,255,${.05+r()*.12})`:`rgba(0,0,0,${.04+r()*.1})`;g.lineWidth=.6+r()*.6;g.beginPath();g.moveTo(x,y);g.lineTo(x,y+l);g.stroke()}}
+const brushPat=wc.createPattern(brush,'repeat');brushPat.setTransform(new DOMMatrix().scale(.5));
+
+function octagon(a,rr){const R=a/Math.cos(PI/8),pts=[];for(let k=0;k<8;k++){const t=PI/8+k*PI/4;pts.push([R*Math.cos(t),R*Math.sin(t)])}
+  const p=new Path2D(),m=(u,v)=>[(u[0]+v[0])/2,(u[1]+v[1])/2];p.moveTo(...m(pts[7],pts[0]));
+  for(let k=0;k<8;k++){const c=pts[k],n=pts[(k+1)%8];p.arcTo(c[0],c[1],...m(c,n),rr)}p.closePath();return p}
+const OCT_O=octagon(AO,30),OCT_S=octagon(AS,26);
+function poly(pts,rr){const p=new Path2D(),m=(u,v)=>[(u[0]+v[0])/2,(u[1]+v[1])/2],n=pts.length;p.moveTo(...m(pts[n-1],pts[0]));for(let k=0;k<n;k++){const c=pts[k],nx=pts[(k+1)%n];p.arcTo(c[0],c[1],...m(c,nx),rr)}p.closePath();return p}
+// корпус: восьмиугольник со скосами под браслет
+const CY0=206,CX0=198,CC=64;
+const caseP=o=>[[-(CX0-CC)+o*.4,-CY0+o],[CX0-CC-o*.4,-CY0+o],[CX0-o,-(CY0-CC)+o*.4],[CX0-o,CY0-CC-o*.4],[CX0-CC-o*.4,CY0-o],[-(CX0-CC)+o*.4,CY0-o],[-CX0+o,CY0-CC-o*.4],[-CX0+o,-(CY0-CC)+o*.4]];
+const CASE=poly(caseP(0),16),CASE_IN=poly(caseP(6),12);
+const hw=y=>(CX0-CC)-Math.max(0,Math.abs(y)-CY0)*.07;
+function silhouette(){const p=new Path2D(CASE);for(const s of [-1,1]){p.moveTo(-hw(470),470*s);p.lineTo(hw(470),470*s);p.lineTo(hw(CY0),(CY0-30)*s);p.lineTo(-hw(CY0),(CY0-30)*s);p.closePath()}return p}
+const SIL=silhouette();
+
+function bracelet(){
+  const P=46;
+  for(const s of [-1,1]){
+    const Y=v=>v*s,r0=(y0,h)=>Math.min(Y(y0),Y(y0+h));
+    wc.fillStyle='#34383e';wc.beginPath();wc.moveTo(-hw(CY0)+2,Y(CY0-4));wc.lineTo(hw(CY0)-2,Y(CY0-4));wc.lineTo(hw(470),Y(470));wc.lineTo(-hw(470),Y(470));wc.fill();
+    for(let k=0;k<6;k++){
+      const y0=CY0+k*P,h=hw(y0+P/2),cw=h*.46;
+      // крупное центральное звено: сатин и полированные фаски
+      const cy=r0(y0+7,P-8),ch=P-8;
+      wc.fillStyle=satinLin(-cw,cw);wc.beginPath();wc.roundRect(-cw,cy,cw*2,ch,2);wc.fill();
+      wc.save();wc.clip();wc.globalAlpha=.3;wc.fillStyle=brushPat;wc.fillRect(-cw,cy,cw*2,ch);wc.restore();
+      wc.fillStyle=pol(-1,0,.8);wc.fillRect(-cw,cy+1,4.5,ch-2);wc.fillStyle=pol(1,0,.8);wc.fillRect(cw-4.5,cy+1,4.5,ch-2);
+      wc.fillStyle=pol(0,-s,.8);wc.fillRect(-cw+4,s<0?cy+ch-2:cy,cw*2-8,2);
+      // маленькое полированное звено между крупными
+      const jy=Y(y0+3),jw=cw*.78,jg=wc.createLinearGradient(0,jy-3.5,0,jy+3.5);
+      jg.addColorStop(0,pol(0,-1,.9));jg.addColorStop(.5,pol(0,0,.2));jg.addColorStop(1,pol(0,1,.9));
+      wc.fillStyle=jg;wc.beginPath();wc.roundRect(-jw,jy-3.5,jw*2,7,3.5);wc.fill();
+      // боковые звенья
+      for(const sx of [-1,1]){const x0=sx<0?-h:cw+2.5,x1=sx<0?-cw-2.5:h,st=r0(y0+1.5,P-3);
+        wc.fillStyle=satinLin(x0,x1);wc.fillRect(x0,st,x1-x0,P-3);
+        wc.save();wc.beginPath();wc.rect(x0,st,x1-x0,P-3);wc.clip();wc.globalAlpha=.3;wc.fillStyle=brushPat;wc.fillRect(x0,st,x1-x0,P-3);wc.restore();
+        wc.fillStyle=pol(sx,0,.8);wc.fillRect(sx<0?x0:x1-4,st,4,P-3);
+        wc.fillStyle=pol(-sx,0,.8);wc.fillRect(sx<0?x1-2:x0,st,2,P-3);
+      }
+    }
+  }
+}
+
+function hex(r){const p=new Path2D();for(let k=0;k<6;k++){const a=k*PI/3;k?p.lineTo(r*Math.cos(a),r*Math.sin(a)):p.moveTo(r*Math.cos(a),r*Math.sin(a))}p.closePath();return p}
+const HEX=hex(8.6),HEX2=hex(5.2);
+
+function drawWatch(t,dialA,dialB,wipe,sweep,lift){
+  wc.setTransform(1,0,0,1,0,0);wc.clearRect(0,0,W*D,H*D);
+  const sc=.955+.045*lift;wc.setTransform(D*sc,0,0,D*sc,D*C.x,D*C.y);
+  // тень на фон и на буквы, растёт, когда часы поднимаются
+  wc.save();wc.filter=`blur(${(12+20*lift)*D}px)`;wc.translate(-L3[0]*(14+34*lift),-L3[1]*(14+34*lift)+6+12*lift);wc.fillStyle=`rgba(12,14,20,${.42-.08*lift})`;wc.fill(SIL);wc.restore();
+  bracelet();
+  // корпус
+  wc.save();wc.filter=`blur(${5*D}px)`;wc.fillStyle='rgba(0,0,0,.35)';wc.translate(-L3[0]*4,-L3[1]*4+3);wc.fill(CASE);wc.restore();
+  wc.fillStyle=conic(false,.8);wc.fill(CASE);
+  wc.save();wc.fillStyle=satinConic();wc.fill(CASE_IN);wc.clip(CASE_IN);wc.globalAlpha=.32;wc.fillStyle=brushPat;wc.fillRect(-220,-250,440,500);wc.restore();
+  // заводная головка
+  wc.save();wc.translate(CX0-3,0);const cg=wc.createLinearGradient(0,-17,0,17);cg.addColorStop(0,pol(0,-1));cg.addColorStop(.5,pol(1,0,.3));cg.addColorStop(1,pol(0,1));
+  wc.fillStyle=cg;wc.beginPath();wc.roundRect(0,-17,22,34,5);wc.fill();wc.strokeStyle='rgba(30,32,36,.35)';wc.lineWidth=.8;for(let y=-14;y<=14;y+=3.4){wc.beginPath();wc.moveTo(15,y);wc.lineTo(22,y);wc.stroke()}wc.restore();
+  // безель
+  wc.save();wc.filter=`blur(${7*D}px)`;wc.fillStyle='rgba(0,0,0,.4)';wc.translate(-L3[0]*6,-L3[1]*6+5);wc.fill(OCT_O);wc.restore();
+  wc.fillStyle=conic(false,.85);wc.fill(OCT_O);
+  wc.fillStyle=satinConic();wc.fill(OCT_S);
+  wc.save();wc.clip(OCT_S);wc.globalAlpha=.3;wc.rotate(PI/4);wc.fillStyle=brushPat;wc.fillRect(-260,-260,520,520);wc.restore();
+  wc.beginPath();wc.arc(0,0,RBEV,0,TAU);wc.fillStyle=conic(true,.8);wc.fill();
+  // винты
+  for(let k=0;k<8;k++){const a=PI/8+k*PI/4,x=Math.cos(a)*RSCREW,y=Math.sin(a)*RSCREW;
+    wc.save();wc.translate(x,y);wc.rotate(a);
+    wc.save();wc.translate(-L3[0]*1.6,-L3[1]*1.6+1.2);wc.fillStyle='rgba(0,0,0,.35)';wc.fill(HEX);wc.restore();
+    for(let f=0;f<6;f++){const fa=f*PI/3+PI/6+a;wc.fillStyle=pol(Math.cos(fa),Math.sin(fa),.6);wc.beginPath();wc.moveTo(0,0);wc.lineTo(8.6*Math.cos(f*PI/3),8.6*Math.sin(f*PI/3));wc.lineTo(8.6*Math.cos((f+1)*PI/3),8.6*Math.sin((f+1)*PI/3));wc.fill()}
+    wc.fillStyle=pol(0,0,.1);wc.fill(HEX2);wc.strokeStyle='rgba(40,42,46,.35)';wc.lineWidth=.6;wc.stroke(HEX);
+    wc.restore()}
+  // флажок с минутной дорожкой
+  const fl=mixc(dialB&&wipe>=1?dialB:dialA,[0,0,0],.5);
+  wc.beginPath();wc.arc(0,0,RFL,0,TAU);wc.fillStyle=rgb(fl);wc.fill();
+  wc.strokeStyle='rgba(235,238,244,.85)';
+  for(let i=0;i<60;i++){const a=i/60*TAU,b=i%5===0;wc.lineWidth=b?1.6:.7;wc.beginPath();wc.moveTo(Math.sin(a)*(b?138.5:141),-Math.cos(a)*(b?138.5:141));wc.lineTo(Math.sin(a)*147,-Math.cos(a)*147);wc.stroke()}
+  // циферблат
+  wc.drawImage(dialImage(dialA),-RD,-RD,RD*2,RD*2);
+  if(dialB&&wipe>0){wc.save();wc.beginPath();wc.arc(0,0,RD*easeOut(wipe)+.5,0,TAU);wc.clip();wc.drawImage(dialImage(dialB,1),-RD,-RD,RD*2,RD*2);wc.restore()}
+  // надписи и окно даты
+  wc.fillStyle='rgba(238,241,246,.92)';wc.textAlign='center';wc.textBaseline='middle';
+  wc.font='500 7.6px Geist';wc.letterSpacing='1.6px';wc.fillText('AUDEMARS PIGUET',.8,-56);wc.font='500 6.4px Geist';wc.letterSpacing='1.4px';wc.fillText('AUTOMATIC',.7,64);wc.letterSpacing='0px';
+  wc.save();wc.translate(-L3[0]*1.5,-L3[1]*1.5+1.2);wc.fillStyle='rgba(0,0,0,.35)';wc.fillRect(87,-11.5,28,23);wc.restore();
+  wc.fillStyle=pol(0,-1,.4);wc.fillRect(87,-11.5,28,23);wc.fillStyle='#f4f3ef';wc.fillRect(89.5,-9,23,18);
+  wc.fillStyle='#16181c';wc.font='600 12px Geist';wc.fillText(String(DATE),101,.5);
+  // накладные метки
+  for(const m of MARKS){wc.save();wc.rotate(m.a);wc.translate(m.ox,0);
+    wc.save();wc.translate(...rot(-L3[0]*2.6,-L3[1]*2.6+2,-m.a));wc.fillStyle='rgba(0,0,0,.4)';wc.fillRect(-m.w/2,-125,m.w,33);wc.restore();
+    const nl=rot(-1,0,m.a),nr=rot(1,0,m.a);
+    wc.fillStyle=pol(nl[0],nl[1],.55);wc.fillRect(-m.w/2,-125,m.w/2,33);wc.fillStyle=pol(nr[0],nr[1],.55);wc.fillRect(0,-125,m.w/2,33);
+    wc.fillStyle='#e3e8cf';wc.fillRect(-1.9,-121,3.8,25);wc.restore()}
+  // стрелки 10:10, секундная бежит
+  const H_=hands(t);
+  wc.save();wc.filter=`blur(${2.5*D}px)`;wc.fillStyle='rgba(0,0,0,.38)';wc.translate(-L3[0]*6,-L3[1]*6+5);
+  for(const h of H_)handPath(h,true);wc.restore();
+  for(const h of H_)handPath(h,false);
+  wc.beginPath();wc.arc(0,0,6,0,TAU);wc.fillStyle=conic(false,.7);wc.fill();wc.beginPath();wc.arc(0,0,2,0,TAU);wc.fillStyle='#2a2c30';wc.fill();
+  // стекло
+  wc.save();wc.beginPath();wc.arc(0,0,RFL,0,TAU);wc.clip();
+  const hx=-L3[0]*-RFL*.5,hy=-L3[1]*-RFL*.5,gr=wc.createRadialGradient(hx,hy,0,hx,hy,RFL*.95);gr.addColorStop(0,'rgba(255,255,255,.10)');gr.addColorStop(1,'rgba(255,255,255,0)');wc.fillStyle=gr;wc.fillRect(-RFL,-RFL,RFL*2,RFL*2);
+  const th=Math.atan2(L3[1],L3[0]);wc.strokeStyle='rgba(255,255,255,.35)';wc.lineWidth=1.6;wc.beginPath();wc.arc(0,0,RFL-4,th-.35,th+.35);wc.stroke();wc.restore();
+  // блик, пробегающий при включении света
+  if(sweep>0&&sweep<1){wc.save();wc.globalCompositeOperation='source-atop';const p=-700+1400*easeOut(sweep);const g=wc.createLinearGradient(p-140,p-140,p+140,p+140);g.addColorStop(0,'rgba(255,255,255,0)');g.addColorStop(.5,'rgba(255,255,255,.55)');g.addColorStop(1,'rgba(255,255,255,0)');wc.fillStyle=g;wc.fillRect(-500,-500,1000,1000);wc.restore()}
+}
+const rot=(x,y,a)=>[x*Math.cos(a)-y*Math.sin(a),x*Math.sin(a)+y*Math.cos(a)];
+const MARKS=[];for(let h=0;h<12;h++){if(h===3)continue;const a=h*PI/6;if(h===0){MARKS.push({a,ox:-6.5,w:9},{a,ox:6.5,w:9})}else MARKS.push({a,ox:0,w:11})}
+let DATE=27,LIVE=false;
+function hands(t){
+  let s=18+Math.floor(t*8)/8;if(LIVE){const d=new Date();s=d.getSeconds()+Math.floor(d.getMilliseconds()/125)/8}
+  const m=10+s/60,h=10+m/60;
+  return[{a:h/12*TAU,len:84,tail:16,w:6.6,lu:[-8,-66,4.6]},{a:m/60*TAU,len:124,tail:18,w:5.4,lu:[-10,-110,3.6]},{a:s/60*TAU,sec:true}];
+}
+function handPath(h,shadow){
+  wc.save();wc.rotate(h.a);
+  if(h.sec){wc.fillStyle=shadow?'#000':'#e9ebee';wc.fillRect(-.8,-126,1.6,154);wc.beginPath();wc.arc(0,22,4.6,0,TAU);wc.fill();if(!shadow){wc.fillStyle='#eef0e4';wc.fillRect(-1.6,-118,3.2,10)}wc.restore();return}
+  const L=new Path2D(`M${-h.w} ${h.tail} L${-h.w} ${-h.len+h.w*1.6} L0 ${-h.len} L0 ${h.tail} Z`),R=new Path2D(`M${h.w} ${h.tail} L${h.w} ${-h.len+h.w*1.6} L0 ${-h.len} L0 ${h.tail} Z`);
+  if(shadow){wc.fill(L);wc.fill(R);wc.restore();return}
+  const nl=rot(-1,0,h.a),nr=rot(1,0,h.a);
+  wc.fillStyle=pol(nl[0],nl[1],.5);wc.fill(L);wc.fillStyle=pol(nr[0],nr[1],.5);wc.fill(R);
+  wc.fillStyle='#e3e8cf';wc.fillRect(-h.lu[2]/2,h.lu[1],h.lu[2],h.lu[0]-h.lu[1]);
+  wc.restore();
+}
+function drawLume(t,L){
+  lc.setTransform(1,0,0,1,0,0);lc.clearRect(0,0,W*D,H*D);if(L<=.01)return;
+  lc.setTransform(D,0,0,D,D*C.x,D*C.y);
+  const shapes=[];
+  for(const m of MARKS){const p=new Path2D();p.addPath(new Path2D('M-1.9 -121 h3.8 v25 h-3.8 Z'),new DOMMatrix().rotate(m.a*180/PI).translate(m.ox,0));shapes.push(p)}
+  for(const h of hands(t)){const p=new Path2D();if(h.sec)p.addPath(new Path2D('M-1.6 -118 h3.2 v10 h-3.2 Z'),new DOMMatrix().rotate(h.a*180/PI));else p.addPath(new Path2D(`M${-h.lu[2]/2} ${h.lu[1]} h${h.lu[2]} v${h.lu[0]-h.lu[1]} h${-h.lu[2]} Z`),new DOMMatrix().rotate(h.a*180/PI));shapes.push(p)}
+  lc.shadowColor=rgb([70,255,150],.95*L);lc.shadowBlur=16*D*L;lc.fillStyle=rgb(LUME,L);shapes.forEach(p=>lc.fill(p));
+  lc.shadowBlur=4*D;lc.fillStyle=rgb([230,255,238],.85*L);shapes.forEach(p=>lc.fill(p));
+}
+
+// сценарий: ночь, щелчок Day, свет пробегает, курсор водит светом, зелёный циферблат, Night
+const T_DAY=.7,T_GREEN=3.95,T_NIGHT=5.5,DUR=7.6;
+let SW=null,TG={};
+const PATH=()=>[[0,TG.day.x,TG.day.y],[.75,TG.day.x,TG.day.y],[1.15,TG.day.x-30,TG.day.y+90],[1.85,1060,250],[2.35,780,175],[2.85,470,330],[3.3,560,580],[3.85,TG.green.x,TG.green.y],[4.05,TG.green.x,TG.green.y],[4.9,1180,330],[5.4,TG.night.x,TG.night.y],[5.6,TG.night.x,TG.night.y],[6.3,TG.day.x,TG.day.y],[99,TG.day.x,TG.day.y]];
+function cr(p0,p1,p2,p3,u){const u2=u*u,u3=u2*u;return .5*((2*p1)+(-p0+p2)*u+(2*p0-5*p1+4*p2-p3)*u2+(-p0+3*p1-3*p2+p3)*u3)}
+function cursorAt(t){const P=PATH();let i=0;while(i<P.length-2&&t>P[i+1][0])i++;const a=P[Math.max(0,i-1)],b=P[i],c=P[i+1],d=P[Math.min(P.length-1,i+2)];const u=ease(clamp((t-b[0])/(c[0]-b[0])));return{x:cr(a[1],b[1],c[1],d[1],u),y:cr(a[2],b[2],c[2],d[2],u)}}
+const DEF=[-.5,-.62];
+let C={x:720,y:420};
+const body=document.body,big=$('big');
+function render(t){
+  const cur=window.__demo?cursorAt(t):(window.__ptr||{x:720,y:150});
+  // свет идёт со стороны курсора, пока курсор над сценой
+  const wgt=ease(span(t,1.2,1.9))*(1-ease(span(t,5.1,5.5)));
+  let dx=(cur.x-720)/520,dy=(cur.y-420)/420;const dl=Math.hypot(dx,dy);if(dl>1){dx/=dl;dy/=dl}
+  const lx=DEF[0]+(dx*.85-DEF[0])*wgt,ly=DEF[1]+(dy*.85-DEF[1])*wgt;L3=norm([lx,ly,.62]);
+  const px=((cur.x-720)/720)*wgt,py=((cur.y-405)/405)*wgt;
+  C={x:720+px*7,y:420+py*4};big.style.transform=`translate(${-px*16}px,${-py*8}px)`;
+  // темнота: сначала луч на часы, потом свет во всей комнате
+  let kW=1,kB=1;
+  if(t>=T_DAY){kW=1-ease(span(t,T_DAY+.04,T_DAY+.34));kB=1-ease(span(t,T_DAY+.66,T_DAY+1.22))}
+  if(t>=T_NIGHT){kB=ease(span(t,T_NIGHT+.04,T_NIGHT+.36));kW=ease(span(t,T_NIGHT+.14,T_NIGHT+.5))}
+  const k=kB,pool=(1-kW)*kB;
+  let L;if(t<T_NIGHT)L=.55*kW;else L=kW*(.55+.45*(1-ease(span(t,T_NIGHT+.5,DUR))));
+  const sweep=span(t,T_DAY+.06,T_DAY+.8);
+  // циферблат
+  const green=t>=T_GREEN&&t<DUR,wipe=span(t,T_GREEN+.05,T_GREEN+.6);
+  const A=DIALS.blue,B=DIALS.green,cur_=green&&wipe>=1?B:A;
+  drawWatch(t,A.c,green?B.c:null,green?wipe:0,sweep,easeOut(1-kW));
+  if(kW>0){wc.setTransform(1,0,0,1,0,0);wc.globalCompositeOperation='source-atop';wc.fillStyle=`rgba(4,5,7,${.93*kW})`;wc.fillRect(0,0,W*D,H*D);wc.globalCompositeOperation='source-over'}
+  drawLume(t,L);
+  // страница
+  const bgDay=green?mixc(A.bg,B.bg,wipe):A.bg;
+  const bg=mixc(bgDay,[5,6,7],k);
+  body.style.background=pool>.01?`radial-gradient(620px 560px at ${C.x.toFixed(1)}px ${(C.y-20).toFixed(1)}px,${rgb(mixc(bg,[96,98,102],pool))},${rgb(bg)} 78%)`:rgb(bg);
+  document.documentElement.style.background=rgb(bg);
+  const lr=clamp(L/.55),lum=mixc([40,70,55],LUME,Math.min(1,lr*.85));
+  const ink=mixc([22,25,30],lum,k),ink2=mixc([22,25,30],mixc([30,55,42],[110,190,150],Math.min(1,lr*.85)),k);
+  body.style.setProperty('--bg',rgb(bg));body.style.setProperty('--ink',rgb(ink));body.style.setProperty('--ink2',k>.5?rgb(ink2):'rgba(22,25,30,.56)');body.style.setProperty('--line',rgb(ink,.22));
+  body.style.setProperty('--big',k>.01?rgb(mixc([22,25,30],mixc([12,22,17],[40,92,66],lr),k),1):'#16191e');
+  body.style.setProperty('--glow',L>.02?`0 0 ${(10*L).toFixed(1)}px ${rgb([80,255,160],.6*L)}`:'none');
+  body.style.setProperty('--bglow',L>.02?`0 0 ${(30*L).toFixed(1)}px ${rgb([80,255,160],.16*L)}`:'none');
+  body.style.setProperty('--segbg',k>.5?'transparent':'var(--ink)');body.style.setProperty('--segink',k>.5?rgb(ink):'var(--bg)');body.style.setProperty('--segring',k>.5?`inset 0 0 0 1px ${rgb(ink)},0 0 ${(10*L).toFixed(1)}px ${rgb([80,255,160],.5*L)}`:'none');
+  body.style.setProperty('--btn',k>.5?'transparent':'var(--ink)');body.style.setProperty('--btnink',k>.5?rgb(ink):'var(--bg)');body.style.setProperty('--btnring',k>.5?`inset 0 0 0 1.25px ${rgb(ink)},0 0 ${(12*L).toFixed(1)}px ${rgb([80,255,160],.45*L)}`:'none');
+  const night=t<T_DAY+.02||t>=T_NIGHT+.02;$('day').setAttribute('aria-pressed',!night);$('night').setAttribute('aria-pressed',night);
+  SW.forEach(b=>b.setAttribute('aria-pressed',b.dataset.k===(green&&wipe>.05?'green':'blue')));$('dialname').textContent=green&&wipe>.05?B.n:A.n;
+  if(window.__demo){const c=$('cur');c.style.display='block';const press=[T_DAY,T_GREEN,T_NIGHT].some(p=>t>p-.08&&t<p+.05);c.style.transform=`translate(${cur.x-2}px,${cur.y-2}px) scale(${press?.88:1})`;c.querySelector('path').setAttribute('fill',k>.5?'#0a0a0a':'#111')}
+}
+// звук: тиканье механизма, щелчки, свет включается и гаснет
+let seed=11;const rnd=()=>(seed=(seed*16807)%2147483647)/2147483647;
+window.__renderAudio=async()=>{
+  const SR=48000,ac=new OfflineAudioContext(2,Math.ceil(SR*DUR),SR);
+  const nb=ac.createBuffer(1,SR*2,SR),nd=nb.getChannelData(0);for(let i=0;i<nd.length;i++)nd[i]=rnd()*2-1;
+  const out=ac.createGain();out.gain.value=1;out.connect(ac.destination);
+  const pan=v=>{const p=ac.createStereoPanner();p.pan.value=Math.max(-1,Math.min(1,v));p.connect(out);return p};
+  const noise=(t,len,dst)=>{const s=ac.createBufferSource();s.buffer=nb;s.connect(dst);s.start(t,rnd()*1.5,len+.05)};
+  const env=(t,att,dec,peak)=>{const g=ac.createGain();g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(peak,t+att);g.gain.setTargetAtTime(0,t+att,dec/3);return g};
+  const tick=(t,p,gain,f,q=1.8,dec=.02)=>{const g=env(t,.0012,dec,gain);g.connect(pan(p));const bp=ac.createBiquadFilter();bp.type='bandpass';bp.frequency.value=f;bp.Q.value=q;bp.connect(g);noise(t,.05,bp)};
+  const swish=(t0,t1,f0,f1,gain,p=0,q=.7)=>{const bp=ac.createBiquadFilter();bp.type='bandpass';bp.Q.value=q;bp.frequency.setValueAtTime(f0,t0);bp.frequency.exponentialRampToValueAtTime(f1,t1);
+    const g=ac.createGain(),n=64,c=new Float32Array(n);for(let i=0;i<n;i++){const x=i/(n-1);c[i]=gain*Math.pow(Math.sin(PI*Math.pow(x,.6)),2)}g.gain.setValueCurveAtTime(c,t0,t1-t0);bp.connect(g);g.connect(pan(p));noise(t0,t1-t0,bp)};
+  const click=(t,p)=>{tick(t,p,.42,5400,1.4,.012);const o=ac.createOscillator();o.frequency.value=2300;const g=env(t,.001,.01,.05);o.connect(g);g.connect(pan(p));o.start(t);o.stop(t+.05)};
+  const thud=(t,gain,p=0)=>{const o=ac.createOscillator();o.frequency.setValueAtTime(84,t);o.frequency.exponentialRampToValueAtTime(42,t+.3);const g=env(t,.01,.32,gain);o.connect(g);g.connect(pan(p));o.start(t);o.stop(t+.6)};
+  const ting=(t,gain,p=0)=>{[[3520,1],[5280,.4],[7040,.15]].forEach(([f,k])=>{const o=ac.createOscillator();o.frequency.value=f;const g=env(t,.003,.5,gain*k);o.connect(g);g.connect(pan(p));o.start(t);o.stop(t+.8)})};
+  const px=x=>(x-720)/720*.85;
+  // механизм 4 Гц: восемь полуколебаний в секунду, тик и так чуть разные
+  for(let i=0,t=.01;t<DUR-.02;i++,t=.01+i/8)tick(t,.02,i%2?.034:.05,i%2?3900:4600,2.4,.016);
+  click(T_DAY,px(TG.day.x));thud(T_DAY+.05,.2);swish(T_DAY+.04,T_DAY+.42,260,2200,.09,.05);ting(T_DAY+.3,.016,-.1);
+  swish(T_DAY+.62,T_DAY+1.25,180,1300,.06,0,.5);
+  click(T_GREEN,px(TG.green.x));swish(T_GREEN+.04,T_GREEN+.62,900,3000,.05,-.05,1.1);
+  click(T_NIGHT,px(TG.night.x));swish(T_NIGHT+.03,T_NIGHT+.45,1800,240,.07,0,.6);thud(T_NIGHT+.16,.11);
+  const buf=await ac.startRendering();
+  const n=buf.length,ab=new ArrayBuffer(44+n*4),dv=new DataView(ab),ws=(o,s)=>{for(let i=0;i<s.length;i++)dv.setUint8(o+i,s.charCodeAt(i))};
+  ws(0,'RIFF');dv.setUint32(4,36+n*4,true);ws(8,'WAVEfmt ');dv.setUint32(16,16,true);dv.setUint16(20,1,true);dv.setUint16(22,2,true);
+  dv.setUint32(24,SR,true);dv.setUint32(28,SR*4,true);dv.setUint16(32,4,true);dv.setUint16(34,16,true);ws(36,'data');dv.setUint32(40,n*4,true);
+  const L0=buf.getChannelData(0),R0=buf.getChannelData(1);
+  for(let i=0;i<n;i++){dv.setInt16(44+i*4,Math.max(-1,Math.min(1,L0[i]))*32767,true);dv.setInt16(46+i*4,Math.max(-1,Math.min(1,R0[i]))*32767,true)}
+  let bin='';const u=new Uint8Array(ab);for(let i=0;i<u.length;i+=32768)bin+=String.fromCharCode.apply(null,u.subarray(i,i+32768));
+  return btoa(bin);
+};
+window.__dur=DUR;window.__render=render;
+document.fonts.load('300px "Noto Serif Display"').then(()=>document.fonts.load('12px Geist')).then(()=>document.fonts.ready).then(()=>{
+  SW=[...document.querySelectorAll('.sw button')];
+  const at=el=>{const r=el.getBoundingClientRect(),b=body.getBoundingClientRect();return{x:r.left-b.left+r.width/2,y:r.top-b.top+r.height/2+2}};
+  TG={day:at($('day')),night:at($('night')),green:at(SW[2])};
+  window.__demo=true;window.__ready=true;
+  if(/rec/.test(location.search)){render(0);return}
+  const fit=()=>{const k=Math.min(innerWidth/W,innerHeight/H);body.style.transform=`scale(${k})`;body.style.transformOrigin='0 0'};fit();addEventListener('resize',fit);
+  if(matchMedia('(prefers-reduced-motion: reduce)').matches){render(3.3);return}
+  const t0=performance.now();const loop=n=>{render(((n-t0)/1000)%DUR);requestAnimationFrame(loop)};requestAnimationFrame(loop);
+});
+</script>
+</body>
+</html>

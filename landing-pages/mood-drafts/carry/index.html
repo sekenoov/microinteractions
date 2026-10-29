@@ -1,0 +1,280 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Carry, an app for what you carry</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Newsreader:opsz,wght@6..72,400;6..72,500&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html{background:#1b1916}
+body{width:1440px;height:810px;overflow:hidden;position:relative;font-family:Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased;color:#1d1b18;
+  background:radial-gradient(70% 90% at 50% 0%,#36312b 0%,#221f1b 55%,#171512 100%)}
+body::after{content:'';position:absolute;inset:0;pointer-events:none;opacity:.35;mix-blend-mode:overlay;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E")}
+.phone{position:absolute;top:37px;width:340px;height:736px;border-radius:62px;padding:6px;
+  background:linear-gradient(140deg,#cfcac2 0%,#7d7871 22%,#dcd7cf 48%,#6f6a63 76%,#bdb8b0 100%);
+  box-shadow:0 50px 90px rgba(0,0,0,.55),0 10px 24px rgba(0,0,0,.35),inset 0 0 0 1px rgba(255,255,255,.35)}
+.bezel{height:100%;border-radius:56px;background:#050505;padding:5px}
+.screen{height:100%;border-radius:51px;overflow:hidden;position:relative;background:#f4f0e8}
+.island{position:absolute;top:11px;left:50%;width:98px;height:29px;margin-left:-49px;border-radius:15px;background:#000;z-index:9}
+.sb{position:absolute;top:0;left:0;right:0;height:52px;display:flex;align-items:center;justify-content:space-between;padding:4px 30px 0 34px;font:600 15px Inter;z-index:8}
+.sb svg{display:block}
+.sb .ic{display:flex;gap:6px;align-items:center}
+.light .sb{color:#fff}
+.it{position:absolute;left:0;top:0;transform-origin:50% 50%;will-change:transform}
+.it svg{display:block;width:100%;height:100%;overflow:visible}
+/* поднос */
+.tray{position:absolute;border-radius:24px;background:radial-gradient(120% 90% at 28% 12%,#56392a 0%,#3a2519 55%,#2a1a11 100%);
+  box-shadow:inset 0 1.5px 0 rgba(255,255,255,.09),inset 0 -14px 26px rgba(0,0,0,.42),inset 0 10px 18px rgba(0,0,0,.25),0 1px 0 rgba(255,255,255,.7),0 8px 18px rgba(60,40,20,.14)}
+.tray::before{content:'';position:absolute;inset:9px;border-radius:16px;border:1.3px dashed rgba(236,204,164,.42)}
+.tray::after{content:'';position:absolute;inset:0;border-radius:inherit;opacity:.5;mix-blend-mode:overlay;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.4' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E")}
+/* главный экран */
+.hd{position:absolute;left:24px;right:24px;top:58px}
+.hd small{display:block;font-size:13px;color:#8a8379}
+.hd h2{font-family:Newsreader,serif;font-weight:400;font-size:36px;letter-spacing:-.02em;line-height:1.1;margin-top:2px}
+.hd p{font-size:13.5px;color:#6f6960;margin-top:4px}
+.av{position:absolute;right:0;top:2px;width:34px;height:34px;border-radius:50%;background:#2c2620;color:#f4f0e8;font:500 14px Inter;display:grid;place-items:center}
+.slot{position:absolute;border:1.6px dashed rgba(244,226,198,.75);border-radius:12px;display:grid;place-items:center;font:500 12px Inter;color:rgba(244,226,198,.85)}
+.card{position:absolute;left:12px;right:12px;bottom:12px;height:178px;border-radius:30px;background:#fff;box-shadow:0 1px 0 rgba(0,0,0,.04),0 12px 30px rgba(60,40,20,.08);padding:22px 22px}
+.st{position:absolute;left:22px;right:22px;top:20px}
+.st b{display:flex;align-items:center;gap:8px;font:600 19px Inter;letter-spacing:-.01em}
+.st b i{width:9px;height:9px;border-radius:50%;background:#c2410c}
+.st span{display:block;font-size:13.5px;color:#7a746b;margin-top:6px;line-height:1.4}
+.btn{position:absolute;left:22px;right:22px;bottom:22px;height:50px;border-radius:25px;background:#1d1b18;color:#f4f0e8;font:500 15.5px Inter;display:grid;place-items:center}
+.btn.ol{background:#f1ece3;color:#1d1b18}
+.touch{position:absolute;width:46px;height:46px;border-radius:50%;background:rgba(255,255,255,.4);border:1.5px solid rgba(255,255,255,.75);box-shadow:0 2px 10px rgba(0,0,0,.25);opacity:0;z-index:7}
+/* онбординг */
+.ob-top{position:absolute;left:0;right:0;top:0;height:430px;border-radius:0 0 34px 34px;overflow:hidden}
+.ob h2{position:absolute;left:26px;right:26px;top:456px;font-family:Newsreader,serif;font-weight:400;font-size:38px;line-height:1.04;letter-spacing:-.025em}
+.ob p{position:absolute;left:26px;right:30px;top:546px;font-size:14px;line-height:1.45;color:#6f6960}
+.dots{position:absolute;left:26px;top:438px;display:none}
+/* карточка вещи */
+.back{position:absolute;left:20px;top:60px;font:500 15px Inter;color:#6f6960;display:flex;align-items:center;gap:4px}
+.dt h2{position:absolute;left:24px;top:92px;font-family:Newsreader,serif;font-weight:400;font-size:36px;letter-spacing:-.02em}
+.hero{position:absolute;left:16px;right:16px;top:150px;height:232px;border-radius:24px;background:#ebe5da;overflow:hidden}
+.ring{position:absolute;left:50%;top:50%;width:120px;height:120px;margin:-60px 0 0 -60px;border-radius:50%;border:1.5px solid rgba(194,65,12,.55);opacity:0}
+.rows{position:absolute;left:24px;right:24px;top:398px}
+.row{display:flex;justify-content:space-between;padding:13px 0;border-bottom:1px solid #e3ddd2;font-size:14px}
+.row span{color:#8a8379}
+.row b{font-weight:500}
+.tag{position:absolute;left:24px;top:556px;font-size:12.5px;color:#8a8379}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+<defs>
+  <linearGradient id="g-strap" x1="0" x2="1"><stop offset="0" stop-color="#4a2f1f"/><stop offset=".5" stop-color="#7a5236"/><stop offset="1" stop-color="#432a1b"/></linearGradient>
+  <radialGradient id="g-steel" cx=".35" cy=".3" r=".8"><stop offset="0" stop-color="#fbfbf8"/><stop offset=".55" stop-color="#b8b8b3"/><stop offset="1" stop-color="#77776f"/></radialGradient>
+  <radialGradient id="g-dial" cx=".4" cy=".35" r=".8"><stop offset="0" stop-color="#ece6d6"/><stop offset="1" stop-color="#cfc6b2"/></radialGradient>
+  <linearGradient id="g-tan" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#b47c45"/><stop offset="1" stop-color="#7f5128"/></linearGradient>
+  <linearGradient id="g-brass" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f1d58e"/><stop offset=".5" stop-color="#c39a44"/><stop offset="1" stop-color="#8d6a26"/></linearGradient>
+  <linearGradient id="g-key" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f4f4f1"/><stop offset=".5" stop-color="#a9aaa6"/><stop offset="1" stop-color="#6e6f6b"/></linearGradient>
+  <linearGradient id="g-buds" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#d9d7d2"/></linearGradient>
+  <linearGradient id="g-lens" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#8a6a48"/><stop offset=".45" stop-color="#3a2a1d"/><stop offset="1" stop-color="#5c4330"/></linearGradient>
+  <linearGradient id="g-navy" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2c3f66"/><stop offset="1" stop-color="#18243f"/></linearGradient>
+  <linearGradient id="g-pen" x1="0" x2="1"><stop offset="0" stop-color="#3a3a3a"/><stop offset=".4" stop-color="#0d0d0d"/><stop offset="1" stop-color="#1e1e1e"/></linearGradient>
+  <linearGradient id="g-glass" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f3dfb6"/><stop offset=".5" stop-color="#d9a55b"/><stop offset="1" stop-color="#b7843d"/></linearGradient>
+  <linearGradient id="g-cap" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#3b3b3b"/><stop offset=".5" stop-color="#111"/><stop offset="1" stop-color="#222"/></linearGradient>
+  <symbol id="i-watch" viewBox="0 0 56 134">
+    <rect x="15" y="0" width="26" height="134" rx="7" fill="url(#g-strap)"/>
+    <rect x="15" y="0" width="26" height="134" rx="7" fill="none" stroke="rgba(0,0,0,.25)"/>
+    <g fill="#2a1a10"><circle cx="28" cy="108" r="1.6"/><circle cx="28" cy="116" r="1.6"/><circle cx="28" cy="124" r="1.6"/></g>
+    <rect x="13.5" y="96" width="29" height="5" rx="2" fill="#3a2518"/>
+    <rect x="49" y="62.5" width="5" height="9" rx="1.5" fill="url(#g-steel)"/>
+    <circle cx="28" cy="67" r="23" fill="url(#g-steel)"/>
+    <circle cx="28" cy="67" r="18.5" fill="url(#g-dial)"/>
+    <g stroke="#2a2a28" stroke-width="1.1" stroke-linecap="round">
+      <path d="M28 50.5v3M28 80.5v3M11.5 67h3M41.5 67h3"/>
+    </g>
+    <path d="M28 67 L21 58" stroke="#1f2a44" stroke-width="2" stroke-linecap="round"/>
+    <path d="M28 67 L37.5 56" stroke="#1f2a44" stroke-width="1.4" stroke-linecap="round"/>
+    <circle cx="28" cy="67" r="1.4" fill="#1f2a44"/>
+  </symbol>
+  <symbol id="i-cards" viewBox="0 0 98 64">
+    <rect x="12" y="2" width="70" height="20" rx="3" fill="#ebe6da"/>
+    <rect x="12" y="2" width="70" height="4" rx="2" fill="#2f5c8f"/>
+    <rect x="0" y="8" width="98" height="56" rx="8" fill="url(#g-tan)"/>
+    <rect x="5" y="13" width="88" height="46" rx="5" fill="none" stroke="rgba(246,222,186,.6)" stroke-width="1" stroke-dasharray="3 2.4"/>
+    <path d="M9 21 Q49 30 89 21" fill="none" stroke="rgba(60,32,12,.45)" stroke-width="1.4"/>
+  </symbol>
+  <symbol id="i-keys" viewBox="0 0 116 58">
+    <circle cx="18" cy="29" r="14" fill="none" stroke="url(#g-key)" stroke-width="3.2"/>
+    <g transform="rotate(-6 36 22)">
+      <path d="M36 12 a10 10 0 1 0 0.01 0 Z M36 18.5 a3 3 0 1 1 -0.01 0 Z" fill="url(#g-brass)" fill-rule="evenodd"/>
+      <path d="M45 18.5 H108 L112 21.5 L108 25 H100 L98 27.5 L95 25 L91 28 L88 25 L84 27.5 L80 25 H45 Z" fill="url(#g-brass)"/>
+    </g>
+    <g transform="rotate(8 34 36)">
+      <path d="M34 28 a8.5 8.5 0 1 0 0.01 0 Z M34 33.5 a2.6 2.6 0 1 1 -0.01 0 Z" fill="url(#g-key)" fill-rule="evenodd"/>
+      <path d="M42 33.5 H96 L99 36 L96 38.8 H92 L90 41 L87 38.8 L84 41 L81 38.8 H42 Z" fill="url(#g-key)"/>
+    </g>
+  </symbol>
+  <symbol id="i-buds" viewBox="0 0 52 44">
+    <rect x="0" y="0" width="52" height="44" rx="17" fill="url(#g-buds)"/>
+    <path d="M1 15 H51" stroke="rgba(0,0,0,.12)" stroke-width="1"/>
+    <circle cx="26" cy="29" r="1.6" fill="#7fbf7a"/>
+  </symbol>
+  <symbol id="i-shades" viewBox="0 0 116 44">
+    <path d="M6 5 H110" stroke="#6b4e34" stroke-width="2.4" stroke-linecap="round"/>
+    <path d="M10 9 H106" stroke="#7d5c3e" stroke-width="2" stroke-linecap="round"/>
+    <path d="M4 12 C4 8 8 7 14 7 H48 C53 7 55 9 54 14 L51 32 C49 40 44 42 34 42 H22 C10 42 5 38 4 30 Z" fill="url(#g-lens)"/>
+    <path d="M112 12 C112 8 108 7 102 7 H68 C63 7 61 9 62 14 L65 32 C67 40 72 42 82 42 H94 C106 42 111 38 112 30 Z" fill="url(#g-lens)"/>
+    <path d="M54 12 Q58 9 62 12" stroke="#6b4e34" stroke-width="2.6" fill="none"/>
+    <path d="M12 13 C20 11 34 11 44 12" stroke="rgba(255,255,255,.22)" stroke-width="2" fill="none" stroke-linecap="round"/>
+    <path d="M72 13 C80 11 94 11 104 12" stroke="rgba(255,255,255,.22)" stroke-width="2" fill="none" stroke-linecap="round"/>
+  </symbol>
+  <symbol id="i-pass" viewBox="0 0 72 100">
+    <rect x="0" y="0" width="72" height="100" rx="5" fill="url(#g-navy)"/>
+    <rect x="0" y="0" width="5" height="100" rx="2" fill="rgba(0,0,0,.18)"/>
+    <circle cx="38" cy="50" r="13" fill="none" stroke="#c9a65a" stroke-width="1.3"/>
+    <path d="M38 41 L41 49 L49 50 L41 52 L38 60 L35 52 L27 50 L35 49 Z" fill="#c9a65a"/>
+    <rect x="22" y="18" width="32" height="2.2" rx="1" fill="#c9a65a"/>
+    <rect x="28" y="23" width="20" height="1.6" rx=".8" fill="#c9a65a" opacity=".7"/>
+    <rect x="31" y="80" width="14" height="9" rx="1.5" fill="none" stroke="#c9a65a" stroke-width="1.1"/>
+  </symbol>
+  <symbol id="i-pen" viewBox="0 0 14 134">
+    <rect x="2" y="40" width="10" height="94" rx="5" fill="url(#g-pen)"/>
+    <rect x="1.5" y="0" width="11" height="48" rx="5.5" fill="url(#g-pen)"/>
+    <rect x="1.5" y="45" width="11" height="3.5" fill="#c9a65a"/>
+    <rect x="6" y="4" width="2.2" height="34" rx="1.1" fill="#d8b56a"/>
+    <rect x="4" y="2" width="1.2" height="130" rx=".6" fill="rgba(255,255,255,.18)"/>
+  </symbol>
+  <symbol id="i-scent" viewBox="0 0 56 56">
+    <rect x="0" y="0" width="56" height="56" rx="7" fill="url(#g-glass)" opacity=".92"/>
+    <rect x="4" y="4" width="48" height="48" rx="5" fill="none" stroke="rgba(255,255,255,.55)" stroke-width="1.4"/>
+    <rect x="15" y="15" width="26" height="26" rx="4" fill="url(#g-cap)"/>
+    <rect x="17" y="17" width="22" height="3" rx="1.5" fill="rgba(255,255,255,.18)"/>
+  </symbol>
+</defs>
+</svg>
+
+<!-- онбординг -->
+<div class="phone" style="left:140px" aria-label="Onboarding screen">
+  <div class="bezel"><div class="screen ob light">
+    <div class="island"></div>
+    <div class="sb"><span>9:41</span><span class="ic"><svg width="18" height="11" viewBox="0 0 18 11"><g fill="currentColor"><rect x="0" y="7" width="3" height="4" rx=".8"/><rect x="5" y="5" width="3" height="6" rx=".8"/><rect x="10" y="2.5" width="3" height="8.5" rx=".8"/><rect x="15" y="0" width="3" height="11" rx=".8"/></g></svg><svg width="16" height="11" viewBox="0 0 16 11"><path d="M8 2.2c2.4 0 4.5.9 6.1 2.4l1.1-1.1C13.3 1.6 10.8.6 8 .6S2.7 1.6.8 3.5l1.1 1.1C3.5 3.1 5.6 2.2 8 2.2zm0 3.1c1.5 0 2.8.5 3.8 1.5l1.1-1.1C11.6 4.4 9.9 3.7 8 3.7s-3.6.7-4.9 2l1.1 1.1c1-1 2.3-1.5 3.8-1.5zm0 3.1c.7 0 1.2.3 1.6.7L8 10.8 6.4 9.1c.4-.4.9-.7 1.6-.7z" fill="currentColor"/></svg><svg width="26" height="12" viewBox="0 0 26 12"><rect x=".5" y=".5" width="22" height="11" rx="3.2" fill="none" stroke="currentColor" opacity=".4"/><rect x="2" y="2" width="16" height="8" rx="2" fill="currentColor"/><rect x="23.5" y="4" width="1.6" height="4" rx=".8" fill="currentColor" opacity=".4"/></svg></span></div>
+    <div class="ob-top tray" style="border-radius:0 0 34px 34px"></div>
+    <div id="ob-items"></div>
+    <h2>Leave nothing<br>behind.</h2>
+    <p>Carry learns what you take out of the door each morning and taps you on the wrist before it closes behind you.</p>
+    <div class="btn">Get started</div>
+  </div></div>
+</div>
+
+<!-- главный -->
+<div class="phone" style="left:550px" aria-label="Today screen">
+  <div class="bezel"><div class="screen" id="main">
+    <div class="island"></div>
+    <div class="sb"><span>9:41</span><span class="ic" id="sbic"></span></div>
+    <div class="hd"><small>Thursday, 08:04</small><h2>On you</h2><p>Office day, leaving at 08:10</p><div class="av">S</div></div>
+    <div class="tray" id="tray" style="left:16px;top:168px;width:286px;height:328px"></div>
+    <div class="slot" id="slot">Keys</div>
+    <div id="items"></div>
+    <div class="card">
+      <div class="st" id="s0"><b>Looking for your things</b><span>Eight things usually leave with you on an office day.</span></div>
+      <div class="st" id="s1"><b><i></i>7 of 8 with you</b><span>Keys, last seen in the hallway at 07:52.</span></div>
+      <div class="st" id="s2"><b>All 8 with you</b><span>Have a good day, Sam.</span></div>
+      <div class="btn" id="b1">Ring keys</div>
+      <div class="btn ol" id="b2">Done</div>
+    </div>
+    <div class="touch" id="touch"></div>
+  </div></div>
+</div>
+
+<!-- вещь -->
+<div class="phone" style="left:960px" aria-label="Item screen">
+  <div class="bezel"><div class="screen dt">
+    <div class="island"></div>
+    <div class="sb"><span>9:41</span><span class="ic" id="sbic2"></span></div>
+    <div class="back"><svg width="10" height="16" viewBox="0 0 10 16"><path d="M8 2 L2 8 L8 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>On you</div>
+    <h2>Keys</h2>
+    <div class="hero" id="hero"><div class="ring"></div><div class="ring"></div><div class="ring"></div></div>
+    <div class="rows">
+      <div class="row"><span>Last seen</span><b id="seen">Hallway, 07:52</b></div>
+      <div class="row"><span>Usually with you</span><b>Weekdays</b></div>
+      <div class="row"><span>Tag battery</span><b>82%</b></div>
+    </div>
+    <div class="btn" id="rb">Ring</div>
+  </div></div>
+</div>
+
+<script>
+const clamp=x=>x<0?0:x>1?1:x,span=(t,a,b)=>clamp((t-a)/(b-a));
+const ease=x=>x<.5?2*x*x:1-Math.pow(-2*x+2,2)/2,easeOut=x=>1-Math.pow(1-x,3),easeIn=x=>x*x;
+const rng=a=>()=>{a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296};
+const spring=s=>s<=0?0:1-Math.exp(-8.5*s)*Math.cos(12*s);
+document.getElementById('sbic').innerHTML=document.getElementById('sbic2').innerHTML=document.querySelector('.ob .ic').innerHTML;
+
+const SIZE={pass:[72,100],watch:[56,134],pen:[14,134],scent:[56,56],buds:[52,44],cards:[98,64],shades:[116,44],keys:[116,58]};
+const TRAY={x:16,y:168};
+const TARGET={pass:[20,20],watch:[108,20],pen:[180,20],scent:[210,20],buds:[212,92],cards:[20,170],shades:[134,180],keys:[20,250]};
+const ORDER=['cards','watch','shades','pass','scent','pen','buds'];
+function make(id,host,w,h){const d=document.createElement('div');d.className='it';d.style.width=w+'px';d.style.height=h+'px';d.innerHTML=`<svg viewBox="0 0 ${w} ${h}"><use href="#i-${id}"/></svg>`;host.appendChild(d);return d}
+const host=document.getElementById('items'),els={};
+const r=rng(12),MESS={};
+for(const id of [...ORDER,'keys']){const [w,h]=SIZE[id];els[id]=make(id,host,w,h);
+  MESS[id]={x:143+(r()-.5)*130-w/2,y:150+(r()-.5)*150-h/2,rot:(r()-.5)*90+(r()<.3?90:0)}}
+MESS.keys={x:TARGET.keys[0]-6,y:TARGET.keys[1]-4,rot:-8};
+const slot=document.getElementById('slot');slot.style.left=TRAY.x+TARGET.keys[0]-6+'px';slot.style.top=TRAY.y+TARGET.keys[1]-6+'px';slot.style.width=SIZE.keys[0]+12+'px';slot.style.height=SIZE.keys[1]+12+'px';
+
+// онбординг: разложено заранее
+{const ob=document.getElementById('ob-items');ob.style.cssText='position:absolute;left:0;top:0';
+  const k=1.32,place={watch:[34,96,0],pen:[124,96,0],cards:[160,96,0],keys:[160,200,0],pass:[166,300,90],buds:[186,312,0]};
+  for(const [id,[x,y,rot]] of Object.entries(place)){const [w,h]=SIZE[id];const d=make(id,ob,w,h);d.style.transform=`translate(${x}px,${y}px) rotate(${rot}deg) scale(${k})`;d.style.transformOrigin='0 0';d.style.filter='drop-shadow(0 3px 3px rgba(0,0,0,.45))'}
+}
+// большие ключи на карточке
+{const h=document.getElementById('hero');const d=make('keys',h,116,58);d.style.transform='translate(66px,86px) rotate(-6deg) scale(1.62)';d.style.filter='drop-shadow(0 6px 8px rgba(60,40,20,.25))'}
+
+const $=id=>document.getElementById(id);
+const DROP0=.15,KNOLL0=1.25,T_SLOT=2.05,T_TAP=2.95,T_FOUND=3.62,T_ALL=4.05,T_OUT=5.35,DUR=6.05;
+function place(el,x,y,rot,lift,op=1){el.style.transform=`translate(${TRAY.x+x}px,${TRAY.y+y}px) rotate(${rot}deg) scale(${1+lift*.16})`;
+  el.style.filter=`drop-shadow(${(2+lift*10).toFixed(1)}px ${(3+lift*16).toFixed(1)}px ${(2.5+lift*12).toFixed(1)}px rgba(0,0,0,${(.5-lift*.2).toFixed(2)}))`;el.style.opacity=op}
+function setState(el,on,dy=6){el.style.opacity=on;el.style.transform=`translateY(${(1-on)*dy}px)`}
+
+function render(t){
+  const out=span(t,T_OUT,T_OUT+.4);
+  ORDER.forEach((id,i)=>{
+    const m=MESS[id],[tx,ty]=TARGET[id],td=DROP0+i*.075,tk=KNOLL0+i*.06;
+    if(t<td){els[id].style.opacity=0;return}
+    const f=span(t,td,td+.34),fall=easeIn(f),bounce=f>=1?Math.max(0,Math.sin(span(t,td+.34,td+.52)*Math.PI))*.12:0;
+    let x=m.x,y=m.y-(1-fall)*420,rot=m.rot+(1-fall)*20,lift=(1-fall)*1+bounce;
+    const s=spring(t-tk);
+    if(t>tk){x=m.x+(tx-m.x)*s;y=m.y+(ty-m.y)*s;rot=m.rot*(1-s);lift=Math.max(0,Math.sin(clamp((t-tk)/.32)*Math.PI))*.35}
+    place(els[id],x,y,rot,lift,1-out);
+  });
+  // слот для ключей
+  const sl=span(t,T_SLOT,T_SLOT+.25)*(1-span(t,T_FOUND+.2,T_FOUND+.4));
+  slot.style.opacity=sl*(1-out);slot.style.transform=`scale(${.94+.06*easeOut(span(t,T_SLOT,T_SLOT+.25))})`;
+  // ключи находятся
+  const k=els.keys;
+  if(t<T_FOUND)k.style.opacity=0;else{const f=span(t,T_FOUND,T_FOUND+.36),fall=easeIn(f),b=f>=1?Math.max(0,Math.sin(span(t,T_FOUND+.36,T_FOUND+.56)*Math.PI))*.14:0;
+    place(k,MESS.keys.x+(TARGET.keys[0]-MESS.keys.x)*spring(t-T_FOUND-.36),MESS.keys.y-(1-fall)*420+(TARGET.keys[1]-MESS.keys.y)*spring(t-T_FOUND-.36),MESS.keys.rot*(1-spring(t-T_FOUND-.36))+(1-fall)*24,(1-fall)+b,1-out)}
+  // карточка статуса
+  const a1=span(t,T_SLOT+.1,T_SLOT+.35),a2=span(t,T_ALL,T_ALL+.25),back=span(t,T_OUT+.15,T_OUT+.45);
+  setState($('s0'),Math.max(1-a1,back)*(1-a2*(1-back)));
+  setState($('s1'),a1*(1-a2));
+  setState($('s2'),a2*(1-back));
+  $('b1').style.opacity=a1*(1-a2);$('b1').style.transform=`scale(${t>T_TAP&&t<T_TAP+.14?.97:1})`;
+  $('b2').style.opacity=a2*(1-back);
+  // касание
+  const tc=$('touch'),tp=span(t,T_TAP-.12,T_TAP+.3);tc.style.left='133px';tc.style.top='625px';tc.style.opacity=tp>0&&tp<1?Math.sin(tp*Math.PI):0;tc.style.transform=`scale(${.8+.25*tp})`;
+  // вещь звонит на третьем экране
+  const ringOn=t>T_TAP+.08&&t<T_FOUND+.25;
+  document.querySelectorAll('.ring').forEach((el,i)=>{const p=((t-T_TAP-.08)/.6+i/3)%1;el.style.opacity=ringOn?(1-p)*.9:0;el.style.transform=`scale(${.7+p*1.5})`});
+  const shake=ringOn?Math.sin(t*70)*2.2:0;$('hero').querySelector('.it').style.transform=`translate(66px,86px) rotate(${-6+shake}deg) scale(1.62)`;
+  $('rb').textContent=t>T_TAP+.08&&t<T_FOUND?'Ringing…':t>=T_FOUND&&t<T_OUT+.3?'Found':'Ring';
+  $('rb').style.background=t>=T_FOUND&&t<T_OUT+.3?'#e8e2d6':'#1d1b18';$('rb').style.color=t>=T_FOUND&&t<T_OUT+.3?'#1d1b18':'#f4f0e8';
+  $('seen').textContent=t>=T_FOUND&&t<T_OUT+.3?'Coat pocket, now':'Hallway, 07:52';
+}
+window.__dur=DUR;window.__render=render;
+document.fonts.ready.then(()=>{
+  window.__ready=true;
+  if(/rec/.test(location.search)){render(0);return}
+  const fit=()=>{const k=Math.min(innerWidth/1440,innerHeight/810);document.body.style.transform=`scale(${k})`;document.body.style.transformOrigin='0 0'};fit();addEventListener('resize',fit);
+  if(matchMedia('(prefers-reduced-motion: reduce)').matches){render(4.6);return}
+  const t0=performance.now();const loop=n=>{render(((n-t0)/1000)%DUR);requestAnimationFrame(loop)};requestAnimationFrame(loop);
+});
+</script>
+</body>
+</html>

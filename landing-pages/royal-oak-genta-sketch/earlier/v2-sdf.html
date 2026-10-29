@@ -1,0 +1,347 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Royal Oak Selfwinding, a concept</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Display:wdth,wght@62.5..100,100..500&family=Geist:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html{background:#eeece8}
+body{width:1440px;height:810px;overflow:hidden;position:relative;background:#eeece8;color:#17191c;font-family:Geist,system-ui,sans-serif;-webkit-font-smoothing:antialiased;font-feature-settings:'tnum' 1}
+a,button{color:inherit;font:inherit}
+button{background:none;border:0;cursor:pointer}
+a:focus-visible,button:focus-visible{outline:1.5px solid #17191c;outline-offset:3px}
+.skip{position:absolute;left:24px;top:-80px;z-index:20;background:#17191c;color:#eeece8;padding:10px 14px;font-size:14px}
+.skip:focus{top:20px}
+#big{position:absolute;inset:0;z-index:1;font-family:'Noto Serif Display',serif;font-weight:200;font-size:276px;line-height:1;letter-spacing:-.045em;color:#d6d2ca;pointer-events:none;will-change:transform}
+#big span{position:absolute;white-space:nowrap}
+#big .l1{left:30px;top:52px}
+#big .l2{right:40px;top:396px}
+canvas{position:absolute;left:0;top:0;width:1440px;height:810px;z-index:2;pointer-events:none}
+header{position:absolute;left:48px;right:48px;top:0;height:80px;display:flex;align-items:center;z-index:5;font-size:14px}
+.mark{font-weight:500;font-size:15px;letter-spacing:-.01em;text-decoration:none}
+nav{margin-left:auto;display:flex;gap:30px}
+nav a{text-decoration:none;color:#6d6e70;padding:4px 0;position:relative}
+nav a[aria-current]{color:#17191c}
+nav a[aria-current]::after{content:'';position:absolute;left:0;right:0;bottom:-2px;height:1px;background:#17191c}
+.spec{position:absolute;left:48px;bottom:40px;width:300px;z-index:5;font-size:12.5px}
+.spec h2{font-weight:500;font-size:15px;letter-spacing:-.01em}
+.spec p{color:#6d6e70;margin:3px 0 14px}
+.spec dl{display:grid;grid-template-columns:118px 1fr;border-top:1px solid #d9d6cf}
+.spec dt,.spec dd{padding:6px 0;border-bottom:1px solid #d9d6cf}
+.spec dt{color:#6d6e70}
+.buy{position:absolute;right:48px;bottom:40px;width:300px;z-index:5;font-size:12.5px}
+.buy .lab{display:flex;justify-content:space-between;color:#6d6e70;padding-bottom:8px;border-bottom:1px solid #d9d6cf}
+.buy .lab b{font-weight:400;color:#17191c}
+.sw{display:flex;gap:8px;margin:12px 0 16px}
+.sw button{width:30px;height:30px;border-radius:2px;position:relative;
+  background-image:repeating-linear-gradient(0deg,rgba(0,0,0,.3) 0 1px,transparent 1px 4px),repeating-linear-gradient(90deg,rgba(0,0,0,.3) 0 1px,transparent 1px 4px)}
+.sw button[aria-pressed=true]::after{content:'';position:absolute;left:0;right:0;bottom:-6px;height:1.5px;background:#17191c}
+.req{display:block;text-align:center;background:#17191c;color:#eeece8;text-decoration:none;font-size:13.5px;padding:13px 0;border-radius:2px}
+.note{position:absolute;right:48px;bottom:14px;z-index:5;text-align:right;font-size:10.5px;color:#9a9893}
+#cur{position:absolute;left:0;top:0;width:22px;height:30px;z-index:9;pointer-events:none;display:none}
+</style>
+</head>
+<body>
+<a class="skip" href="#spec">Skip to details</a>
+<h1 id="big"><span class="l1">Royal</span><span class="l2">Oak</span></h1>
+<canvas id="gl" aria-hidden="true"></canvas>
+<header>
+  <a class="mark" href="#">Audemars Piguet</a>
+  <nav aria-label="Main">
+    <a href="#">Collections</a>
+    <a href="#" aria-current="page">Royal Oak</a>
+    <a href="#">Boutiques</a>
+    <a href="#">Appointment</a>
+  </nav>
+</header>
+<section class="spec" id="spec" aria-label="Specifications">
+  <h2>Royal Oak Selfwinding</h2>
+  <p>Ref. 15510ST, designed by Gérald Genta in 1972</p>
+  <dl>
+    <dt>Case</dt><dd>41 mm, stainless steel</dd>
+    <dt>Thickness</dt><dd>10.4 mm</dd>
+    <dt>Calibre</dt><dd>4302, selfwinding</dd>
+    <dt>Power reserve</dt><dd>70 hours</dd>
+    <dt>Water resistance</dt><dd>50 m</dd>
+  </dl>
+</section>
+<section class="buy" aria-label="Dial">
+  <div class="lab"><span>Dial</span><b id="dialname">Blue, Grande Tapisserie</b></div>
+  <div class="sw" role="group" aria-label="Dial colour">
+    <button aria-label="Blue" data-k="blue" style="background-color:#1f3a6b" aria-pressed="true"></button>
+    <button aria-label="Grey" data-k="grey" style="background-color:#5c636c" aria-pressed="false"></button>
+    <button aria-label="Khaki green" data-k="green" style="background-color:#3c4d3c" aria-pressed="false"></button>
+    <button aria-label="Black" data-k="black" style="background-color:#17191d" aria-pressed="false"></button>
+  </div>
+  <a class="req" href="#">Request an appointment</a>
+</section>
+<p class="note">Unofficial concept, not affiliated with Audemars Piguet</p>
+<svg id="cur" viewBox="0 0 22 30" aria-hidden="true"><path d="M2 2 L2 23 L7.2 18.4 L10.6 26.4 L14 25 L10.7 17.2 L17.6 17.2 Z" fill="#111" stroke="#fff" stroke-width="1.6" stroke-linejoin="round"/></svg>
+
+<script id="fs" type="x-shader/x-fragment">
+precision highp float;
+uniform vec2 uRes;uniform float uD;uniform vec2 uC;uniform float uS;uniform vec2 uL;
+uniform vec3 uDialA;uniform vec3 uDialB;uniform float uWipe;uniform float uA;uniform float uAlpha;
+uniform vec3 uHands;uniform float uHandsOn;uniform sampler2D uPrint;
+#define PI 3.14159265
+const float CY0=206.,CX0=198.,CC=64.,P=46.;
+
+float sdBox(vec2 p,vec2 b){vec2 d=abs(p)-b;return length(max(d,0.))+min(max(d.x,d.y),0.);}
+float sdOct(vec2 p,float r){const vec3 k=vec3(-0.9238795325,0.3826834323,0.4142135623);p=abs(p);
+  p-=2.0*min(dot(vec2(k.x,k.y),p),0.0)*vec2(k.x,k.y);p-=2.0*min(dot(vec2(-k.x,k.y),p),0.0)*vec2(-k.x,k.y);
+  p-=vec2(clamp(p.x,-k.z*r,k.z*r),r);return length(p)*sign(p.y);}
+float sdHex(vec2 p,float r){const vec3 k=vec3(-0.866025404,0.5,0.577350269);p=abs(p);p-=2.0*min(dot(k.xy,p),0.0)*k.xy;
+  p-=vec2(clamp(p.x,-k.z*r,k.z*r),r);return length(p)*sign(p.y);}
+mat2 rot(float a){float c=cos(a),s=sin(a);return mat2(c,s,-s,c);}
+float sat(float x){return clamp(x,0.,1.);}
+float eo(float x){x=sat(x);return 1.-pow(1.-x,3.);}
+float hw(float y){return (CX0-CC)-max(0.,abs(y)-CY0)*.07;}
+float sdCase(vec2 p){vec2 q=abs(p);float r=14.;vec2 b=vec2(CX0,CY0)-r;float d1=sdBox(q,b);float d2=(q.x+q.y-(b.x+b.y-CC+r*.586))*.7071;return max(d1,d2)-r;}
+float sdOut(vec2 p){float strip=max(abs(p.x)-hw(p.y),CY0-12.-abs(p.y));return min(sdCase(p),strip);}
+
+// h: высота, m: материал, t: направление шлифовки
+void put(inout float H,inout float M,inout vec2 T,float h,float m,vec2 t){if(h>H){H=h;M=m;T=t;}}
+
+float scene(vec2 p,out float M,out vec2 T){
+  float H=-100.;M=0.;T=vec2(0.);
+  float r=length(p);
+  // браслет
+  if(abs(p.y)>CY0-6.&&abs(p.x)<hw(p.y)+1.){
+    put(H,M,T,.3,8.,vec2(0.));
+    float yy=abs(p.y)-CY0,k=floor(yy/P),ly=yy-k*P,hk=hw(CY0+k*P+P*.5),cw=hk*.46;
+    float d=sdBox(vec2(p.x,ly-(7.+P-1.)*.5),vec2(cw,(P-8.)*.5)-2.)-2.;
+    if(d<0.)put(H,M,T,2.+3.*sat(-d/4.),2.,vec2(0.,1.));
+    float jw=cw*.78,dy=ly-3.;float dj=sdBox(vec2(p.x,dy),vec2(jw-3.5,0.))-3.5;
+    if(dj<0.&&abs(dy)<3.5)put(H,M,T,2.4+2.2*sqrt(max(0.,1.-dy*dy/12.25)),1.,vec2(0.));
+    float sx=abs(p.x);
+    if(sx>cw+2.5&&sx<hk){float ds=sdBox(vec2(sx-(cw+2.5+hk)*.5,ly-P*.5),vec2((hk-cw-2.5)*.5,P*.5-1.5)-1.)-1.;
+      if(ds<0.)put(H,M,T,2.+2.5*sat(-ds/3.),2.,vec2(0.,1.));}
+  }
+  // корпус
+  float dc=sdCase(p);
+  if(dc<0.&&r>=150.)put(H,M,T,3.+4.*sat(-dc/7.),-dc<7.?1.:2.,vec2(0.,1.));
+  // безель опускается
+  float pb=sat((uA-1.3)/.45);
+  if(pb>0.){float sb=1.+(1.-eo(pb))*.07;vec2 q=p/sb;float rq=length(q);float off=(1.-eo(pb))*16.;
+    float d=sdOct(q,178.-26.)-26.;
+    if(d<0.&&rq>150.){float h1=9.+4.*sat(-d/7.),h2=8.+5.*sat((rq-150.)/7.);float h=min(h1,h2)+off;
+      put(H,M,T,h,(-d<7.||rq<157.)?1.:9.,vec2(-q.y,q.x)/rq);}
+    // винты
+    float a=atan(q.y,q.x),kk=floor((a-PI/8.)/(PI/4.)+.5),ca=PI/8.+kk*PI/4.;
+    float idx=mod(kk+9.,8.),ps=sat((uA-1.78-idx*.1)/.3);
+    if(ps>0.&&pb>=1.){vec2 c=167.*vec2(cos(ca),sin(ca));float sc=1.+(1.-eo(ps))*.35;vec2 s=rot(-(ca+(1.-eo(ps))*PI*3.))*(q-c)/sc;
+      float ds=sdHex(s,7.6);if(ds<0.)put(H,M,T,13.6+2.4*sat(-ds/2.2)+1.6*sqrt(sat(1.-dot(s,s)/64.))+(1.-eo(ps))*7.,10.,vec2(0.));}
+  }
+  // флажок и циферблат
+  if(r<150.){
+    if(r>134.)put(H,M,T,-1.+(r-134.)/16.*4.5,7.,vec2(0.));
+    else{
+      float cell=9.2,gap=1.3;vec2 q=mod(p+cell*.5,cell)-cell*.5;float d=max(abs(q.x),abs(q.y)),hc=cell*.5-gap*.5;
+      put(H,M,T,-4.+.55*max(0.,hc-d),3.,vec2(0.));
+      // окно даты
+      vec2 dq=p-vec2(101.,0.);float df=sdBox(dq,vec2(14.,11.5));
+      if(df<0.){float di=sdBox(dq,vec2(11.5,9.));if(di<0.){H=-3.5;M=6.;}else put(H,M,T,-.5+1.5*sat(-df/1.6),4.,vec2(0.));}
+    }
+  }
+  // накладные метки, ложатся по часовой
+  if(r<130.&&r>88.){
+    float am=atan(p.x,-p.y),s=floor(am/(PI/6.)+.5);float si=mod(s+12.,12.);
+    if(si!=3.){float pm=sat((uA-.75-si*.05)/.22);
+      if(pm>0.){vec2 m=rot(-s*PI/6.)*p;vec2 mc=vec2(0.,-108.5);m=mc+(m-mc)/(1.+(1.-eo(pm))*.45);
+        float w=si==0.?4.5:5.5;float mx=si==0.?abs(m.x)-6.5:m.x;float d=sdBox(vec2(mx,m.y+108.5),vec2(w,16.5));
+        float off=(1.-eo(pm))*10.;
+        if(d<0.){if(abs(mx)<1.9&&abs(m.y+108.5)<12.5)put(H,M,T,.6+off,5.,vec2(0.));else put(H,M,T,.2+(w-abs(mx))*.3+off,4.,vec2(0.));}}}
+  }
+  // стрелки
+  if(uHandsOn>0.&&r<132.){
+    float off=(1.-eo(uHandsOn))*8.;
+    for(int i=0;i<2;i++){
+      float ang=i==0?uHands.x:uHands.y,len=i==0?84.:124.,tail=i==0?16.:18.,w=i==0?6.6:5.4,h0=i==0?3.:4.6,la=i==0?-66.:-110.,lb=i==0?-8.:-10.,lw=i==0?2.3:1.8;
+      vec2 q=rot(-ang)*p;float hwid=q.y>-len+w*1.6?w:w*(q.y+len)/(w*1.6);float dx=hwid-abs(q.x);
+      if(q.y>-len&&q.y<tail&&dx>0.){if(abs(q.x)<lw&&q.y>la&&q.y<lb)put(H,M,T,h0+.3+off,5.,vec2(0.));else put(H,M,T,h0+dx*.32+off,4.,vec2(0.));}
+    }
+    vec2 q=rot(-uHands.z)*p;
+    if((abs(q.x)<.85&&q.y>-126.&&q.y<28.)||length(q-vec2(0.,22.))<4.6){if(abs(q.x)<1.6&&q.y>-118.&&q.y<-108.)put(H,M,T,7.3+off,5.,vec2(0.));else put(H,M,T,7.+off,4.,vec2(0.));}
+    if(abs(q.x)<1.6&&q.y>-118.&&q.y<-108.)put(H,M,T,7.3+off,5.,vec2(0.));
+    if(r<6.2)put(H,M,T,8.+sqrt(max(0.,38.4-r*r))*.45+off,1.,vec2(0.));
+  }
+  return H;
+}
+
+vec3 env(vec3 r){
+  vec3 c=mix(vec3(.012),vec3(.11),sat(-r.y*.55+r.z*.35+.2));
+  vec3 S=normalize(vec3(uL*1.15,.55));c+=vec3(2.6,2.55,2.48)*smoothstep(.83,.95,dot(r,S));
+  vec3 S2=normalize(vec3(-uL.x*1.2,-uL.y*.35-.25,.42));c+=vec3(1.)*smoothstep(.935,.975,dot(r,S2));
+  vec3 S3=normalize(vec3(0.,-.8,.6));c+=vec3(.7)*smoothstep(.82,.96,dot(r,S3));
+  c+=vec3(.12)*smoothstep(.975,1.,r.z);
+  return c;
+}
+float hash(float n){return fract(sin(n*127.1)*43758.5453);}
+vec3 lin(vec3 c){return pow(c,vec3(2.2));}
+
+void main(){
+  vec2 pp=vec2(gl_FragCoord.x,uRes.y-gl_FragCoord.y)/uD;
+  vec2 p=(pp-uC)/uS;
+  float M;vec2 T;float h=scene(p,M,T);
+  if(M==0.){
+    float d1=sdOut(p+uL*30.),d2=sdOut(p+uL*7.);
+    float sh=.26*(1.-smoothstep(-14.,40.,d1))+.22*(1.-smoothstep(-3.,9.,d2));
+    sh*=uAlpha;gl_FragColor=vec4(0.,0.,0.,sh);return;
+  }
+  float m1,m2;vec2 t1,t2;float e=.5;
+  float hx=scene(p+vec2(e,0.),m1,t1),hy=scene(p+vec2(0.,e),m2,t2);
+  vec3 N=normalize(vec3(-(hx-h)/e,-(hy-h)/e,1.));
+  vec3 V=vec3(0.,0.,1.),R=reflect(-V,N),Ld=normalize(vec3(uL,.75));
+  float dif=max(dot(N,Ld),0.);
+  // тень от стрелок и меток на циферблат
+  float occ=1.;
+  if(M==3.||M==6.||M==7.||M==4.||M==5.){float a1,a2;vec2 b1,b2;float s1=scene(p+uL*3.5,a1,b1),s2=scene(p+uL*8.,a2,b2);
+    occ=1.-.45*sat((s1-h-.8)/2.)-.3*sat((s2-h-1.5)/3.);}
+  vec4 pr=texture2D(uPrint,(p+160.)/320.);
+  vec3 col;
+  if(M==1.)col=env(R)*vec3(.9,.91,.93)+.02;
+  else if(M==4.)col=env(R)*vec3(.95,.94,.91)+.02;
+  else if(M==10.)col=env(R)*vec3(.95,.94,.91)*.8+vec3(.5,.5,.49)*(.4+.6*dif);
+  else if(M==2.||M==9.){
+    vec3 Tt=M==9.?vec3(T,0.):vec3(T,0.);vec3 B=normalize(cross(N,normalize(Tt+vec3(1e-4))));
+    vec3 s=vec3(0.);for(int i=0;i<7;i++){float o=(float(i)-3.)*.2;s+=env(normalize(R+B*o));}s/=7.;
+    float across=M==9.?length(p)*2.3:dot(p,vec2(-T.y,T.x))*2.3;float n=hash(floor(across))*.55+hash(floor(across*.29))*.45;
+    float g=.88+.22*dot(normalize(p+1e-3),normalize(uL+1e-3))*sat(length(p)/230.);
+    col=(s*.75+vec3(.66)*(.45+.55*dif))*vec3(.82,.83,.85)*(.88+.2*n)*g;
+  }
+  else if(M==3.||M==7.){
+    float rr=length(p),wr=uWipe*156.;vec3 dc=mix(lin(uDialB),lin(uDialA),smoothstep(wr-3.,wr+3.,rr));
+    if(uWipe<=0.)dc=lin(uDialA);
+    if(M==7.)dc*=.55;
+    vec3 Hh=normalize(Ld+V);
+    col=dc*(.16+.95*dif)+env(R)*.045+vec3(.55)*pow(max(dot(N,Hh),0.),80.);
+    col=mix(col,vec3(.78,.8,.83)*(.6+.4*dif),pr.r);
+  }
+  else if(M==5.)col=vec3(.78,.82,.68)*(.5+.5*dif);
+  else if(M==6.){col=vec3(.86,.85,.82)*(.75+.25*dif);col=mix(col,vec3(.02),pr.g);}
+  else col=vec3(.02)+env(R)*.04;
+  col*=occ;
+  col=col/(1.+col)*1.3;col=pow(col,vec3(1./2.2));
+  gl_FragColor=vec4(col*uAlpha,uAlpha);
+}
+</script>
+<script>
+const W=1440,H=810,PI=Math.PI;
+const $=id=>document.getElementById(id);
+const clamp=x=>x<0?0:x>1?1:x,span=(t,a,b)=>clamp((t-a)/(b-a));
+const ease=x=>x<.5?2*x*x:1-Math.pow(-2*x+2,2)/2,easeOut=x=>1-Math.pow(1-x,3);
+const D=/rec/.test(location.search)?2:Math.min(2,devicePixelRatio||1);
+const cv=$('gl');cv.width=W*D;cv.height=H*D;
+const gl=cv.getContext('webgl',{premultipliedAlpha:true,alpha:true,preserveDrawingBuffer:true,antialias:false});
+const DIALS={blue:{c:[30,57,104],n:'Blue, Grande Tapisserie'},grey:{c:[90,97,106],n:'Grey, Grande Tapisserie'},green:{c:[54,76,57],n:'Khaki green, Grande Tapisserie'},black:{c:[24,26,30],n:'Black, Grande Tapisserie'}};
+const DATE=new Date().getDate();
+
+function sh(type,src){const s=gl.createShader(type);gl.shaderSource(s,src);gl.compileShader(s);if(!gl.getShaderParameter(s,gl.COMPILE_STATUS))throw new Error(gl.getShaderInfoLog(s));return s}
+const prog=gl.createProgram();
+gl.attachShader(prog,sh(gl.VERTEX_SHADER,'attribute vec2 a;void main(){gl_Position=vec4(a,0.,1.);}'));
+gl.attachShader(prog,sh(gl.FRAGMENT_SHADER,$('fs').textContent));
+gl.linkProgram(prog);if(!gl.getProgramParameter(prog,gl.LINK_STATUS))throw new Error(gl.getProgramInfoLog(prog));
+gl.useProgram(prog);
+const buf=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,buf);gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,3,-1,-1,3]),gl.STATIC_DRAW);
+const al=gl.getAttribLocation(prog,'a');gl.enableVertexAttribArray(al);gl.vertexAttribPointer(al,2,gl.FLOAT,false,0,0);
+const U={};['uRes','uD','uC','uS','uL','uDialA','uDialB','uWipe','uA','uAlpha','uHands','uHandsOn','uPrint'].forEach(n=>U[n]=gl.getUniformLocation(prog,n));
+
+// печать на циферблате: белое в красном канале, чёрное в зелёном
+function makePrint(){
+  const S=1024,c=document.createElement('canvas');c.width=c.height=S;const g=c.getContext('2d');
+  g.fillStyle='#000';g.fillRect(0,0,S,S);g.setTransform(S/320,0,0,S/320,S/2,S/2);
+  g.textAlign='center';g.textBaseline='middle';g.fillStyle='#f00';
+  g.font='500 7.4px Geist';g.letterSpacing='1.5px';g.fillText('AUDEMARS PIGUET',.75,-54);
+  g.font='500 6px Geist';g.letterSpacing='1.3px';g.fillText('AUTOMATIC',.65,62);
+  g.letterSpacing='0px';g.strokeStyle='#f00';
+  for(let i=0;i<60;i++){const a=i/60*2*PI,b=i%5===0;g.lineWidth=b?1.4:.6;g.beginPath();g.moveTo(Math.sin(a)*(b?137.6:139.5),-Math.cos(a)*(b?137.6:139.5));g.lineTo(Math.sin(a)*146.5,-Math.cos(a)*146.5);g.stroke()}
+  g.fillStyle='#0f0';g.globalCompositeOperation='lighter';g.font='600 11.5px Geist';g.fillText(String(DATE),101,.6);
+  const tex=gl.createTexture();gl.bindTexture(gl.TEXTURE_2D,tex);gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL,false);
+  gl.texImage2D(gl.TEXTURE_2D,0,gl.RGBA,gl.RGBA,gl.UNSIGNED_BYTE,c);
+  gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MIN_FILTER,gl.LINEAR);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MAG_FILTER,gl.LINEAR);
+  gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_S,gl.CLAMP_TO_EDGE);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_T,gl.CLAMP_TO_EDGE);
+}
+
+// сценарий: часы собираются, свет за курсором, циферблат хаки, часы уходят
+const DUR=6.9,T_GREEN=4.78;
+let TG=null;
+const PATH=()=>[[0,1520,720],[3.15,1520,720],[3.6,1120,560],[4.0,930,190],[4.3,560,300],[4.62,TG.x,TG.y],[4.86,TG.x,TG.y],[5.6,TG.x+60,TG.y-150],[6.3,1520,560],[99,1520,560]];
+function cr(p0,p1,p2,p3,u){const u2=u*u,u3=u2*u;return .5*((2*p1)+(-p0+p2)*u+(2*p0-5*p1+4*p2-p3)*u2+(-p0+3*p1-3*p2+p3)*u3)}
+function cursorAt(t){const P=PATH();let i=0;while(i<P.length-2&&t>P[i+1][0])i++;const a=P[Math.max(0,i-1)],b=P[i],c=P[i+1],d=P[Math.min(P.length-1,i+2)];const u=ease(clamp((t-b[0])/(c[0]-b[0])));return{x:cr(a[1],b[1],c[1],d[1],u),y:cr(a[2],b[2],c[2],d[2],u)}}
+const big=$('big'),cur=$('cur');let SW=null;
+
+function render(t){
+  const c=cursorAt(t);
+  const wgt=ease(span(t,3.25,3.75))*(1-ease(span(t,5.9,6.4)));
+  const a0=-2.35+.35*Math.sin(t*.8);let lx=Math.cos(a0)*.85,ly=Math.sin(a0)*.85;
+  let dx=(c.x-720)/360,dy=(c.y-420)/360;const dl=Math.hypot(dx,dy);if(dl>1){dx/=dl;dy/=dl}
+  lx+=(dx*.92-lx)*wgt;ly+=(dy*.92-ly)*wgt;
+  const px=(c.x-720)/720*wgt,py=(c.y-405)/405*wgt;
+  const C={x:720+px*6,y:422+py*4};big.style.transform=`translate(${(-px*14).toFixed(2)}px,${(-py*7).toFixed(2)}px)`;
+  const fin=easeOut(span(t,.15,.7)),fout=1-ease(span(t,6.35,6.85));
+  const S=(.965+.035*easeOut(span(t,.15,.95)))*(1-.02*(1-fout));
+  // стрелки встают на 10:10, потом идёт секундная
+  const hs=ease(span(t,2.62,3.12));const sec=t>3.12?Math.floor((t-3.12)*8)/8:0;
+  const green=t>=T_GREEN,wipe=span(t,T_GREEN+.04,T_GREEN+.62);
+  gl.viewport(0,0,cv.width,cv.height);gl.clearColor(0,0,0,0);gl.clear(gl.COLOR_BUFFER_BIT);
+  gl.uniform2f(U.uRes,cv.width,cv.height);gl.uniform1f(U.uD,D);gl.uniform2f(U.uC,C.x,C.y);gl.uniform1f(U.uS,S);gl.uniform2f(U.uL,lx,ly);
+  const A=DIALS.blue.c.map(v=>v/255),B=DIALS.green.c.map(v=>v/255);
+  gl.uniform3f(U.uDialA,...A);gl.uniform3f(U.uDialB,...B);gl.uniform1f(U.uWipe,green?wipe:0);
+  gl.uniform1f(U.uA,t);gl.uniform1f(U.uAlpha,fin*fout);
+  gl.uniform3f(U.uHands,-55/180*PI*hs,60/180*PI*hs,sec/60*2*PI);gl.uniform1f(U.uHandsOn,span(t,2.5,2.66));
+  gl.uniform1i(U.uPrint,0);
+  gl.drawArrays(gl.TRIANGLES,0,3);
+  SW.forEach(b=>b.setAttribute('aria-pressed',b.dataset.k===(green&&wipe>.02?'green':'blue')));
+  $('dialname').textContent=green&&wipe>.02?DIALS.green.n:DIALS.blue.n;
+  if(window.__demo){cur.style.display='block';const press=t>T_GREEN-.08&&t<T_GREEN+.05;cur.style.transform=`translate(${c.x-2}px,${c.y-2}px) scale(${press?.88:1})`}
+}
+
+// звук сборки: метки, безель, винты, стрелки, секундная, щелчок свотча
+let seed=11;const rnd=()=>(seed=(seed*16807)%2147483647)/2147483647;
+window.__renderAudio=async()=>{
+  const SR=48000,ac=new OfflineAudioContext(2,Math.ceil(SR*DUR),SR);
+  const nb=ac.createBuffer(1,SR*2,SR),nd=nb.getChannelData(0);for(let i=0;i<nd.length;i++)nd[i]=rnd()*2-1;
+  const out=ac.createGain();out.connect(ac.destination);
+  const pan=v=>{const p=ac.createStereoPanner();p.pan.value=Math.max(-1,Math.min(1,v));p.connect(out);return p};
+  const noise=(t,len,dst)=>{const s=ac.createBufferSource();s.buffer=nb;s.connect(dst);s.start(t,rnd()*1.5,len+.05)};
+  const env=(t,att,dec,peak)=>{const g=ac.createGain();g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(peak,t+att);g.gain.setTargetAtTime(0,t+att,dec/3);return g};
+  const tick=(t,p,gain,f,q=1.8,dec=.02)=>{const g=env(t,.0012,dec,gain);g.connect(pan(p));const bp=ac.createBiquadFilter();bp.type='bandpass';bp.frequency.value=f;bp.Q.value=q;bp.connect(g);noise(t,.06,bp)};
+  const ring=(t,gain,f,p=0,dec=.25)=>{[[f,1],[f*2.76,.35],[f*5.4,.12]].forEach(([ff,k])=>{const o=ac.createOscillator();o.frequency.value=ff;const g=env(t,.002,dec,gain*k);o.connect(g);g.connect(pan(p));o.start(t);o.stop(t+dec*2)})};
+  const thud=(t,gain,p=0)=>{const o=ac.createOscillator();o.frequency.setValueAtTime(110,t);o.frequency.exponentialRampToValueAtTime(52,t+.2);const g=env(t,.006,.22,gain);o.connect(g);g.connect(pan(p));o.start(t);o.stop(t+.5)};
+  const swish=(t0,t1,f0,f1,gain,p=0,q=.8)=>{const bp=ac.createBiquadFilter();bp.type='bandpass';bp.Q.value=q;bp.frequency.setValueAtTime(f0,t0);bp.frequency.exponentialRampToValueAtTime(f1,t1);
+    const g=ac.createGain(),n=64,c=new Float32Array(n);for(let i=0;i<n;i++){const x=i/(n-1);c[i]=gain*Math.pow(Math.sin(PI*Math.pow(x,.6)),2)}g.gain.setValueCurveAtTime(c,t0,t1-t0);bp.connect(g);g.connect(pan(p));noise(t0,t1-t0,bp)};
+  thud(.2,.16);swish(.15,.7,300,1200,.04);
+  for(let s=0;s<12;s++){if(s===3)continue;const t=.75+s*.05+.2;const a=s/12*2*PI;tick(t,Math.sin(a)*.4,.13,5200+rnd()*900,2.2,.015);ring(t,.006,3800+rnd()*500,Math.sin(a)*.4,.08)}
+  thud(1.3+.42,.2);ring(1.3+.43,.012,2100,0,.35);tick(1.3+.43,0,.18,3000,1.2,.03);
+  for(let k=0;k<8;k++){const t0=1.78+k*.1,ca=PI/8+((k+7)%8)*PI/4,p=Math.cos(ca)*.5;for(let j=0;j<3;j++)tick(t0+.05+j*.06,p,.05,6200,2.5,.01);tick(t0+.29,p,.16,4400,1.6,.02);ring(t0+.29,.005,4600,p,.06)}
+  swish(2.6,3.1,1800,3400,.03,0,1.4);tick(3.12,0,.12,5000,2,.015);
+  for(let i=0,t=3.12;t<DUR-.4;i++,t=3.12+i/8)tick(t,.02,i%2?.022:.032,i%2?3900:4600,2.4,.014);
+  tick(T_GREEN,.6,.32,5400,1.4,.012);swish(T_GREEN+.04,T_GREEN+.62,900,2600,.035,0,1.1);
+  const b=await ac.startRendering();
+  const n=b.length,ab=new ArrayBuffer(44+n*4),dv=new DataView(ab),ws=(o,s)=>{for(let i=0;i<s.length;i++)dv.setUint8(o+i,s.charCodeAt(i))};
+  ws(0,'RIFF');dv.setUint32(4,36+n*4,true);ws(8,'WAVEfmt ');dv.setUint32(16,16,true);dv.setUint16(20,1,true);dv.setUint16(22,2,true);
+  dv.setUint32(24,SR,true);dv.setUint32(28,SR*4,true);dv.setUint16(32,4,true);dv.setUint16(34,16,true);ws(36,'data');dv.setUint32(40,n*4,true);
+  const L0=b.getChannelData(0),R0=b.getChannelData(1);
+  for(let i=0;i<n;i++){dv.setInt16(44+i*4,Math.max(-1,Math.min(1,L0[i]))*32767,true);dv.setInt16(46+i*4,Math.max(-1,Math.min(1,R0[i]))*32767,true)}
+  let bin='';const u=new Uint8Array(ab);for(let i=0;i<u.length;i+=32768)bin+=String.fromCharCode.apply(null,u.subarray(i,i+32768));
+  return btoa(bin);
+};
+
+window.__dur=DUR;window.__render=render;
+document.fonts.load('276px "Noto Serif Display"').then(()=>document.fonts.load('500 12px Geist')).then(()=>document.fonts.ready).then(()=>{
+  makePrint();
+  SW=[...document.querySelectorAll('.sw button')];
+  const r=SW[2].getBoundingClientRect(),bb=document.body.getBoundingClientRect();TG={x:r.left-bb.left+r.width/2,y:r.top-bb.top+r.height/2+2};
+  window.__demo=true;window.__ready=true;
+  if(/rec/.test(location.search)){render(0);return}
+  const fit=()=>{const k=Math.min(innerWidth/W,innerHeight/H);document.body.style.transform=`scale(${k})`;document.body.style.transformOrigin='0 0'};fit();addEventListener('resize',fit);
+  if(matchMedia('(prefers-reduced-motion: reduce)').matches){render(3.3);return}
+  const t0=performance.now();const loop=n=>{render(((n-t0)/1000)%DUR);requestAnimationFrame(loop)};requestAnimationFrame(loop);
+});
+</script>
+</body>
+</html>

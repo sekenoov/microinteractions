@@ -17,6 +17,7 @@ Desktop landing page concepts. Each hero plays one short animation (under 6 seco
 | [penny-round-up-jar](penny-round-up-jar/) | savings app | spare change from each purchase flies into a glass jar, then the cursor switches round-ups to €10: the cents pop out and euro coins pour in. After the intro the €1 / €5 / €10 switch refills the jar |
 | [second-crack-roast-curve](second-crack-roast-curve/) | coffee roastery | the roast curve draws itself over the drum's rumble, the bean darkens and jumps at first crack, the cursor drags the drop point into a dark roast and adds it to the cart. After the intro you drag the curve yourself |
 | [halde-exploded-axo](halde-exploded-axo/) | architecture studio | redesigned with Hallmark (Ink theme): a full-viewport page in Inter Tight and Geist, the building drafted in thin black line floor by floor, the cursor walks three floors and the levels above lift to show each plan, then opens the school and the pavilion from the work list. Hover a project to see its drawing, click to keep it. Earlier versions are kept in `.hallmark/` |
+| [royal-oak-genta-sketch](royal-oak-genta-sketch/) | luxury watch, unofficial Audemars Piguet concept | Gérald Genta drew the Royal Oak in one night in 1970, so the page is that night. An ink sketch traced from the 3D model's own geometry draws itself on paper, fills with gouache and turns into steel right on top of the lines. Drag to turn the watch with crown clicks, click a dial study in the margin to redraw it in ink and swap the dial. Three.js, sound with pen, brush, clicks and ticking. Earlier takes are in `earlier/` |
 
 Each page is a fixed 1440×810 stage that scales to the window. Open `index.html` through any local server. Add `?rec` to the URL to get a still page that exposes `window.__render(t)` for frame-by-frame recording and `window.__renderAudio()` for the sound track.
 
@@ -31,6 +32,17 @@ A/B posts: two landings in one 4:5 video (1080×1350). A plays with its sound wh
 | [03-penny-vs-second-crack](pairs/03-penny-vs-second-crack/) | penny-round-up-jar | second-crack-roast-curve |
 
 To build one: `node tools/rec16.cjs "http://localhost:5251/landing-pages/<page>/?rec" <frames-dir>` writes 1920×1080 frames and `audio.wav`, `node tools/ab-overlay.cjs <dir> "A name" "A desc" "B name" "B desc"` draws the labels, and `bash tools/ab-pair.sh A-16x9.mp4 B-cover.jpg B-16x9.mp4 <dir> ab-4x5.mp4` puts it together. The scripts need `puppeteer-core` and Brave.
+
+## mood-drafts
+
+Four concepts in a quieter, tailored look, made for design posts. Open [mood-drafts/](mood-drafts/) for the gallery, `?wall` gives a bare 2×2 grid, and `mood-wall-16x9.mp4` is that grid as a video. Each page has its own 16:9 recording, no sound.
+
+| Folder | Business | What happens |
+| --- | --- | --- |
+| [tailor](mood-drafts/tailor/) | bespoke tailor | chalk drafts a jacket front on navy chalk-stripe wool, then the piece is cut and lifts over kraft paper |
+| [fog](mood-drafts/fog/) | London hotel | a fogged window, the cursor wipes it to Westminster with Big Ben on live London time, drops run down and it fogs back |
+| [carry](mood-drafts/carry/) | everyday carry app | three phones, pocket things drop on a leather tray and knoll into place, the keys get a dashed slot until you ring them |
+| [royal-oak-genta-sketch](royal-oak-genta-sketch/) | watch brand | the second draft, now a full page |
 
 ## drafts
 
