@@ -8,6 +8,14 @@ python3 -m http.server 5251
 
 then go to http://localhost:5251/<folder>/. Most pieces with a video have 4:5 recordings next to the code.
 
+## Footers
+
+Footer sections in [footers](footers/), recorded at 16:9.
+
+| Folder | What it is |
+| --- | --- |
+| [joist-crane-delivery](footers/joist-crane-delivery/) | building materials marketplace, a crane sets the delivered beam on the frame |
+
 ## Landing pages
 
 Desktop landing page concepts in [landing-pages](landing-pages/). Each hero is a short animation with sound, recorded at 16:9.
@@ -25,6 +33,8 @@ Desktop landing page concepts in [landing-pages](landing-pages/). Each hero is a
 | [penny-round-up-jar](landing-pages/penny-round-up-jar/) | savings app, spare change drops into a jar as coins |
 | [second-crack-roast-curve](landing-pages/second-crack-roast-curve/) | coffee roastery, drag the roast curve and the bean and cup change |
 | [halde-exploded-axo](landing-pages/halde-exploded-axo/) | architecture studio, hover a floor and the levels above lift |
+| [royal-oak-genta-sketch](landing-pages/royal-oak-genta-sketch/) | watch concept, Genta's ink sketch fills with gouache and turns into a 3D steel Royal Oak, crown clicks as you turn it |
+| [mood-drafts](landing-pages/mood-drafts/) | tailor, London hotel and carry app drafts in a quieter look |
 
 ## Microinteractions
 

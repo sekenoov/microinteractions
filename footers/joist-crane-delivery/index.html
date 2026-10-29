@@ -1,0 +1,318 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Joist footer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--paper:#e9e6df;--ink:#1e2125;--mute:#6f6c66;--line:#cfcbc2;--orange:#ef6421}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:var(--paper);color:var(--ink);font:400 14px/1.45 Archivo,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+.ft{position:relative;height:100vh;min-height:640px;overflow:hidden;background:var(--paper)}
+.ft::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:.35;mix-blend-mode:multiply;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .5 0 0 0 0 .48 0 0 0 0 .45 0 0 0 .5 0'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23n)'/%3E%3C/svg%3E")}
+canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+.top{position:relative;z-index:1;display:flex;justify-content:space-between;gap:48px;padding:56px 64px 0}
+.brand{max-width:330px}
+.logo{display:inline-flex;align-items:center;gap:10px;font-weight:600;font-size:22px;letter-spacing:-.02em}
+.logo svg{width:22px;height:22px}
+.brand p{margin-top:18px;color:var(--mute);font-size:15px;max-width:300px}
+.cta{display:flex;align-items:center;gap:22px;margin-top:26px}
+.btn{display:inline-flex;align-items:center;height:42px;padding:0 18px;background:var(--ink);color:var(--paper);font-weight:500;border-radius:3px}
+.cta .sec{font-weight:500;border-bottom:1px solid currentColor;padding-bottom:1px}
+.cols{display:grid;grid-template-columns:repeat(3,minmax(140px,auto));gap:0 72px}
+.cols h4{font-size:13px;font-weight:500;color:var(--mute);margin-bottom:14px}
+.cols li{list-style:none;margin-bottom:9px;font-size:14.5px}
+.cols a{background:linear-gradient(currentColor,currentColor) 0 100%/0 1px no-repeat;transition:background-size .3s}
+.cols a:hover,.cols a.hov{background-size:100% 1px}
+.bar{position:absolute;z-index:1;left:64px;right:64px;bottom:18px;display:flex;justify-content:space-between;color:var(--mute);font-size:13px}
+.bar>div{display:flex;gap:22px}
+a:focus-visible{outline:2px solid var(--orange);outline-offset:3px}
+@media (max-width:900px){.top{flex-direction:column;padding:40px 24px 0}.cols{grid-template-columns:repeat(2,1fr);gap:24px 32px}.bar{left:24px;right:24px;flex-direction:column;gap:4px}}
+</style>
+</head>
+<body>
+<footer class="ft" id="ft">
+  <canvas id="cv" aria-hidden="true"></canvas>
+  <div class="top">
+    <div class="brand">
+      <a class="logo" href="#"><svg viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 3h16M3 19h16M11 3v16"/></svg>Joist</a>
+      <p>Building materials from 2,400 suppliers, on site the next working day.</p>
+      <div class="cta"><a class="btn" href="#">Start an order</a><a class="sec" href="#">Sell on Joist</a></div>
+    </div>
+    <nav class="cols" aria-label="Footer">
+      <div><h4>Materials</h4><ul><li><a href="#">Bricks &amp; blocks</a></li><li><a href="#">Timber</a></li><li><a href="#">Steel &amp; rebar</a></li><li><a href="#">Cement &amp; aggregates</a></li><li><a href="#">Pipes &amp; drainage</a></li><li><a href="#">View all</a></li></ul></div>
+      <div><h4>Company</h4><ul><li><a href="#">About</a></li><li><a href="#">Suppliers</a></li><li><a href="#">Careers</a></li><li><a href="#">Press</a></li></ul></div>
+      <div><h4>Support</h4><ul><li><a href="#">Help centre</a></li><li><a href="#">Delivery</a></li><li><a href="#">Returns</a></li><li><a href="#">Contact</a></li></ul></div>
+    </nav>
+  </div>
+  <div class="bar"><div><span>© 2026 Joist Ltd</span><span>Delivering across England and Wales</span></div><div><a href="#">Privacy</a><a href="#">Terms</a><a href="#">Cookies</a></div></div>
+</footer>
+<script>
+const REC=location.search.includes('rec');
+const DUR=6.7;window.__dur=DUR;
+const cv=document.getElementById('cv'),ctx=cv.getContext('2d');
+const PAPER='#e9e6df',INK='#1e2125',ORANGE='#ef6421';
+let cw=0,ch=0,dpr=1,K=1,OY=0;
+const G=742; // ground line in design units (1440 x 810)
+
+function resize(){
+  const r=cv.getBoundingClientRect();cw=r.width;ch=r.height;dpr=window.devicePixelRatio||1;
+  cv.width=Math.round(cw*dpr);cv.height=Math.round(ch*dpr);
+  K=cw/1440;OY=ch-810*K;
+}
+// seeded random
+function rng(s){return()=>{s|=0;s=s+0x6D2B79F5|0;let t=Math.imul(s^s>>>15,1|s);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+const ease=x=>x<=0?0:x>=1?1:x<.5?4*x*x*x:1-Math.pow(-2*x+2,3)/2;
+const eout=x=>x<=0?0:x>=1?1:1-Math.pow(1-x,3);
+const seg=(t,a,b)=>Math.min(1,Math.max(0,(t-a)/(b-a)));
+
+function L(x1,y1,x2,y2){ctx.moveTo(x1,y1);ctx.lineTo(x2,y2)}
+function stroke(lw=1,c=INK,a=1){ctx.lineWidth=lw;ctx.strokeStyle=c;ctx.globalAlpha=a;ctx.stroke();ctx.globalAlpha=1}
+function box(x,y,w,h,lw=1,fill=PAPER){ctx.beginPath();ctx.rect(x,y,w,h);if(fill){ctx.fillStyle=fill;ctx.fill()}stroke(lw)}
+function hatch(x,y,w,h,sp=4,lw=.6,a=1,dir=1){
+  ctx.save();ctx.beginPath();ctx.rect(x,y,w,h);ctx.clip();ctx.beginPath();
+  for(let i=-h;i<w+h;i+=sp){if(dir>0)L(x+i,y+h,x+i+h,y);else L(x+i,y,x+i+h,y+h)}
+  stroke(lw,INK,a);ctx.restore();
+}
+
+// ---------- static scenery ----------
+const sky=(()=>{const r=rng(7),b=[];let x=-20;while(x<1460){const w=38+r()*80,h=70+r()*170;b.push({x,w,h,win:r()});x+=w+(r()<.3?10+r()*30:0)}return b})();
+function skyline(){
+  ctx.beginPath();
+  for(const b of sky){ctx.rect(b.x,G-b.h,b.w,b.h)}
+  ctx.fillStyle=PAPER;ctx.fill();stroke(.8,INK,.32);
+  ctx.beginPath();
+  for(const b of sky){
+    if(b.win<.5)continue;
+    for(let y=G-b.h+10;y<G-8;y+=11)for(let x=b.x+6;x<b.x+b.w-8;x+=9)L(x,y,x+4,y);
+  }
+  stroke(.6,INK,.2);
+}
+function farCrane(){
+  const x=170,top=G-345;
+  ctx.beginPath();L(x,G,x,top);L(x+7,G,x+7,top);
+  for(let y=G;y>top;y-=9){L(x,y,x+7,y-9)}
+  L(x-150,top+4,x+60,top+4);L(x-150,top+9,x+60,top+9);L(x+3,top-40,x-110,top+4);L(x+3,top-40,x+58,top+4);
+  L(x-60,top+9,x-60,top+70);
+  stroke(.7,INK,.35);
+  ctx.globalAlpha=.35;ctx.fillStyle=INK;ctx.fillRect(x+40,top+9,18,14);ctx.globalAlpha=1;
+}
+function leftBuilding(){
+  const x=320,w=196,top=G-214;
+  box(x,top,w,214,1);
+  box(x+w,top+6,26,208,1);hatch(x+w,top+6,26,208,3.5,.6,.85);
+  ctx.beginPath();L(x-4,top,x+w+4,top);L(x-4,top+6,x+w+4,top+6);stroke(1);
+  ctx.beginPath();
+  for(let r=0;r<7;r++)for(let c=0;c<5;c++){ctx.rect(x+14+c*36,top+20+r*27,22,15)}
+  stroke(.8);
+  ctx.beginPath();for(let r=0;r<7;r++)for(let c=0;c<5;c++){L(x+25+c*36,top+20+r*27,x+25+c*36,top+35+r*27)}stroke(.5,INK,.7);
+  box(x+130,top-22,40,22,1);box(x+138,top-30,24,8,.8);
+  // entrance
+  box(x+78,G-30,40,30,1);ctx.beginPath();L(x+98,G-30,x+98,G);stroke(.6);
+}
+function mainBuilding(){
+  const X0=860,X1=1100,FH=34,NC=4,NF=7;
+  // side face shadow for clad floors
+  box(X1,G-NC*FH,24,NC*FH,1);hatch(X1,G-NC*FH,24,NC*FH,3.5,.6,.85);
+  // clad floors 0..4
+  box(X0,G-NC*FH,X1-X0,NC*FH,1.1);
+  ctx.beginPath();
+  for(let f=0;f<NC;f++)for(let b=0;b<4;b++){const x=X0+b*60,y=G-(f+1)*FH;ctx.rect(x+9,y+9,42,17)}
+  stroke(.8);
+  ctx.beginPath();for(let f=0;f<NC;f++)for(let b=0;b<4;b++){const x=X0+b*60,y=G-(f+1)*FH;L(x+30,y+9,x+30,y+26)}stroke(.5,INK,.7);
+  // open frame floors 5..9: slabs and columns
+  ctx.beginPath();
+  for(let f=NC;f<=NF;f++){const y=G-f*FH;ctx.rect(X0-6,y-5,X1-X0+12,5)}
+  ctx.fillStyle=PAPER;ctx.fill();stroke(1.1);
+  ctx.beginPath();
+  for(let c=0;c<5;c++){const x=X0+c*60;for(let f=NC;f<NF;f++){ctx.rect(x-3,G-(f+1)*FH,6,FH-5)}ctx.rect(x-3,G-NF*FH-34,6,29)}
+  ctx.fillStyle=PAPER;ctx.fill();stroke(1);
+  // shoring props and braces
+  ctx.beginPath();
+  for(let f=NC;f<NF;f++)for(let b=0;b<4;b++){if((f+b)%2)continue;const x=X0+b*60,y=G-(f+1)*FH;for(let p=14;p<56;p+=14)L(x+p,y,x+p,y+FH-5)}
+  L(X0+60+3,G-6*FH,X0+120-3,G-5*FH-5);L(X0+120-3,G-6*FH,X0+60+3,G-5*FH-5);
+  L(X0+180+3,G-7*FH,X0+240-3,G-6*FH-5);L(X0+240-3,G-7*FH,X0+180+3,G-6*FH-5);
+  stroke(.6);
+  // scaffold on left face
+  ctx.beginPath();
+  const sx0=X0-34,sx1=X0-14;
+  for(const x of[sx0,sx1])L(x,G,x,G-NF*FH-14);
+  for(let y=G-17;y>G-NF*FH-14;y-=17)L(sx0-3,y,sx1+3,y);
+  for(let y=G;y>G-NF*FH+17;y-=34)L(sx0,y,sx1,y-34);
+  stroke(.7);
+  ctx.beginPath();for(let y=G-34;y>G-NF*FH;y-=34)L(sx0-6,y-12,sx0-6,y);stroke(.5);
+  // site hoarding
+  box(X0-80,G-26,X1-X0+150,26,1);
+  ctx.beginPath();for(let x=X0-80+40;x<X1+70;x+=40)L(x,G-26,x,G);stroke(.5,INK,.7);
+}
+function crane(trolleyX){
+  const mx=1220,mw=22,top=320,jy=330;
+  // mast
+  ctx.beginPath();ctx.rect(mx,top,mw,G-top);ctx.fillStyle=PAPER;ctx.fill();
+  L(mx,G,mx,top);L(mx+mw,G,mx+mw,top);
+  for(let y=G;y>top+20;y-=22){L(mx,y,mx+mw,y);L(mx,y,mx+mw,y-22)}
+  stroke(1);
+  box(mx-14,G-18,mw+28,18,1);hatch(mx-14,G-18,mw+28,18,3,.5,.7);
+  // apex and ties
+  ctx.beginPath();L(mx,jy,mx+mw/2,276);L(mx+mw,jy,mx+mw/2,276);L(mx+mw/2,276,820,jy);L(mx+mw/2,276,1372,jy+2);stroke(.8);
+  // jib
+  ctx.beginPath();L(600,jy,mx,jy);L(600,jy+12,mx,jy+12);L(600,jy,600,jy+12);
+  for(let x=600;x<mx;x+=16)L(x,jy+12,x+8,jy),L(x+8,jy,x+16,jy+12);
+  stroke(.9);
+  // counter jib + weights
+  ctx.beginPath();L(mx+mw,jy+2,1378,jy+2);L(mx+mw,jy+12,1378,jy+12);L(1378,jy+2,1378,jy+12);
+  for(let x=mx+mw;x<1376;x+=14)L(x,jy+12,x+7,jy+2),L(x+7,jy+2,x+14,jy+12);stroke(.9);
+  box(1338,jy+12,36,30,1);hatch(1338,jy+12,36,30,3,.5,.9);
+  ctx.beginPath();L(1338,jy+22,1374,jy+22);L(1338,jy+32,1374,jy+32);stroke(.6);
+  // cab
+  box(mx-24,jy+14,24,20,1);ctx.beginPath();ctx.rect(mx-21,jy+17,12,8);stroke(.6);
+  // trolley
+  box(trolleyX-9,jy+12,18,7,1);
+  ctx.beginPath();ctx.arc(trolleyX-5,jy+12,2,0,7);ctx.arc(trolleyX+5,jy+12,2,0,7);stroke(.6);
+}
+// ---------- materials still life ----------
+function bricks(x,w,h){
+  const y=G-h;box(x,G-8,w,8,1);
+  ctx.beginPath();for(let p=x+6;p<x+w;p+=18)ctx.rect(p,G-8,8,8);stroke(.5);
+  box(x+2,y,w-4,h-8,1);
+  ctx.beginPath();for(let r=y+8;r<G-8;r+=8){L(x+2,r,x+w-2,r)}
+  for(let r=y,i=0;r<G-9;r+=8,i++)for(let c=x+2+(i%2?12:0);c<x+w-4;c+=24)L(c,r,c,r+8);
+  stroke(.45,INK,.8);
+  ctx.beginPath();L(x+w*.33,y,x+w*.33,G-8);L(x+w*.66,y,x+w*.66,G-8);stroke(.8);
+}
+function bags(x){
+  const rows=[[0,1,2],[.5,1.5],[1]],bw=34,bh=18;
+  for(let r=0;r<3;r++)for(const c of rows[r]){
+    const bx=x+c*bw,by=G-(r+1)*bh;
+    ctx.beginPath();ctx.roundRect(bx+1,by+1,bw-2,bh-2,6);ctx.fillStyle=PAPER;ctx.fill();stroke(1);
+    ctx.beginPath();L(bx+9,by+bh/2,bx+bw-9,by+bh/2);stroke(.5,INK,.7);
+  }
+}
+function timber(x,w){
+  for(let r=0;r<6;r++){const y=G-10-r*9,ov=(r%2?14:0);box(x+ov,y-9,w-ov-(r%3)*10,9,.9)}
+  box(x+10,G-10,10,10,.8);box(x+w-40,G-10,10,10,.8);
+  ctx.beginPath();for(let r=0;r<6;r++){const y=G-14.5-r*9;for(let p=x+20+(r*13)%30;p<x+w-30;p+=47)L(p,y,p+16,y)}stroke(.4,INK,.6);
+}
+function pipes(x){
+  const R=13;const rows=[4,3,2,1];
+  for(let r=0;r<4;r++)for(let i=0;i<rows[r];i++){
+    const cx=x+R+i*2*R+r*R,cy=G-R-r*R*1.73;
+    ctx.beginPath();ctx.arc(cx,cy,R-.5,0,7);ctx.fillStyle=PAPER;ctx.fill();stroke(1);
+    ctx.beginPath();ctx.arc(cx,cy,R-4.5,0,7);stroke(.6);
+  }
+}
+// ---------- truck ----------
+function truck(x0,dist,bounce){
+  const by=bounce;
+  ctx.save();ctx.translate(0,by);
+  box(x0-4,708,306,8,1);
+  box(x0,696,222,12,1);
+  ctx.beginPath();for(let p=x0+20;p<x0+220;p+=22)L(p,696,p,708);stroke(.5,INK,.7);
+  // exhaust
+  box(x0+224,640,5,56,.8);
+  // cab
+  ctx.beginPath();ctx.moveTo(x0+230,718);ctx.lineTo(x0+230,650);ctx.lineTo(x0+278,650);ctx.lineTo(x0+299,678);ctx.lineTo(x0+302,718);ctx.closePath();
+  ctx.fillStyle=PAPER;ctx.fill();stroke(1.1);
+  ctx.beginPath();ctx.moveTo(x0+262,656);ctx.lineTo(x0+277,656);ctx.lineTo(x0+292,676);ctx.lineTo(x0+262,676);ctx.closePath();stroke(.8);
+  hatch(x0+263,657,30,19,3,.4,.5);
+  ctx.beginPath();ctx.rect(x0+236,656,22,56);stroke(.7);
+  ctx.beginPath();L(x0+252,686,x0+256,686);stroke(1);
+  ctx.fillStyle=INK;ctx.font='600 8px Archivo';ctx.fillText('joist',x0+238,700);
+  box(x0+297,690,7,6,.7);
+  ctx.restore();
+  for(const wx of[x0+34,x0+66,x0+268]){
+    ctx.beginPath();ctx.arc(wx,G-15,15,0,7);ctx.fillStyle=PAPER;ctx.fill();stroke(1.2);
+    ctx.beginPath();ctx.arc(wx,G-15,6.5,0,7);stroke(.8);
+    ctx.beginPath();const a=dist/15;for(let k=0;k<5;k++){const t=a+k*1.2566;L(wx+Math.cos(t)*6.5,G-15+Math.sin(t)*6.5,wx+Math.cos(t)*12,G-15+Math.sin(t)*12)}stroke(.5);
+  }
+}
+// ---------- load ----------
+function beam(cx,top){
+  const w=244,h=12,x=cx-w/2;
+  ctx.beginPath();ctx.rect(x,top,w,h);ctx.fillStyle=ORANGE;ctx.fill();stroke(1);
+  ctx.beginPath();L(x,top+2.5,x+w,top+2.5);L(x,top+h-2.5,x+w,top+h-2.5);stroke(.6);
+}
+function hookBlock(x,y){
+  ctx.beginPath();ctx.rect(x-6,y,12,16);ctx.fillStyle=ORANGE;ctx.fill();stroke(1);
+  ctx.beginPath();ctx.arc(x,y+21,4,-Math.PI/2,Math.PI*.9);stroke(1.1);
+}
+function puffs(x,y,p){
+  if(p<=0||p>=1)return;
+  const a=1-p;ctx.beginPath();
+  for(let i=0;i<3;i++){const dx=(i-1)*9*(1+p*1.4)+(i===1?0:0),r=2+p*7+i;ctx.moveTo(x+dx+r,y-2-p*6);ctx.arc(x+dx,y-2-p*6,r,0,7)}
+  stroke(.7,INK,a*.8);
+}
+
+// ---------- timeline ----------
+const truckX=t=>-380+980*eout(seg(t,0,1.75));
+const trolleyX=t=>711+269*ease(seg(t,3.55,4.7));
+function hookY(t){
+  if(t<1.7)return 560;
+  if(t<2.35)return 560+60*ease(seg(t,1.7,2.35));
+  if(t<3.6)return 620-262*ease(seg(t,2.45,3.55));
+  if(t<5.4)return 358+36*eout(seg(t,4.75,5.35));
+  return 394-30*ease(seg(t,5.5,6.2));
+}
+// load sway, integrated deterministically
+function sway(t){
+  const dt=1/240,w=2*Math.PI/1.7,c=1.6;let x=0,v=0;
+  for(let s=0;s<t;s+=dt){
+    const a=(trolleyX(s+dt)-2*trolleyX(s)+trolleyX(s-dt))/(dt*dt);
+    v+=(-w*w*x-c*v-a*.9)*dt;x+=v*dt;
+  }
+  return x*(1-seg(t,4.75,5.3));
+}
+
+function render(t){
+  window.__t=t;
+  ctx.setTransform(1,0,0,1,0,0);ctx.clearRect(0,0,cv.width,cv.height);
+  ctx.setTransform(dpr*K,0,0,dpr*K,0,dpr*OY);
+  ctx.lineCap='round';ctx.lineJoin='round';
+  skyline();farCrane();leftBuilding();mainBuilding();
+  const tx=trolleyX(t);crane(tx);
+  bricks(70,104,64);bags(184);timber(300,170);pipes(486);
+
+  const x0=truckX(t),moving=t<1.75;
+  const settle=t>1.75?Math.sin((t-1.75)*22)*Math.exp(-(t-1.75)*7)*1.2:0;
+  truck(x0,x0,settle);
+
+  const hy=hookY(t),dx=sway(t),hx=tx+dx;
+  const attached=t>=2.35&&t<5.5,placed=t>=5.35;
+  // cable
+  ctx.beginPath();L(tx-2,349,hx-2,hy);L(tx+2,349,hx+2,hy);stroke(.6);
+  hookBlock(hx,hy);
+  let bx,btop;
+  if(placed){bx=980;btop=458}
+  else if(attached){bx=hx;btop=hy+64}
+  else{bx=x0+111;btop=684+settle}
+  if(attached){
+    ctx.beginPath();L(hx,hy+24,bx-90,btop);L(hx,hy+24,bx+90,btop);stroke(.7);
+  }else{
+    const sw=Math.sin(t*3)*1.5;
+    ctx.beginPath();L(hx-1,hy+24,hx-4+sw,hy+70);L(hx+1,hy+24,hx+4+sw,hy+70);stroke(.7);
+  }
+  beam(bx,btop);
+  const pp=seg(t,5.35,6.0);puffs(860,470,pp);puffs(1100,470,pp);
+
+  // ground
+  ctx.beginPath();L(0,G,1440,G);stroke(1.4);
+  ctx.beginPath();for(let x=-10;x<1450;x+=7)L(x,G+1,x-6,G+7);stroke(.5,INK,.55);
+}
+window.__render=render;
+
+addEventListener('resize',()=>{resize();render(window.__t||0)});
+document.fonts.ready.then(()=>{
+  resize();render(0);window.__ready=true;
+  if(REC)return;
+  if(matchMedia('(prefers-reduced-motion: reduce)').matches){render(DUR-.01);return}
+  const t0=performance.now();
+  (function loop(n){render(((n-t0)/1000)%(DUR+.8));requestAnimationFrame(loop)})(t0);
+});
+</script>
+</body>
+</html>
