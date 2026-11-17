@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tally hero</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600&display=block" rel="stylesheet">
+<style>
+:root {
+  --grass: #23361c;
+  --ink: #f4f6ef;
+  --ink-2: rgba(244, 246, 239, 0.78);
+  --ink-3: rgba(244, 246, 239, 0.6);
+  --tag: #f2c418;
+  --card: #f6f5ee;
+  --card-ink: #1d2a17;
+  --card-ink-2: #56614e;
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; background: var(--grass); }
+body { font-family: "Schibsted Grotesk", sans-serif; color: var(--ink); -webkit-font-smoothing: antialiased; }
+
+.hero { position: relative; width: 1600px; height: 900px; overflow: hidden; background: var(--grass); }
+.hero > img.photo { position: absolute; left: 0; top: -75px; width: 1600px; height: auto; filter: contrast(1.08) saturate(1.06) brightness(0.97); }
+/* keep the grass behind the headline a touch darker so the words sit on it */
+.shade { position: absolute; inset: 0; pointer-events: none;
+  background: linear-gradient(100deg, rgba(20, 33, 16, 0.55) 0%, rgba(20, 33, 16, 0.25) 36%, rgba(20, 33, 16, 0) 56%),
+              linear-gradient(180deg, rgba(20, 33, 16, 0.45) 0, rgba(20, 33, 16, 0) 120px); }
+
+nav { position: absolute; left: 0; right: 0; top: 0; height: 76px; display: flex; align-items: center; padding: 0 64px;
+  border-bottom: 1px solid rgba(244, 246, 239, 0.14); }
+.brand { display: flex; align-items: center; gap: 12px; font-size: 24px; font-weight: 600; letter-spacing: -0.01em; }
+.brand svg { width: 30px; height: 24px; display: block; }
+.links { display: flex; gap: 32px; margin-left: 72px; font-size: 16px; font-weight: 500; color: var(--ink-2); }
+.navright { margin-left: auto; display: flex; align-items: center; gap: 28px; font-size: 16px; font-weight: 500; }
+.navright a { color: var(--ink-2); text-decoration: none; }
+.btn-s { height: 40px; padding: 0 18px; border-radius: 8px; border: 1px solid rgba(244, 246, 239, 0.35); display: inline-flex; align-items: center; color: var(--ink); }
+
+.copy { position: absolute; left: 64px; top: 148px; width: 600px; }
+h1 { margin: 0; font-size: 68px; line-height: 1.02; font-weight: 600; letter-spacing: -0.03em; }
+.sub { margin: 24px 0 0; font-size: 20px; line-height: 1.45; color: var(--ink-2); max-width: 500px; }
+.ctas { margin-top: 36px; display: flex; align-items: center; gap: 16px; }
+.btn { height: 52px; padding: 0 24px; border-radius: 10px; background: var(--tag); color: #1c2410; font-size: 17px; font-weight: 600; display: inline-flex; align-items: center; }
+.btn-2 { height: 52px; padding: 0 22px; border-radius: 10px; border: 1px solid rgba(244, 246, 239, 0.4); font-size: 17px; font-weight: 500; display: inline-flex; align-items: center; }
+.note { margin-top: 14px; font-size: 15px; color: var(--ink-3); }
+
+/* what the tags see, drawn on the photo */
+svg.marks { position: absolute; inset: 0; width: 1600px; height: 900px; pointer-events: none; }
+.label { position: absolute; font-size: 14px; line-height: 1.3; font-weight: 500; color: var(--ink); text-shadow: 0 1px 2px rgba(0, 0, 0, 0.35); white-space: nowrap; }
+.label span { color: var(--ink-2); font-weight: 400; display: block; }
+
+.card { position: absolute; left: 948px; top: 236px; width: 304px; background: var(--card); color: var(--card-ink); border-radius: 12px; padding: 16px 16px 14px;
+  box-shadow: 0 10px 30px rgba(10, 20, 6, 0.28); }
+.card h2 { margin: 0; font-size: 17px; font-weight: 600; letter-spacing: -0.01em; }
+.card p { margin: 4px 0 0; font-size: 14px; line-height: 1.4; color: var(--card-ink-2); }
+.card .ids { margin-top: 10px; font-size: 13px; color: var(--card-ink-2); }
+.card .act { margin-top: 14px; display: flex; flex-direction: column; gap: 6px; }
+.card .act b { height: 38px; border-radius: 8px; background: var(--card-ink); color: var(--card); font-size: 14px; font-weight: 600; display: flex; align-items: center; justify-content: center; }
+.card .act small { font-size: 13px; color: var(--card-ink-2); text-align: center; }
+
+.stamp { position: absolute; right: 64px; bottom: 36px; font-size: 14px; color: var(--ink-2); }
+</style>
+</head>
+<body>
+<section class="hero">
+  <img class="photo" src="img/flock.jpg" alt="A flock of about two hundred sheep grazing in a long line across a green hillside, seen from above, with five sheep apart from the rest">
+  <div class="shade"></div>
+
+  <svg class="marks" viewBox="0 0 1600 900" aria-hidden="true">
+    <!-- the five that wandered off -->
+    <circle cx="884" cy="309" r="38" fill="none" stroke="#f2c418" stroke-width="2.5"/>
+    <path d="M921 300 L948 290" stroke="#f2c418" stroke-width="2"/>
+    <!-- the flock, measured along its length -->
+    <path d="M86 806 L1386 806" stroke="rgba(244,246,239,.7)" stroke-width="1.5"/>
+    <path d="M86 798 V814 M1386 798 V814" stroke="rgba(244,246,239,.7)" stroke-width="1.5"/>
+    <!-- fence energiser -->
+    <circle cx="1333" cy="195" r="16" fill="none" stroke="rgba(244,246,239,.85)" stroke-width="1.5"/>
+    <path d="M1318 189 L1300 176" stroke="rgba(244,246,239,.85)" stroke-width="1.5"/>
+  </svg>
+
+  <nav>
+    <div class="brand">
+      <svg viewBox="0 0 30 24" aria-hidden="true"><g stroke="#f4f6ef" stroke-width="2.6" stroke-linecap="round"><path d="M5 3v18M11 3v18M17 3v18M23 3v18"/><path d="M2 19 27 5" stroke="#f2c418"/></g></svg>
+      Tally
+    </div>
+    <div class="links"><span>How it works</span><span>Pricing</span><span>Farms</span></div>
+    <div class="navright"><a>Sign in</a><span class="btn-s">Book a visit</span></div>
+  </nav>
+
+  <div class="copy">
+    <h1>Count your flock from the kitchen</h1>
+    <p class="sub">Solar ear tags count the sheep on the hill every ten minutes. If some wander off, you see where they went and when.</p>
+    <div class="ctas"><span class="btn">Book a farm visit</span><span class="btn-2">See a live hill</span></div>
+    <div class="note">We tag the flock with you. Farms from 120 ewes.</div>
+  </div>
+
+  <div class="card">
+    <h2>5 wandered off</h2>
+    <p>140 m above the flock, since 06:52</p>
+    <div class="ids">0412, 0415, 0388, 0521, 0530</div>
+    <div class="act"><b>Text Marek to bring them down</b><small>He is at the hut, 600 m away</small></div>
+  </div>
+
+  <div class="label" style="left: 620px; top: 820px; text-align: center;">207 together<span>410 m from end to end</span></div>
+  <div class="label" style="left: 1186px; top: 160px; text-align: right;">Fence 7.4 kV<span>checked 07:00</span></div>
+
+  <div class="stamp">Hala Gąsienicowa, counted 07:04</div>
+</section>
+<script>
+Promise.all([document.fonts.ready, new Promise(r => { const i = document.querySelector('img.photo'); i.complete ? r() : i.onload = r; })]).then(() => { window.ready = true; });
+</script>
+</body>
+</html>

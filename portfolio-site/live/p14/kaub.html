@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pegel footer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500&display=block" rel="stylesheet">
+<style>
+:root {
+  --paper: #f2f1ec;
+  --ink: #1e2125;
+  --ink-2: #4d5258;
+  --line: rgba(30, 33, 37, 0.16);
+  --gauge: #c42f22;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; background: var(--paper); }
+body { font-family: "Work Sans", sans-serif; color: var(--ink); -webkit-font-smoothing: antialiased; }
+a { color: inherit; text-decoration: none; }
+
+footer { position: relative; width: 1600px; height: 900px; overflow: hidden; background: var(--paper); }
+.plate { position: absolute; left: 0; top: -40px; width: 1600px;
+  -webkit-mask-image: linear-gradient(180deg, transparent 0, transparent 300px, #000 450px);
+          mask-image: linear-gradient(180deg, transparent 0, transparent 300px, #000 450px); }
+.plate img { width: 1600px; display: block; }
+
+.top { position: absolute; left: 64px; right: 64px; top: 64px; display: flex; }
+.brand { display: flex; align-items: center; gap: 12px; font-size: 26px; font-weight: 500; letter-spacing: -0.01em; }
+.brand svg { width: 16px; height: 28px; display: block; }
+.top p { margin: 16px 0 0; font-size: 17px; line-height: 1.5; color: var(--ink-2); }
+.cols { margin-left: auto; display: flex; gap: 80px; }
+.col { min-width: 112px; }
+.col h3 { margin: 4px 0 16px; font-size: 15px; font-weight: 500; }
+.col a { display: block; font-size: 15px; line-height: 20px; color: var(--ink-2); margin-bottom: 8px; }
+
+.legal { position: absolute; left: 64px; right: 64px; top: 296px; padding-top: 16px; border-top: 1px solid var(--line);
+  display: flex; gap: 24px; font-size: 14px; color: var(--ink-2); }
+.legal .end { margin-left: auto; display: flex; gap: 24px; }
+</style>
+</head>
+<body>
+<footer>
+  <div class="plate"><img src="img/kaub-wide.jpg" alt="Steel engraving of the Pfalzgrafenstein toll castle in the Rhine at Kaub, with a paddle steamer, sail barges and a rowing boat"></div>
+
+  <div class="top">
+    <div>
+      <div class="brand">
+        <svg viewBox="0 0 16 28" aria-hidden="true"><rect x="0.6" y="0.6" width="14.8" height="26.8" fill="none" stroke="#1e2125" stroke-width="1.2"/><path d="M1 4h14v2.4H1zM1 4h3.4v11H1zM1 8.5h9v2.4H1zM1 12.6h14V15H1z" fill="#1e2125"/><path d="M0 20.5h16" stroke="#c42f22" stroke-width="2"/></svg>
+        Pegel
+      </div>
+      <p>Space on Rhine barges, booked by the tonne</p>
+    </div>
+    <nav class="cols" aria-label="Footer">
+      <div class="col"><h3>Freight</h3><a href="#">Book a barge</a><a href="#">Part loads</a><a href="#">Containers</a><a href="#">Dry bulk</a><a href="#">Liquid bulk</a></div>
+      <div class="col"><h3>Rivers</h3><a href="#">Rhine</a><a href="#">Moselle</a><a href="#">Main</a><a href="#">Neckar</a></div>
+      <div class="col"><h3>Help</h3><a href="#">Water levels</a><a href="#">Transit times</a><a href="#">Surcharges</a><a href="#">Questions</a></div>
+      <div class="col"><h3>Company</h3><a href="#">About</a><a href="#">For skippers</a><a href="#">Careers</a><a href="#">Press</a><a href="#">Contact</a></div>
+    </nav>
+  </div>
+  <div class="legal"><span>© 2026 Pegel GmbH, Mainz</span><a href="#">Imprint</a><a href="#">Privacy</a><a href="#">Terms of carriage</a><span class="end"><a href="#">Deutsch</a><a href="#">LinkedIn</a></span></div>
+</footer>
+<script>
+Promise.all([document.fonts.ready, new Promise(r => { const i = document.querySelector('.plate img'); i.complete ? r() : i.onload = r; })]).then(() => { window.ready = true; });
+</script>
+</body>
+</html>

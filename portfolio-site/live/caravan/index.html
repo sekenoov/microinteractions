@@ -1,0 +1,286 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Caravan</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500&family=Hanken+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* Caravan: an invented shipping API for stores selling across Central Asia.
+   The engraved steppe is the page; the route on the track is live, and the caravan in the dunes is the parcel. */
+:root {
+  --paper: #efebe2;
+  --ink: #2b2620;
+  --soft: #6b645a;
+  --route: #b3341f;
+  --sceneW: 3168;
+  --sceneH: 1344;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; background: var(--paper); color: var(--ink); }
+body { font-family: "Hanken Grotesk", system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+
+.hero { position: relative; min-height: 100vh; min-height: 100svh; overflow: hidden; }
+
+nav { position: relative; z-index: 5; display: flex; align-items: center; gap: 40px; padding: 28px 56px; font-size: 15px; }
+.mark { font-family: "Newsreader", serif; font-size: 28px; letter-spacing: -0.01em; color: var(--ink); text-decoration: none; margin-right: 16px; }
+nav a { color: var(--ink); text-decoration: none; }
+nav .links { display: flex; gap: 32px; }
+nav .links a { color: var(--soft); }
+nav .links a:hover { color: var(--ink); }
+nav .right { margin-left: auto; display: flex; align-items: center; gap: 28px; }
+
+.btn { display: inline-flex; align-items: center; height: 46px; padding: 0 24px; border-radius: 999px; font: 500 15px/1 "Hanken Grotesk", sans-serif; text-decoration: none; }
+.btn.solid { background: var(--ink); color: var(--paper); }
+.btn.solid:hover { background: #000; }
+.btn.line { color: var(--ink); box-shadow: inset 0 0 0 1.5px var(--ink); }
+.btn.line:hover { background: var(--ink); color: var(--paper); }
+nav .btn { height: 40px; padding: 0 20px; }
+
+.copy { position: relative; z-index: 4; padding: 7vh 56px 0; max-width: 760px; }
+h1 { font-family: "Newsreader", serif; font-weight: 400; font-size: clamp(48px, 5.6vw, 88px); line-height: 0.98; letter-spacing: -0.025em; margin: 0; }
+.copy p { font-size: 19px; line-height: 1.5; color: var(--soft); max-width: 470px; margin: 26px 0 34px; }
+.copy .cta { display: flex; gap: 12px; }
+
+/* the engraving keeps its own proportions and sits on the floor of the hero */
+.scene { position: absolute; left: 0; right: 0; bottom: 0; aspect-ratio: 3168 / 1344; }
+.scene img.land { position: absolute; inset: 0; width: 100%; height: 100%; display: block; user-select: none; -webkit-user-drag: none; }
+.scene svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+
+.route-base { fill: none; stroke: var(--route); stroke-width: 5; stroke-dasharray: 2 16; stroke-linecap: round; opacity: .75; }
+.route-done { fill: none; stroke: var(--route); stroke-width: 6; stroke-linecap: round; }
+.stop { cursor: pointer; }
+.stop .hit { fill: transparent; }
+.stop .ring { fill: var(--paper); stroke: var(--route); stroke-width: 5; transition: r .3s cubic-bezier(.22,1,.36,1); }
+.stop.passed .ring { fill: var(--route); }
+.stop:hover .ring, .stop.on .ring { r: 19; }
+.stop text { font: 500 30px "Hanken Grotesk", sans-serif; fill: var(--ink); paint-order: stroke; stroke: var(--paper); stroke-width: 10px; stroke-linejoin: round; }
+.stop text.km { font-size: 24px; fill: var(--soft); }
+.here { fill: var(--route); }
+.here-halo { fill: none; stroke: var(--route); stroke-width: 3; opacity: .5; transform-box: fill-box; transform-origin: center; animation: halo 2.4s ease-out infinite; }
+@keyframes halo { from { transform: scale(.6); opacity: .6; } to { transform: scale(2.6); opacity: 0; } }
+
+/* the parcel card lives over the stop you point at */
+.card { position: absolute; z-index: 6; transform: translate(-50%, calc(-100% - 70px)); background: var(--paper); box-shadow: 0 0 0 1.5px var(--ink); border-radius: 10px; padding: 14px 18px 15px; width: 250px; pointer-events: none;
+  opacity: 0; transition: opacity .25s, transform .35s cubic-bezier(.22,1,.36,1); }
+.card.show { opacity: 1; transform: translate(-50%, calc(-100% - 78px)); }
+.card .city { font-family: "Newsreader", serif; font-size: 26px; line-height: 1.1; }
+.card .when { font-size: 15px; margin-top: 4px; }
+.card .when b { font-weight: 600; color: var(--route); }
+.card .note { font-size: 13px; color: var(--soft); margin-top: 8px; }
+
+/* five camels cut from one engraving, each bobbing on its own beat */
+.caravan { position: absolute; bottom: 0.8%; width: 34%; aspect-ratio: 3002 / 789; left: calc(2% + var(--f, 0) * 62%); pointer-events: none; z-index: 3; }
+.caravan .flip { position: absolute; inset: 0; transition: transform .45s cubic-bezier(.22,1,.36,1); }
+.caravan.back .flip { transform: scaleX(-1); }
+.camel { position: absolute; top: 0; height: 100%; background-image: url("img/caravan-filled.webp"); background-repeat: no-repeat; will-change: transform; transform-origin: 50% 96%; }
+
+/* the parcel itself, read like a waybill pinned in the corner of the sky */
+.bill { position: absolute; z-index: 4; top: 21vh; right: 56px; width: 250px; font-size: 14px; line-height: 1.5; color: var(--soft); }
+.bill b { display: block; color: var(--ink); font-weight: 600; font-size: 15px; }
+.bill .hint { margin-top: 14px; color: var(--route); }
+
+@media (max-width: 820px) {
+  nav { padding: 20px; gap: 16px; }
+  nav .links, nav .right a:not(.btn) { display: none; }
+  .copy { padding: 4vh 20px 0; }
+  .copy p { font-size: 17px; }
+  .bill { display: none; }
+  /* on a phone the plate is cropped to the stretch of road that matters */
+  .scene { left: -27%; right: auto; width: 140%; }
+  .card { width: 210px; }
+  .stop text { font-size: 44px; } .stop text.km { display: none; }
+}
+@media (prefers-reduced-motion: reduce) { .here-halo { animation: none; } }
+</style>
+</head>
+<body>
+<section class="hero">
+  <nav>
+    <a class="mark" href="#">Caravan</a>
+    <div class="links">
+      <a href="#">Product</a><a href="#">Pricing</a><a href="#">Docs</a><a href="#">Changelog</a>
+    </div>
+    <div class="right">
+      <a href="#">Sign in</a>
+      <a class="btn solid" href="#">Get an API key</a>
+    </div>
+  </nav>
+
+  <div class="copy">
+    <h1>Every parcel on a route you can see</h1>
+    <p>A shipping API for stores that sell across Central Asia. You see every box on the map, and your store gets a webhook at each stop.</p>
+    <div class="cta">
+      <a class="btn solid" href="#">Get an API key</a>
+      <a class="btn line" href="#">Read the docs</a>
+    </div>
+  </div>
+
+  <div class="scene" id="scene">
+    <img class="land" src="img/steppe.webp" alt="Engraving of the steppe at dawn: dunes in front, a track running to a yurt under the mountains">
+    <svg id="map" viewBox="0 0 3168 1344" aria-label="Route from Shymkent to Almaty">
+      <path id="route" class="route-base" d="M700 1022 C 900 1004, 1080 978, 1250 962 S 1760 884, 2000 850 S 2580 798, 2840 792"/>
+      <path id="done" class="route-done" d="M700 1022 C 900 1004, 1080 978, 1250 962 S 1760 884, 2000 850 S 2580 798, 2840 792"/>
+      <g id="stops"></g>
+      <circle id="halo" class="here-halo" r="12"/>
+      <circle id="here" class="here" r="9"/>
+    </svg>
+    <div class="caravan" id="caravan"><div class="flip" id="flip"></div></div>
+    <div class="card" id="card"><div class="city"></div><div class="when"></div><div class="note"></div></div>
+  </div>
+
+  <div class="bill">
+    <b>Parcel CRV-20418</b>
+    Three rugs and a samovar<br>Shymkent to Almaty, 690 km
+    <div class="hint">Point at a stop to send it there</div>
+  </div>
+</section>
+
+<script>
+// Stops sit on the drawn track; km is the road distance from Shymkent.
+const STOPS = [
+  { city: "Shymkent", km: 0,   x: 700,  y: 1022, past: "Left Thu 22:40", future: "Pickup Thu 22:40", note: "Picked up from Bazaar Rugs" },
+  { city: "Taraz",    km: 180, x: 1250, y: 962,  past: "Left Fri 06:10", future: "Arrives Fri 03:10", note: "Customs papers checked" },
+  { city: "Bishkek",  km: 450, x: 2000, y: 850,  past: "Left Fri 12:30", future: "Arrives Fri 11:45", note: "Border crossing at Kordai" },
+  { city: "Almaty",   km: 690, x: 2840, y: 792,  past: "Delivered Fri 17:20", future: "Arrives Fri 17:20", note: "Signed for by Aigerim at the door" },
+];
+// slice points between camels in caravan-filled.webp (3002 px wide)
+const CUTS = [0, 640, 1213, 1707, 2373, 3002];
+const IMG_W = 3002;
+
+const route = document.getElementById("route");
+const done = document.getElementById("done");
+const here = document.getElementById("here");
+const halo = document.getElementById("halo");
+const caravan = document.getElementById("caravan");
+const flip = document.getElementById("flip");
+const card = document.getElementById("card");
+const scene = document.getElementById("scene");
+const L = route.getTotalLength();
+done.style.strokeDasharray = L;
+
+// each stop's position as a fraction of the path length
+function lengthAt(x, y) {
+  let best = 0, bd = Infinity;
+  for (let s = 0; s <= L; s += 2) {
+    const p = route.getPointAtLength(s), d = (p.x - x) ** 2 + (p.y - y) ** 2;
+    if (d < bd) { bd = d; best = s; }
+  }
+  return best / L;
+}
+STOPS.forEach(s => s.f = lengthAt(s.x, s.y));
+
+const NS = "http://www.w3.org/2000/svg";
+const stopsG = document.getElementById("stops");
+STOPS.forEach((s, i) => {
+  const g = document.createElementNS(NS, "g");
+  g.setAttribute("class", "stop");
+  g.setAttribute("tabindex", "0");
+  g.setAttribute("role", "button");
+  g.setAttribute("aria-label", `Send parcel to ${s.city}`);
+  g.innerHTML = `<circle class="hit" cx="${s.x}" cy="${s.y - 30}" r="70"/>
+    <circle class="ring" cx="${s.x}" cy="${s.y}" r="13"/>
+    <text x="${s.x}" y="${s.y - 70}" text-anchor="middle">${s.city}</text>
+    <text class="km" x="${s.x}" y="${s.y - 36}" text-anchor="middle">${s.km} km</text>`;
+  const go = () => send(i);
+  g.addEventListener("pointerenter", go);
+  g.addEventListener("focus", go);
+  g.addEventListener("click", go);
+  g.addEventListener("pointerleave", () => card.classList.remove("show"));
+  g.addEventListener("blur", () => card.classList.remove("show"));
+  stopsG.appendChild(g);
+  s.el = g;
+});
+
+const camels = [];
+for (let i = 0; i < 5; i++) {
+  const a = CUTS[i], b = CUTS[i + 1], w = b - a;
+  const el = document.createElement("div");
+  el.className = "camel";
+  el.style.left = (a / IMG_W * 100) + "%";
+  el.style.width = (w / IMG_W * 100) + "%";
+  el.style.backgroundSize = (IMG_W / w * 100) + "% 100%";
+  el.style.backgroundPosition = (a / (IMG_W - w) * 100) + "% 0";
+  flip.appendChild(el);
+  camels.push({ el, phase: i * 1.7 + (i % 2) * 0.9 });
+}
+
+let f = STOPS[1].f;        // the parcel waits in Taraz
+let target = f;
+let stride = 0;            // 0 standing, 1 walking
+let clock = 0;
+let lastInput = performance.now();
+let auto = 1;
+
+function showCard(i) {
+  const s = STOPS[i];
+  const passed = f >= s.f - 0.002;
+  card.querySelector(".city").textContent = s.city;
+  card.querySelector(".when").innerHTML = passed ? s.past : `<b>${s.future}</b>`;
+  card.querySelector(".note").textContent = `${s.km} km from Shymkent. ${s.note}`;
+  card.style.left = (s.x / 3168 * 100) + "%";
+  card.style.top = (s.y / 1344 * 100) + "%";
+  card.classList.add("show");
+}
+
+function send(i, fromAuto) {
+  if (!fromAuto) lastInput = performance.now();
+  target = STOPS[i].f;
+  STOPS.forEach((s, j) => s.el.classList.toggle("on", j === i));
+  showCard(i);
+}
+
+function paint() {
+  caravan.style.setProperty("--f", f.toFixed(5));
+  done.style.strokeDashoffset = L * (1 - f);
+  const p = route.getPointAtLength(f * L);
+  here.setAttribute("cx", p.x); here.setAttribute("cy", p.y);
+  halo.setAttribute("cx", p.x); halo.setAttribute("cy", p.y);
+  STOPS.forEach(s => s.el.classList.toggle("passed", f >= s.f - 0.002));
+}
+
+const SPEED = 0.085;        // route fractions per second, about 12 s end to end
+let prev = performance.now();
+function tick(now) {
+  const dt = Math.min((now - prev) / 1000, 0.05);
+  prev = now;
+  const gap = target - f;
+  const moving = Math.abs(gap) > 0.0004;
+  if (moving) {
+    // ease in from a standstill, slow for the last few metres
+    const v = SPEED * Math.min(1, Math.abs(gap) / 0.04 + 0.25) * (0.35 + 0.65 * stride);
+    f += Math.sign(gap) * Math.min(Math.abs(gap), v * dt);
+    caravan.classList.toggle("back", gap < 0);
+  } else {
+    f = target;
+  }
+  stride += ((moving ? 1 : 0) - stride) * Math.min(1, dt * 5);
+  clock += dt * (0.4 + stride);
+  camels.forEach(c => {
+    const s = Math.sin(clock * 6.2 + c.phase);
+    const y = -Math.abs(s) * 1.6 * stride - Math.sin(clock * 0.9 + c.phase) * 0.6;
+    const r = s * 0.9 * stride;
+    c.el.style.transform = `translateY(${y.toFixed(2)}%) rotate(${r.toFixed(2)}deg)`;
+  });
+  paint();
+
+  // left alone, the caravan keeps doing its job: on to the next stop, then a fresh parcel
+  if (auto && !moving && now - lastInput > 3500) {
+    const next = STOPS.findIndex(s => s.f > f + 0.002);
+    lastInput = now;
+    if (next === -1) { f = 0; target = 0; caravan.classList.remove("back"); card.classList.remove("show"); STOPS.forEach(s => s.el.classList.remove("on")); }
+    else send(next, true);
+  }
+  requestAnimationFrame(tick);
+}
+paint();
+requestAnimationFrame(tick);
+
+// ?still pins the caravan for screenshots: ?still=2 parks it in Bishkek
+const q = new URLSearchParams(location.search);
+if (q.has("still")) { auto = 0; const i = +q.get("still") || 1; f = target = STOPS[i].f; showCard(i); STOPS[i].el.classList.add("on"); }
+</script>
+</body>
+</html>

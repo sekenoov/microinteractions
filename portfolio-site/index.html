@@ -1,0 +1,914 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dias Sekenov, landing pages for startups</title>
+<meta name="description" content="I design and build landing pages for startups. One page, live in about a week, $1,500.">
+<meta property="og:title" content="Dias Sekenov, landing pages for startups">
+<meta property="og:description" content="Designed and built. One page, live in about a week, $1,500.">
+<meta property="og:image" content="https://sekenov.vercel.app/work/caravan.jpg">
+<meta property="og:url" content="https://sekenov.vercel.app/">
+<link rel="canonical" href="https://sekenov.vercel.app/">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#e8e6e1" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#161513" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%231d1c1a'/%3E%3Ctext x='16' y='22.5' font-family='Helvetica,Arial' font-weight='600' font-size='18' text-anchor='middle' fill='%23e8e6e1'%3ED%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IM+Fell+French+Canon:ital@0;1&family=IM+Fell+DW+Pica:ital@0;1&family=Hanken+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* Direction (unslop): a one-person studio that builds a startup's whole page around one picture from its world.
+   Character: patient, exact, a little old-world. World: engraved plates on warm paper, the Kazakh steppe.
+   Moment: the steppe plate behind the first screen, and the works themselves. Signature: the live local time.
+   Paper colour is sampled from the plate (#f8f5f0), so the engraving sits in the page with no edge. */
+:root {
+  --page: #f8f5f0;
+  --surface: #efe9df;
+  --raised: #fdfbf8;
+  --text: #1f1b16;
+  --text-2: #5e554a;
+  --muted: #736a5e;
+  --hair: rgba(31, 27, 22, 0.1);
+  --hair-2: rgba(31, 27, 22, 0.2);
+  --button: #1f1b16;
+  --button-text: #f8f5f0;
+  --scrim: rgba(31, 27, 22, 0.4);
+  --error: #a33a22;
+  --red: #a33a22;
+  --fell: "IM Fell French Canon", "Iowan Old Style", Georgia, serif;
+  --fell-text: "IM Fell DW Pica", "Iowan Old Style", Georgia, serif;
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --page: #161513; --surface: #1f1d1a; --raised: #262421; --text: #efe9de; --text-2: #aaa398; --muted: #8f897f;
+    --hair: rgba(239, 233, 222, 0.1); --hair-2: rgba(239, 233, 222, 0.2);
+    --button: #efe9de; --button-text: #161513; --scrim: rgba(8, 7, 6, 0.6); --error: #f08a6c; --red: #e2876c;
+  }
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; overflow-x: clip; }
+body {
+  background: var(--page); color: var(--text);
+  font-family: "Hanken Grotesk", system-ui, sans-serif; font-size: 17px; line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: inherit; }
+button, input, textarea { font: inherit; color: inherit; }
+:focus-visible { outline: 2px solid var(--text); outline-offset: 4px; border-radius: 4px; }
+.wrap { max-width: 1240px; margin: 0 auto; padding: 0 32px; }
+
+/* Top bar sits on the plate's sky */
+.top { position: relative; z-index: 2; display: flex; justify-content: space-between; align-items: center; height: 72px; gap: 16px; }
+.top .me { font-weight: 500; text-decoration: none; }
+.top nav { display: flex; align-items: center; gap: 24px; font-size: 15px; font-weight: 500; }
+.top nav a { text-decoration: none; transition: color 150ms var(--ease); }
+.top nav a:hover { color: var(--text-2); }
+
+/* Buttons */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; height: 48px; padding: 0 20px; border-radius: 3px; border: 0; cursor: pointer;
+  background: var(--button); color: var(--button-text); font-weight: 500; font-size: 17px; text-decoration: none; white-space: nowrap;
+  transition: transform 120ms var(--ease), opacity 150ms var(--ease), background-color 150ms var(--ease);
+}
+.btn:hover { opacity: 0.86; }
+.btn:active { transform: scale(0.98); }
+.btn.small { height: 36px; padding: 0 16px; font-size: 15px; border-radius: 3px; }
+.btn.quiet { background: transparent; color: var(--text); box-shadow: inset 0 0 0 1px var(--hair-2); }
+.btn.quiet:hover { opacity: 1; background: var(--surface); }
+.btn[disabled] { opacity: 0.5; cursor: default; }
+
+/* Hero: one picture from a product's world fills the first screen. The words in .pick swap the world,
+   so the page shows what it sells instead of saying it. Plates (engravings) follow the page theme,
+   photos and paintings keep their own light and flip the hero text to light ink. */
+/* The hero stays pinned while you scroll through the six worlds, then the page moves on.
+   Plain sticky positioning, so wheel, trackpad, touch, keys and the scrollbar all work, and scrolling up goes back */
+/* Track = one screen for the hero + 150svh to scrub through the worlds + one screen for the sheet to rise over it */
+.track { position: relative; height: calc(200svh + 150svh); }
+.hero {
+  position: sticky; top: 0; height: 100svh; min-height: 600px; color: var(--h-ink); transform-origin: 50% 0; will-change: transform;
+  --h-ink: var(--text); --h-ink-2: var(--text-2); --h-muted: var(--muted); --h-hair: var(--hair-2);
+  --h-btn: var(--button); --h-btn-text: var(--button-text); --h-hover: var(--surface);
+}
+.hero[data-tone=photo] {
+  --h-ink: #f7f3ec; --h-ink-2: rgba(247, 243, 236, 0.86); --h-muted: rgba(247, 243, 236, 0.74); --h-hair: rgba(247, 243, 236, 0.44);
+  --h-btn: #f7f3ec; --h-btn-text: #1f1b16; --h-hover: rgba(247, 243, 236, 0.12);
+}
+.hero .top, .hero h1, .hero .lede, .hero .clock, .hero .pick, .hero .credit { transition: color 300ms var(--ease); }
+.hero .text { position: relative; z-index: 1; padding-top: clamp(24px, 9.8vh, 88px); max-width: 900px; }
+.hero .top nav a:hover { color: var(--h-ink-2); }
+.hero .btn { background: var(--h-btn); color: var(--h-btn-text); transition: transform 120ms var(--ease), opacity 150ms var(--ease), background-color 300ms var(--ease), color 300ms var(--ease); }
+.hero .btn.quiet { background: transparent; color: var(--h-ink); box-shadow: inset 0 0 0 1px var(--h-hair); }
+.hero .btn.quiet:hover { background: var(--h-hover); }
+.worlds { position: absolute; top: 0; bottom: 0; left: 50%; width: 100vw; transform: translateX(-50%); overflow: hidden; pointer-events: none; }
+/* Worlds are stacked plates. The next one rises from the bottom like a sheet pulled up over the last.
+   Only transform and opacity change while scrolling, so Safari and Chrome keep it on the GPU.
+   Engravings come pre-rendered for light and dark themes (work/worlds/*-light, *-dark), so no blend modes or filters */
+.w { position: absolute; inset: 0; margin: 0; overflow: hidden; background: var(--page); visibility: hidden; will-change: transform; box-shadow: 0 -32px 64px rgba(12, 11, 10, 0.28); }
+.w[data-w=steppe] { visibility: visible; box-shadow: none; }
+.wi { position: absolute; inset: 0; will-change: transform; }
+.wi img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+.veil { position: absolute; inset: 0; z-index: 2; background: #0c0b0a; opacity: 0; pointer-events: none; }
+.w.photo .wi::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(12, 12, 12, 0.56), rgba(12, 12, 12, 0.24) 46%, rgba(12, 12, 12, 0) 72%), linear-gradient(rgba(12, 12, 12, 0.32), rgba(12, 12, 12, 0) 22%, rgba(12, 12, 12, 0) 78%, rgba(12, 12, 12, 0.5)); }
+/* fitPlate() sizes .pb so the steppe horizon (55% down the picture) always sits below the hero text */
+.pb { position: absolute; right: 0; bottom: 0; width: 100%; height: 60%; }
+.pb picture { display: contents; }
+.pb::after { content: ""; position: absolute; inset: 0; background: linear-gradient(var(--page), transparent 16%, transparent 80%, var(--page) 97%), linear-gradient(90deg, var(--page), transparent 14%); }
+.w[data-w=kaub] img { object-position: 60% 72%; }
+.w[data-w=kaub] .wi::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, color-mix(in srgb, var(--page) 88%, transparent) 0, color-mix(in srgb, var(--page) 72%, transparent) 42%, transparent 66%), linear-gradient(transparent 76%, var(--page)); }
+.w[data-w=train] img { object-position: 50% 62%; }
+.w[data-w=sea] img { object-position: 50% 100%; transform: scaleX(-1); }
+.w[data-w=flock] img { object-position: 64% 60%; }
+.w[data-w=wind] img { object-position: 64% 50%; }
+.bar { position: absolute; z-index: 1; left: 0; right: 0; bottom: 20px; display: flex; justify-content: space-between; align-items: baseline; gap: 12px 32px; flex-wrap: wrap; }
+.pick { font-size: 17px; line-height: 1.6; color: var(--h-muted); max-width: 900px; }
+.pick button {
+  border: 0; background: none; padding: 6px 0; cursor: pointer; font: inherit; color: var(--h-ink-2);
+  text-decoration: underline dotted; text-decoration-thickness: 1px; text-underline-offset: 5px; transition: color 200ms var(--ease);
+}
+.pick button:hover { color: var(--h-ink); }
+.pick button[aria-pressed=true] { color: var(--h-ink); text-decoration-style: solid; }
+.credit { font-size: 14px; color: var(--h-muted); text-align: right; max-width: 380px; }
+/* How far through the worlds you are: a hairline along the bottom of the first screen */
+.progress { position: absolute; z-index: 1; left: 50%; width: 100vw; bottom: 0; height: 2px; transform: translateX(-50%); background: var(--h-hair); }
+.progress i { position: absolute; inset: 0; background: var(--h-ink); transform-origin: 0 50%; transform: scaleX(0); will-change: transform; }
+.dim { will-change: opacity; position: absolute; z-index: 4; left: 50%; width: 100vw; top: 0; bottom: 0; transform: translateX(-50%); background: #0c0b0a; opacity: 0; pointer-events: none; }
+/* Everything after the hero is one sheet of paper that slides up over the pinned first screen */
+.sheet { position: relative; z-index: 2; margin-top: -100svh; }
+.sheet::before { content: ""; position: absolute; z-index: -1; top: 0; bottom: 0; left: 50%; width: 100vw; transform: translateX(-50%); background: var(--page); box-shadow: 0 -16px 48px rgba(12, 11, 10, 0.16); }
+.sheet > .work { padding-top: 96px; }
+/* Entrances: the headline words rise once on load. Nothing else animates on arrival */
+.rise-w { display: inline-block; overflow: hidden; vertical-align: top; padding-bottom: 0.12em; margin-bottom: -0.12em; }
+.rise-w > span { display: inline-block; transform: translateY(110%); transition: transform 900ms var(--ease); transition-delay: calc(var(--i) * 60ms + 120ms); }
+.ready .rise-w > span { transform: none; }
+.credit a { color: var(--h-ink-2); text-underline-offset: 4px; }
+h1 { font-family: var(--fell); font-weight: 400; font-size: clamp(44px, min(6.7vw, 11vh), 94px); line-height: 0.98; letter-spacing: -0.012em; text-wrap: balance; }
+.lede { margin-top: 24px; font-size: clamp(19px, 1.9vw, 22px); line-height: 1.4; color: var(--h-ink-2, var(--text-2)); max-width: 600px; }
+.act { margin-top: 32px; display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+.clock { margin-top: 16px; font-size: 15px; color: var(--h-muted, var(--muted)); font-variant-numeric: tabular-nums; }
+
+/* Below the hero the page is a book of plates: Fell type for titles and figures, red plate numbers,
+   every picture printed inside a plate mark. The footer is the last plate */
+h2 { font-family: var(--fell); font-weight: 400; font-size: clamp(34px, 4.6vw, 62px); line-height: 1.04; letter-spacing: -0.01em; text-wrap: balance; }
+.no { font-family: var(--fell-text); font-style: italic; font-size: 19px; line-height: 1.3; color: var(--red); white-space: nowrap; }
+.note { margin-top: 16px; color: var(--text-2); max-width: 560px; }
+.sec { display: grid; grid-template-columns: 1fr 2fr; gap: 16px 48px; align-items: start; }
+.sec .no { padding-top: 0.7em; }
+.go { text-underline-offset: 5px; text-decoration-thickness: 1px; white-space: nowrap; transition: color 150ms var(--ease); }
+
+/* A plate: the picture sits inside a plate mark, the caption runs under it like in an atlas */
+.mark { display: block; padding: 10px; background: var(--raised); box-shadow: 0 0 0 1px var(--hair-2); text-decoration: none; }
+.mark .pic { position: relative; display: block; overflow: hidden; background: var(--surface); aspect-ratio: 16 / 10; }
+.mark .pic img, .mark .pic video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 700ms var(--ease); }
+a.mark:hover .pic img, a.mark:hover .pic video { transform: scale(1.02); }
+
+/* Work */
+.work { padding: 32px 0 120px; }
+.plates { margin-top: 64px; display: grid; grid-template-columns: repeat(12, 1fr); gap: 72px 32px; align-items: end; }
+.plate { grid-column: span 12; }
+.plate.c7 { grid-column: span 7; }
+.plate.c5 { grid-column: span 5; }
+.plate.c12 .pic { aspect-ratio: 16 / 9; }
+.plate.c5 .pic { aspect-ratio: 16 / 10; }
+.plate figcaption { margin-top: 14px; display: grid; grid-template-columns: auto 1fr auto; gap: 4px 16px; align-items: baseline; }
+.plate figcaption b { font-weight: 500; margin-right: 8px; }
+.plate figcaption .what { color: var(--text-2); }
+.plate figcaption .go { font-size: 15px; color: var(--text-2); }
+.plate:hover figcaption .go { color: var(--text); }
+
+/* How a page gets made: three days down the left, working files on the right */
+.made { padding: 120px 0; border-top: 1px solid var(--hair); }
+.days { margin-top: 64px; }
+.day { display: grid; grid-template-columns: 1fr 2fr; gap: 24px 48px; padding: 40px 0; border-top: 1px solid var(--hair); }
+.day .when { font-family: var(--fell); font-size: clamp(28px, 3vw, 40px); line-height: 1.1; }
+.day .said { margin-top: 12px; color: var(--text-2); max-width: 340px; }
+.files { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; align-items: start; }
+.files figure.full { grid-column: 1 / -1; }
+.files figcaption { margin-top: 10px; font-size: 15px; color: var(--muted); }
+.files .mark { padding: 0; }
+.files .mark .pic { aspect-ratio: 16 / 9; }
+.files .stack { display: grid; gap: 24px; }
+.files .strip .pic { aspect-ratio: auto; background: #101826; padding: 20px 16px; }
+.files .strip .pic img { position: static; height: auto; }
+.draft { padding: 20px 24px 24px; box-shadow: 0 0 0 1px var(--hair-2); background: var(--raised); font-family: var(--fell); font-size: clamp(22px, 2.2vw, 30px); line-height: 1.15; }
+.draft s { display: block; color: var(--muted); text-decoration-color: var(--red); text-decoration-thickness: 1.5px; }
+.draft span { display: block; margin-top: 10px; }
+
+/* Prices: a printed rate card. Name, a dotted leader, the figure */
+.prices { padding: 120px 0; border-top: 1px solid var(--hair); }
+.rates { margin-top: 64px; }
+.rate { display: grid; grid-template-columns: 1fr 2fr; gap: 16px 48px; padding: 36px 0; border-top: 1px solid var(--hair); }
+.rate .time { color: var(--muted); padding-top: 0.5em; }
+.rate .line { display: flex; align-items: baseline; gap: 16px; font-family: var(--fell); font-size: clamp(28px, 3.4vw, 46px); line-height: 1.1; }
+.rate.main .line { font-size: clamp(34px, 4.6vw, 62px); }
+.rate .line h3 { font: inherit; }
+.rate .line i { flex: 1; min-width: 24px; border-bottom: 2px dotted var(--hair-2); transform: translateY(-0.22em); }
+.rate .line small { font-family: var(--fell-text); font-style: italic; font-size: 0.5em; color: var(--muted); margin-right: 8px; }
+.rate .get { margin-top: 20px; display: grid; grid-template-columns: 1fr auto; gap: 16px 32px; align-items: end; }
+.rate ul { list-style: none; color: var(--text-2); columns: 2; column-gap: 32px; max-width: 620px; }
+.rate li { break-inside: avoid; padding: 3px 0 3px 18px; position: relative; }
+.rate li::before { content: ""; position: absolute; left: 0; top: 0.72em; width: 8px; height: 1px; background: var(--red); }
+.extras { margin-top: 0; border-top: 1px solid var(--hair); padding-top: 28px; display: grid; grid-template-columns: 1fr 2fr; gap: 16px 48px; color: var(--text-2); }
+.extras .k { color: var(--muted); }
+.extras dl { display: grid; grid-template-columns: 1fr auto; gap: 8px 32px; align-items: baseline; max-width: 620px; }
+.extras dd { font-variant-numeric: tabular-nums; text-align: right; color: var(--text); }
+
+/* About */
+.about { padding: 120px 0; border-top: 1px solid var(--hair); display: grid; grid-template-columns: 1fr 2fr; gap: 32px 48px; align-items: start; }
+.about .me-pic { max-width: 300px; }
+.about .me-pic .pic { aspect-ratio: 4 / 5; }
+.about .me-pic .empty { position: absolute; inset: 0; display: grid; place-items: center; text-align: center; padding: 24px; color: var(--muted); font-size: 15px; }
+.about .me-pic figcaption { margin-top: 10px; }
+.about p { margin-top: 20px; font-size: clamp(18px, 1.6vw, 21px); line-height: 1.5; color: var(--text-2); max-width: 620px; }
+.about p a { color: var(--text); text-underline-offset: 5px; text-decoration-thickness: 1px; }
+.posts { margin-top: 40px; max-width: 620px; border-top: 1px solid var(--hair); }
+.posts[hidden] { display: none; }
+.posts a { display: grid; grid-template-columns: 96px 1fr auto; gap: 16px; padding: 14px 0; border-bottom: 1px solid var(--hair); text-decoration: none; align-items: baseline; }
+.posts a b { font-family: var(--fell); font-weight: 400; font-size: 24px; }
+.posts a span { color: var(--text-2); }
+
+/* Footer, the last plate: the steppe from the first screen again, and the caravan walks across it as you arrive */
+.end { position: relative; padding-top: 120px; border-top: 1px solid var(--hair); }
+.end .say { position: relative; z-index: 1; }
+.end h2 { margin-top: 16px; font-size: clamp(38px, 5.8vw, 84px); line-height: 1; max-width: 1000px; }
+.quick { margin-top: 40px; display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr) auto; gap: 12px; max-width: 820px; align-items: start; }
+.quick label { display: flex; flex-direction: column; gap: 6px; font-size: 15px; color: var(--text-2); }
+.quick .btn { margin-top: 28px; }
+.quick .err { grid-column: 1 / -1; }
+.or { margin-top: 16px; color: var(--text-2); }
+.or a { text-underline-offset: 5px; text-decoration-thickness: 1px; }
+.sent { margin-top: 24px; padding: 16px 20px; background: var(--raised); box-shadow: 0 0 0 1px var(--hair-2); max-width: 640px; }
+.sent[hidden] { display: none; }
+.ground { position: relative; left: 50%; width: 100vw; transform: translateX(-50%); margin-top: -40px; overflow: hidden; pointer-events: none; }
+.ground picture { display: contents; }
+.ground .land { display: block; width: 100%; height: auto; min-height: 320px; object-fit: cover; object-position: 50% 100%; }
+.ground::before { content: ""; position: absolute; inset: 0; z-index: 1; background: linear-gradient(var(--page), transparent 34%); }
+/* Same caravan and same spot as on the Caravan page: it walks in along the front dunes and stops between the bushes */
+.ground .caravan { position: absolute; z-index: 2; left: 0; bottom: 0.8%; width: 34%; height: auto; will-change: transform; }
+@media (prefers-color-scheme: dark) { .ground .caravan { filter: invert(1) hue-rotate(180deg); } }
+.legal { padding: 20px 0 32px; display: grid; grid-template-columns: 1fr 2fr; gap: 12px 48px; font-size: 15px; color: var(--muted); border-top: 1px solid var(--hair-2); }
+.legal nav { display: flex; gap: 20px; flex-wrap: wrap; }
+.legal a { text-underline-offset: 4px; }
+.legal small { grid-column: 2; font-size: 13px; }
+.legal .no { font-size: 17px; }
+
+/* Order dialog: full-screen dialog draws the scrim and blur itself (Safari is unreliable with ::backdrop blur) */
+dialog.order {
+  position: fixed; inset: 0; width: 100vw; height: 100dvh; max-width: none; max-height: none; margin: 0; border: 0; padding: 12px;
+  background: var(--scrim); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); color: var(--text);
+}
+dialog.order[open] { display: flex; align-items: center; justify-content: center; animation: fade 180ms var(--ease); }
+dialog.order::backdrop { background: transparent; }
+.panel { width: min(560px, 100%); background: var(--raised); border-radius: 4px; box-shadow: 0 0 0 1px var(--hair), 0 24px 48px -16px rgba(0, 0, 0, 0.24); display: flex; flex-direction: column; max-height: calc(100dvh - 24px); animation: rise 220ms var(--ease); }
+.panel header { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; padding: 20px 20px 4px 24px; }
+.panel header h2 { font-size: 24px; letter-spacing: -0.01em; }
+.panel header p { margin-top: 4px; color: var(--muted); font-size: 15px; }
+.x { width: 40px; height: 40px; flex: none; border: 0; border-radius: 8px; background: transparent; cursor: pointer; display: grid; place-items: center; color: var(--muted); transition: background-color 150ms var(--ease), color 150ms var(--ease); }
+.x:hover { background: var(--surface); color: var(--text); }
+.body { height: min(60dvh, 520px); overflow-y: auto; overscroll-behavior: contain; padding: 16px 24px 20px; display: flex; flex-direction: column; gap: 20px; }
+.field { display: flex; flex-direction: column; gap: 8px; }
+.field > span, legend { font-size: 15px; font-weight: 500; }
+.field > span em, legend em { font-style: normal; font-weight: 400; color: var(--muted); }
+fieldset { border: 0; display: flex; flex-direction: column; gap: 8px; }
+.choice { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.choice label { position: relative; display: flex; flex-direction: column; gap: 4px; padding: 12px 16px; border-radius: 3px; box-shadow: inset 0 0 0 1px var(--hair-2); cursor: pointer; transition: background-color 150ms var(--ease), box-shadow 150ms var(--ease); }
+.choice label:hover { background: var(--surface); }
+.choice input { position: absolute; opacity: 0; pointer-events: none; }
+.choice b { font-weight: 500; font-size: 15px; line-height: 1.3; }
+.choice small { font-size: 14px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.choice label:has(input:checked) { box-shadow: inset 0 0 0 2px var(--text); background: var(--surface); }
+.choice label:has(input:focus-visible) { outline: 2px solid var(--text); outline-offset: 2px; }
+.pair { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+input[type=text], input[type=email], textarea {
+  width: 100%; font-size: 16px; padding: 12px 16px; border-radius: 3px; border: 0; background: var(--page);
+  box-shadow: inset 0 0 0 1px var(--hair-2); transition: box-shadow 150ms var(--ease);
+}
+input:focus, textarea:focus { outline: none; box-shadow: inset 0 0 0 2px var(--text); }
+input[aria-invalid=true] { box-shadow: inset 0 0 0 2px var(--error); }
+.field.grow { flex: 1; min-height: 140px; }
+textarea { flex: 1; resize: none; min-height: 112px; line-height: 1.45; }
+.err { font-size: 14px; font-weight: 400; color: var(--error); }
+.err:empty { display: none; }
+.trap { position: absolute; left: -9999px; }
+.panel footer { border-top: 1px solid var(--hair); padding: 16px 20px 16px 24px; display: flex; flex-wrap: wrap; align-items: center; justify-content: flex-end; gap: 12px; font-size: 15px; color: var(--muted); }
+.panel footer .addr { margin-right: auto; }
+.panel footer .err { flex-basis: 100%; text-align: right; }
+.panel footer .btn { height: 44px; }
+
+@keyframes fade { from { opacity: 0; } }
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+.lenis.lenis-stopped { overflow: hidden; }
+@keyframes rise { from { opacity: 0; transform: translateY(8px) scale(0.98); } }
+
+@media (max-width: 800px) {
+  .wrap { padding: 0 20px; }
+  .top nav .hide-s { display: none; }
+  /* On a phone the text sits on the page and the world is a picture strip under it */
+  .hero, .hero[data-tone=photo] { min-height: 0;
+    --h-ink: var(--text); --h-ink-2: var(--text-2); --h-muted: var(--muted); --h-hair: var(--hair-2);
+    --h-btn: var(--button); --h-btn-text: var(--button-text); --h-hover: var(--surface); }
+  .hero { display: flex; flex-direction: column; }
+  .hero .top { order: 1; } .hero .text { order: 2; } .worlds { order: 3; } .bar { order: 4; position: static; flex-direction: column; align-items: flex-start; margin-top: 12px; }
+  .hero .text { padding-top: 24px; }
+  .bar { padding-bottom: 16px; }
+  .pick { font-size: 15px; }
+  .worlds { position: relative; left: auto; transform: none; width: auto; flex: 1 1 auto; min-height: 160px; margin: 24px -20px 0; }
+  .w.photo .wi::after, .w[data-w=kaub] .wi::after, .pb::after { display: none; }
+  .pb { width: 100% !important; height: 100% !important; }
+  .w[data-w=steppe] img { object-position: 78% 100%; }
+  .credit { text-align: left; max-width: none; }
+  .sheet > .work { padding-top: 56px; }
+  .work { padding-bottom: 72px; }
+  .made, .prices, .about { padding: 72px 0; }
+  .sec, .day, .rate, .extras, .about, .legal { grid-template-columns: 1fr; }
+  .sec .no, .rate .time { padding-top: 0; }
+  .plates { margin-top: 40px; gap: 48px 0; }
+  .plate, .plate.c7, .plate.c5 { grid-column: span 12; }
+  .plate.c5 .pic, .plate.c12 .pic { aspect-ratio: 16 / 10; }
+  .mark { padding: 6px; }
+  .plate figcaption { grid-template-columns: 1fr auto; }
+  .plate figcaption .no { grid-column: 1 / -1; }
+  .days, .rates { margin-top: 40px; }
+  .day { padding: 32px 0; }
+  .files { grid-template-columns: 1fr; }
+  .rate { padding: 28px 0; }
+  .rate > div { display: contents; }
+  .rate .line { order: 1; } .rate .time { order: 2; } .rate .get { order: 3; margin-top: 4px; }
+  .rate { gap: 8px; }
+  .rate .get { grid-template-columns: 1fr; }
+  .rate ul { columns: 1; }
+  .rate .get .btn { justify-self: start; }
+  .about .me-pic { max-width: 220px; }
+  .end { padding-top: 72px; }
+  .quick { grid-template-columns: 1fr; }
+  .quick .btn { margin-top: 4px; justify-self: start; }
+  .ground { margin-top: 24px; }
+  .legal small { grid-column: 1; }
+}
+@media (max-width: 520px) {
+  .choice { grid-template-columns: 1fr; }
+  .choice label { flex-direction: row; justify-content: space-between; align-items: baseline; }
+  .pair { grid-template-columns: 1fr; }
+  .panel header { padding: 16px 12px 4px 20px; }
+  .body { padding: 12px 20px 16px; }
+  .panel footer { padding: 12px 20px; }
+  .panel footer .addr { flex-basis: 100%; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .rise-w > span { transform: none !important; }
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
+</style>
+<script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js" defer></script>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="track">
+  <section class="hero" data-world="steppe" data-tone="plate">
+    <div class="worlds" aria-hidden="true">
+      <figure class="w plate" data-w="steppe"><div class="wi"><div class="pb"><picture><source media="(prefers-color-scheme: dark)" srcset="work/worlds/steppe-dark-s.jpg 1200w, work/worlds/steppe-dark.jpg 2400w" sizes="100vw"><img src="work/worlds/steppe-light.jpg" srcset="work/worlds/steppe-light-s.jpg 1200w, work/worlds/steppe-light.jpg 2400w" sizes="100vw" width="2400" height="1018" alt="" fetchpriority="high"></picture></div></div><i class="veil"></i></figure>
+      <figure class="w photo" data-w="train"><div class="wi"><img data-src="work/worlds/train" alt=""></div><i class="veil"></i></figure>
+      <figure class="w photo" data-w="sea"><div class="wi"><img data-src="work/worlds/sea" alt=""></div><i class="veil"></i></figure>
+      <figure class="w photo" data-w="flock"><div class="wi"><img data-src="work/worlds/flock" alt=""></div><i class="veil"></i></figure>
+      <figure class="w plate" data-w="kaub"><div class="wi"><img data-src="work/worlds/kaub" data-themed alt=""></div><i class="veil"></i></figure>
+      <figure class="w photo" data-w="wind"><div class="wi"><img data-src="work/worlds/wind" alt=""></div><i class="veil"></i></figure>
+    </div>
+    <header class="top">
+      <a class="me" href="#top" id="top">Dias Sekenov</a>
+      <nav>
+        <a class="hide-s" href="#work">Work</a>
+        <a class="hide-s" href="#prices">Prices</a>
+        <a class="hide-s" href="#about">About</a>
+        <button class="btn small" type="button" data-order>Order a page</button>
+      </nav>
+    </header>
+    <div class="text">
+      <h1>Landing pages for startups, down to the footer</h1>
+      <p class="lede">I design and build the whole page around one picture from your product's world. Live in about a week, $1,500.</p>
+      <div class="act">
+        <button class="btn" type="button" data-order>Order a page</button>
+        <a class="btn quiet" href="https://x.com/sekenoov">Message me on X</a>
+      </div>
+      <p class="clock" data-clock>I'm in Kazakhstan and reply within a day</p>
+    </div>
+    <div class="bar">
+  <p class="pick">Scroll to see the world for <button type="button" data-pick="steppe" aria-pressed="true">a shipping API</button>, <button type="button" data-pick="train" aria-pressed="false">a night train</button>, <button type="button" data-pick="sea" aria-pressed="false">a sea chart</button>, <button type="button" data-pick="flock" aria-pressed="false">a sheep farm</button>, <button type="button" data-pick="kaub" aria-pressed="false">river barges</button> or <button type="button" data-pick="wind" aria-pressed="false">a wind farm</button></p>
+      <p class="credit" data-credit>From my page for <a href="#w-caravan">Caravan</a></p>
+    </div>
+    <div class="progress" aria-hidden="true"><i></i></div>
+    <div class="dim" aria-hidden="true"></div>
+  </section>
+  </div>
+
+  <div class="sheet">
+
+  <section class="work" id="work">
+    <header class="sec">
+      <p class="no">Plates I to VIII</p>
+      <div>
+        <h2>Eight products, eight worlds</h2>
+        <p class="note">Concepts I designed and built myself, start to finish. Every one opens as a real page, so go and poke at them</p>
+      </div>
+    </header>
+    <div class="plates">
+      <figure id="w-aspect" class="plate c12">
+        <a class="mark" href="live/p13/aspect.html" target="_blank" rel="noopener"><span class="pic"><video muted loop playsinline preload="none" poster="work/aspect.jpg" aria-label="Aspect landing page: a white 3D house and garden, shade moves across the lawn as the time changes"><source src="work/aspect.mp4" type="video/mp4"></video></span></a>
+        <figcaption><span class="no">Plate I</span><span><b>Aspect</b><span class="what">Sun report for a garden. Drag the time and the shade moves</span></span><a class="go" href="live/p13/aspect.html" target="_blank" rel="noopener">Open the page</a></figcaption>
+      </figure>
+      <figure id="w-couchette" class="plate c7">
+        <a class="mark" href="live/footers/couchette-motion.html" target="_blank" rel="noopener"><span class="pic"><video muted loop playsinline preload="none" poster="work/couchette.jpg" aria-label="Couchette footer: a night train crosses a viaduct in a painted alpine valley"><source src="work/couchette.mp4" type="video/mp4"></video></span></a>
+        <figcaption><span class="no">Plate II</span><span><b>Couchette</b><span class="what">Night trains. The last train leaves from the footer</span></span><a class="go" href="live/footers/couchette-motion.html" target="_blank" rel="noopener">Open</a></figcaption>
+      </figure>
+      <figure id="w-leadline" class="plate c5">
+        <a class="mark" href="live/footers/leadline-motion.html" target="_blank" rel="noopener"><span class="pic"><video muted loop playsinline preload="none" poster="work/leadline.jpg" aria-label="Leadline footer: an engraved seabed with a whale and a shipwreck, the page sinks to 3,812 metres"><source src="work/leadline.mp4" type="video/mp4"></video></span></a>
+        <figcaption><span class="no">Plate III</span><span><b>Leadline</b><span class="what">Sea charts. A footer that goes down to the seabed</span></span><a class="go" href="live/footers/leadline-motion.html" target="_blank" rel="noopener">Open</a></figcaption>
+      </figure>
+      <figure id="w-caravan" class="plate c12">
+        <a class="mark" href="live/caravan/" target="_blank" rel="noopener"><span class="pic"><img src="work/caravan.jpg" width="1600" height="1000" loading="lazy" alt="Caravan landing page: an engraved steppe with a camel caravan walking along a red route between four stops"></span></a>
+        <figcaption><span class="no">Plate IV</span><span><b>Caravan</b><span class="what">Shipping API. Point at a stop and the caravan walks there</span></span><a class="go" href="live/caravan/" target="_blank" rel="noopener">Open the page</a></figcaption>
+      </figure>
+      <figure id="w-ghostlight" class="plate c5">
+        <a class="mark" href="live/p13/ghostlight.html" target="_blank" rel="noopener"><span class="pic"><video muted loop playsinline preload="none" poster="work/ghostlight.jpg" aria-label="Ghost light footer: stage lights go down and one caged bulb stays on"><source src="work/ghostlight.mp4" type="video/mp4"></video></span></a>
+        <figcaption><span class="no">Plate V</span><span><b>Ghost light</b><span class="what">A theatre. Scroll down and one bulb stays on the stage</span></span><a class="go" href="live/p13/ghostlight.html" target="_blank" rel="noopener">Open</a></figcaption>
+      </figure>
+      <figure id="w-pegel" class="plate c7">
+        <a class="mark" href="live/p14/kaub.html" target="_blank" rel="noopener"><span class="pic"><img src="work/pegel.jpg" width="1600" height="900" loading="lazy" alt="Pegel footer: an old engraving of the castle on the Rhine at Kaub under a plain menu"></span></a>
+        <figcaption><span class="no">Plate VI</span><span><b>Pegel</b><span class="what">Rhine barges. The footer is an old engraving of Kaub</span></span><a class="go" href="live/p14/kaub.html" target="_blank" rel="noopener">Open</a></figcaption>
+      </figure>
+      <figure id="w-gale" class="plate c7">
+        <a class="mark" href="live/heroes/gale.html" target="_blank" rel="noopener"><span class="pic"><img src="work/gale.jpg" width="1600" height="900" loading="lazy" alt="Gale landing page: a wind farm photo with one turbine marked as stopped"></span></a>
+        <figcaption><span class="no">Plate VII</span><span><b>Gale</b><span class="what">Wind farm monitoring. The page opens on the turbine that stopped</span></span><a class="go" href="live/heroes/gale.html" target="_blank" rel="noopener">Open</a></figcaption>
+      </figure>
+      <figure id="w-tally" class="plate c5">
+        <a class="mark" href="live/p14/tally.html" target="_blank" rel="noopener"><span class="pic"><img src="work/tally.jpg" width="1600" height="900" loading="lazy" alt="Tally landing page: a flock of sheep on a green hill with a card saying five wandered off"></span></a>
+        <figcaption><span class="no">Plate VIII</span><span><b>Tally</b><span class="what">Sheep tracking. The flock on the hill is the demo</span></span><a class="go" href="live/p14/tally.html" target="_blank" rel="noopener">Open</a></figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="made" id="made">
+    <header class="sec">
+      <p class="no">Working files</p>
+      <div>
+        <h2>How a landing page gets made</h2>
+        <p class="note">It takes about a week. These files are from Couchette and Aspect, as they looked on the way</p>
+      </div>
+    </header>
+    <div class="days">
+      <div class="day">
+        <div><p class="when">Day 1</p><p class="said">A call, your copy, and the picture the page is built around</p></div>
+        <div class="files">
+          <figure class="full"><span class="mark"><span class="pic"><img src="work/process/couchette-painting.jpg" width="1400" height="788" loading="lazy" alt="A painted alpine valley at dusk with a stone viaduct, before any text or motion"></span></span><figcaption>The valley for Couchette, before anything moves</figcaption></figure>
+        </div>
+      </div>
+      <div class="day">
+        <div><p class="when">Days 2 to 4</p><p class="said">A design you can click through, then your changes</p></div>
+        <div class="files">
+          <figure><span class="mark"><span class="pic"><img src="work/process/couchette-masks.jpg" width="1400" height="875" loading="lazy" alt="The same valley as flat red, green and blue masks"></span></span><figcaption>The valley cut into masks, so the sky, the river and the trees each move on their own</figcaption></figure>
+          <div class="stack">
+            <figure><span class="mark strip"><span class="pic"><img src="work/process/couchette-train.png" width="952" height="82" loading="lazy" alt="A locomotive and five lit carriages as separate sprites"></span></span><figcaption>The train is six sprites, so it bends along the viaduct</figcaption></figure>
+            <figure><p class="draft"><s>See the sun before you make an offer</s><span>See where the sun falls before you buy</span></p><figcaption>Aspect's headline, the first draft and the one that shipped</figcaption></figure>
+          </div>
+        </div>
+      </div>
+      <div class="day">
+        <div><p class="when">Day 5</p><p class="said">It's live on your domain, and you can edit it yourself</p></div>
+        <div class="files">
+          <figure class="full"><a class="mark" href="live/footers/couchette-motion.html" target="_blank" rel="noopener"><span class="pic"><img src="work/couchette.jpg" loading="lazy" alt="The finished Couchette footer: the last train leaves at 22:14"></span></a><figcaption><a class="go" href="live/footers/couchette-motion.html" target="_blank" rel="noopener">Open the finished footer</a></figcaption></figure>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="prices" id="prices">
+    <header class="sec">
+      <p class="no">Rate card</p>
+      <div>
+        <h2>Prices</h2>
+        <p class="note">Fixed before we start. Half to begin, half before it goes live</p>
+      </div>
+    </header>
+    <div class="rates">
+      <div class="rate">
+        <p class="time">3 days</p>
+        <div>
+          <div class="line"><h3>Hero or footer</h3><i></i><span class="sum">$600</span></div>
+          <div class="get">
+            <ul><li>One section, designed and built</li><li>A picture made for your product</li><li>Ready to drop into the site you have</li><li>Phone layout and two rounds of changes</li></ul>
+            <button class="btn small quiet" type="button" data-order="section">Order a section</button>
+          </div>
+        </div>
+      </div>
+      <div class="rate main">
+        <p class="time">About a week</p>
+        <div>
+          <div class="line"><h3>Landing page</h3><i></i><span class="sum">$1,500</span></div>
+          <div class="get">
+            <ul><li>Up to six sections, new or a redesign</li><li>A picture made for your product, not stock</li><li>Built in Framer or in code, yours to edit</li><li>Phone layout and two rounds of changes</li><li>Live on your domain</li></ul>
+            <button class="btn small" type="button" data-order="landing">Order a page</button>
+          </div>
+        </div>
+      </div>
+      <div class="rate">
+        <p class="time">2 to 3 weeks</p>
+        <div>
+          <div class="line"><h3>Website</h3><i></i><span class="sum"><small>from</small>$3,000</span></div>
+          <div class="get">
+            <ul><li>Up to five pages</li><li>A blog or changelog you fill in yourself</li><li>Built in Framer or in code, yours to edit</li><li>Phone layout and two rounds of changes</li></ul>
+            <button class="btn small quiet" type="button" data-order="website">Order a website</button>
+          </div>
+        </div>
+      </div>
+      <div class="extras">
+        <p class="k">Extras</p>
+        <dl>
+          <dt>Another section</dt><dd>$200</dd>
+          <dt>I write the copy</dt><dd>$300</dd>
+          <dt>Hosting on Framer or Vercel, paid by you</dt><dd>$0 to $10 a month</dd>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <section class="about" id="about">
+    <figure class="me-pic">
+      <span class="mark"><span class="pic" data-photo><span class="empty">A photo of me goes here</span></span></span>
+      <figcaption class="no">Dias, Kazakhstan</figcaption>
+    </figure>
+    <div>
+      <h2>I'm Dias. I work alone, from Kazakhstan</h2>
+      <p>I design the page and write the code myself, so what you approve is what goes live. You talk to the person who makes it.</p>
+      <p>Every page starts from one picture of your product's world, because a visitor reads a picture before a headline. Then I carry it down the page, and the footer gets as much care as the first screen.</p>
+      <p>New work goes up on X first: <a href="https://x.com/sekenoov">@sekenoov</a></p>
+      <div class="posts" data-posts hidden></div>
+    </div>
+  </section>
+
+  <footer class="end" id="contact">
+    <div class="say">
+      <p class="no">Plate IX, the footer</p>
+      <h2>Send me your product, and I'll reply with an idea for its page</h2>
+      <form class="quick" novalidate data-quick>
+        <label>Your product<input type="text" name="product" autocomplete="url" placeholder="yourproduct.com" aria-describedby="err-q"></label>
+        <label>Your email<input type="email" name="email" autocomplete="email" inputmode="email" placeholder="you@company.com" aria-describedby="err-q"></label>
+        <button class="btn" type="submit">Send</button>
+        <span class="err" id="err-q" role="alert"></span>
+      </form>
+      <p class="or">or <a href="https://x.com/sekenoov">message me on X</a><span data-mail></span>. <span data-clock></span></p>
+      <p class="sent" role="status" hidden></p>
+    </div>
+    <div class="ground" aria-hidden="true">
+      <picture><source media="(prefers-color-scheme: dark)" srcset="work/worlds/steppe-dark-s.jpg 1200w, work/worlds/steppe-dark.jpg 2400w" sizes="100vw"><img class="land" src="work/worlds/steppe-light.jpg" srcset="work/worlds/steppe-light-s.jpg 1200w, work/worlds/steppe-light.jpg 2400w" sizes="100vw" width="2400" height="1018" alt="" loading="lazy"></picture>
+      <img class="caravan" src="work/footer-caravan.webp" width="3002" height="789" alt="" loading="lazy">
+    </div>
+    <div class="legal">
+      <span>© 2026 Dias Sekenov</span>
+      <nav><a href="#work">Work</a><a href="#made">Process</a><a href="#prices">Prices</a><a href="#about">About</a><a href="https://x.com/sekenoov">X</a></nav>
+      <small>Set in IM Fell and Hanken Grotesk. Wind farm photo by Renée Kools, CC BY 4.0. Sheep photo by Joanna on Unsplash. Kaub engraving from the Rijksmuseum, public domain</small>
+    </div>
+  </footer>
+
+  </div>
+</div>
+
+<dialog class="order" aria-labelledby="order-title">
+  <div class="panel">
+    <header>
+      <div>
+        <h2 id="order-title">Order a page</h2>
+        <p>A few lines are enough. I'll reply within a day with an idea and dates</p>
+      </div>
+      <button class="x" type="button" data-close aria-label="Close"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M4 4l10 10M14 4L4 14"/></svg></button>
+    </header>
+    <form novalidate>
+      <div class="body">
+        <fieldset>
+          <legend>What do you need</legend>
+          <div class="choice">
+            <label><input type="radio" name="need" value="Hero or footer"><b>Hero or footer</b><small>$600</small></label>
+            <label><input type="radio" name="need" value="Landing page" checked><b>Landing page</b><small>$1,500</small></label>
+            <label><input type="radio" name="need" value="Website"><b>Website</b><small>from $3,000</small></label>
+          </div>
+        </fieldset>
+        <div class="pair">
+          <label class="field"><span>Your name</span><input type="text" name="name" autocomplete="name" required aria-describedby="err-name"><span class="err" id="err-name"></span></label>
+          <label class="field"><span>Email</span><input type="email" name="email" autocomplete="email" inputmode="email" required aria-describedby="err-email"><span class="err" id="err-email"></span></label>
+        </div>
+        <label class="field"><span>Your product <em>link or X handle, if there is one</em></span><input type="text" name="product" autocomplete="url" placeholder="yourproduct.com"></label>
+        <label class="field grow"><span>About the project</span><textarea name="about" placeholder="What the product does, who it's for, and when you'd like the page live"></textarea></label>
+        <input class="trap" type="checkbox" name="botcheck" tabindex="-1" autocomplete="off" aria-hidden="true">
+      </div>
+      <footer>
+        <span class="addr" data-addr>Opens your email app with this filled in</span>
+        <span class="err" data-err role="alert"></span>
+        <button class="btn small quiet" type="button" data-close>Cancel</button>
+        <button class="btn small" type="submit">Send request</button>
+      </footer>
+    </form>
+  </div>
+</dialog>
+
+<script>
+// Contacts. Fill these in before going live. Empty ones stay hidden.
+// web3formsKey: free key from web3forms.com (sent to the email you sign up with). Without it the form opens the visitor's email app.
+const CONTACT = {
+  email: "sekenoov@gmail.com",
+  x: "sekenoov",
+  telegram: "",
+  cal: "",
+  web3formsKey: "",
+  photo: ""
+};
+// Posts from X shown in About: { views: "120K", text: "what the post was", url: "https://x.com/..." }. Real numbers only.
+const POSTS = [];
+
+// Local time and the earliest launch date: a founder in another time zone sees when I answer and when the page can be live
+const clock = document.querySelector(".hero [data-clock]");
+const clockEnd = document.querySelector(".end [data-clock]");
+function liveBy() {
+  const d = new Date(Date.now() + 7 * 864e5);
+  const day = new Date(d.toLocaleString("en-US", { timeZone: "Asia/Almaty" })).getDay();
+  if (day === 6) d.setTime(d.getTime() + 2 * 864e5);
+  if (day === 0) d.setTime(d.getTime() + 864e5);
+  return d.toLocaleDateString("en-GB", { timeZone: "Asia/Almaty", weekday: "long", day: "numeric", month: "long" });
+}
+function tick() {
+  const t = new Date().toLocaleTimeString("en-US", { timeZone: "Asia/Almaty", hour: "numeric", minute: "2-digit" });
+  clock.textContent = `It's ${t} in Kazakhstan. Write today and the page can be live by ${liveBy()}`;
+  clockEnd.textContent = `It's ${t} here, I reply within a day`;
+}
+tick(); setInterval(tick, 30000);
+
+// Worlds: each word swaps the picture behind the hero
+const hero = document.querySelector(".hero");
+const credit = document.querySelector("[data-credit]");
+const WORLDS = {
+  steppe: { tone: "plate", credit: 'From my page for <a href="#w-caravan">Caravan</a>' },
+  train: { tone: "photo", credit: 'From my page for <a href="#w-couchette">Couchette</a>' },
+  sea: { tone: "photo", credit: 'From my page for <a href="#w-leadline">Leadline</a>' },
+  flock: { tone: "photo", credit: 'From my page for <a href="#w-tally">Tally</a>. Photo by Joanna on Unsplash' },
+  kaub: { tone: "plate", credit: 'From my page for <a href="#w-pegel">Pegel</a>. Engraving from the Rijksmuseum' },
+  wind: { tone: "photo", credit: 'From my page for <a href="#w-gale">Gale</a>. Photo by Renée Kools, CC BY 4.0' }
+};
+const figs = Object.fromEntries([...document.querySelectorAll(".w")].map(f => [f.dataset.w, f]));
+const picks = [...document.querySelectorAll("[data-pick]")];
+const DARK = matchMedia("(prefers-color-scheme: dark)");
+const load = k => {
+  const img = figs[k].querySelector("img");
+  if (img.dataset.src && !img.src) {
+    const base = img.dataset.src + ("themed" in img.dataset ? (DARK.matches ? "-dark" : "-light") : "");
+    img.srcset = `${base}-s.jpg 1200w, ${base}.jpg 2400w`; img.sizes = "100vw"; img.src = base + ".jpg";
+    img.decode?.().catch(() => {});
+  }
+  return img;
+};
+// Scroll drives everything in the hero: which world is up, how far the next one has risen, and the sheet at the end
+const RM = matchMedia("(prefers-reduced-motion: reduce)").matches;
+const track = document.querySelector(".track");
+const order = picks.map(b => b.dataset.pick);
+const N = order.length, ZONES = N - 1 + 0.6;
+const bar = document.querySelector(".progress");
+const dim = document.querySelector(".dim");
+const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
+const smooth = (a, b, x) => { const t = clamp((x - a) / (b - a)); return t * t * (3 - 2 * t); };
+let shown = "", toneNow = "";
+function setWorld(k) {
+  if (shown === k) return; shown = k;
+  picks.forEach(x => x.setAttribute("aria-pressed", x.dataset.pick === k));
+  credit.innerHTML = WORLDS[k].credit;
+}
+// Sizes are read once per resize, never during scrolling, so a frame only writes transforms and opacity
+const M = {};
+function measure() {
+  M.vh = innerHeight; M.heroH = hero.offsetHeight;
+  M.top = track.getBoundingClientRect().top + scrollY;
+  M.span = track.offsetHeight - 2 * M.heroH;
+  M.gTop = ground.getBoundingClientRect().top + scrollY; M.end = document.documentElement.scrollHeight;
+  // the steppe is cropped on narrow screens, so the caravan is placed in the picture's own coordinates
+  const gW = ground.offsetWidth, pW = Math.max(gW, land.offsetHeight * 2400 / 1018), off = (gW - pW) / 2;
+  caravan.style.width = (pW * 0.34).toFixed(1) + "px";
+  M.cFrom = -pW * 0.35; M.cTo = off + pW * 0.24;
+}
+const parts = Object.fromEntries(order.map(k => [k, { fig: figs[k], wi: figs[k].querySelector(".wi"), veil: figs[k].querySelector(".veil"), state: "" }]));
+const barI = bar.querySelector("i");
+function put(el, prop, v) { if (el["_" + prop] !== v) { el["_" + prop] = v; el.style[prop] = v; } }
+function frame() {
+  const sy = window.lenis ? lenis.scroll : scrollY;
+  const y = sy - M.top;
+  // before the first layout the track can measure as zero, and 0 / 0 would leave no world to show
+  const p = M.span > 0 ? clamp(y / M.span) || 0 : 0;
+  const u = Math.min(N - 1, p * ZONES), i = Math.floor(u), f = u - i;
+  const g = i >= N - 1 ? 0 : (RM ? (f > 0.65 ? 1 : 0) : smooth(0.35, 0.95, f));
+  const next = order[Math.min(N - 1, i + 1)];
+  order.forEach((k, n) => {
+    const P = parts[k];
+    if (n === i) {
+      load(k);
+      put(P.fig, "visibility", "visible"); put(P.fig, "transform", "none");
+      put(P.wi, "transform", `scale(${(1 + 0.04 * g).toFixed(4)})`);
+      const toPhoto = WORLDS[next].tone === "photo", flips = g > 0 && WORLDS[next].tone !== WORLDS[k].tone;
+      put(P.veil, "background", toPhoto ? "#0c0b0a" : "var(--page)");
+      put(P.veil, "opacity", flips ? (Math.min(1, g * 3) * (toPhoto ? 0.78 : 0.86)).toFixed(3) : "0");
+    } else if (n === i + 1 && g > 0) {
+      load(k);
+      const Y = ((1 - g) * 100).toFixed(3);
+      put(P.fig, "visibility", "visible"); put(P.fig, "transform", `translate3d(0, ${Y}%, 0)`);
+      put(P.wi, "transform", `translate3d(0, ${-Y}%, 0) scale(${(1.08 - 0.08 * g).toFixed(4)})`);
+      put(P.veil, "opacity", "0");
+    } else {
+      put(P.fig, "visibility", "hidden");
+      if (n === i + 2) load(k);
+    }
+  });
+  const k = order[g > 0.5 ? i + 1 : i];
+  setWorld(k);
+  const toneOf = WORLDS[g > 0.02 ? next : order[i]].tone;
+  if (toneNow !== toneOf) toneNow = hero.dataset.tone = toneOf;
+  put(barI, "transform", `scaleX(${p.toFixed(4)})`);
+  // the sheet rises during the last screen of the track
+  const q = clamp((y - M.span) / M.vh);
+  put(dim, "opacity", (q * 0.45).toFixed(3));
+  put(hero, "transform", RM || q === 0 ? "none" : `scale(${(1 - 0.05 * q).toFixed(4)})`);
+  // the caravan in the footer walks in as the footer comes up
+  const t = clamp((sy + M.vh - M.gTop) / (M.end - M.gTop));
+  put(caravan, "transform", `translate3d(${(RM ? M.cTo : M.cFrom + (M.cTo - M.cFrom) * t).toFixed(1)}px, 0, 0)`);
+}
+let queued = false;
+const onScroll = () => { if (!queued) { queued = true; requestAnimationFrame(() => { queued = false; frame(); }); } };
+picks.forEach((b, n) => b.addEventListener("click", () => {
+  const top = M.top + M.span * (n + 0.1) / ZONES;
+  window.lenis ? lenis.scrollTo(top, { duration: 1.4 }) : scrollTo({ top, behavior: RM ? "auto" : "smooth" });
+}));
+const caravan = document.querySelector(".end .caravan");
+const ground = document.querySelector(".end .ground");
+const land = ground.querySelector(".land");
+const relayout = () => { fitPlate(); measure(); frame(); };
+addEventListener("scroll", onScroll, { passive: true });
+addEventListener("resize", relayout);
+addEventListener("load", relayout);
+document.fonts.ready.then(relayout);
+
+// Headline words rise once on load
+const h1 = document.querySelector(".hero h1");
+h1.innerHTML = h1.textContent.split(" ").map((w, n) => `<span class="rise-w"><span style="--i:${n}">${w}</span></span>`).join(" ");
+requestAnimationFrame(() => requestAnimationFrame(() => document.documentElement.classList.add("ready")));
+
+// Smooth wheel scrolling on desktop, native everywhere else
+addEventListener("DOMContentLoaded", () => {
+// Safari caps requestAnimationFrame at 60 Hz while its own scrolling runs at 120 Hz on ProMotion screens,
+// so JS-smoothed scrolling feels choppier there than the native one. Safari keeps its own scrolling
+const SAFARI = /^((?!chrome|chromium|android|crios|fxios|edg).)*safari/i.test(navigator.userAgent);
+if (!RM && !SAFARI && window.Lenis && matchMedia("(pointer: fine)").matches) {
+  window.lenis = new Lenis({ lerp: 0.1, smoothWheel: true });
+  lenis.on("scroll", frame);
+  const raf = t => { lenis.raf(t); requestAnimationFrame(raf); };
+  requestAnimationFrame(raf);
+  document.querySelectorAll('a[href^="#"]').forEach(a => a.addEventListener("click", e => {
+    const id = a.getAttribute("href"); if (id.length < 2) return;
+    const el = document.querySelector(id); if (!el) return;
+    e.preventDefault(); lenis.scrollTo(el, { offset: -24, duration: 1.4 });
+  }));
+}
+});
+
+// The steppe plate is wide and short. Size it so the horizon stays under the text on any screen
+const plate = figs.steppe.querySelector(".pb");
+const textBox = document.querySelector(".hero .text");
+function fitPlate() {
+  if (!matchMedia("(min-width: 801px)").matches) { plate.style.width = plate.style.height = ""; return; }
+  const H = hero.clientHeight, top = textBox.offsetTop + textBox.offsetHeight;
+  const h = Math.max(240, Math.min(H * 0.9, (H - top - 24) / 0.45));
+  plate.style.height = h + "px";
+  plate.style.width = Math.max(h * 2400 / 1018, 0) + "px";
+}
+relayout();
+
+DARK.addEventListener("change", () => { const img = figs.kaub.querySelector("img"); if (img.src) { img.removeAttribute("src"); img.removeAttribute("srcset"); load("kaub"); } });
+
+// Fetch the other worlds as soon as the first one is in, so a fast scroll never lands on an empty plate
+const firstPlate = figs.steppe.querySelector("img"), restOfWorlds = () => Object.keys(figs).forEach(load);
+firstPlate.complete ? restOfWorlds() : firstPlate.addEventListener("load", restOfWorlds, { once: true });
+setTimeout(restOfWorlds, 1500);
+
+// Email next to X in the footer, my photo and posts from X. Each one shows only when it is filled in above
+if (CONTACT.email) document.querySelector("[data-mail]").innerHTML = ` or write to <a href="mailto:${CONTACT.email}">${CONTACT.email}</a>`;
+if (CONTACT.photo) document.querySelector("[data-photo]").innerHTML = `<img src="${CONTACT.photo}" alt="Dias Sekenov" loading="lazy">`;
+if (POSTS.length) {
+  const box = document.querySelector("[data-posts]");
+  box.innerHTML = POSTS.map(p => `<a href="${p.url}" target="_blank" rel="noopener"><b>${p.views}</b><span>${p.text}</span><span class="go">Open on X</span></a>`).join("");
+  box.hidden = false;
+}
+
+// Work videos play only while on screen, and not at all with reduced motion
+const still = matchMedia("(prefers-reduced-motion: reduce)").matches;
+if (!still) {
+  const io = new IntersectionObserver(es => es.forEach(e => {
+    const v = e.target;
+    if (e.isIntersecting) { if (v.preload === "none") { v.preload = "auto"; v.load(); } v.play().catch(() => {}); }
+    else v.pause();
+  }), { rootMargin: "200px 0px" });
+  document.querySelectorAll(".plate video").forEach(v => io.observe(v));
+}
+
+// Order dialog
+const dlg = document.querySelector("dialog.order");
+const form = dlg.querySelector("form");
+const err = dlg.querySelector("[data-err]");
+const addr = dlg.querySelector("[data-addr]");
+const sent = document.querySelector(".sent");
+const plans = { section: "Hero or footer", landing: "Landing page", website: "Website" };
+addr.textContent = CONTACT.web3formsKey ? "Comes to my inbox, I'll answer at your email" : "Opens your email app with this filled in";
+
+document.querySelectorAll("[data-order]").forEach(b => b.addEventListener("click", () => {
+  const pick = plans[b.dataset.order];
+  if (pick) form.need.value = pick;
+  clearErrs();
+  document.documentElement.style.overflow = "hidden";
+  window.lenis && lenis.stop();
+  dlg.showModal();
+  requestAnimationFrame(() => (form.name.value ? form.about : form.name).focus());
+}));
+dlg.addEventListener("close", () => { document.documentElement.style.removeProperty("overflow"); window.lenis && lenis.start(); });
+dlg.querySelectorAll("[data-close]").forEach(b => b.addEventListener("click", () => dlg.close()));
+dlg.addEventListener("click", e => { if (e.target === dlg && e.pointerType !== "touch") dlg.close(); });
+
+const clearErrs = () => { err.textContent = ""; form.querySelectorAll("[aria-invalid]").forEach(el => { el.removeAttribute("aria-invalid"); document.getElementById("err-" + el.name).textContent = ""; }); };
+form.addEventListener("input", e => { if (e.target.getAttribute("aria-invalid")) { e.target.removeAttribute("aria-invalid"); document.getElementById("err-" + e.target.name).textContent = ""; } });
+
+form.addEventListener("submit", async e => {
+  e.preventDefault();
+  const d = Object.fromEntries(new FormData(form));
+  if (d.botcheck) return;
+  const bad = (el, msg) => { el.setAttribute("aria-invalid", "true"); document.getElementById("err-" + el.name).textContent = msg; el.focus(); };
+  clearErrs();
+  if (!d.name.trim()) return bad(form.name, "Add your name");
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(d.email.trim())) return bad(form.email, "Should look like name@company.com");
+
+  const subject = `${d.need} for ${d.product.trim() || d.name.trim()}`;
+  const text = `Need: ${d.need}\nName: ${d.name}\nEmail: ${d.email}\nProduct: ${d.product || "not given"}\n\n${d.about || ""}`;
+  const submit = form.querySelector("[type=submit]");
+
+  if (CONTACT.web3formsKey) {
+    submit.disabled = true; submit.textContent = "Sending";
+    try {
+      const r = await fetch("https://api.web3forms.com/submit", {
+        method: "POST", headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify({ access_key: CONTACT.web3formsKey, subject, from_name: d.name, replyto: d.email, message: text })
+      });
+      if (!r.ok) throw new Error();
+      dlg.close(); form.reset(); form.need.value = "Landing page";
+      sent.textContent = `Got it, ${d.name.trim()}. I'll write to ${d.email.trim()} within a day.`;
+    } catch {
+      err.textContent = CONTACT.email ? `It didn't send. Try again, or write to ${CONTACT.email}` : "It didn't send. Try again, or message me on X";
+      return;
+    } finally { submit.disabled = false; submit.textContent = "Send request"; }
+  } else {
+    location.href = `mailto:${CONTACT.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(text)}`;
+    dlg.close();
+    sent.textContent = `Your email app should have opened with the request. If it didn't, write to ${CONTACT.email}.`;
+  }
+  sent.hidden = false;
+  document.getElementById("contact").scrollIntoView({ block: "start" });
+});
+
+// Footer form: a product link and an email are enough to start
+const quick = document.querySelector("[data-quick]");
+const qErr = document.getElementById("err-q");
+quick.addEventListener("input", e => { e.target.removeAttribute("aria-invalid"); qErr.textContent = ""; });
+quick.addEventListener("submit", async e => {
+  e.preventDefault();
+  const product = quick.product.value.trim(), email = quick.email.value.trim();
+  const bad = (el, msg) => { el.setAttribute("aria-invalid", "true"); qErr.textContent = msg; el.focus(); };
+  qErr.textContent = "";
+  if (!product) return bad(quick.product, "Add a link to your product, or its name");
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return bad(quick.email, "The email should look like name@company.com");
+  const subject = `A page for ${product}`;
+  const text = `Product: ${product}\nEmail: ${email}`;
+  const btn = quick.querySelector("[type=submit]");
+  if (CONTACT.web3formsKey) {
+    btn.disabled = true; btn.textContent = "Sending";
+    try {
+      const r = await fetch("https://api.web3forms.com/submit", {
+        method: "POST", headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify({ access_key: CONTACT.web3formsKey, subject, replyto: email, message: text })
+      });
+      if (!r.ok) throw new Error();
+      quick.reset();
+      sent.textContent = `Got it. I'll look at ${product} and write to ${email} within a day.`;
+    } catch {
+      qErr.textContent = `It didn't send. Try again, or write to ${CONTACT.email}`;
+      return;
+    } finally { btn.disabled = false; btn.textContent = "Send"; }
+  } else {
+    location.href = `mailto:${CONTACT.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(text)}`;
+    sent.textContent = `Your email app should have opened with the request. If it didn't, write to ${CONTACT.email}.`;
+  }
+  sent.hidden = false;
+});
+</script>
+</body>
+</html>
