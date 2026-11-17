@@ -8,6 +8,10 @@ python3 -m http.server 5251
 
 then go to http://localhost:5251/<folder>/. Most pieces with a video have 4:5 recordings next to the code.
 
+## Portfolio site
+
+[portfolio-site](portfolio-site/) is the source of [sekenov.vercel.app](https://sekenov.vercel.app): landing pages for startups, set as a book of plates. The hero changes worlds as you scroll, each work opens as a live page from `live/`, and the footer caravan walks across the steppe.
+
 ## Footers
 
 Footer sections in [footers](footers/), recorded at 16:9.
